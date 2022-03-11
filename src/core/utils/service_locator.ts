@@ -1,11 +1,11 @@
 class ServiceLocator {
-   service:any[]=[];
+   services:any[]=[];
 
    register(_services:any):void{
        if(Array.isArray(_services)){
-           this.service.concat(_services);
+           this.services.concat(_services);
        }else{
-           this.service.push(_services);
+           this.services.push(_services);
        }
    }
 }
