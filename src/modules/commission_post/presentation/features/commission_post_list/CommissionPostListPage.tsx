@@ -1,108 +1,62 @@
-import { Avatar, Card, Col, Row, Select, Typography } from "antd";
-import React from "react";
+import { List, Avatar, Space } from 'antd';
+import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import React from 'react';
 
-const { Text, Title } = Typography;
-const { Option } = Select;
-
-type commisisonType = {
-  name:string,
-  price: number,
-  image: string,
+const listData:any[] = [];
+for (let i = 0; i < 23; i++) {
+  listData.push({
+    href: 'https://ant.design',
+    title: `ant design part ${i}`,
+    avatar: 'https://joeschmoe.io/api/v1/random',
+    description:
+      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+    content:
+      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+  });
 }
-function CommissionPostListPage():JSX.Element {
-  const commissions:commisisonType[]=[
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
-    {
-      name:"Anime",
-      price:20000,
-      image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.suara.com%2Fentertainment%2F2021%2F11%2F29%2F171928%2F6-situs-live-streaming-anime-terbaik-dari-iqiyi-hingga-animeindo&psig=AOvVaw0PCsur7i9BRWty4eJAxluz&ust=1647100525781000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOiU4OC1vvYCFQAAAAAdAAAAABAD",
-    },
 
-  ]
-
+function CommissionPostListPage() {
   return (
-    <>
-      <div className="search-crypto">
-        <Col span={24}>
-          <Select
-            showSearch
-            className="select-news"
-            placeholder="Select a Crypto News"
-            optionFilterProp="children"
-            onChange={()=>{}}
-            filterOption={true}
-          >
-            <Option value="Cryptocurrency">ssa</Option>
-            <Option value="Cryptocurrency">ssa</Option>
-            <Option value="Cryptocurrency">ssa</Option>
-            
-          </Select>
-        </Col>
+    <List
+    itemLayout="vertical"
+    size="large"
+    pagination={{
+      onChange: (page: any) => {
+        console.log(page);
+      },
+      pageSize: 3,
+    }}
+    dataSource={listData}
+    footer={
+      <div>
+        <b>ant design</b> footer part
       </div>
-
-      <Row gutter={[24, 24]}>
-        {commissions.map((comm, i) => (
-          <Col xs={24} sm={12} lg={8} key={i}>
-             <Card
-    hoverable
-    style={{ width: 240 }}
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-  >
-    <Card.Meta title="Europe Street beat" description="www.instagram.com" />
-  </Card>,
-          </Col>
-        ))}
-      </Row>
-    </>
+    }
+    renderItem={item => (
+      <List.Item
+        key={item.title}
+        actions={[
+          // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+          // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+          // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+        ]}
+        extra={
+          <img
+            width={272}
+            alt="logo"
+            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+          />
+        }
+      >
+        <List.Item.Meta
+          avatar={<Avatar src={item.avatar} />}
+          title={<a href={item.href}>{item.title}</a>}
+          description={item.description}
+        />
+        {item.content}
+      </List.Item>
+    )}
+    />
   );
 }
 
