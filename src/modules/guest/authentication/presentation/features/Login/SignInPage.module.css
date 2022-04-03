@@ -1,0 +1,10 @@
+.bgTransparent {
+  background: transparent;
+  box-shadow: none;
+}
+
+.spaceBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

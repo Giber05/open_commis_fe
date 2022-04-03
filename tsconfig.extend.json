@@ -1,0 +1,25 @@
+{
+   "compilerOptions":{
+      "baseUrl":"./src",
+      "paths":{
+         "@root":[
+            "./"
+         ],
+         "@root/*":[
+            "./*"
+         ],
+         "@core":[
+            "./core/"
+         ],
+         "@core/*":[
+            "./core/*"
+         ],
+         "@modules":[
+            "./modules/"
+         ],
+         "@modules/*":[
+            "./modules/*"
+         ]
+      }
+   }
+}

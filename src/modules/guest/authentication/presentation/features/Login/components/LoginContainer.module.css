@@ -1,0 +1,103 @@
+.absolute_1 {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  max-width: 300px;
+  height: 250px;
+}
+
+.absolute_2 {
+  z-index: -1;
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  height: 100px;
+  width: 100px;
+}
+
+.absolute_3 {
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.absolute_4 {
+  z-index: -1;
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  height: 110px;
+  width: 110px;
+}
+
+.absolute_5 {
+  z-index: -1;
+  position: absolute;
+  left: 6%;
+  height: 110px;
+  width: 110px;
+}
+
+.absolute_6 {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 250px;
+  width: 250px;
+}
+
+.absolute_7 {
+  z-index: -1;
+  position: absolute;
+  right: 30%;
+  bottom: 0;
+  height: 150px;
+  width: 150px;
+}
+
+.absolute_8 {
+  z-index: -1;
+  position: absolute;
+  right: 5%;
+  height: 100px;
+  width: 100px;
+}
+
+.absolute_9 {
+  z-index: -1;
+  position: absolute;
+  right: 20%;
+  bottom: 17%;
+  height: 150px;
+  width: 150px;
+}
+
+.absolute_10 {
+  z-index: -1;
+  position: absolute;
+  left: 15%;
+  top: 30%;
+  height: 100px;
+  width: 100px;
+}
+.footer {
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  padding: 2rem 0;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+}
+.login_container {
+  position: relative;
+    height: 100%;
+    flex: 1 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
