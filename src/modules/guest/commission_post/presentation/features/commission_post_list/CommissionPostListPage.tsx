@@ -16,6 +16,7 @@ for (let i = 0; i < 23; i++) {
 }
 
 function CommissionPostListPage() {
+  
   return (
     <List
     itemLayout="vertical"
