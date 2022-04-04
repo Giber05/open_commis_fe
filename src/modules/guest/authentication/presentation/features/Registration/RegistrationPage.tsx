@@ -1,7 +1,7 @@
 // import PrimaryButton from '@root/core/common_components/buttons/PrimaryButton';
 import { Button } from "antd";
 import React from "react";
-import PrimaryButton from "../../../core/common_components/buttons/PrimaryButton";
+import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
 
 function RegistrationPage() {
   return (

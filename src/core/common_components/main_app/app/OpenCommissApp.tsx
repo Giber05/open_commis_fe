@@ -1,7 +1,8 @@
 import { Layout } from "antd";
 import { Content, Footer } from "antd/lib/layout/layout";
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { selectAuth } from "../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
 import { selectCommon, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
 import { useAppDispatch, useAppSelector } from "../../../utils/redux";
 import BottomNavigation from "../navigation_menu/BottomNavigation";
@@ -9,6 +10,9 @@ import TopNavigation from "../navigation_menu/TopNavigation";
 
 function OpenCommissAPP() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { isLoadingUser, authUser } = useAppSelector(selectAuth);
+  const { width } = useAppSelector(selectCommon);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -16,15 +20,21 @@ function OpenCommissAPP() {
     });
   }, [dispatch]);
 
-  const { width } = useAppSelector(selectCommon);
-
+  useEffect(() => {
+    if(!isLoadingUser && authUser==null){
+      navigate('/auth/login')
+    }
+  }, [isLoadingUser]);
+  
   return (
     <Layout style={{ background: "fff" }}>
       {width <= 768 ? <BottomNavigation /> : <TopNavigation />}
-      <Content style={{ padding: "0 50px" }}>
-        <Outlet />
+      <Content className="px-12 py-0">
+        <div className="min-h-screen p-6 bg-white">
+          <Outlet />
+        </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer className="text-center">Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
   );
 }
