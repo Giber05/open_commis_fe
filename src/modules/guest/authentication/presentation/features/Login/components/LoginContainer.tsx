@@ -1,6 +1,7 @@
 import { Col, Image, Row, Typography } from "antd";
 import { BugOutlined } from "@ant-design/icons";
 import styles from "./LoginContainer.module.css";
+import ConfigConstants from "../../../../../../../core/constants/config_constants";
 type PropsType = {
   children: JSX.Element;
 };
@@ -42,7 +43,7 @@ function LoginContainer(props: PropsType): JSX.Element {
         <Image preview={false} src="/assets/images/background/login/absolute_10.png" alt="" />
       </Col>
        <Col className={styles.footer}>
-        <Typography className="text-gray my-1 font-semibold ">Copyright ©2022 Produced by KoTA 101</Typography>
+        <Typography className="text-gray my-1 font-semibold ">{ConfigConstants.copyright}</Typography>
       </Col> 
     </div>
   );

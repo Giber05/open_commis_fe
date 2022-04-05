@@ -6,12 +6,15 @@ import { selectAuth } from "../../../../modules/guest/authentication/presentatio
 import { selectCommon, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
 import { useAppDispatch, useAppSelector } from "../../../utils/redux";
 import BottomNavigation from "../navigation_menu/consumer/BottomNavigation";
-import TopNavigation from "../navigation_menu/consumer/TopNavigation";
+import TopNavigation from "../navigation_menu/ilustrator/TopNavigation";
 
-function OpenCommissAPP() {
+function OpenCommissIlustrator() {
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
+  const { isLoadingUser, authUser } = useAppSelector(selectAuth);
   const { width } = useAppSelector(selectCommon);
+
+  
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -19,11 +22,17 @@ function OpenCommissAPP() {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    if(!isLoadingUser && authUser==null){
+      navigate('/auth/login')
+    }
+  }, [isLoadingUser]);
+  
   return (
-    <Layout style={{ background: "fff" }}>
-      {width <= 768 ? <BottomNavigation /> : <TopNavigation />}
-      <Content className="px-12 py-0">
-        <div className="min-h-screen p-6 bg-white">
+    <Layout>
+       <TopNavigation />
+      <Content className="">
+        <div className="min-h-screen bg-white">
           <Outlet />
         </div>
       </Content>
@@ -32,4 +41,4 @@ function OpenCommissAPP() {
   );
 }
 
-export default OpenCommissAPP;
+export default OpenCommissIlustrator;
