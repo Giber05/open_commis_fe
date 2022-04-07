@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../utils/redux";
 import BottomNavigation from "../navigation_menu/consumer/BottomNavigation";
 import TopNavigation from "../navigation_menu/consumer/TopNavigation";
 
-function OpenCommissAPP() {
+function OpenCommissApp() {
   const dispatch = useAppDispatch();
 
   const { width } = useAppSelector(selectCommon);
@@ -19,6 +19,7 @@ function OpenCommissAPP() {
     });
   }, [dispatch]);
 
+  
   return (
     <Layout style={{ background: "fff" }}>
       {width <= 768 ? <BottomNavigation /> : <TopNavigation />}
@@ -32,4 +33,4 @@ function OpenCommissAPP() {
   );
 }
 
-export default OpenCommissAPP;
+export default OpenCommissApp;

@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
 const { Header } = Layout;
 
 function TopNavigation() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { authUser } = useAppSelector(selectAuth);
 
@@ -56,9 +55,11 @@ function TopNavigation() {
         <Menu.Item>
           <Link to="/auth/login"> Login</Link>
         </Menu.Item>
-        <Menu.Item>
-          <Button type="primary" onClick={onLogoutClick}>Logout</Button>
-        </Menu.Item>
+        {authUser === null ? null : (
+          <Menu.Item>
+            <Button onClick={onLogoutClick}>Logout</Button>
+          </Menu.Item>
+        )}
       </Menu>
     </Header>
   );

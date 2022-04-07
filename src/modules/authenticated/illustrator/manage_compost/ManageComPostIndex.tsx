@@ -1,7 +1,8 @@
-import ManageComPostRoutes from "./ManageComPostRoutes";
+import React from 'react';
+import ManageComPostRoutes from './ManageComPostRoutes';
 
 function ManageComPost() {
-  return <ManageComPostRoutes />;
+  return <ManageComPostRoutes />
 }
 
 export default ManageComPost;

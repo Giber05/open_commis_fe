@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "../../../../../modules/guest/authentication/domain/usecases/logout";
 import { isAuthLoading, selectAuth, userLogout } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
-import AssetConstants from "../../../../constants/asset_constants";
 import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
 
 const { Header } = Layout;
@@ -36,40 +35,20 @@ function TopNavigation() {
 
     setCurrentMenu({ current: e.key });
   };
-  const selectedKeys = window.location.pathname.substr(1);
-  const defaultOpenKeys = (params: string): string[] => {
-    const keys: string[] = [];
-    const splitLink: string[] = params.split("/");
-    splitLink.forEach((element) => {
-      const i = splitLink.indexOf(element);
-      if (keys.length === 0) {
-        keys.push(element);
-      } else {
-        keys.push(`${keys[i - 1]}/${element}`);
-      }
-    });
-    console.log({ keys });
 
-    return keys;
-  };
   return (
-    <Header
-      className="bg-white drop-shadow-xl border-b-4 border-black"
-      style={{
-        height: "68px",
-      }}
-    >
+    <Header className="bg-white ">
       <div
         style={{
           width: "120px",
           height: "31px",
-          margin: "16px 24px 16px 0",
+          margin: "0 24px 16px 0",
           float: "left",
         }}
       >
-        <Image src={`${AssetConstants.iconURL}logo/app_name.svg`} preview={false} />
+        <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
       </div>
-      <Menu onClick={onChangeMenu} theme="light" mode="horizontal">
+      <Menu onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
         <Menu.Item key="manage_compost">
           <Link to="/manage/manage-compost"> Beranda</Link>
         </Menu.Item>

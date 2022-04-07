@@ -17,10 +17,12 @@ function useLoginHandler(): LoginController {
   const navigate = useNavigate();
 
   const onFinish = (values: { email: string; password: string; role: string }) => {
+    
     dispatch(isAuthLoading(true));
     setTimeout(async () => {
       const resource = await login.execute({ email: values.email, password: values.password });
       dispatch(isAuthLoading(false));
+      
       resource.whenWithResult({
         success: async (values) => {
           dispatch(userLogin(values.data));
