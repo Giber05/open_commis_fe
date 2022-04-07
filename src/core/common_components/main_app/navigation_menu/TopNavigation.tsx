@@ -56,9 +56,11 @@ function TopNavigation() {
         <Menu.Item>
           <Link to="/auth/login"> Commission Post</Link>
         </Menu.Item>
-        <Menu.Item>
-          <Button onClick={onLogoutClick}>{authUser?.name}</Button>
-        </Menu.Item>
+        {authUser === null ? null : (
+          <Menu.Item>
+            <Button onClick={onLogoutClick}>Logout</Button>
+          </Menu.Item>
+        )}
       </Menu>
     </Header>
   );
