@@ -28,9 +28,8 @@ function useLoginHandler(): LoginController {
           dispatch(userLogin(values.data));
         },
       });
-      console.log(`${values.email}`);
       if (values.role === "ILUSTRATOR") {
-        navigate("/manage/manage-compost");
+        navigate("/manage/manage-compost/");
       } else {
         navigate("/");
       }

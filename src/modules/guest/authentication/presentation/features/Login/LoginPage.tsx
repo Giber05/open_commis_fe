@@ -8,8 +8,8 @@ import styles from "./SignInPage.module.css";
 import useLoginHandler from "./use_login_handler";
 
 function LoginPage() {
-  const {isLoadingUser, onFinish} = useLoginHandler();
- 
+  const { isLoadingUser, onFinish } = useLoginHandler();
+
   return (
     <LoginContainer>
       <div

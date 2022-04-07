@@ -10,8 +10,7 @@ import TopNavigation from "../navigation_menu/consumer/TopNavigation";
 
 function OpenCommissApp() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { isLoadingUser, authUser } = useAppSelector(selectAuth);
+
   const { width } = useAppSelector(selectCommon);
 
   useEffect(() => {

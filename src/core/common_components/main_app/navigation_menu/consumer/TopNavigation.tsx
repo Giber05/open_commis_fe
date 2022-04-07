@@ -48,12 +48,12 @@ function TopNavigation() {
           background: "rgba(255, 255, 255, 0.2)",
         }}
       />
-      <Menu theme="dark" mode="horizontal" defaultOpenKeys={defaultOpenKeys(selectedKeys)} selectedKeys={defaultOpenKeys(selectedKeys)}>
+      <Menu theme="dark" mode="horizontal" defaultOpenKeys={defaultOpenKeys(selectedKeys)} selectedKeys={defaultOpenKeys(selectedKeys)} className="text-blue-50">
         <Menu.Item>
           <Link to="/"> Commission Post</Link>
         </Menu.Item>
         <Menu.Item>
-          <Link to="/auth/login"> Commission Post</Link>
+          <Link to="/auth/login"> Login</Link>
         </Menu.Item>
         {authUser === null ? null : (
           <Menu.Item>
