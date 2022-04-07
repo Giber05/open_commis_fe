@@ -21,10 +21,10 @@ function LoginPage() {
         <Typography className="text-center my-3 text-black text-lg font-bold">OpenCommiss</Typography>
         <Typography className="text-sm text-center">Comission Post adalah sebuah aplikasi yang mempertemukan antara para illustrator digital dan konsumen</Typography>
         <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto ">
-          <Form.Item name="jenis-user" label="Jenis User" className="mt-6 mb-3 " rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>
+          <Form.Item name="role" label="Jenis User" className="mt-6 mb-3 " rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>
             <Radio.Group>
-              <Radio value="a">Ilustrator</Radio>
-              <Radio value="b">Konsumen</Radio>
+              <Radio value="ILUSTRATOR">Ilustrator</Radio>
+              <Radio value="CONSUMER">Konsumen</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item

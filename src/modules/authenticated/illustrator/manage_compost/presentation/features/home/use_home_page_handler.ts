@@ -26,7 +26,6 @@ function useHomePageHandler(): HomePageController {
         success: (value) => {
           dispatch(fetchCommissionPosts(value.data));
         },
-        error: (error) => {},
       });
     }, 1000);
   };

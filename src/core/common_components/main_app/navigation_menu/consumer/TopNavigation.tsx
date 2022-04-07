@@ -1,13 +1,12 @@
 import { Button, Layout, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import Logout from "../../../../modules/guest/authentication/domain/usecases/logout";
-import { isAuthLoading, selectAuth, userLogout } from "../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
-import { useAppDispatch, useAppSelector } from "../../../utils/redux";
+import Logout from "../../../../../modules/guest/authentication/domain/usecases/logout";
+import { isAuthLoading, selectAuth, userLogout } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
+import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
 
 const { Header } = Layout;
 
 function TopNavigation() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { authUser } = useAppSelector(selectAuth);
 
