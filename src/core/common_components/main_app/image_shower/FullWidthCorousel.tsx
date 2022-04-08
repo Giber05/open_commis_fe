@@ -1,68 +1,17 @@
-import { Carousel } from "antd";
+import { Carousel, Image } from "antd";
 import React from "react";
 
 function FullWidthCorousel() {
   return (
-    <Carousel autoplay>
+    <Carousel autoplay className="text-center p-2">
       <div>
-        <h3
-          style={{
-            maxHeight: "240px",
-            color: "#101750",
-            lineHeight: "240px",
-            textAlign: "center",
-            background: "#F6F5FF",
-            fontSize: 15,
-            fontWeight: "bold",
-          }}
-        >
-          Beranda
-        </h3>
+        <Image className=" object-contain max-h-60 " src="https://i.pinimg.com/originals/eb/07/e3/eb07e3c77d122a1c037f3c69a3e24383.jpg"></Image>
       </div>
       <div>
-        <h3
-          style={{
-            maxHeight: "240px",
-            color: "#101750",
-            lineHeight: "240px",
-            textAlign: "center",
-            background: "#F6F5FF",
-            fontSize: 15,
-            fontWeight: "bold",
-          }}
-        >
-          Pesanan
-        </h3>
+        <Image className=" object-contain max-h-60 " src="https://6.viki.io/image/fa61fe6b2cb74e428ed168c247fb28d4.jpeg?s=900x600&e=t"></Image>
       </div>
       <div>
-        <h3
-          style={{
-            maxHeight: "240px",
-            color: "#101750",
-            lineHeight: "240px",
-            textAlign: "center",
-            background: "#F6F5FF",
-            fontSize: 15,
-            fontWeight: "bold",
-          }}
-        >
-          Pendapatan
-        </h3>
-      </div>
-      <div>
-        <h3
-          style={{
-            maxHeight: "240px",
-            color: "#101750",
-            lineHeight: "240px",
-            textAlign: "center",
-            background: "#F6F5FF",
-            fontSize: 15,
-            fontWeight: "bold",
-          }}
-        >
-          Profile
-        </h3>
+        <Image className=" object-contain max-h-60 " src="https://cdn.mykpop.tv/videos/141359/thumbnail/wjsn-eunseo-when-did-you-come-over-to-eunseos-v-live-momomover-5fc444d98eba5.jpeg"></Image>
       </div>
     </Carousel>
   );

@@ -11,22 +11,17 @@ function IlustratorComPostItem({ product }: PropsType) {
   const { isLoadingComPost } = useHomePageHandler();
 
   return (
-    <Link to={{pathname:`/manage/manage-compost/${product?.id}`}}>
+    <Link to={{ pathname: `/manage/manage-compost/${product?.id}` }}>
       <Card
-        hoverable
         loading={isLoadingComPost}
-        className="rounded-xl my-4 p-3 mx-1 hover:opacity-75"
-        style={{
-          border: "1px solid black",
-          boxShadow: "0.4rem 0.4rem 0 #222",
-        }}
+        className="rounded-xl my-4 p-3 mx-1 hover:opacity-75 comic-shadow"
       >
         <Row justify="start">
-          <div className="pr-5">
+          <div className="pr-5  sm:text-left">
             <Image
               preview={false}
               src={product?.imageSrc}
-              className="max-h-40"
+              className="max-h-40 object-contain"
               style={{
                 minHeight: "160px",
                 maxWidth: "250px",
