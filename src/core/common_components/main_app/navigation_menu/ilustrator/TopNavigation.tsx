@@ -53,7 +53,7 @@ function TopNavigation() {
           <Link to="/manage/manage-compost"> Beranda</Link>
         </Menu.Item>
         <Menu.Item key="order">
-          <Link to="#">Pesananan</Link>
+          <Link to="">Pesananan</Link>
         </Menu.Item>
         <Menu.Item key="earning">
           <Link to="#">Pendapatan</Link>

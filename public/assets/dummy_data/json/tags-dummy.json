@@ -1,0 +1,10 @@
+[{"id":1, "tag_name":"Chibi"},
+ {"id":2, "tag_name":"Full body"},
+ {"id":3, "tag_name":"Half body"},
+ {"id":4, "tag_name":"Background"},
+ {"id":5, "tag_name":"Game"},
+ {"id":6, "tag_name":"Character"},
+ {"id":7, "tag_name":"Scenery"},
+ {"id":8, "tag_name":"Animal"},
+ {"id":9, "tag_name":"Vehicle"},
+ {"id":10, "tag_name":"Building"}]
