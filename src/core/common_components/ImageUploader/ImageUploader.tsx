@@ -4,10 +4,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { RcFile, UploadChangeParam } from "antd/lib/upload";
 import { UploadFile } from "antd/lib/upload/interface";
 
-function getBase64(
-  img: RcFile,
-  callback: (result: string | ArrayBuffer | null) => void,
-) {
+function getBase64(img: RcFile, callback: (result: string | ArrayBuffer | null) => void) {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
@@ -21,17 +18,28 @@ function ImageUploader(): JSX.Element {
   const [state, setState] = useState<ImageUploaderState>({
     imageUrl: undefined,
   });
+  const  beforeUpload=(file:RcFile)=> {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'|| file.type === 'image/jpg';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+      return 
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    console.log(`${file.size}`);
+    
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+      return 
+    }
+    return false;
+  }
 
   const handleChange = (info: UploadChangeParam<UploadFile>) => {
     const fileLength = info.fileList.length;
     if (fileLength === 0) return;
     const fileObj = info.fileList[fileLength - 1].originFileObj;
     if (fileObj !== undefined) {
-      const isLt2M = fileObj.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        message.error("Image must smaller than 2MB!");
-        return;
-      }
+      
       getBase64(fileObj, (imageUrl) => {
         const imageURL = imageUrl as string;
         if (imageURL === undefined) {
@@ -52,25 +60,13 @@ function ImageUploader(): JSX.Element {
   const uploadButton = (
     <div>
       <PlusOutlined style={{ color: "black" }} />
-      <div
-        className="gx-mt-1"
-        style={{ fontSize: "14px", color: "rgba(0, 0, 0, 0.45)" }}
-      >
+      <div className="gx-mt-1" style={{ fontSize: "14px", color: "rgba(0, 0, 0, 0.45)" }}>
         Upload
       </div>
     </div>
   );
   return (
-    <Upload
-      name="avatar"
-      accept=".jpg,.png"
-      listType="picture-card"
-      className="avatar-uploader"
-      style={{ width: "100px" }}
-      showUploadList={false}
-      beforeUpload={() => true}
-      onChange={handleChange}
-    >
+    <Upload name="avatar" accept=".jpg,.png" listType="picture-card" className="avatar-uploader" style={{ width: "100px" }} showUploadList={false} beforeUpload={beforeUpload} onChange={handleChange}>
       {state.imageUrl ? (
         <Image
           preview={false}

@@ -16,17 +16,24 @@
     background-color: #e1f4f9;
   }
   .form-style {
-    @apply bg-white rounded-2xl comic-shadow-btn
+    @apply bg-white rounded-2xl comic-shadow-btn;
   }
   .form-style-blue {
-    @apply bg-[#E1F4F9] rounded-2xl comic-shadow-btn
+    @apply bg-[#E1F4F9] rounded-2xl comic-shadow-btn;
+  }
+  .hide-scroll-bar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
   }
 }
 @layer utilities {
 }
 
 #root {
-  height: 90vh;
+  height: inherit;
 }
 .custom-row-hover:hover td {
   background: rgba(224, 248, 232, 1) !important;

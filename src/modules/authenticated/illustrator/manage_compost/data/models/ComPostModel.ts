@@ -10,6 +10,9 @@ class ComPostModel extends ComPostEntity {
         description: json.description,
         imageSrc: json.imageSrc,
         price: json.price,
+        category:json.category,
+        duration:json.duration,
+        tags:json.tags,
       },
     );
   }

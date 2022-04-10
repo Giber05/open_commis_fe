@@ -56,7 +56,7 @@ function LoginPage() {
           <Form.Item className="text-center font-bold">
             <span>
               Anda belum memiliki akun? Register{" "}
-              <Link className="text-blue-400" to="/registration">
+              <Link className="text-blue-400" to="/auth/registration">
                 Disini!
               </Link>
             </span>

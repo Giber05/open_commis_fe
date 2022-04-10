@@ -1,4 +1,7 @@
-import { Button, Layout, Menu, Typography, Image } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Button, Layout, Menu, Typography, Image, Row, Col, Divider } from "antd";
+import SubMenu from "antd/lib/menu/SubMenu";
+import Text from "antd/lib/typography/Text";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "../../../../../modules/guest/authentication/domain/usecases/logout";
@@ -58,9 +61,24 @@ function TopNavigation() {
         <Menu.Item key="earning">
           <Link to="#">Pendapatan</Link>
         </Menu.Item>
-        <Menu.Item>
-          <Button onClick={onLogoutClick}>Logout</Button>
-        </Menu.Item>
+        <SubMenu  title="Profile">
+          <Menu.Item>
+            <Link to="/manage/manage-portofolio">
+              Profile
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/manage/profile">
+              Portofolio
+            </Link>
+          </Menu.Item>
+          <Divider/>
+          <Menu.Item>
+            <Button icon={<LogoutOutlined/>} type="dashed" className="text-center" onClick={onLogoutClick}>
+              Logout
+            </Button >
+          </Menu.Item>
+        </SubMenu>
       </Menu>
     </Header>
   );
