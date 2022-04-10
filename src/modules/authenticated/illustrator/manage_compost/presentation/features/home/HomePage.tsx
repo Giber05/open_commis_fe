@@ -16,11 +16,11 @@ function HomePage() {
         <div className="flex justify-center sm:justify-end py-4">
           <Link to="/manage/manage-compost/create">
             <Button
-              type="default"
+              type="text"
               size="large"
-              className="comic-shadow-btn font-bold"
-              icon={<PlusCircleOutlined />}
+              className="comic-shadow-btn font-bold hover:bg-gray-400 hover:text-white"
               
+              icon={<PlusCircleOutlined />}
             >
               Commission Baru
             </Button>

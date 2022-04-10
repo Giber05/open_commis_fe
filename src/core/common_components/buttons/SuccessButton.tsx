@@ -8,19 +8,25 @@ type ButtonPropsType = {
   additionalClass?: string;
   rounded?: boolean;
   loading?: boolean;
-  block?: boolean;
+  block?:boolean;
 };
-function DangerButton(props: ButtonPropsType):JSX.Element {
+function SuccessButton(props: ButtonPropsType):JSX.Element {
   const { title, onClick, width, htmlType, additionalClass, rounded, loading, block } = props;
   return (
-    <div className={`w-20 sm:${width}`}>
-      <Button danger className={`comic-shadow-btn bg-[#E41F2D] text-white ${rounded ? "rounded-full" : "rounded"} ${additionalClass}`} onClick={onClick} htmlType={htmlType} loading={loading} block={block}>
+    <div className={`w-32 sm:w-80` }>
+      <Button
+        block={block}
+        className={`comic-shadow-btn bg-[#00782C] text-white hover:text-white hover:bg-[#00782C] hover:opacity-75 hover:border-green-600 ${rounded ? "rounded-full" : "rounded"} ${additionalClass}`}
+        onClick={onClick}
+        htmlType={htmlType}
+        loading={loading}
+      >
         {title}
       </Button>
     </div>
   );
 }
-DangerButton.defaultProps = {
+SuccessButton.defaultProps = {
   title: undefined,
   onClick: undefined,
   size: undefined,
@@ -28,7 +34,7 @@ DangerButton.defaultProps = {
   width: undefined,
   rounded: false,
   loading: undefined,
-  block: false,
+  block:false,
 };
 
-export default DangerButton;
+export default SuccessButton;

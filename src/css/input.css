@@ -15,12 +15,18 @@
   .row-table-color {
     background-color: #e1f4f9;
   }
+  .form-style {
+    @apply bg-white rounded-2xl comic-shadow-btn
+  }
+  .form-style-blue {
+    @apply bg-[#E1F4F9] rounded-2xl comic-shadow-btn
+  }
 }
 @layer utilities {
 }
 
 #root {
-  height: 100vh;
+  height: 90vh;
 }
 .custom-row-hover:hover td {
   background: rgba(224, 248, 232, 1) !important;

@@ -39,7 +39,7 @@ function DetailComPost() {
         </Col>
       </Row>
       <Row justify="center" className="mt-3">
-        <DangerButton title="TUTUP COMMISSION" />
+        <DangerButton title="TUTUP COMMISSION" rounded />
       </Row>
     </Card>
   );

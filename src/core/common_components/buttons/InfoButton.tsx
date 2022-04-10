@@ -10,7 +10,7 @@ type ButtonPropsType = {
   loading?: boolean;
   block?:boolean;
 };
-function InfoButton(props: ButtonPropsType) {
+function InfoButton(props: ButtonPropsType):JSX.Element {
   const { title, onClick, width, htmlType, additionalClass, rounded, loading, block } = props;
   return (
     <div className={`w-20 sm:${width}` }>

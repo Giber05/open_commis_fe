@@ -27,7 +27,7 @@ function ManageComPostDetail(): JSX.Element {
             </Link>
             <Link to={{ pathname: `/manage/manage-compost/${compostId}/edit` }}>
               <div className="m-2">
-                <DangerButton block title="DELETE" rounded width="w-40" />
+                <DangerButton block title="HAPUS" rounded width="w-40" />
               </div>
             </Link>
           </Row>
@@ -49,6 +49,8 @@ function ManageComPostDetail(): JSX.Element {
       </div>
       <div className="my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
+        <Reviews />
+        <Reviews />
         <Reviews />
       </div>
     </div>
