@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Col, Divider, Row, Tag, Typography } from "antd";
+import { Avatar, Button, Card, Col, Divider, Popconfirm, Row, Tag, Typography } from "antd";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
@@ -22,12 +22,22 @@ function ManageComPostDetail(): JSX.Element {
           <Row justify="end">
             <Link to={{ pathname: `/manage/manage-compost/${compostId}/edit` }}>
               <div className="m-2">
-                <InfoButton block title="EDIT" rounded width="w-40" />
+                <InfoButton block title="EDIT" rounded />
               </div>
             </Link>
-            <Link to={{ pathname: `/manage/manage-compost/${compostId}/edit` }}>
+            <Link to="">
               <div className="m-2">
-                <DangerButton block title="HAPUS" rounded width="w-40" />
+                <Popconfirm
+                  title="Apakah kamu yakin ingin menghapus commission post ini?"
+                  onCancel={() => {
+                    return;
+                  }}
+                  onConfirm={() => {
+                    return;
+                  }}
+                >
+                  <DangerButton block title="HAPUS" rounded />
+                </Popconfirm>
               </div>
             </Link>
           </Row>

@@ -3,7 +3,6 @@ import { Button } from "antd";
 type ButtonPropsType = {
   title: string;
   onClick?: () => void;
-  width?: string;
   htmlType?: "reset" | "submit" | "button";
   additionalClass?: string;
   rounded?: boolean;
@@ -11,9 +10,9 @@ type ButtonPropsType = {
   block?:boolean;
 };
 function InfoButton(props: ButtonPropsType):JSX.Element {
-  const { title, onClick, width, htmlType, additionalClass, rounded, loading, block } = props;
+  const { title, onClick, htmlType, additionalClass, rounded, loading, block } = props;
   return (
-    <div className={`w-20 sm:${width}` }>
+    <div className={`w-20 sm:w-40` }>
       <Button
         block={block}
         className={`comic-shadow-btn bg-[#1D94C8] text-white ${rounded ? "rounded-full" : "rounded"} ${additionalClass}`}
@@ -31,7 +30,6 @@ InfoButton.defaultProps = {
   onClick: undefined,
   size: undefined,
   htmlType: undefined,
-  width: undefined,
   rounded: false,
   loading: undefined,
   block:false,

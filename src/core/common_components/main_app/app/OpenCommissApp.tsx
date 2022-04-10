@@ -23,8 +23,8 @@ function OpenCommissApp() {
   return (
     <Layout style={{ background: "fff" }}>
       {width <= 768 ? <BottomNavigation /> : <TopNavigation />}
-      <Content className="px-12 py-0">
-        <div className="min-h-screen p-6 bg-white">
+      <Content className="">
+        <div className="min-h-screen p-6 sm:p-8 md:p-12 bg-white">
           <Outlet />
         </div>
       </Content>

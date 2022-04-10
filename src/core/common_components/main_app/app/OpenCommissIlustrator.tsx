@@ -26,7 +26,8 @@ function OpenCommissIlustrator() {
   }, [isLoadingUser]);
   
   return (
-    <Layout>
+    <Layout
+    >
        <TopNavigation />
       <Content className="">
         <div className="min-h-screen bg-white">

@@ -44,7 +44,7 @@ function CreateComPost() {
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Membuat Commission Post</h2>
-      <Form layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={onFinish}>
+      <Form  layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={onFinish}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col xs={24} sm={12} lg={12}>
             <Form.Item name={["compost", "title"]} label="Judul" rules={[{ required: true }]}>
@@ -105,7 +105,7 @@ function CreateComPost() {
               Contoh gambar
             </Typography.Title>
             <Card className="border-black rounded-2xl bg-white my-2">
-              <Form.Item rules={[{ required: true }]} name="upload-image" label="Upload gambar" valuePropName="fileList" getValueFromEvent={normFile}>
+              <Form.Item rules={[{ required: true }]} name="upload_image" label="Upload gambar" valuePropName="fileList" getValueFromEvent={normFile}>
                 <UploadWithCrop children={<PlusOutlined />} />
               </Form.Item>
             </Card>
