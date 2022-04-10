@@ -34,7 +34,7 @@ function OpenCommissIlustrator() {
           <Outlet />
         </div>
       </Content>
-      <Footer className="text-center">Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer className="text-center bg-[#3BAFDA] text-white font-semibold">OpenCommiss ©2022 Created by KoTA101</Footer>
     </Layout>
   );
 }

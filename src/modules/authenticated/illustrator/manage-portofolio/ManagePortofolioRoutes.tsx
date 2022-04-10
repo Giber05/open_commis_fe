@@ -7,7 +7,7 @@ function ManagePortofolioRoutes(): JSX.Element {
     <Routes>
       <Route index element={asyncComponent(() => import("./presentation/features/portofolio/Portofolio"))} />
       <Route path=":compostId/*"></Route>
-      <Route path="/" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

@@ -19,7 +19,10 @@ function AppRoutes(): JSX.Element {
           <Route path="manage-portofolio/*" element={<ManagePortofolio />} />
           <Route path="order/*" element="order" />
         </Route>
-        <Route path="auth/*" element={<AuthenticationModule />} />
+        <Route path="auth/*" element={<AuthenticationModule />}> 
+          <Route path="login/*" element={<ManageComPost />} />
+          <Route path="registration/*" element={<ManagePortofolio />} />
+        </Route>
       </Routes>
     </Router>
   );

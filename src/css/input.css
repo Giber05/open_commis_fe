@@ -33,7 +33,7 @@
 }
 
 #root {
-  height: 90vh;
+  height: inherit;
 }
 .custom-row-hover:hover td {
   background: rgba(224, 248, 232, 1) !important;
