@@ -62,7 +62,7 @@ function EditArtworks() {
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
           {imageUrl.map((e) => (
             <div className="inline-block px-3 py-3 content-center">
-              <Badge count={<CloseCircleFilled onClick={() => console.log("delete porto")} style={{ color: "red", fontSize:"20px" }} />}>
+              <Badge count={<CloseCircleFilled onClick={() => console.log("delete porto:", e)} style={{ color: "red", fontSize: "20px" }} />}>
                 <div className="comic-shadow-btn  max-w-56 max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
                   <Image
                     src={e.src}
@@ -90,12 +90,12 @@ function EditArtworks() {
           <Form.Item name="description" label="Deskripsi Gambar">
             <Input.TextArea autoSize={true} className="form-style-blue" />
           </Form.Item>
+          <Form.Item>
+            <div className="mx-auto my-3 flex justify-center">
+              <SuccessButton block width="w-40" rounded title="Submit" htmlType="submit" />
+            </div>
+          </Form.Item>
         </Form>
-        <Form.Item>
-          <div className="mx-auto my-3 flex justify-center">
-            <SuccessButton block width="w-40" rounded title="Submit" htmlType="submit" />
-          </div>
-        </Form.Item>
       </div>
     </div>
   );

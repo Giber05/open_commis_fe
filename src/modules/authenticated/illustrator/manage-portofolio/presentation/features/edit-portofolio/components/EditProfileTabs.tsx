@@ -56,8 +56,8 @@ function EditProfileTabs() {
             <Form.Item name="name" label="Nama Ilustrator" rules={[{ required: true }]}>
               <Input className="form-style-blue" />
             </Form.Item>
-            <Form.Item name="whatsapp" label="WhatsApp" rules={[{ type: "number", min: 11, max: 13, required: true }]}>
-              <Input className="form-style-blue" />
+            <Form.Item name="whatsapp" label="WhatsApp" rules={[{ required: true }]}>
+              <Input className="form-style-blue w-full" />
             </Form.Item>
             <Form.Item name="facebook" label="Facebook">
               <Input className="form-style-blue" />
