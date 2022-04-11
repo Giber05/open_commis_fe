@@ -1,8 +1,10 @@
 import { CheckCircleFilled, FacebookFilled, InstagramOutlined, ShoppingOutlined, TwitterOutlined, WhatsAppOutlined } from "@ant-design/icons";
-import { Avatar, Col, Divider, Image, Rate, Row, Space, Typography } from "antd";
+import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
+import PortofolioContainer from "./components/PortofolioContainer";
 
 const imageUrl = [
   {
@@ -39,15 +41,26 @@ const imageUrl = [
 
 function Portofolio() {
   return (
-    
-    <div className="flex flex-col bg-white m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
       <Row justify="space-between">
         <Col>
-          <DangerButton title="CLOSE" block />
+          <Popconfirm
+            title="Tutup commission post ini?"
+            onCancel={() => {
+              return;
+            }}
+            onConfirm={() => {
+              return;
+            }}
+          >
+            <DangerButton title="CLOSE" block />
+          </Popconfirm>
         </Col>
         <Col>
-          <InfoButton title="Edit" block />
+          <Link to="/manage/manage-portofolio/edit">
+            <InfoButton title="Edit" block />
+          </Link>
         </Col>
       </Row>
       <div className="mx-auto my-5">
@@ -57,7 +70,9 @@ function Portofolio() {
         />
       </div>
       <div className="mx-auto text-center">
-        <Typography.Title level={2}>Kim Jisoo  <CheckCircleFilled style={{ color: '#1890ff' }}/></Typography.Title>
+        <Typography.Title level={2}>
+          Kim Jisoo <CheckCircleFilled style={{ color: "#1890ff" }} />
+        </Typography.Title>
         <div className="border-green-500  bg-green-500 rounded-full text-center">
           <Typography.Title
             level={3}
@@ -101,7 +116,7 @@ function Portofolio() {
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <WhatsAppOutlined className="text-xl" />
-              <Typography.Title  level={4}>08xxxxxxxxx </Typography.Title>
+              <Typography.Title level={4}>08xxxxxxxxx </Typography.Title>
             </Space>
           </Col>
         </Row>
@@ -109,7 +124,7 @@ function Portofolio() {
       <div className="mx-auto sm:w-4/5 md:w-2/3 lg:1/2 my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Tentang</h2>
         <Typography.Title level={5} className="text-center">
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, 
+          But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth,
         </Typography.Title>
       </div>
       <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Karya Seni Ilustrator</h2>

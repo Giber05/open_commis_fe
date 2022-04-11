@@ -1,13 +1,13 @@
 import { Col, Image, Row, Typography } from "antd";
-import ConfigConstants from "../../../../../../../../core/constants/config_constants";
-import styles from "./PortofolioContainer.module.css";
+import styles from "./RegistrationContainer.module.css";
+import ConfigConstants from "../../../../../../../core/constants/config_constants";
 type PropsType = {
   children: JSX.Element;
 };
-function PortofolioContainer(props: PropsType): JSX.Element {
+function RegistrationContainer(props: PropsType): JSX.Element {
   const { children } = props;
   return (
-    <div className={styles.portofolio_container}>
+    <div className={styles.registration_container}>
       <Col className={styles.absolute_1}>
         <Image preview={false} src="/assets/images/background/login/absolute_1.png" alt="" />
       </Col>
@@ -43,4 +43,4 @@ function PortofolioContainer(props: PropsType): JSX.Element {
   );
 }
 
-export default PortofolioContainer;
+export default RegistrationContainer;

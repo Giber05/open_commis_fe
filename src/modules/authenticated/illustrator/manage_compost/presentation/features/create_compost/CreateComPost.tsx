@@ -24,7 +24,7 @@ function CreateComPost() {
   const validateMessages = {
     required: "${label} wajib diisi!",
     types: {
-      category: "${label} wajib dipilih!",
+      email: "${label} bukan inputan yang valid!",
       number: "${label} bukan inputan yang valid!",
     },
     number: {
