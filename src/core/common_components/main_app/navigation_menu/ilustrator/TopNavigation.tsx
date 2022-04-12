@@ -59,7 +59,7 @@ function TopNavigation() {
           <Link to="">Pesananan</Link>
         </Menu.Item>
         <Menu.Item key="earning">
-          <Link to="#">Pendapatan</Link>
+          <Link to="/manage/earning">Pendapatan</Link>
         </Menu.Item>
         <SubMenu  title="Profile">
           <Menu.Item>
