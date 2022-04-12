@@ -4,7 +4,7 @@ import Resource from "../../../../../core/utils/resource";
 import AuthRepository from "../../domain/repositories/auth_repository";
 import AuthLocalDSImpl, { AuthLocalDS } from "../datasources/local/auth_local_ds";
 import AuthRemoteDSImpl, { AuthRemoteDS } from "../datasources/remote/auth_remote_ds";
-import UserModel from "../models/UserModel";
+import UserModel from "../models/user_model";
 
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   private authRemoteDS: AuthRemoteDS = new AuthRemoteDSImpl();

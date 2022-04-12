@@ -1,5 +1,5 @@
 import Resource from "../../../../../core/utils/resource";
-import UserModel from "../../data/models/UserModel";
+import UserModel from "../../data/models/user_model";
 import AuthRepositoryImpl from "../../data/repositories_impl/auth_repository_impl";
 import AuthRepository from "../repositories/auth_repository";
 

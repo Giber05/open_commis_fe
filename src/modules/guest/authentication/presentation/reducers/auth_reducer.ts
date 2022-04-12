@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../core/utils/redux";
-import UserModel from "../../data/models/UserModel";
+import UserModel from "../../data/models/user_model";
 
 type AuthState = {
   isLoadingUser: boolean,

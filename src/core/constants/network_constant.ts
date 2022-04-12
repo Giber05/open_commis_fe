@@ -1,5 +1,5 @@
 class NetworkConstant{
-    public static baseUrl="http://localhost:3000/";
+    public static baseUrl="https://open-commiss-api.azurewebsites.net/api/";
 }
 
 export default NetworkConstant;
