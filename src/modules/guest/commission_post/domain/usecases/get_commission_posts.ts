@@ -1,0 +1,13 @@
+import Resource from "../../../../../core/utils/resource";
+import ComPostModel from "../../data/models/compost_model";
+import ComPostRepoImpl from "../../data/repositories_impl/compost_repo_impl";
+import ComPostRepo from "../repositories/compost_repo";
+
+class GetCommissionPosts {
+  private compostRepo:ComPostRepo = new ComPostRepoImpl();
+  execute():Promise<Resource<ComPostModel>>{
+    return this.compostRepo.getComPostList();
+  }
+}
+
+export default GetCommissionPosts;

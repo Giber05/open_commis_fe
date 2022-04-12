@@ -1,5 +1,5 @@
 import ed from "../../../../../../core/utils/ed";
-import UserModel from "../../models/UserModel";
+import UserModel from "../../models/user_model";
 
 export interface AuthLocalDS {
   saveUser(user: UserModel): Promise<void>;

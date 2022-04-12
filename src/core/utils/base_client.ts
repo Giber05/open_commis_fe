@@ -4,6 +4,18 @@ class BaseClient extends Axios {
   private headers = (headers?: AxiosRequestHeaders)
     : AxiosRequestHeaders => (headers == null ? {} : headers);
 
+  public async getWithoutCookie(
+    params: { url: string; headers?: AxiosRequestHeaders;  },
+  ): Promise<AxiosResponse> {
+    const finalHeader: AxiosRequestHeaders = this.headers(params.headers);
+    try {
+      const result: AxiosResponse = await this.post(params.url, finalHeader);
+      return result;
+    } catch (error: any) {
+      // console.log(error.response);
+      return error.response;
+    }
+  }
   public async postWithoutCookie(
     params: { url: string; headers?: AxiosRequestHeaders; body?: any },
   ): Promise<AxiosResponse> {
