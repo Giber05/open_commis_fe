@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Earning from "../../modules/authenticated/illustrator/earning/EarningIndex";
 import ManagePortofolio from "../../modules/authenticated/illustrator/manage-portofolio/ManagePortofolioIndex";
 import ManageComPost from "../../modules/authenticated/illustrator/manage_compost/ManageComPostIndex";
 import HomePage from "../../modules/authenticated/illustrator/manage_compost/presentation/features/home/HomePage";
@@ -18,6 +19,7 @@ function AppRoutes(): JSX.Element {
           <Route path="manage-compost/*" element={<ManageComPost />} />
           <Route path="manage-portofolio/*" element={<ManagePortofolio />} />
           <Route path="order/*" element="order" />
+          <Route path="earning/*" element={<Earning/>} />
         </Route>
         <Route path="auth/*" element={<AuthenticationModule />}> 
           <Route path="login/*" element={<ManageComPost />} />

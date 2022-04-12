@@ -60,9 +60,9 @@ function EditArtworks() {
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Karya Seni Ilustrator</h2>
       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
-          {imageUrl.map((e) => (
+          {imageUrl.map((e,index) => (
             <div className="inline-block px-3 py-3 content-center">
-              <Badge count={<CloseCircleFilled onClick={() => console.log("delete porto:", e)} style={{ color: "red", fontSize: "20px" }} />}>
+              <Badge count={<CloseCircleFilled onClick={() => console.log("delete porto:", e.title)} style={{ color: "red", fontSize: "20px" }} />}>
                 <div className="comic-shadow-btn  max-w-56 max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
                   <Image
                     src={e.src}
