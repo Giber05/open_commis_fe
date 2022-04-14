@@ -1,85 +1,99 @@
-import { List, Avatar, Space, Row, Col, Card, Divider, Rate } from "antd";
-import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
-import React from "react";
-import { Link } from "react-router-dom";
-import FullWidthCorousel from "../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
+import { List, Avatar, Space, Row, Col, Card, Divider, Rate, Image, Typography } from "antd";
 import useComPostsHandler from "./use_composts_handler";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import millify from "millify";
+import CommissionPostItem from "./components/CommissionPostItem";
+import FullWidthCorousel from "../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import { useState } from "react";
+import { CategoryItem } from "../../../../../../core/common_components/main_app/category_button/CategoryItems";
+import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
+import AssetConstants from "../../../../../../core/constants/asset_constants";
 
-const listData: any[] = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: "https://ant.design",
-    title: `ant design part ${i}`,
-    avatar: "https://joeschmoe.io/api/v1/random",
-    description: "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-    content: "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-  });
-}
+const items = [
+  {
+    title: "Commission 1",
+    price: 50000,
+    rate: 3,
+    src: "https://obs.line-scdn.net/0hl0gZ0aa8Mx9aIySVR3xMSGJ1P25pRSkWeEMofyx3bC0iD30bZ0VgfHZwPjN-FnQbekApfSwgaHtwFCdAbg/w644",
+  },
+  {
+    title: "Commission 2",
+    price: 60000,
+    rate: 5,
+    src: "https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg",
+  },
+  {
+    title: "Commission 3",
+    price: 40000,
+    rate: 4,
+    src: "https://pbs.twimg.com/media/FIBlp9FX0AINnsO.jpg:large",
+  },
+  {
+    title: "Commission 4",
+    price: 50000,
+    rate: 2,
+    src: "https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg",
+  },
+  {
+    title: "Commission 5",
+    price: 50000,
+    rate: 2,
+    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
+  },
+  {
+    title: "Commission 5",
+    price: 50000,
+    rate: 2,
+    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
+  },
+  {
+    title: "Commission 5",
+    price: 50000,
+    rate: 2,
+    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
+  },
+  {
+    title: "Commission 5",
+    price: 50000,
+    rate: 2,
+    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
+  },
+  {
+    title: "Commission 5",
+    price: 50000,
+    rate: 2,
+    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
+  },
+];
 
 function CommissionPostListPage() {
   const { isLoadingComPosts, commissionPosts } = useComPostsHandler();
+  const [selected, setSelected] = useState("");
 
-  if (isLoadingComPosts) return <CircularLoadingIndicator />;
-  console.log({ commissionPosts });
-
+  // if (isLoadingComPosts) return <CircularLoadingIndicator />;
+  // console.log({ commissionPosts });
+  const handleItemClick = (itemId: string) => () => setSelected(itemId);
   return (
-    <>
-      <Row gutter={[32, 32]} className="crypto-card-container">
-        {commissionPosts?.data.commissionPosts.map((commission) => (
-          <Col xs={24} sm={16} lg={8}>
-            {/* <Link to={`/crypto/`}> */}
-            <Card>
-              <Card.Meta avatar={<Avatar src="https://i.pinimg.com/originals/eb/07/e3/eb07e3c77d122a1c037f3c69a3e24383.jpg" />} title="Ilustrator Name" />
-              <Divider />
-              <FullWidthCorousel image1={commission.image_1 ?? null} image2={commission.image_2 ?? null} image3={commission.image_3 ?? null} image4={commission.image_4 ?? null} />
-              <Divider />
-              <h3>{commission.title}</h3>
-              <div className="">
-                <Row justify="space-between">
-                  <h2>Rp. {millify(commission.price)}</h2>
-                  <Rate value={4} />
-                </Row>
-              </div>
-            </Card>
-            {/* </Link> */}
-          </Col>
+    <div className="bg-white">
+      <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+        {items.map(({ title }) => (
+          <CategoryItem title={title} key={title} onClick={handleItemClick(title)} selected={title === selected} itemId={title} />
         ))}
-      </Row>
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{
-          onChange: (page: any) => {
-            console.log(page);
-          },
-          pageSize: 3,
-        }}
-        dataSource={listData}
-        footer={
-          <div>
-            <b>ant design</b> footer part
-          </div>
-        }
-        renderItem={(item) => (
-          <List.Item
-            key={item.title}
-            actions={
-              [
-                // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-              ]
-            }
-            extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
-          >
-            <List.Item.Meta avatar={<Avatar src={item.avatar} />} title={<a href={item.href}>{item.title}</a>} description={item.description} />
-            {item.content}
-          </List.Item>
-        )}
-      />
-    </>
+      </ScrollMenu>
+      <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-7">
+        <FullWidthCorousel image3={`${AssetConstants.imageURL}corousels/color_pencils.svg`} image1="https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg" image2="https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg" />
+        <Row gutter={[32, 32]} className="crypto-card-container">
+          {commissionPosts?.data.commissionPosts.map((commission) => (
+            <Col xs={24} sm={12} lg={8}>
+              {/* <Link to={`/crypto/`}> */}
+              <CommissionPostItem commission={commission} />
+              {/* </Link> */}
+            </Col>
+          ))}
+        </Row>
+      </div>
+    </div>
   );
 }
 

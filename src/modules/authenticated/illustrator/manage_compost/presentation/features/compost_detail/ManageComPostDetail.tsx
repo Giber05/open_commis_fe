@@ -46,7 +46,7 @@ function ManageComPostDetail(): JSX.Element {
       <Row gutter={[32, 32]} className="my-5">
         <Col xs={24} sm={12} lg={12}>
           <div className="bg-gray-200 comic-shadow">
-            <FullWidthCorousel />
+            <FullWidthCorousel image1="https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg" />
           </div>
         </Col>
         <Col xs={24} sm={12} lg={12}>
