@@ -1,8 +1,9 @@
-import { Layout, Menu } from "antd";
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { Card, Layout, Menu, PageHeader, Image } from "antd";
+import { BorderBottomOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../../../utils/redux";
 import { selectAuth } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
+import AssetConstants from "../../../../constants/asset_constants";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -11,6 +12,20 @@ function BottomNavigation() {
 
   return (
     <div className="w-full">
+      <PageHeader 
+        style={{
+          padding:"none",
+          borderBottom:" 1px groove",
+          borderBottomColor:"blue"
+        }} 
+        className="site-page-header text-center shadow-sm bg-white">
+        <Image 
+          preview={false} 
+          width={140} 
+          src={`${AssetConstants.iconURL}logo/app_name.svg`}
+          className="pb-3 align-middle"
+           />
+      </PageHeader>
       <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow-black shadow-md">
         {/* <section id="bottom-navigation" className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> */}
         {authUser != null ? (
