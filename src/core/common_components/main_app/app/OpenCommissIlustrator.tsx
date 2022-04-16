@@ -20,15 +20,14 @@ function OpenCommissIlustrator() {
   }, [dispatch]);
 
   useEffect(() => {
-    if(!isLoadingUser && authUser==null){
-      navigate('/auth/login')
+    if (!isLoadingUser && authUser == null) {
+      navigate("/auth/login");
     }
   }, [isLoadingUser]);
-  
+
   return (
-    <Layout
-    >
-       <TopNavigation />
+    <Layout>
+      <TopNavigation />
       <Content className="">
         <div className="min-h-screen bg-white">
           <Outlet />

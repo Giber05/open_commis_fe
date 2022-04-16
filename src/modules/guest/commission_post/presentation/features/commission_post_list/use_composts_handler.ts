@@ -1,19 +1,27 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../core/utils/redux";
-import ComPostModel from "../../../data/models/compost_model";
+import { CategoryModel } from "../../../data/models/category/category_model";
+import { CommissionPost } from "../../../data/models/compost_list/commission_post";
+import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
-import { fetchCommissionPosts, isLoading, selectComPost } from "../../reducers/compost_slice";
+import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost } from "../../reducers/compost_slice";
 
 type ComPostsController = {
   isLoadingComPosts: boolean;
-  commissionPosts: ComPostModel | null;
+  commissionPosts: CommissionPost[];
+  categories: CategoryModel[]
+  getCommissionPosts: ()=>void
+  getCategories: ()=>void
 };
 
 function useComPostsHandler(): ComPostsController {
   const dispatch = useAppDispatch();
   const getCommissionPostsUC = new GetCommissionPosts();
-  const { commissionPosts, isLoadingComPosts } = useSelector(selectComPost);
+  const getCategoriesUC = new GetCategories();
+  const { commissionPosts, isLoadingComPosts, categories } = useSelector(selectComPost);
+  const { error } = useSelector(selectCommon);
 
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
@@ -24,18 +32,43 @@ function useComPostsHandler(): ComPostsController {
 
       resource.whenWithResult({
         success: (value) => {
-          dispatch(fetchCommissionPosts(value.data));
+          dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
+          dispatch(fetchError(""))
         },
+        error: (error) =>{
+          dispatch(fetchError(error.exception.message))
+        }
       });
-    }, 1000);
+    }, );
   };
-  useEffect(() => {
-    getCommissionPosts();
-  }, []);
+
+  const getCategories= ()=>{
+    dispatch(isLoading(true));
+    setTimeout(async () => {
+      const resource = await getCategoriesUC.execute();
+      
+      dispatch(isLoading(false));
+
+      resource.whenWithResult({
+        success: (value) => {
+          dispatch(fetchCategories(value.data));
+          dispatch(fetchError(""))
+        },
+        error: (error) =>{
+          dispatch(fetchError(error.exception.message))
+        }
+      });
+    }, );
+  }
+
+
 
   return {
     isLoadingComPosts,
     commissionPosts,
+    getCommissionPosts,
+    categories,
+    getCategories,
   }
 }
 export default useComPostsHandler;

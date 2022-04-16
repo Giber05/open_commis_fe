@@ -6,8 +6,8 @@ import AuthRepository from "../repositories/auth_repository";
 class Login {
   private authRepository: AuthRepository = new AuthRepositoryImpl() 
 
-  async execute(params:{email:string; password:string}):Promise<Resource<UserModel>> {
-    return this.authRepository.login({email:params.email, password:params.password});
+  async execute(params:{email:string; password:string, role:string}):Promise<Resource<UserModel>> {
+    return this.authRepository.login({email:params.email, password:params.password,role:params.role});
   }
 }
 

@@ -13,7 +13,7 @@ type ButtonPropsType = {
 function SuccessButton(props: ButtonPropsType):JSX.Element {
   const { title, onClick, width, htmlType, additionalClass, rounded, loading, block } = props;
   return (
-    <div className={`w-32 sm:w-80` }>
+    <div className={`sm:w-80` }>
       <Button
         block={block}
         className={`comic-shadow-btn bg-[#00782C] text-white hover:text-white hover:bg-[#00782C] hover:opacity-75 hover:border-green-600 ${rounded ? "rounded-full" : "rounded"} ${additionalClass}`}

@@ -4,11 +4,11 @@ class ComPostEntity {
   price: number;
   description: string;
   imageSrc: string;
-  category:string;
-  duration:number;
-  tags:string[];
+  category: string;
+  duration: number;
+  tags: string[];
 
-  constructor(params: { id: string; name: string; price: number; description: string; imageSrc: string, category:string, duration:number, tags:string[] }) {
+  constructor(params: { id: string; name: string; price: number; description: string; imageSrc: string; category: string; duration: number; tags: string[] }) {
     this.id = params.id;
     this.name = params.name;
     this.price = params.price;

@@ -5,10 +5,11 @@ import millify from "millify";
 import CommissionPostItem from "./components/CommissionPostItem";
 import FullWidthCorousel from "../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CategoryItem } from "../../../../../../core/common_components/main_app/category_button/CategoryItems";
 import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
 import AssetConstants from "../../../../../../core/constants/asset_constants";
+import { Link } from "react-router-dom";
 
 const items = [
   {
@@ -42,25 +43,25 @@ const items = [
     src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
   },
   {
-    title: "Commission 5",
+    title: "Commission 6",
     price: 50000,
     rate: 2,
     src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
   },
   {
-    title: "Commission 5",
+    title: "Commission 7",
     price: 50000,
     rate: 2,
     src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
   },
   {
-    title: "Commission 5",
+    title: "Commission 8",
     price: 50000,
     rate: 2,
     src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
   },
   {
-    title: "Commission 5",
+    title: "Commission 9",
     price: 50000,
     rate: 2,
     src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
@@ -68,27 +69,38 @@ const items = [
 ];
 
 function CommissionPostListPage() {
-  const { isLoadingComPosts, commissionPosts } = useComPostsHandler();
+  const { isLoadingComPosts, commissionPosts, getCommissionPosts, categories, getCategories } = useComPostsHandler();
   const [selected, setSelected] = useState("");
 
-  // if (isLoadingComPosts) return <CircularLoadingIndicator />;
-  // console.log({ commissionPosts });
   const handleItemClick = (itemId: string) => () => setSelected(itemId);
+
+  useEffect(() => {
+    getCategories();
+    getCommissionPosts();
+  }, []);
+
   return (
     <div className="bg-white">
+      <div>
+
       <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-        {items.map(({ title }) => (
-          <CategoryItem title={title} key={title} onClick={handleItemClick(title)} selected={title === selected} itemId={title} />
+        {categories.map(({ categoryName, id }) => (
+          <CategoryItem title={categoryName} key={id} onClick={handleItemClick(id.toString())} selected={id.toString() === selected} itemId={id.toString()} />
         ))}
       </ScrollMenu>
+      </div>
       <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-7">
-        <FullWidthCorousel image3={`${AssetConstants.imageURL}corousels/color_pencils.svg`} image1="https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg" image2="https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg" />
+        <FullWidthCorousel
+          image3={`${AssetConstants.imageURL}corousels/color_pencils.svg`}
+          image1="https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg"
+          image2="https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg"
+        />
         <Row gutter={[32, 32]} className="crypto-card-container">
-          {commissionPosts?.data.commissionPosts.map((commission) => (
+          {commissionPosts.map((commission) => (
             <Col xs={24} sm={12} lg={8}>
-              {/* <Link to={`/crypto/`}> */}
-              <CommissionPostItem commission={commission} />
-              {/* </Link> */}
+              <Link to={`/${commission.id}/detail`}>
+                <CommissionPostItem commission={commission} />
+              </Link>
             </Col>
           ))}
         </Row>

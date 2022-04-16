@@ -7,6 +7,8 @@ class GetIlustratorComPostList {
   private manageComPostRepo: ManageComPostRepo = new ManageComPostRepoImpl()
 
   async execute(ilustratorId:string):Promise<Resource<ComPostModel[]>>{
+    console.log("Homepage Usecase");
+    
     return this.manageComPostRepo.getComPostList(ilustratorId);
   }
 }

@@ -19,7 +19,6 @@ function OpenCommissApp() {
     });
   }, [dispatch]);
 
-  
   return (
     <Layout style={{ background: "fff" }}>
       {width < 768 ? <BottomNavigation /> : <TopNavigation />}

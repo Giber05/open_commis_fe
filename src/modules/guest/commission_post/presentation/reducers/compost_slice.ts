@@ -1,15 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../core/utils/redux";
-import ComPostModel from "../../data/models/compost_model";
+import { CategoryModel } from "../../data/models/category/category_model";
+import { CommissionPost } from "../../data/models/compost_list/commission_post";
 
 type ComPostState = {
   isLoadingComPosts: boolean;
-  commissionPosts: ComPostModel | null;
+  commissionPosts: CommissionPost[] ;
+  categories: CategoryModel[];
 };
 
 const initialState: ComPostState = {
   isLoadingComPosts: false,
-  commissionPosts: null,
+  commissionPosts: [],
+  categories: [],
 };
 
 export const comPostSlice = createSlice({
@@ -19,13 +22,17 @@ export const comPostSlice = createSlice({
     isLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoadingComPosts = action.payload;
     },
-    fetchCommissionPosts: (state, action: PayloadAction<ComPostModel>) => {
+    fetchCommissionPosts: (state, action: PayloadAction<CommissionPost[]>) => {
       state.commissionPosts = action.payload;
     },
+    fetchCategories: (state, action: PayloadAction<CategoryModel[]>) => {
+      state.categories = action.payload;
+    },
+
   },
 });
 
-export const { isLoading, fetchCommissionPosts } = comPostSlice.actions;
+export const { isLoading, fetchCommissionPosts, fetchCategories } = comPostSlice.actions;
 
 export const selectComPost = (state:RootState):ComPostState => state.compost
 
