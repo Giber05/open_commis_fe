@@ -5,10 +5,12 @@ import ComPostRepo from "../repositories/compost_repo";
 
 class GetCommissionPosts {
   private compostRepo: ComPostRepo = new ComPostRepoImpl();
-  async execute(): Promise<Resource<ComPostModel>> {
-    console.log("Execute usecase");
+  async execute(params:{page:number, limit:number, categoryId?:number}): Promise<Resource<ComPostModel>> {
+    console.log("Usecase executed:",{params});
 
-    return this.compostRepo.getComPostList();
+    return this.compostRepo.getComPostList({ page: params.page,
+      categoryId:params.categoryId,
+      limit:params.limit});
   }
 }
 

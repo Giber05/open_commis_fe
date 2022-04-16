@@ -4,7 +4,7 @@ import { ComPostDetailModel } from "../../data/models/compost_detail/compost_det
 import ComPostModel from "../../data/models/compost_list/compost_model";
 
 interface ComPostRepo {
-  getComPostList(): Promise<Resource<ComPostModel>>;
+  getComPostList(params:{page:number, limit:number, categoryId?:number}): Promise<Resource<ComPostModel>>;
   getComPostDetail(compostId:number):Promise<Resource<ComPostDetailModel>>
   getCategories(): Promise<Resource<CategoryModel[]>>;
 }

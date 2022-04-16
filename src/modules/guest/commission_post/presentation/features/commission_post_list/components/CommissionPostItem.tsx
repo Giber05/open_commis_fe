@@ -34,7 +34,7 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
       </div>
       <Divider className="my-2" />
       <Typography.Title level={5} className="text-sm">
-        {commission.title}dsadsadasdasdas
+      {commission?.title.length! > 30 ? `${commission?.title.substring(0, 30)}...` : commission?.title}
       </Typography.Title>
       <div className="">
         <Row justify="space-between">

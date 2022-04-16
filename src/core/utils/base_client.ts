@@ -1,13 +1,17 @@
-import axios, { Axios, AxiosRequestHeaders, AxiosResponse } from "axios";
+import axios, { Axios, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from "axios";
 
 class BaseClient {
   private headers = (headers?: AxiosRequestHeaders): AxiosRequestHeaders => (headers == null ? {} : headers);
+  private queryParams  = (queryParams?: any): any => (queryParams == null ? {} : queryParams);
+  private configs = (configs?: AxiosRequestConfig): AxiosRequestConfig => (configs == null ? {} : configs);
 
-  public async getWithoutCookie(params: { url: string; headers?: AxiosRequestHeaders }): Promise<AxiosResponse> {
-    const finalHeader: AxiosRequestHeaders = this.headers(params.headers);
+
+  public async getWithoutCookie(params: { url: string; configs?: AxiosRequestConfig }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
+    
 
     try {
-      const result = await axios.get(params.url, finalHeader);
+      const result = await axios.get(params.url, finalConfig);
       // console.log("Result in base Client:", {result});
       
       return result;

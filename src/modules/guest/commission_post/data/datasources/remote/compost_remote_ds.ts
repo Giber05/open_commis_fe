@@ -8,7 +8,7 @@ import { ComPostDetailModel } from "../../models/compost_detail/compost_detail_m
 import ComPostModel from "../../models/compost_list/compost_model";
 
 export interface ComPostRemoteDS {
-  getComPostList(): Promise<ComPostModel>;
+  getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<ComPostModel>;
   getComPostDetail(compostId: number): Promise<ComPostDetailModel>;
   getCategories(): Promise<CategoryModel[]>;
 }
@@ -38,10 +38,18 @@ class ComPostRemoteDSImpl implements ComPostRemoteDS {
     throw new BaseException({ message: response.data.error });
   }
 
-  async getComPostList(): Promise<ComPostModel> {
-    this.getComPostDetail(12);
+  async getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<ComPostModel> {
     let getComPostListURL = NetworkConstant.baseUrl + "commissions";
-    const response = await this.baseClient.getWithoutCookie({ url: getComPostListURL });
+    const response = await this.baseClient.getWithoutCookie({
+      url: getComPostListURL,
+      configs: {
+        params: {
+          limit: params.limit,
+          page: params.page,
+          category: params.categoryId,
+        },
+      },
+    });
 
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data;

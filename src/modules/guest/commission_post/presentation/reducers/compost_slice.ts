@@ -5,14 +5,16 @@ import { CommissionPost } from "../../data/models/compost_list/commission_post";
 
 type ComPostState = {
   isLoadingComPosts: boolean;
-  commissionPosts: CommissionPost[] ;
+  commissionPosts: CommissionPost[];
   categories: CategoryModel[];
+  selectedCategory: number | undefined;
 };
 
 const initialState: ComPostState = {
   isLoadingComPosts: false,
   commissionPosts: [],
   categories: [],
+  selectedCategory: undefined,
 };
 
 export const comPostSlice = createSlice({
@@ -28,12 +30,14 @@ export const comPostSlice = createSlice({
     fetchCategories: (state, action: PayloadAction<CategoryModel[]>) => {
       state.categories = action.payload;
     },
-
+    setSelectedCategory:(state, action:PayloadAction<number>)=>{
+      state.selectedCategory = action.payload;
+    }
   },
 });
 
-export const { isLoading, fetchCommissionPosts, fetchCategories } = comPostSlice.actions;
+export const { isLoading, fetchCommissionPosts, fetchCategories, setSelectedCategory } = comPostSlice.actions;
 
-export const selectComPost = (state:RootState):ComPostState => state.compost
+export const selectComPost = (state: RootState): ComPostState => state.compost;
 
 export default comPostSlice.reducer;

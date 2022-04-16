@@ -25,10 +25,10 @@ class ComPostRepoImpl extends BaseRepository implements ComPostRepo {
     });
   }
   private comPostRemoteDS: ComPostRemoteDS = new ComPostRemoteDSImpl();
-  getComPostList(): Promise<Resource<ComPostModel>> {
+  getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<Resource<ComPostModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
-        const resource = await this.comPostRemoteDS.getComPostList();
+        const resource = await this.comPostRemoteDS.getComPostList({ page: params.page, categoryId: params.categoryId, limit: params.limit });
 
         return Resource.success({ data: resource });
       },
