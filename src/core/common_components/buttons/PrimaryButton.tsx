@@ -13,6 +13,7 @@ function PrimaryButton(props: ButtonPropsType) {
   const { title, onClick,size, htmlType, additionalClass ,rounded, loading } = props;
   return (
     <Button 
+      onSubmit={e => e.preventDefault()}
       type="primary"
       size={size}
       className={`bg-[#40a9ff] ${rounded?"rounded-full":"rounded"} ${additionalClass}`} 

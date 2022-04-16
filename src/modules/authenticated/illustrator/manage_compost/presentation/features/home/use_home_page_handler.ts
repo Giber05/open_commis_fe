@@ -23,16 +23,18 @@ function useHomePageHandler(): HomePageController {
       dispatch(isLoading(false));
 
       resource.whenWithResult({
-        success: (value) => {
+        success: async (value) => {
           dispatch(fetchCommissionPosts(value.data));
         },
       });
     }, 1000);
   };
 
-  useEffect(() => {
-    getCommissionPosts("ilustratorId");
-  }, []);
+  // useEffect(() => {
+  //   console.log("useeffect called");
+
+  //   getCommissionPosts("ilustratorId");
+  // }, []);
 
   return {
     isLoadingComPost,

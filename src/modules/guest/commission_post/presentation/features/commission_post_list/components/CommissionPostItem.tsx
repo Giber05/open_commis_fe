@@ -1,8 +1,7 @@
 import React from "react";
 import { Avatar, Card, Divider, Rate, Row, Typography, Image } from "antd";
 import useComPostsHandler from "../use_composts_handler";
-import ComPostModel from "../../../../data/models/compost_model";
-import CommissionPost from "../../../../data/models/commission_post";
+import { CommissionPost } from "../../../../data/models/compost_list/commission_post";
 
 const { Meta } = Card;
 
@@ -15,14 +14,14 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
 
   return (
     <Card
-      className="comic-shadow sm:shrink-0"
+      className="comic-shadow sm:shrink-0 hover:opacity-80"
       loading={isLoadingComPosts}
       style={{
         minHeight: "360px",
         padding: "0",
       }}
     >
-      <Card.Meta avatar={<Avatar src="https://i.pinimg.com/originals/eb/07/e3/eb07e3c77d122a1c037f3c69a3e24383.jpg" />} title="Ilustrator Name" />
+      <Card.Meta avatar={<Avatar src="https://i.pinimg.com/originals/eb/07/e3/eb07e3c77d122a1c037f3c69a3e24383.jpg" />} title={commission.illustrator.name} />
       <Divider className="my-2" />
       <div className="text-center">
         <Image
@@ -35,7 +34,7 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
       </div>
       <Divider className="my-2" />
       <Typography.Title level={5} className="text-sm">
-        {commission.title}dsadsadasdasdas
+      {commission?.title.length! > 30 ? `${commission?.title.substring(0, 30)}...` : commission?.title}
       </Typography.Title>
       <div className="">
         <Row justify="space-between">

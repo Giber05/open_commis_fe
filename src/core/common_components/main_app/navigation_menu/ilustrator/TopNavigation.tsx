@@ -51,7 +51,7 @@ function TopNavigation() {
       >
         <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
       </div>
-      <Menu onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
+      <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
         <Menu.Item key="manage_compost">
           <Link to="/manage/manage-compost"> Beranda</Link>
         </Menu.Item>

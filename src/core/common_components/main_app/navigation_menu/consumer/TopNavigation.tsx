@@ -48,19 +48,28 @@ function TopNavigation() {
           background: "rgba(255, 255, 255, 0.2)",
         }}
       />
-      <Menu theme="dark" mode="horizontal" defaultOpenKeys={defaultOpenKeys(selectedKeys)} selectedKeys={defaultOpenKeys(selectedKeys)} className="text-blue-50">
-        <Menu.Item>
-          <Link to="/"> Commission Post</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link to="/auth/login"> Login</Link>
-        </Menu.Item>
-        {authUser === null ? null : (
+      {authUser === null ? (
+        <Menu theme="dark" mode="horizontal" defaultOpenKeys={defaultOpenKeys(selectedKeys)} selectedKeys={defaultOpenKeys(selectedKeys)} className="text-blue-50">
+          <Menu.Item>
+            <Link to="/"> Commission Post</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/auth/login"> Login</Link>
+          </Menu.Item>
+        </Menu>
+      ) : (
+        <Menu theme="dark" mode="horizontal" defaultOpenKeys={defaultOpenKeys(selectedKeys)} selectedKeys={defaultOpenKeys(selectedKeys)} className="text-blue-50">
+          <Menu.Item>
+            <Link to="/"> Commission Post</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/order"> Order</Link>
+          </Menu.Item>
           <Menu.Item>
             <Button onClick={onLogoutClick}>Logout</Button>
           </Menu.Item>
-        )}
-      </Menu>
+        </Menu>
+      )}
     </Header>
   );
 }

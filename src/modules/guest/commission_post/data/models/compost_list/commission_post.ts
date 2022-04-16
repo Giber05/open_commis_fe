@@ -1,6 +1,6 @@
-import ComPostEntity from "../../domain/entity/compost_entity";
+import { CommissionPostEntity, Illustrator } from "../../../domain/entity/commission_post_entity";
 
-class CommissionPost extends ComPostEntity {
+export class CommissionPost extends CommissionPostEntity {
   public static fromJson(json: any): CommissionPost {
     return new CommissionPost({
       id: json.id,
@@ -15,6 +15,7 @@ class CommissionPost extends ComPostEntity {
       image_4: json.image_4,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
+      illustrator: Illustrator.fromJson(json.illustrator),
     });
   }
 }

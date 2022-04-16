@@ -1,3 +1,4 @@
+import Password from "antd/lib/input/Password";
 import BaseException from "../../../../../core/error/base_exception";
 import BaseRepository from "../../../../../core/utils/base_repository";
 import Resource from "../../../../../core/utils/resource";
@@ -9,16 +10,12 @@ import UserModel from "../models/user_model";
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   private authRemoteDS: AuthRemoteDS = new AuthRemoteDSImpl();
   private authLocalDS: AuthLocalDS = new AuthLocalDSImpl();
-  login(params: { email: string; password: string }): Promise<Resource<UserModel>> {
+  login(params: { email: string; password: string; role: string }): Promise<Resource<UserModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
         // let resource: UserAuthEntity | BaseException
-        //= await this._authRemoteDatasource.userLogin(params)
-        const resource: UserModel = new UserModel({
-          id: "1",
-          name: params.email,
-          cookie: "1",
-        });
+        //= await this._authRemoteDatasource.userLogin(paramsparams.)
+        const resource: UserModel = await this.authRemoteDS.login({ email: params.email, password: params.password, role: params.role });
         if (resource instanceof UserModel) {
           this.authLocalDS.saveUser(resource);
           return Resource.success({ data: resource });

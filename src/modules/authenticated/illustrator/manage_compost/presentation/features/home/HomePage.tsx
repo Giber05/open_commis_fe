@@ -4,13 +4,21 @@ import { Link } from "react-router-dom";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
 import useHomePageHandler from "./use_home_page_handler";
 import IlustratorComPostItem from "./components/IlustratorComPostItem";
+import ComPostModel from "../../../data/models/ComPostModel";
+import { useEffect, useState } from "react";
 
 function HomePage() {
-  const { commissionPosts } = useHomePageHandler();
-
+  const { commissionPosts, getCommissionPosts } = useHomePageHandler();
+  const [data, setData] = useState<ComPostModel[]>([]);
+  useEffect(() => {
+     getCommissionPosts("asd")
+    console.log("UseEffect In TSX called");
+    
+  }, []);
+  
   return (
     <div className="bg-white">
-      <FullWidthCorousel />
+      <FullWidthCorousel  />
       <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Commission Post Anda</h2>
         <div className="flex justify-center sm:justify-end py-4">
