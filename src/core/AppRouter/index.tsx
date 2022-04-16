@@ -5,14 +5,17 @@ import ManagePortofolio from "../../modules/authenticated/illustrator/manage-por
 import ManageComPost from "../../modules/authenticated/illustrator/manage_compost/ManageComPostIndex";
 import AuthenticationModule from "../../modules/guest/authentication/AuthenticationIndex";
 import CommissionPost from "../../modules/guest/commission_post/ComPost";
+import ComPostDetail from "../../modules/guest/commission_post/ComPostDetailIndex";
+import CommissionPostDetail from "../../modules/guest/commission_post/presentation/features/commission_post_detail/ComPostDetail";
 import OpenCommissApp from "../common_components/main_app/app/OpenCommissApp";
 import OpenCommissIlustrator from "../common_components/main_app/app/OpenCommissIlustrator";
 function AppRoutes(): JSX.Element {
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<OpenCommissApp />}>
+        <Route path="*" element={<OpenCommissApp />}>
           <Route index element={<CommissionPost />} />
+          <Route path=":compostId/*" element={<ComPostDetail />} />
           <Route path="order/*" element={<OrderPage />} />
         </Route>
         <Route path="manage/*" element={<OpenCommissIlustrator />}>

@@ -1,50 +1,80 @@
-import { Card, Col, Row, Tag, Typography } from "antd";
-import React from "react";
+import { Card, Col, Rate, Row, Tag, Typography } from "antd";
+import Paragraph from "antd/lib/skeleton/Paragraph";
+import Link from "antd/lib/typography/Link";
+import { randomInt } from "crypto";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
+import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
+import { CommissionPostDetail } from "../../../../data/models/compost_detail/commission_post_detail";
 
-function DetailCommission
-() {
+export type CommissionProps = {
+  commission: CommissionPostDetail;
+};
+export type ParagraphType = { rows: 2; expandable: true; symbol: "more" };
+
+const colors = ["red", "pink", "yellow", "orange", "cyan", "green", "blue", "purple", "geekblue", "magenta", "volcano", "gold", "lime", "success", "processing", "error", "default", "warning"];
+function DetailCommission({ commission }: CommissionProps) {
+  const [ellipsis, setEllipsis] = useState(false);
+  const [isLongTitle, setIsLongTitle] = useState(false);
+  useEffect(() => {
+    if (commission?.description?.length! > 150) setEllipsis(true);
+    if (commission.title.length > 30) setIsLongTitle(true);
+  }, []);
   return (
-    <Card className="comic-shadow rounded-2xl">
-      <Row>
-        <Col xs={24} sm={24} lg={12} className="text-base leading-10">
-          <Typography.Text className="">Pesanan: 10</Typography.Text>
-          <br />
-          <span>
-            Status : <Typography.Text className=" text-green-500">Tersedia</Typography.Text>
-          </span>
-          <br />
-          <span>
-            Harga : <Typography.Text className="w- font-bold">1020000</Typography.Text>
-          </span>
-          <br />
-          <div>
-            <Tag color="magenta">magenta</Tag>
-            <Tag color="red">red</Tag>
-            <Tag color="volcano">volcano</Tag>
-            <Tag color="orange">orange</Tag>
-            <Tag color="gold">gold</Tag>
-            <Tag color="lime">lime</Tag>
+    <Card className="comic-shadow ">
+      <Row justify="space-between">
+        <Col span={isLongTitle ? 24 : 16}>
+          <Typography.Text className="text-lg md:text-xl font-semibold tracking-tight text-gray-900 text-start ">{commission.title}</Typography.Text>
+        </Col>
+        <Col span={8}>
+          <div
+            style={{
+              textAlign: isLongTitle ? "left" : "right",
+            }}
+          >
+            <Rate disabled value={4} className="text-base md:text-lg mb-3" />
           </div>
         </Col>
-        <Col xs={24} sm={24} lg={12}>
+      </Row>
+      <Row>
+        <Col className="text-base leading-10">
+          <Col>
+            <Typography.Text className="text-xl md:text-2xl font-bold">RP. {commission.price}</Typography.Text>
+          </Col>
+
+          <Typography.Text className="text-gray-400">Jumlah pesanan berhasil : 0</Typography.Text>
+
           <Col>
             <h3>Deskripsi</h3>
           </Col>
           <Col>
-            <p>
-              But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth,
-              the master-builder of human happiness.
-            </p>
+            <Typography.Paragraph className="leading-tight">
+              {ellipsis ? `${commission?.description?.substring(0, 150)}... ` : commission?.description}{" "}
+              {commission?.description?.length! > 150 ? (
+                <Link onClick={() => setEllipsis(!ellipsis)} className="text-blue-500">
+                  {ellipsis ? "More" : "Hide"}
+                </Link>
+              ) : (
+                ""
+              )}
+            </Typography.Paragraph>
           </Col>
+          <div>
+            {commission.tags?.map((tag) => {
+              let random = Math.floor(Math.random() * colors.length);
+
+              return <Tag color={colors[random]}>{tag.tagName}</Tag>;
+            })}
+          </div>
+          <Typography.Text className="text-gray-400">{moment(commission.createdAt).format("DD-MMM-YYYY")}</Typography.Text>
         </Col>
       </Row>
-      <Row justify="center" className="mt-3">
-        <DangerButton title="TUTUP COMMISSION" rounded />
+      <Row justify="center" className="mt-3 mx-auto">
+        <SuccessButton block title="Pesan" rounded />
       </Row>
     </Card>
   );
 }
 
-export default DetailCommission
-;
+export default DetailCommission;

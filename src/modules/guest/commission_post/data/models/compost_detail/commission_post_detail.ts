@@ -1,4 +1,5 @@
 import { CommissionPostEntity, Illustrator } from "../../../domain/entity/commission_post_entity";
+import { TagModel } from "../tag/tag_model";
 
 export class CommissionPostDetail extends CommissionPostEntity {
   public static fromJson(json: any): CommissionPostDetail {
@@ -16,8 +17,10 @@ export class CommissionPostDetail extends CommissionPostEntity {
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
       category: json.category,
-      tags:json.tags.map((tag:string)=>tag),
-      illustrator:Illustrator.fromJson(json.illustrator)
+      tags: json.tags.map((tag: TagModel) => {
+        return TagModel.fromJson(tag);
+      }),
+      illustrator: Illustrator.fromJson(json.illustrator),
     });
   }
 }

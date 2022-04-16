@@ -46,7 +46,7 @@ function CommissionPostListPage() {
         <Row gutter={[32, 32]} className="crypto-card-container">
           {commissionPosts.map((commission) => (
             <Col xs={24} sm={12} lg={8}>
-              <Link to={`/${commission.id}/detail`}>
+              <Link to={`${commission.id}`}>
                 <CommissionPostItem commission={commission} />
               </Link>
             </Col>

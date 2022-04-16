@@ -1,3 +1,5 @@
+import { TagModel } from "../../data/models/tag/tag_model";
+
 export class CommissionPostEntity {
   id: number;
   title: string;
@@ -12,7 +14,7 @@ export class CommissionPostEntity {
   createdAt: Date;
   updatedAt?: Date;
   category?: string | null;
-  tags?: string[] | null;
+  tags?: TagModel[] | null;
   illustrator: Illustrator;
 
   constructor(params: {
@@ -29,7 +31,7 @@ export class CommissionPostEntity {
     createdAt: Date;
     updatedAt?: Date;
     category?: string | null;
-    tags?: string[] | null;
+    tags?: TagModel[] | null;
     illustrator: Illustrator;
   }) {
     this.id = params.id;

@@ -12,22 +12,22 @@ function FullWidthCorousel({ image1, image2, image3, image4 }: CommissionImage) 
     <Carousel  arrows touchMove autoplay className="text-center p-2 items-center">
       {image1 == null ? null : (
         <div >
-          <Image className=" object-contain max-h-60 align-middle " src={image1}></Image>
+          <Image className=" object-contain max-h-72 align-middle " src={image1}></Image>
         </div>
       )}
       {image2 == null ? null : (
         <div>
-          <Image className=" object-contain max-h-60 align-middle items-center my-5" src={image2}></Image>
+          <Image className=" object-contain max-h-72 align-middle items-center my-5" src={image2}></Image>
         </div>
       )}
       {image3 == null ? null : (
         <div>
-          <Image className=" object-contain max-h-60 align-middle  items-stretch " src={image3}></Image>
+          <Image className=" object-contain max-h-72 align-middle  items-stretch " src={image3}></Image>
         </div>
       )}
       {image4 == null ? null : (
         <div>
-          <Image className=" object-contain max-h-60 " src={image4}></Image>
+          <Image className=" object-contain max-h-72 " src={image4}></Image>
         </div>
       )}
     </Carousel>
