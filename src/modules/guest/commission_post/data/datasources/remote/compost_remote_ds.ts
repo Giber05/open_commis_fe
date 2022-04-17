@@ -11,10 +11,29 @@ export interface ComPostRemoteDS {
   getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<ComPostModel>;
   getComPostDetail(compostId: number): Promise<ComPostDetailModel>;
   getCategories(): Promise<CategoryModel[]>;
+  searchComPosts(params: { keyword: string; }): Promise<ComPostModel>;
 }
 
 class ComPostRemoteDSImpl implements ComPostRemoteDS {
   private baseClient = new BaseClient();
+  async searchComPosts(params: { keyword: string; }): Promise<ComPostModel> {
+    let searchComPostsURL = NetworkConstant.baseUrl + "commissions/search";
+    const response = await this.baseClient.getWithoutCookie({
+      url: searchComPostsURL,
+      configs: {
+        params: {
+          q: params.keyword,
+        },
+      },
+    });
+
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data;
+      return ComPostModel.fromJson(body);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
+  
   async getCategories(): Promise<CategoryModel[]> {
     let getCategoriesURL = NetworkConstant.baseUrl + "categories";
 

@@ -7,6 +7,7 @@ import { CommissionPost } from "../../../data/models/compost_list/commission_pos
 import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
+import SearchComPosts from "../../../domain/usecases/search_composts";
 import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setSelectedCategory } from "../../reducers/compost_slice";
 type ComPostsController = {
   isLoadingComPosts: boolean;
@@ -16,20 +17,19 @@ type ComPostsController = {
   getCategories: () => void;
   selectedCategory: number | undefined;
   chooseCategory: (categoryId: number) => () => void;
+  searchComPosts: (keyword: string) => void;
 };
 function useComPostsHandler(): ComPostsController {
   const dispatch = useAppDispatch();
   const getCommissionPostsUC = new GetCommissionPosts();
   const getCategoriesUC = new GetCategories();
   const getComPostDetailUC = new GetComPostDetail();
+  const searchComPostsUC = new SearchComPosts();
   const { commissionPosts, isLoadingComPosts, categories, selectedCategory } = useSelector(selectComPost);
-  const { error } = useSelector(selectCommon);
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
       const resource = await getCommissionPostsUC.execute({ page: 1, categoryId: selectedCategory, limit: 15 });
-      const detail = await getComPostDetailUC.execute(3);
-      console.log({ detail });
 
       dispatch(isLoading(false));
       resource.whenWithResult({
@@ -59,7 +59,28 @@ function useComPostsHandler(): ComPostsController {
       });
     });
   };
+  
+  const searchComPosts = (keyword:string) =>{
+    dispatch(isLoading(true));
+    setTimeout(async () => {
+      const resource = await searchComPostsUC.execute({ keyword:keyword });
+
+      dispatch(isLoading(false));
+      resource.whenWithResult({
+        success: (value) => {
+          dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
+          dispatch(fetchError(""));
+        },
+        error: (error) => {
+          dispatch(fetchError(error.exception.message));
+        },
+      });
+    });
+  }
+
   const chooseCategory = (categoryId: number) => () => dispatch(setSelectedCategory(categoryId));
+
+
   return {
     isLoadingComPosts,
     commissionPosts,
@@ -68,6 +89,7 @@ function useComPostsHandler(): ComPostsController {
     getCategories,
     selectedCategory,
     chooseCategory,
+    searchComPosts,
   };
 }
 export default useComPostsHandler;
