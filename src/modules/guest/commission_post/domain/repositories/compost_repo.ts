@@ -7,5 +7,6 @@ interface ComPostRepo {
   getComPostList(params:{page:number, limit:number, categoryId?:number}): Promise<Resource<ComPostModel>>;
   getComPostDetail(compostId:number):Promise<Resource<ComPostDetailModel>>
   getCategories(): Promise<Resource<CategoryModel[]>>;
+  searchComPosts(params:{keyword:string}): Promise<Resource<ComPostModel>>;
 }
 export default ComPostRepo;

@@ -7,6 +7,15 @@ import { ComPostDetailModel } from "../models/compost_detail/compost_detail_mode
 import ComPostModel from "../models/compost_list/compost_model";
 
 class ComPostRepoImpl extends BaseRepository implements ComPostRepo {
+  searchComPosts(params: { keyword: string }): Promise<Resource<ComPostModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.comPostRemoteDS.searchComPosts({ keyword: params.keyword });
+        if (resource instanceof ComPostModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
   getCategories(): Promise<Resource<CategoryModel[]>> {
     return this.networkOnlyCall({
       networkCall: async () => {

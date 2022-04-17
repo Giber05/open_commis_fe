@@ -11,7 +11,7 @@ type CommissionProps = {
 function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
   const { isLoadingComPosts } = useComPostsHandler();
   const { commission } = commissionPost;
-
+  
   return (
     <Card
       className="comic-shadow sm:shrink-0 hover:opacity-80"
@@ -21,7 +21,7 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
         padding: "0",
       }}
     >
-      <Card.Meta avatar={<Avatar src="https://i.pinimg.com/originals/eb/07/e3/eb07e3c77d122a1c037f3c69a3e24383.jpg" />} title={commission.illustrator.name} />
+      <Card.Meta avatar={<Avatar src={commission.illustrator.profilePicture} />} title={commission.illustrator.name} />
       <Divider className="my-2" />
       <div className="text-center">
         <Image
