@@ -1,4 +1,4 @@
-import { Row, Col, Popconfirm } from "antd";
+import { Row, Col, Popconfirm, Avatar, Typography, Card, Divider } from "antd";
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -10,39 +10,42 @@ import DetailComPost from "../../../../../authenticated/illustrator/manage_compo
 import OrdersTable from "../../../../../authenticated/illustrator/manage_compost/presentation/features/compost_detail/components/OrdersTable";
 import Reviews from "../../../../../authenticated/illustrator/manage_compost/presentation/features/compost_detail/components/Reviews";
 import DetailCommission from "./components/DetailCommission";
+import IllustratorSection from "./components/IllustratorSection";
 import useComPostDetailHandler from "./use_compost_detail_handler";
 
 function CommissionPostDetail() {
-  const {getComPostDetail,commissionPost,isLoadingComPosts} = useComPostDetailHandler()
+  const { getComPostDetail, commissionPost, isLoadingComPosts } = useComPostDetailHandler();
   useEffect(() => {
-    getComPostDetail()
+    getComPostDetail();
   }, []);
-  console.log({commissionPost});
-  if(isLoadingComPosts || commissionPost==null) return <CircularLoadingIndicator/>
+  console.log({ commissionPost });
+  if (isLoadingComPosts || commissionPost == null) return <CircularLoadingIndicator />;
   return (
     <div className="max-w-3xl mx-auto py-3  sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <Row gutter={[24, 24]} className="">
         <Col xs={24} sm={24} md={12} lg={12}>
           <div className="bg-gray-200 comic-shadow">
-            <FullWidthCorousel 
-              image1={commissionPost.image_1}
-              image2={commissionPost.image_2}
-              image3={commissionPost.image_3}
-              image4={commissionPost.image_4}
-               />
+            <FullWidthCorousel image1={commissionPost.image_1} image2={commissionPost.image_2} image3={commissionPost.image_3} image4={commissionPost.image_4} />
           </div>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12}>
           <DetailCommission commission={commissionPost} key={commissionPost.id} />
         </Col>
       </Row>
-     
-      <div className="my-5">
-        <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
-        <Reviews />
-        <Reviews />
-        <Reviews />
-      </div>
+      <Row gutter={[24, 2]} className="flex-row-reverse my-5">
+        <Col xs={24} sm={24} md={12} lg={12}>
+          <IllustratorSection illustrator={commissionPost.illustrator} />
+          <Divider />
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12}>
+          <div className="my-5 text-left">
+            <h3 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h3>
+            <Reviews />
+            <Reviews />
+            <Reviews />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 }

@@ -23,7 +23,6 @@ function useComPostsHandler(): ComPostsController {
   const getCategoriesUC = new GetCategories();
   const getComPostDetailUC = new GetComPostDetail();
   const { commissionPosts, isLoadingComPosts, categories, selectedCategory } = useSelector(selectComPost);
-  const { error } = useSelector(selectCommon);
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {

@@ -1,36 +1,39 @@
-import { Card, Col, Rate, Row, Tag, Typography } from "antd";
+import { Button, Card, Col, Rate, Row, Tag, Typography } from "antd";
 import Paragraph from "antd/lib/skeleton/Paragraph";
 import Link from "antd/lib/typography/Link";
 import { randomInt } from "crypto";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
+import DisabledButton from "../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import { CommissionPostDetail } from "../../../../data/models/compost_detail/commission_post_detail";
+import useComPostDetailHandler from "../use_compost_detail_handler";
 
 export type CommissionProps = {
   commission: CommissionPostDetail;
 };
-export type ParagraphType = { rows: 2; expandable: true; symbol: "more" };
 
 const colors = ["red", "pink", "yellow", "orange", "cyan", "green", "blue", "purple", "geekblue", "magenta", "volcano", "gold", "lime", "success", "processing", "error", "default", "warning"];
 function DetailCommission({ commission }: CommissionProps) {
+  const { isMobile } = useComPostDetailHandler();
+  
   const [ellipsis, setEllipsis] = useState(false);
   const [isLongTitle, setIsLongTitle] = useState(false);
   useEffect(() => {
     if (commission?.description?.length! > 150) setEllipsis(true);
     if (commission.title.length > 30) setIsLongTitle(true);
-  }, []);
+  }, [isMobile]);
   return (
     <Card className="comic-shadow ">
       <Row justify="space-between">
-        <Col span={isLongTitle ? 24 : 16}>
+        <Col span={isLongTitle || isMobile ? 24 : 16}>
           <Typography.Text className="text-lg md:text-xl font-semibold tracking-tight text-gray-900 text-start ">{commission.title}</Typography.Text>
         </Col>
-        <Col span={8}>
+        <Col span={isMobile ? 24: 8}>
           <div
             style={{
-              textAlign: isLongTitle ? "left" : "right",
+              textAlign: isLongTitle || isMobile ? "left" : "right",
             }}
           >
             <Rate disabled value={4} className="text-base md:text-lg mb-3" />
@@ -71,7 +74,8 @@ function DetailCommission({ commission }: CommissionProps) {
         </Col>
       </Row>
       <Row justify="center" className="mt-3 mx-auto">
-        <SuccessButton block title="Pesan" rounded />
+        
+        {commission.status==="OPEN"?(<SuccessButton block title="Pesan" rounded />):<DisabledButton rounded title="Pesan"/> }
       </Row>
     </Card>
   );

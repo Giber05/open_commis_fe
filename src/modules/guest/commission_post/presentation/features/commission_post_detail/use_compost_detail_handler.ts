@@ -10,6 +10,7 @@ type ComPostDetailController = {
   isLoadingComPosts: boolean;
   commissionPost?: CommissionPostDetail |null;
   getComPostDetail: () => void;
+  isMobile:boolean;
 };
 
 function useComPostDetailHandler():ComPostDetailController {
@@ -19,7 +20,7 @@ function useComPostDetailHandler():ComPostDetailController {
   const dispatch = useAppDispatch();
   const getComPostDetailUC = new GetComPostDetail();
   const { commissionPost, isLoadingComPosts } = useSelector(selectComPost);
-  const { error } = useSelector(selectCommon);
+  const { error, isMobile } = useSelector(selectCommon);
 
   const getComPostDetail= () =>{
     dispatch(isLoading(true));
@@ -43,6 +44,7 @@ function useComPostDetailHandler():ComPostDetailController {
     isLoadingComPosts,
     commissionPost,
     getComPostDetail,
+    isMobile,
   }
 }
 export default useComPostDetailHandler;

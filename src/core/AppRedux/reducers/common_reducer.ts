@@ -17,7 +17,7 @@ export const commonSlice = createSlice({
   name: "common",
   initialState,
   reducers: {
-    activeBotNav: (state, action: PayloadAction<boolean>) => {
+    setIsMobile: (state, action: PayloadAction<boolean>) => {
       state.isMobile = action.payload;
     },
     updateWindowWidth: (state, action: PayloadAction<number>) => {
@@ -30,7 +30,7 @@ export const commonSlice = createSlice({
 });
 
 export const {
-  activeBotNav,
+  setIsMobile,
   updateWindowWidth,
   fetchError
 } = commonSlice.actions;
