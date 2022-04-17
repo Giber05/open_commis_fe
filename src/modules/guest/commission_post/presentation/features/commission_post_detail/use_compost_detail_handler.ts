@@ -8,21 +8,21 @@ import { fetchCommissionDetail, isLoading, selectComPost } from "../../reducers/
 
 type ComPostDetailController = {
   isLoadingComPosts: boolean;
-  commissionPost?: CommissionPostDetail |null;
+  commissionPost?: CommissionPostDetail | null;
   getComPostDetail: () => void;
-  isMobile:boolean;
+  isMobile: boolean;
 };
 
-function useComPostDetailHandler():ComPostDetailController {
-  const {compostId} = useParams()
-  let id = parseInt(compostId!)
-  
+function useComPostDetailHandler(): ComPostDetailController {
+  const { compostId } = useParams();
+  let id = parseInt(compostId!);
+
   const dispatch = useAppDispatch();
   const getComPostDetailUC = new GetComPostDetail();
   const { commissionPost, isLoadingComPosts } = useSelector(selectComPost);
   const { error, isMobile } = useSelector(selectCommon);
 
-  const getComPostDetail= () =>{
+  const getComPostDetail = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
       const resource = await getComPostDetailUC.execute(id);
@@ -38,13 +38,12 @@ function useComPostDetailHandler():ComPostDetailController {
         },
       });
     });
-
-  }
+  };
   return {
     isLoadingComPosts,
     commissionPost,
     getComPostDetail,
     isMobile,
-  }
+  };
 }
 export default useComPostDetailHandler;
