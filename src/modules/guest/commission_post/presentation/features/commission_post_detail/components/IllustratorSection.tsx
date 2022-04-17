@@ -28,7 +28,7 @@ function IllustratorSection({ illustrator }: IllustratorProps) {
           </Row>
         </Col>
         <Col span={8} className="m-auto">
-          <Link to="">
+          <Link to={`/illustrator/${illustrator.id}`}>
             <InfoButton title="Lihat Profil" rounded />
           </Link>
         </Col>

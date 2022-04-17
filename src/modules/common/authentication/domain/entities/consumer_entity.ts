@@ -8,6 +8,7 @@ class ConsumerEntity {
   emailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
+  
   constructor(params:{
   id: number;
   name: string;

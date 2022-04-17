@@ -4,11 +4,12 @@ import Earning from "../../modules/authenticated/illustrator/earning/EarningInde
 import ManagePortofolio from "../../modules/authenticated/illustrator/manage-portofolio/ManagePortofolioIndex";
 import ManageComPost from "../../modules/authenticated/illustrator/manage_compost/ManageComPostIndex";
 import AuthenticationModule from "../../modules/guest/authentication/AuthenticationIndex";
-import CommissionPost from "../../modules/guest/commission_post/ComPost";
+import CommissionPost from "../../modules/guest/commission_post/ComPostIndex";
 import ComPostDetail from "../../modules/guest/commission_post/ComPostDetailIndex";
 import CommissionPostDetail from "../../modules/guest/commission_post/presentation/features/commission_post_detail/ComPostDetail";
 import OpenCommissApp from "../common_components/main_app/app/OpenCommissApp";
 import OpenCommissIlustrator from "../common_components/main_app/app/OpenCommissIlustrator";
+import IllustratorsPortofolio from "../../modules/guest/illustrators_portofolio/IllustratorsPortofolioIndex";
 function AppRoutes(): JSX.Element {
   return (
     <Router>
@@ -16,6 +17,7 @@ function AppRoutes(): JSX.Element {
         <Route path="*" element={<OpenCommissApp />}>
           <Route index element={<CommissionPost />} />
           <Route path=":compostId/*" element={<ComPostDetail />} />
+          <Route path="illustrator/:illustratorId/*" element={<IllustratorsPortofolio />} />
           <Route path="order/*" element={<OrderPage />} />
         </Route>
         <Route path="manage/*" element={<OpenCommissIlustrator />}>

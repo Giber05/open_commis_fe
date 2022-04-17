@@ -6,10 +6,10 @@ function ComPostDetailRoutes() {
   return (
     <Routes>
       <Route index element={asyncComponent(() => import("./presentation/features/commission_post_detail/ComPostDetail"))} />
-      <Route path="detail/*">
+      {/* <Route path="detail/*"> */}
         {/* <Route path=":compostId" element={<CommissionPostDetail />} />
       <Route path="ilustrator/:ilustratorId" element={asyncComponent(() => import("."))} /> */}
-      </Route>
+      {/* </Route> */}
     </Routes>
   );
 }
