@@ -1,32 +1,56 @@
-import { Card, Layout, Menu, PageHeader, Image } from "antd";
+import { Card, Layout, Menu, PageHeader, Image, Button, Dropdown } from "antd";
 import { BorderBottomOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../../../utils/redux";
-import { selectAuth } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
+import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
+import { isAuthLoading, selectAuth, userLogout } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
 import AssetConstants from "../../../../constants/asset_constants";
+import Logout from "../../../../../modules/guest/authentication/domain/usecases/logout";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 function BottomNavigation() {
+  const dispatch = useAppDispatch();
   const { authUser } = useAppSelector(selectAuth);
-  const isUserLoggedIn = authUser && authUser?.data.role ==="consumer"
-  console.log({isUserLoggedIn});
+  const onLogoutClick = () => {
+    const logout = new Logout();
+    dispatch(isAuthLoading(true));
+    setTimeout(async () => {
+      const resource = await logout.execute(authUser?.data.token!);
+      resource.whenWithResult({
+        success: (_) => {
+          dispatch(userLogout());
+          dispatch(isAuthLoading(false));
+        },
+      });
+    }, 1000);
+  };
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/consumer/profile">Profil</Link>
+      </Menu.Item>
+
+      <Menu.Item>
+        <a onClick={onLogoutClick}>Logout</a>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const isUserLoggedIn = authUser && authUser?.data.role === "consumer";
+  console.log({ isUserLoggedIn });
 
   return (
     <div className="w-full">
-      <PageHeader 
+      <PageHeader
         style={{
-          padding:"none",
-          borderBottom:" 1px groove",
-          borderBottomColor:"blue"
-        }} 
-        className="site-page-header text-center shadow-sm bg-white">
-        <Image 
-          preview={false} 
-          width={140} 
-          src={`${AssetConstants.iconURL}logo/app_name.svg`}
-          className="pb-3 align-middle"
-           />
+          padding: "none",
+          borderBottom: " 1px groove",
+          borderBottomColor: "blue",
+        }}
+        className="site-page-header text-center shadow-sm bg-white"
+      >
+        <Image preview={false} width={140} src={`${AssetConstants.iconURL}logo/app_name.svg`} className="pb-3 align-middle" />
       </PageHeader>
       <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow-black shadow-md">
         {/* <section id="bottom-navigation" className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> */}
@@ -44,12 +68,14 @@ function BottomNavigation() {
               </svg>
               <span className="tab tab-kategori block text-xs">Pesanan</span>
             </Link>
-            <Link to="#" className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
-              <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              <span className="tab tab-explore block text-xs">Profil</span>
-            </Link>
+            <Dropdown overlay={menu} placement="top" arrow>
+              <div className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
+                <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span className="tab tab-explore block text-xs">Profil</span>
+              </div>
+            </Dropdown>
           </div>
         ) : (
           <div id="tabs" className="flex justify-between">

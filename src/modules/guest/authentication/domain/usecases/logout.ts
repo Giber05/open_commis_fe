@@ -6,8 +6,8 @@ import AuthRepository from "../repositories/auth_repository";
 class Logout {
   private authRepository: AuthRepository = new AuthRepositoryImpl() 
 
-  async execute():Promise<Resource<boolean>> {
-    return this.authRepository.logout();
+  async execute(currentToken:string):Promise<Resource<boolean>> {
+    return this.authRepository.logout(currentToken);
   }
 }
 

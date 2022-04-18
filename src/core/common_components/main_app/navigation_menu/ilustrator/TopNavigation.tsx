@@ -23,7 +23,7 @@ function TopNavigation() {
     const logout = new Logout();
     dispatch(isAuthLoading(true));
     setTimeout(async () => {
-      const resource = await logout.execute();
+      const resource = await logout.execute(authUser?.data.token!);
       resource.whenWithResult({
         success: (_) => {
           dispatch(userLogout());
