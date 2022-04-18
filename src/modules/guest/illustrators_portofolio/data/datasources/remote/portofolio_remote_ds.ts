@@ -21,7 +21,6 @@ export class PortofolioRemoteDSImpl implements PortofolioRemoteDS {
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data;
       const data = IllustratorsPortofolioModel.fromJson(body);
-      console.log({data});
       
       return data
     }

@@ -9,6 +9,8 @@ const { Header, Content, Footer, Sider } = Layout;
 
 function BottomNavigation() {
   const { authUser } = useAppSelector(selectAuth);
+  const isUserLoggedIn = authUser && authUser?.data.role ==="consumer"
+  console.log({isUserLoggedIn});
 
   return (
     <div className="w-full">
@@ -28,7 +30,7 @@ function BottomNavigation() {
       </PageHeader>
       <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow-black shadow-md">
         {/* <section id="bottom-navigation" className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> */}
-        {authUser != null ? (
+        {isUserLoggedIn ? (
           <div id="tabs" className="flex justify-between">
             <Link to="/" className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
               <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

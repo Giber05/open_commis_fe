@@ -9,19 +9,13 @@ import useLoginHandler from "./use_login_handler";
 
 function LoginPage() {
   const { isLoadingUser, onFinish, error, clearError } = useLoginHandler();
-  const handleSubmit = () => (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    console.log("Submit form =>", e.currentTarget.value);
-  };
-  const loginFailed = (value:any) => {
+  const loginFailed = () => {
     if (error != "") {
       clearError()
       return Promise.reject(error);
     }
     return Promise.resolve();
   };
-  console.log("LOGIN");
   
   return (
     <LoginContainer>
@@ -68,7 +62,7 @@ function LoginPage() {
                 message: "Password wajib diisi!",
               },
               {
-                validator: (_, value) => loginFailed(value),
+                validator: (_, __) => loginFailed(),
               }
             ]}
             name="password"

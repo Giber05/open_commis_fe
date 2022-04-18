@@ -34,7 +34,6 @@ function TopNavigation() {
   };
 
   const onChangeMenu = (e: any) => {
-    console.log(e.key);
 
     setCurrentMenu({ current: e.key });
   };

@@ -18,7 +18,6 @@ function CommissionPostDetail() {
   useEffect(() => {
     getComPostDetail();
   }, []);
-  console.log({ commissionPost });
   if (isLoadingComPosts || commissionPost == null) return <CircularLoadingIndicator />;
   return (
     <div className="max-w-3xl mx-auto py-3  sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">

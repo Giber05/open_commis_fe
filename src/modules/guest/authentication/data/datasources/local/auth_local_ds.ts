@@ -10,12 +10,15 @@ export interface AuthLocalDS {
 }
 
 class AuthLocalDSImpl implements AuthLocalDS {
+  private getUserType(user:UserModel):string {
+    return user.data.role
+  }
   private readonly userBox: string = "user";
 
   async saveUser(user: UserModel): Promise<void> {
+    
     try {
       const encData = ed.enc(user.toJson(), 2, 6);
-      console.log("endData: ", {encData});
       
       await localStorage.setItem(this.userBox, encData);
     } catch (error) {
@@ -26,13 +29,10 @@ class AuthLocalDSImpl implements AuthLocalDS {
     let user: UserModel | null = null;
     try {
       const json: string | null = await localStorage.getItem(this.userBox);
-      console.log("Get User: ", json);
       
       if (json != null) {
         const decData = ed.dec(json, 2, 6);
-        console.log("decData: ", decData);
         user = UserModel.fromJson(decData);
-        console.log("User in Local: ", {user});
       }
       return user;
     } catch (error) {

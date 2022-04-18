@@ -7,7 +7,6 @@ function CommissionPostRoute(): JSX.Element {
   return (
     <Routes>
       <Route index element={asyncComponent(() => import("./presentation/features/commission_post_list/CommissionPostListPage"))} />
-      
     </Routes>
   );
 }
