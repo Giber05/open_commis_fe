@@ -9,10 +9,27 @@ import { VerifyTokenModel } from "../../models/verify_token_model";
 export interface AuthRemoteDS {
   login(params: { email: string; password: string; role: string }): Promise<UserModel>;
   verifyToken(currentToken: string): Promise<VerifyTokenModel>;
+  logout(currentToken: string): Promise<boolean>;
 }
 
 class AuthRemoteDSImpl implements AuthRemoteDS {
   private baseClient = new BaseClient();
+
+  async logout(currentToken: string): Promise<boolean> {
+    let logoutURL = NetworkConstant.baseUrl + "auth/logout";
+    const response = await this.baseClient.postWithCookie({
+      url: logoutURL,
+      cookieValue: "Bearer "+currentToken,
+    });
+    console.log("LOGOUT ",{response});
+    
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data;
+      return body.success;
+    }
+    throw new BaseException({ message: response.data.error });
+  }
+
   async verifyToken(currentToken: string): Promise<VerifyTokenModel> {
     console.log({ currentToken });
 
@@ -50,7 +67,6 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
       }
       throw new BaseException({ message: response.data.error });
     } catch (error: any) {
-
       throw new BaseException({ message: error });
     }
   }

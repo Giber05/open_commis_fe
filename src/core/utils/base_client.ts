@@ -32,7 +32,7 @@ class BaseClient {
   public async postWithCookie(params: { url: string; cookieValue: string; headers?: AxiosRequestHeaders; body?: any }): Promise<AxiosResponse> {
     const finalHeader: AxiosRequestHeaders = this.headers(params.headers);
 
-    finalHeader.Cookie = params.cookieValue;
+    finalHeader.Authorization = params.cookieValue;
     try {
       const result: AxiosResponse = await axios.post(params.url, params.body, finalHeader);
       return result;
