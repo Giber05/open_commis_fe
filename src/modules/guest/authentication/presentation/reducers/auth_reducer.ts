@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../core/utils/redux";
 import UserModel from "../../data/models/user_model";
+import { VerifyTokenModel } from "../../data/models/verify_token_model";
 
 type AuthState = {
-  isLoadingUser: boolean,
-  authUser: UserModel | null
-}
+  isLoadingUser: boolean;
+  authUser: UserModel | null;
+  currentToken: VerifyTokenModel | null;
+};
 
 const initialState: AuthState = {
   isLoadingUser: true,
   authUser: null,
-
+  currentToken: null,
 };
 export const authSlice = createSlice({
   name: "auth",
@@ -25,10 +27,13 @@ export const authSlice = createSlice({
     userLogout: (state) => {
       state.authUser = null;
     },
+    verifyCurrentToken: (state, action: PayloadAction<VerifyTokenModel>) => {
+      state.currentToken = action.payload;
+    },
   },
 });
 
-export const { isAuthLoading, userLogin, userLogout } = authSlice.actions;
+export const { isAuthLoading, userLogin, userLogout, verifyCurrentToken } = authSlice.actions;
 
 export const selectAuth = (state: RootState): AuthState => state.auth;
 

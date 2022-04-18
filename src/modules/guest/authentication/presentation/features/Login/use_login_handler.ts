@@ -10,6 +10,7 @@ export type LoginController = {
   navigate: NavigateFunction;
   error:string;
   onFinish: (values: { email: string; password: string; role: string }) => void;
+  clearError: ()=>void
 };
 
 function useLoginHandler(): LoginController {
@@ -42,11 +43,16 @@ function useLoginHandler(): LoginController {
     }, 1000);
   };
 
+  const clearError= ()=>{
+    dispatch(fetchError(""))
+  }
+
   return {
     isLoadingUser,
     navigate,
     onFinish,
     error,
+    clearError,
   };
 }
 

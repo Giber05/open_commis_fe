@@ -12,7 +12,6 @@ function HomePage() {
   const [data, setData] = useState<ComPostModel[]>([]);
   useEffect(() => {
      getCommissionPosts("asd")
-    console.log("UseEffect In TSX called");
     
   }, []);
   

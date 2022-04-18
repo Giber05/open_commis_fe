@@ -14,6 +14,9 @@ type CurrentMenu = {
 function TopNavigation() {
   const dispatch = useAppDispatch();
   const { authUser } = useAppSelector(selectAuth);
+  const isUserLoggedIn = authUser && authUser?.data.role ==="consumer"
+  console.log({isUserLoggedIn});
+  
   const [currentMenu, setCurrentMenu] = useState<CurrentMenu>({ current: "compost" });
 
   const onLogoutClick = () => {
@@ -30,7 +33,6 @@ function TopNavigation() {
     }, 1000);
   };
   const onChangeMenu = (e: any) => {
-    console.log(e.key);
 
     setCurrentMenu({ current: e.key });
   };
@@ -46,7 +48,7 @@ function TopNavigation() {
       >
         <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
       </div>
-      {authUser === null ? (
+      {!isUserLoggedIn ? (
         <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
           <Menu.Item key="compost">
             <Link to="/"> Beranda</Link>
@@ -61,7 +63,7 @@ function TopNavigation() {
             <Link to="/"> Beranda</Link>
           </Menu.Item>
           <Menu.Item key="order">
-            <Link to="">Pesananan</Link>
+            <Link to="/consumer/order">Pesananan</Link>
           </Menu.Item>
           <SubMenu title="Profil">
             <Menu.Item>

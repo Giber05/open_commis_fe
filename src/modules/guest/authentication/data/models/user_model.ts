@@ -40,7 +40,7 @@ class Data {
 
   public static fromJson(json: any): Data {
     return new Data({
-      user: json.role === "illustrator"? IlustratorModel.fromJson(json.user):ConsumerModel,
+      user: json.role === "illustrator"? IlustratorModel.fromJson(json.user):ConsumerModel.fromJson(json.user),
       token: json.token,
       role:json.role,
     });

@@ -10,15 +10,18 @@ import CommissionPostDetail from "../../modules/guest/commission_post/presentati
 import OpenCommissApp from "../common_components/main_app/app/OpenCommissApp";
 import OpenCommissIlustrator from "../common_components/main_app/app/OpenCommissIlustrator";
 import IllustratorsPortofolio from "../../modules/guest/illustrators_portofolio/IllustratorsPortofolioIndex";
+import RequireAuth from "../../modules/guest/authentication/RequireAuth";
 function AppRoutes(): JSX.Element {
   return (
     <Router>
       <Routes>
-        <Route path="*" element={<OpenCommissApp />}>
+        <Route path="/*" element={<OpenCommissApp />}>
           <Route index element={<CommissionPost />} />
           <Route path=":compostId/*" element={<ComPostDetail />} />
-          <Route path="illustrator/:illustratorId/*" element={<IllustratorsPortofolio />} />
-          <Route path="order/*" element={<OrderPage />} />
+          <Route path="illustrator/*" element={<IllustratorsPortofolio />} />
+          <Route path="consumer/*" element={<RequireAuth />}>
+            <Route path="order/*" element={<OrderPage />} />
+          </Route>
         </Route>
         <Route path="manage/*" element={<OpenCommissIlustrator />}>
           <Route path="manage-compost/*" element={<ManageComPost />} />

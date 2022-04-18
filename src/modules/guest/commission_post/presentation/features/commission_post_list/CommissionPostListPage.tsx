@@ -21,7 +21,6 @@ function CommissionPostListPage() {
   useEffect(() => {
     getCategories();
   }, []);
-  console.log({ selectedCategory });
 
   return (
     <div className="bg-white">
@@ -31,8 +30,6 @@ function CommissionPostListPage() {
             placeholder="Pencarian"
             allowClear
             onSearch={(keyword) => {
-              console.log({ keyword });
-
               if (keyword != "") {
                 searchComPosts(keyword);
                 setOnSearch(true);
@@ -59,7 +56,7 @@ function CommissionPostListPage() {
           {commissionPosts.length > 0 ? (
             commissionPosts.map((commission) => (
               <Col xs={24} sm={12} lg={8}>
-                <Link to={`${commission.id}`}>
+                <Link to={`${commission.id}/detail`}>
                   <CommissionPostItem commission={commission} />
                 </Link>
               </Col>
