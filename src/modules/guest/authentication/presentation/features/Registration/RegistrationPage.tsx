@@ -1,4 +1,3 @@
-// import PrimaryButton from '@root/core/common_components/buttons/PrimaryButton';
 import { LockOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, InputNumber, message, Radio, Typography, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
