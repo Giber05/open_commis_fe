@@ -9,7 +9,7 @@ class IlustratorModel extends IlustratorEntity {
       email: json.email,
       phone: json.phone,
       balance: json.balance,
-      profilePicture: json.profilePicture,
+      profilePicture: json.profilePicture == undefined ? null : json.profilePicture,
       available: json.available,
       emailVerified: json.emailVerified,
       createdAt: json.createdAt,
@@ -18,4 +18,3 @@ class IlustratorModel extends IlustratorEntity {
   }
 }
 export default IlustratorModel;
-

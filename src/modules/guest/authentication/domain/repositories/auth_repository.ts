@@ -10,6 +10,16 @@ interface AuthRepository {
   getCurrentUser(): Promise<Resource<UserModel>>;
 
   verifyToken(currentToken:string):Promise<Resource<VerifyTokenModel>>
+
+  registerUser (params: {
+    role:string,
+    name:string,
+    email:string,
+    phone: string,
+    username:string,
+    password:string,
+    profilePicture?:File | null,
+  }):Promise<Resource<UserModel>>
 }
 
 export default AuthRepository;

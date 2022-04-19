@@ -8,9 +8,9 @@ import { isAuthLoading, selectAuth, userLogin } from "../../reducers/auth_reduce
 export type LoginController = {
   isLoadingUser: boolean;
   navigate: NavigateFunction;
-  error:string;
+  error: string;
   onFinish: (values: { email: string; password: string; role: string }) => void;
-  clearError: ()=>void
+  clearError: () => void;
 };
 
 function useLoginHandler(): LoginController {
@@ -22,7 +22,7 @@ function useLoginHandler(): LoginController {
 
   const onFinish = (values: { email: string; password: string; role: string }) => {
     dispatch(isAuthLoading(true));
-    dispatch(fetchError(""))
+    dispatch(fetchError(""));
     setTimeout(async () => {
       const resource = await login.execute({ email: values.email, password: values.password, role: values.role });
       dispatch(isAuthLoading(false));
@@ -37,15 +37,15 @@ function useLoginHandler(): LoginController {
           }
         },
         error: async (error) => {
-          dispatch(fetchError(error.exception.message))
+          dispatch(fetchError(error.exception.message));
         },
       });
-    }, );
+    });
   };
 
-  const clearError= ()=>{
-    dispatch(fetchError(""))
-  }
+  const clearError = () => {
+    dispatch(fetchError(""));
+  };
 
   return {
     isLoadingUser,

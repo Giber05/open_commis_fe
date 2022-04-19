@@ -1,5 +1,6 @@
 import { whileStatement } from "@babel/types";
 import axios from "axios";
+import { config } from "process";
 import NetworkConstant from "../../../../../../core/constants/network_constant";
 import BaseException from "../../../../../../core/error/base_exception";
 import BaseClient from "../../../../../../core/utils/base_client";
@@ -10,10 +11,49 @@ export interface AuthRemoteDS {
   login(params: { email: string; password: string; role: string }): Promise<UserModel>;
   verifyToken(currentToken: string): Promise<VerifyTokenModel>;
   logout(currentToken: string): Promise<boolean>;
+  registerUser (params: {
+    role:string,
+    name:string,
+    email:string,
+    phone: string,
+    username:string,
+    password:string,
+    profilePicture?:File | null,
+  }):Promise<UserModel>
+
 }
 
 class AuthRemoteDSImpl implements AuthRemoteDS {
   private baseClient = new BaseClient();
+  
+  async registerUser(params: { 
+    role: string; 
+    name: string; 
+    email: string; 
+    phone: string; 
+    username: string; 
+    password: string; 
+    profilePicture?: File | null; 
+  }): Promise<UserModel> {
+    let registrationURL = NetworkConstant.baseUrl + "auth/register/"+params.role;
+    const response = await this.baseClient.postWithoutCookie({
+      url:registrationURL,
+      body:{
+        name: params.name,
+        email: params.email,
+        username: params.username,
+        password: params.password,
+        phone: params.phone,
+      },
+    });
+    
+    if (response.status >= 200 && response.status <= 210) {
+      const body = JSON.stringify(response.data);
+      console.log("Body register => ", {body});
+      return UserModel.fromJson(body);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
 
   async logout(currentToken: string): Promise<boolean> {
     let logoutURL = NetworkConstant.baseUrl + "auth/logout";

@@ -4,7 +4,7 @@ class ConsumerEntity {
   email: string;
   username: string;
   phone: string;
-  profilePicture: null;
+  profilePicture: string | null;
   emailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -15,7 +15,7 @@ class ConsumerEntity {
   email: string;
   username: string;
   phone: string;
-  profilePicture: null;
+  profilePicture:  string | null;
   emailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
