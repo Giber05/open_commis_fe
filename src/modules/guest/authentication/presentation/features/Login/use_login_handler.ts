@@ -40,7 +40,7 @@ function useLoginHandler(): LoginController {
           dispatch(fetchError(error.exception.message))
         },
       });
-    }, 1000);
+    }, );
   };
 
   const clearError= ()=>{

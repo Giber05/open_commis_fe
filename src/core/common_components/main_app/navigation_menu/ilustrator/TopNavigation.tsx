@@ -30,7 +30,7 @@ function TopNavigation() {
           dispatch(isAuthLoading(false));
         },
       });
-    }, 1000);
+    }, );
   };
 
   const onChangeMenu = (e: any) => {

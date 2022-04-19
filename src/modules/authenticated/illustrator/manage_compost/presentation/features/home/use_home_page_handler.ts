@@ -27,7 +27,7 @@ function useHomePageHandler(): HomePageController {
           dispatch(fetchCommissionPosts(value.data));
         },
       });
-    }, 1000);
+    }, );
   };
 
   // useEffect(() => {
