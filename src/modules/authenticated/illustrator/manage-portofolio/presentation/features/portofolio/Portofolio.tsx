@@ -1,10 +1,12 @@
 import { CheckCircleFilled, FacebookFilled, InstagramOutlined, ShoppingOutlined, TwitterOutlined, WhatsAppOutlined } from "@ant-design/icons";
 import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography } from "antd";
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
 import PortofolioContainer from "./components/PortofolioContainer";
+import usePortofolioHandler from "./use_portofolio_handler";
+import use_portofolio_handler from "./use_portofolio_handler";
 
 const imageUrl = [
   {
@@ -40,6 +42,12 @@ const imageUrl = [
 ];
 
 function Portofolio() {
+  const {isLoading, getIllustratorProfile,illustratorProfile} = usePortofolioHandler()
+  useEffect(() => {
+    getIllustratorProfile()
+  }, []);
+  console.log({illustratorProfile});
+  
   return (
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
@@ -66,12 +74,13 @@ function Portofolio() {
       <div className="mx-auto my-5">
         <Avatar
           size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }}
-          src="https://1.bp.blogspot.com/-Ap7aNSKUVs0/X2XIZvC_MJI/AAAAAAAANOE/ohlQo_0pLxAaFGjs2PYUkRf-GHH9o1xaQCLcBGAsYHQ/s1600/05a7d3e123774a0eb6c6f1dbe09480b1%2B%25281%2529.jpg"
+          src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+          
         />
       </div>
       <div className="mx-auto text-center">
         <Typography.Title level={2}>
-          Kim Jisoo <CheckCircleFilled style={{ color: "#1890ff" }} />
+          {illustratorProfile?.name} <CheckCircleFilled style={{ color: "#1890ff" }} />
         </Typography.Title>
         <div className="border-green-500  bg-green-500 rounded-full text-center">
           <Typography.Title
@@ -82,7 +91,7 @@ function Portofolio() {
               color: "white",
             }}
           >
-            Tersedia
+            {illustratorProfile?.available}
           </Typography.Title>
         </div>
         <Row>
@@ -98,25 +107,25 @@ function Portofolio() {
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <FacebookFilled className="text-xl" />
-              <Typography.Title level={4}>Kim Jisoo</Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.portofolio?.facebookAcc}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <TwitterOutlined className="text-xl" />
-              <Typography.Title level={4}>Kim Jisoo</Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.portofolio?.twitterAcc}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <InstagramOutlined className="text-xl" />
-              <Typography.Title level={4}>Kim Jisoo</Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.portofolio?.instagramAcc}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <WhatsAppOutlined className="text-xl" />
-              <Typography.Title level={4}>08xxxxxxxxx </Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.phone} </Typography.Title>
             </Space>
           </Col>
         </Row>
@@ -124,18 +133,17 @@ function Portofolio() {
       <div className="mx-auto sm:w-4/5 md:w-2/3 lg:1/2 my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Tentang</h2>
         <Typography.Title level={5} className="text-center">
-          But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth,
-        </Typography.Title>
+          {illustratorProfile?.portofolio?.bio}        </Typography.Title>
       </div>
       <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Karya Seni Ilustrator</h2>
 
       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
-          {imageUrl.map((e) => (
+          {illustratorProfile?.artworks?.map((e) => (
             <div className="inline-block px-3 content-center">
               <div className="comic-shadow-btn  max-w-56 max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
                 <Image
-                  src={e.src}
+                  src={e.image}
                   className="align-middle object-contain"
                   style={{
                     minHeight: "208px",

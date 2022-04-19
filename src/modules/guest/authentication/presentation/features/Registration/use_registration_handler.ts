@@ -33,9 +33,8 @@ function useRegistrationHandler(): RegistrationController {
 
       resource.whenWithResult({
         success: async (value) => {
-          console.log(value.data.data);
 
-          navigate("/");
+          navigate("/auth/registration/success");
         },
         error: async (error) => {
           console.log({ error });

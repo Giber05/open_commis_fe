@@ -1,8 +1,8 @@
-import IlustratorEntity from "../../../../common/authentication/domain/entities/ilustrator_entity";
-import { ArtworkModel } from "./artwork_model";
-import { PortofolioModel } from "./portofolio_model";
+import IlustratorEntity from "../../../../../common/authentication/domain/entities/ilustrator_entity";
+import { ArtworkModel } from "../../../../../guest/illustrators_portofolio/data/models/artwork_model";
+import { PortofolioModel } from "../../../../../guest/illustrators_portofolio/data/models/portofolio_model";
 
-export class IllustratorsPortofolio extends IlustratorEntity {
+export class ManagePortofolio extends IlustratorEntity {
   portofolio?: PortofolioModel;
   artworks?: ArtworkModel[];
 
@@ -38,8 +38,8 @@ export class IllustratorsPortofolio extends IlustratorEntity {
     this.artworks = params.artworks;
   }
 
-  public static fromJson(json: any): IllustratorsPortofolio {
-    return new IllustratorsPortofolio({
+  public static fromJson(json: any): ManagePortofolio {
+    return new ManagePortofolio({
       id: json.id,
       name: json.name,
       username: json.username,
