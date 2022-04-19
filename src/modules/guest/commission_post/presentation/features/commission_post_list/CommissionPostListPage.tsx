@@ -1,4 +1,4 @@
-import { List, Avatar, Space, Row, Col, Card, Divider, Rate, Image, Typography, Input, Result, Button } from "antd";
+import { List, Avatar, Space, Row, Col, Card, Divider, Rate, Image, Typography, Input, Result, Button, Pagination } from "antd";
 import useComPostsHandler from "./use_composts_handler";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import millify from "millify";
@@ -13,14 +13,16 @@ import { Link } from "react-router-dom";
 
 const { Search } = Input;
 function CommissionPostListPage() {
-  const { searchComPosts, commissionPosts, getCommissionPosts, categories, getCategories, selectedCategory, chooseCategory } = useComPostsHandler();
+  const { isMobile, isLoadingComPosts, pagination, searchComPosts, commissionPosts, getCommissionPosts, categories, getCategories, selectedCategory, chooseCategory, onChangePage } = useComPostsHandler();
+
   const [onSearch, setOnSearch] = useState(false);
   useEffect(() => {
     getCommissionPosts();
-  }, [selectedCategory, onSearch]);
+  }, [selectedCategory, onSearch, pagination?.currentPage]);
   useEffect(() => {
     getCategories();
   }, []);
+  console.log(pagination?.currentPage);
 
   return (
     <div className="bg-white">
@@ -68,6 +70,9 @@ function CommissionPostListPage() {
           )}
           {}
         </Row>
+        <div className="my-5 text-center">
+          {!isLoadingComPosts ? <Pagination simple = {isMobile} pageSize={pagination?.pageSize} total={pagination?.totalData} defaultCurrent={1} current={pagination?.currentPage} onChange={onChangePage} /> : null}
+        </div>
       </div>
     </div>
   );

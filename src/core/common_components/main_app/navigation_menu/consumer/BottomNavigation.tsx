@@ -22,7 +22,7 @@ function BottomNavigation() {
           dispatch(isAuthLoading(false));
         },
       });
-    }, 1000);
+    }, );
   };
 
   const menu = (
@@ -38,7 +38,6 @@ function BottomNavigation() {
   );
 
   const isUserLoggedIn = authUser && authUser?.data.role === "consumer";
-  console.log({ isUserLoggedIn });
 
   return (
     <div className="w-full">

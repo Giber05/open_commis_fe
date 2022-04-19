@@ -2,15 +2,17 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../core/utils/redux";
+import PaginationModel from "../../../../../common/pagination/model/pagination_model";
 import { CategoryModel } from "../../../data/models/category/category_model";
 import { CommissionPost } from "../../../data/models/compost_list/commission_post";
 import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
 import SearchComPosts from "../../../domain/usecases/search_composts";
-import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setSelectedCategory } from "../../reducers/compost_slice";
+import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
 type ComPostsController = {
   isLoadingComPosts: boolean;
+  isMobile:boolean
   commissionPosts: CommissionPost[];
   categories: CategoryModel[];
   getCommissionPosts: () => void;
@@ -18,23 +20,25 @@ type ComPostsController = {
   selectedCategory: number | undefined;
   chooseCategory: (categoryId: number) => () => void;
   searchComPosts: (keyword: string) => void;
+  pagination: PaginationModel | null;
+  onChangePage: ((page: number, pageSize: number) => void) | undefined;
 };
 function useComPostsHandler(): ComPostsController {
   const dispatch = useAppDispatch();
   const getCommissionPostsUC = new GetCommissionPosts();
   const getCategoriesUC = new GetCategories();
-  const getComPostDetailUC = new GetComPostDetail();
   const searchComPostsUC = new SearchComPosts();
-  const { commissionPosts, isLoadingComPosts, categories, selectedCategory } = useSelector(selectComPost);
+  const {isMobile} = useSelector(selectCommon)
+  const { commissionPosts, isLoadingComPosts, categories, selectedCategory, pagination } = useSelector(selectComPost);
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: 1, categoryId: selectedCategory, limit: 15 });
-
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 5 });
       dispatch(isLoading(false));
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
+          dispatch(setPagination(value.data.data.pagination));
           dispatch(fetchError(""));
         },
         error: (error) => {
@@ -59,11 +63,11 @@ function useComPostsHandler(): ComPostsController {
       });
     });
   };
-  
-  const searchComPosts = (keyword:string) =>{
+
+  const searchComPosts = (keyword: string) => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await searchComPostsUC.execute({ keyword:keyword });
+      const resource = await searchComPostsUC.execute({ keyword: keyword });
 
       dispatch(isLoading(false));
       resource.whenWithResult({
@@ -76,10 +80,16 @@ function useComPostsHandler(): ComPostsController {
         },
       });
     });
-  }
+  };
 
-  const chooseCategory = (categoryId: number) => () => dispatch(setSelectedCategory(categoryId));
+  const chooseCategory = (categoryId: number) => () => {
+    dispatch(setSelectedCategory(categoryId));
+    dispatch(setPagination({currentPage:1, pageSize:0, totalData:0, totalPage:0}))
+  };
 
+  const onChangePage = (page: number, pageSize?: number) => {
+    dispatch(setPagination({ currentPage: page, pageSize: pageSize }));
+  };
 
   return {
     isLoadingComPosts,
@@ -90,6 +100,9 @@ function useComPostsHandler(): ComPostsController {
     selectedCategory,
     chooseCategory,
     searchComPosts,
+    pagination,
+    onChangePage,
+    isMobile,
   };
 }
 export default useComPostsHandler;
