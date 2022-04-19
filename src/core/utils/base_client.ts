@@ -42,11 +42,11 @@ class BaseClient {
     }
   }
 
-  public async getWithCookie(params: { url: string; cookieValue: string; headers?: AxiosRequestHeaders }): Promise<AxiosResponse> {
-    const finalHeader: AxiosRequestHeaders = this.headers(params.headers);
-    finalHeader.Cookie = params.cookieValue;
+  public async getWithCookie(params: { url: string; configs?: AxiosRequestConfig }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
+
     try {
-      const result: AxiosResponse = await axios.get(params.url, finalHeader);
+      const result: AxiosResponse = await axios.get(params.url, finalConfig);
       return result;
     } catch (error: any) {
       // console.log(error.response);

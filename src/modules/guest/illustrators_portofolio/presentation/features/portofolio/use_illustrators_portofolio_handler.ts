@@ -12,7 +12,7 @@ type IllustratorsPortofolioController = {
   getIllustratorsPortofolio: () => void;
 };
 
-function useIllustratorsPortofolioHandler() {
+function useIllustratorsPortofolioHandler() :IllustratorsPortofolioController{
   const { illustratorId } = useParams();
   let id = parseInt(illustratorId!);
 
