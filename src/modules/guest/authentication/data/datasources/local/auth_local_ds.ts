@@ -7,6 +7,7 @@ export interface AuthLocalDS {
   getUser():Promise<UserModel | null>;
 
   deleteLoggedInUser():Promise<void>
+
 }
 
 class AuthLocalDSImpl implements AuthLocalDS {

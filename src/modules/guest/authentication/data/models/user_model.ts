@@ -30,7 +30,7 @@ class UserModel {
 }
 class Data {
   user: any;
-  token: string;
+  token?: string | null;
   role: string;
   constructor(params: { user: any; token: string; role:string }) {
     this.user = params.user;
@@ -41,7 +41,7 @@ class Data {
   public static fromJson(json: any): Data {
     return new Data({
       user: json.role === "illustrator"? IlustratorModel.fromJson(json.user):ConsumerModel.fromJson(json.user),
-      token: json.token,
+      token:  json.token == undefined ? null : json.token,
       role:json.role,
     });
   }

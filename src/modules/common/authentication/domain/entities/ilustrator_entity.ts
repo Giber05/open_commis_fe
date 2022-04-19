@@ -5,13 +5,13 @@ class IlustratorEntity {
   username: string;
   phone: string;
   balance: number;
-  profilePicture: null;
+  profilePicture?: string | null;
   available: boolean;
-  emailVerified: boolean;
+  emailVerified?: boolean;
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(params: { id: number; name: string; email: string; username: string; phone: string; balance: number; profilePicture: null; available: boolean; emailVerified: boolean; createdAt: Date; updatedAt: Date }) {
+  constructor(params: { id: number; name: string; email: string; username: string; phone: string; balance: number; profilePicture: string | null; available: boolean; emailVerified: boolean; createdAt: Date; updatedAt: Date }) {
     this.id = params.id;
     this.name = params.name;
     this.username = params.username;

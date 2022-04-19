@@ -13,7 +13,24 @@ import { VerifyTokenModel } from "../models/verify_token_model";
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   private authRemoteDS: AuthRemoteDS = new AuthRemoteDSImpl();
   private authLocalDS: AuthLocalDS = new AuthLocalDSImpl();
-
+  registerUser(params: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: File |null  }): Promise<Resource<UserModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.authRemoteDS.registerUser({
+          name:params.name,
+          email:params.email,
+          username: params.username,
+          password: params.password,
+          role:params.role,
+          phone:params.role,
+          profilePicture:params.profilePicture,
+        });
+        if (resource instanceof UserModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+    
+  }
 
   verifyToken(currentToken: string): Promise<Resource<VerifyTokenModel>> {
     return this.networkOnlyCall({
@@ -40,7 +57,7 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
     });
   }
 
-  logout(currentToken:string): Promise<Resource<boolean>> {
+  logout(currentToken: string): Promise<Resource<boolean>> {
     return this.networkOnlyCall({
       networkCall: async () => {
         // await this.authRemoteDS.logout(currentToken)
@@ -50,6 +67,7 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
       },
     });
   }
+
   getCurrentUser(): Promise<Resource<UserModel>> {
     return this.cacheOnlyCall({
       cacheCall: async () => {

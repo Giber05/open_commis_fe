@@ -70,7 +70,7 @@ function CommissionPostListPage() {
           )}
           {}
         </Row>
-        <div className="my-5 text-center">
+        <div className="mb-5 mt-10 text-center">
           {!isLoadingComPosts ? <Pagination simple = {isMobile} pageSize={pagination?.pageSize} total={pagination?.totalData} defaultCurrent={1} current={pagination?.currentPage} onChange={onChangePage} /> : null}
         </div>
       </div>

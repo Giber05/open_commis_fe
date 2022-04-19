@@ -14,26 +14,29 @@ type CurrentMenu = {
 function TopNavigation() {
   const dispatch = useAppDispatch();
   const { authUser } = useAppSelector(selectAuth);
-  const isUserLoggedIn = authUser && authUser?.data.role ==="consumer"
-  console.log({isUserLoggedIn});
-  
+  const isUserLoggedIn = authUser && authUser?.data.role === "consumer";
+  console.log({ isUserLoggedIn });
+  const navigate = useNavigate();
   const [currentMenu, setCurrentMenu] = useState<CurrentMenu>({ current: "compost" });
 
   const onLogoutClick = () => {
     const logout = new Logout();
+
     dispatch(isAuthLoading(true));
     setTimeout(async () => {
       const resource = await logout.execute(authUser?.data.token!);
       resource.whenWithResult({
         success: (_) => {
+          setCurrentMenu({ current: "compost" });
+
+          navigate("/");
           dispatch(userLogout());
           dispatch(isAuthLoading(false));
         },
       });
-    }, );
+    });
   };
   const onChangeMenu = (e: any) => {
-
     setCurrentMenu({ current: e.key });
   };
   return (
@@ -53,9 +56,17 @@ function TopNavigation() {
           <Menu.Item key="compost">
             <Link to="/"> Beranda</Link>
           </Menu.Item>
-          <Menu.Item key="login">
-            <Link to="/auth/login">Login</Link>
-          </Menu.Item>
+          {authUser == null ? (
+            <Menu.Item key="login">
+              <Link to="/auth/login">Login</Link>
+            </Menu.Item>
+          ) : (
+            <Menu.Item key="logout">
+              <Link onClick={onLogoutClick} to="/auth/login">
+                Ganti Akun
+              </Link>
+            </Menu.Item>
+          )}
         </Menu>
       ) : (
         <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">

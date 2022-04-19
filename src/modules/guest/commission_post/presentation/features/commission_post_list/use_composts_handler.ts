@@ -33,7 +33,7 @@ function useComPostsHandler(): ComPostsController {
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 5 });
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 2 });
       dispatch(isLoading(false));
       resource.whenWithResult({
         success: (value) => {
@@ -84,7 +84,7 @@ function useComPostsHandler(): ComPostsController {
 
   const chooseCategory = (categoryId: number) => () => {
     dispatch(setSelectedCategory(categoryId));
-    dispatch(setPagination({currentPage:1, pageSize:0, totalData:0, totalPage:0}))
+    dispatch(setPagination({currentPage:1, pageSize:pagination?.pageSize, totalData:pagination?.totalData, totalPage:pagination?.totalPage}))
   };
 
   const onChangePage = (page: number, pageSize?: number) => {
