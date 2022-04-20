@@ -3,7 +3,7 @@ import { RootState } from "../../../../../core/utils/redux";
 import PaginationModel from "../../../../common/pagination/model/pagination_model";
 import { CategoryModel } from "../../../../common/commission/data/models/category_model";
 import { CommissionPostDetail } from "../../data/models/compost_detail/commission_post_detail";
-import CommissionPost from "../../data/models/compost_list/commission_post";
+import CommissionPost from "../../data/models/compost_list/commission_posts";
 
 type ComPostState = {
   isLoadingComPosts: boolean;

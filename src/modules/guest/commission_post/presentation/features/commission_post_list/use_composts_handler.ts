@@ -4,7 +4,7 @@ import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reduce
 import { useAppDispatch } from "../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
 import { CategoryModel } from "../../../../../common/commission/data/models/category_model";
-import CommissionPost from "../../../data/models/compost_list/commission_post";
+import CommissionPost from "../../../data/models/compost_list/commission_posts";
 import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
