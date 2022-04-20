@@ -1,3 +1,4 @@
+
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchError, selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
@@ -11,6 +12,8 @@ type IllustratorComPostDetailController = {
   isLoadingComPost: boolean;
   commissionPostDetail?: CommissionPostDetail | null;
   getComPostDetail: () => void;
+  isMobile: boolean;
+
 };
 
 function useIllustratorComPostDetailHandler(): IllustratorComPostDetailController {
@@ -20,7 +23,7 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
   const dispatch = useAppDispatch();
   const getIllustratorComPostDetailUC = new GetIllustratorComPostDetail();
   const { commissionPostDetail, isLoadingComPost } = useSelector(selectManageComPosts);
-  const { error } = useSelector(selectCommon);
+  const { error,isMobile } = useSelector(selectCommon);
 
   const getComPostDetail = () => {
     dispatch(isLoading(true));
@@ -45,6 +48,7 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
     isLoadingComPost,
     commissionPostDetail,
     getComPostDetail,
+    isMobile
   };
 }
 export default useIllustratorComPostDetailHandler;

@@ -4,21 +4,21 @@ import IllustratorComposts from "../../../manage_compost/data/models/illustrator
 import { ManagePortofolio } from "../../data/models/portofolio";
 
 type ManagePortofolioState = {
-  isLoading:boolean;
-  illustratorProfile:ManagePortofolio | null;
-  illustratorComPosts:IllustratorComposts[] ;
-}
+  isLoading: boolean;
+  illustratorProfile: ManagePortofolio | null;
+  illustratorComPosts: IllustratorComposts[];
+};
 
-const initialState:ManagePortofolioState = {
-  isLoading :false,
-  illustratorProfile:null,
-  illustratorComPosts:[],
-}
+const initialState: ManagePortofolioState = {
+  isLoading: false,
+  illustratorProfile: null,
+  illustratorComPosts: [],
+};
 
 export const managePortofolioSlice = createSlice({
-  name:"manage_portofolio",
+  name: "manage_portofolio",
   initialState,
-  reducers:{
+  reducers: {
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
@@ -28,7 +28,7 @@ export const managePortofolioSlice = createSlice({
     fetchIllustratorComPost: (state, action: PayloadAction<IllustratorComposts[]>) => {
       state.illustratorComPosts = action.payload;
     },
-  }
+  },
 });
 export const { setIsLoading, fetchIllustratorProfile, fetchIllustratorComPost } = managePortofolioSlice.actions;
 export const selectManagePortofolio = (state: RootState): ManagePortofolioState => state.manage_portofolio;

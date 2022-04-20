@@ -1,45 +1,40 @@
-import { Row, Space, Table, Tag } from 'antd';
-import Column from 'antd/lib/table/Column';
-import React from 'react'
-import { Link } from 'react-router-dom';
+import { Button, Row, Space, Table, Tag, Typography } from "antd";
+import Column from "antd/lib/table/Column";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import useIllustratorOrderListHandler from "../use_illustrator_order_list_handler";
 
 function OrderTable() {
-    return (
+  const { getOrders, onChangePage, isLoading, orders } = useIllustratorOrderListHandler();
+  useEffect(() => {
+    getOrders();
+  }, []);
+  console.log({ orders });
+  const macthColor = (status:string)=>{
+    
+  }
+  return (
     <div className="comic-shadow p-3 rounded-xl">
-      <Table style={{}} dataSource={data} scroll={{ x: "100vw" }} size="middle" pagination={{ responsive: true, pageSize: 5 }}>
-        <Column title="Nama Konsumen" dataIndex="firstName" key="firstName" width={100} />
-        <Column title="Tenggat Waktu" dataIndex="lastName" key="lastName" width={30} />
-        <Column title="Tanggal Pemesanan" dataIndex="age" key="age" width={30} />
-        <Column title="Commission Post" dataIndex="firstName" key="firstName" width={150}/>
+      <Table rowKey={"id"} dataSource={orders} scroll={{ x: "100vw" }} size="middle" pagination={{ responsive: true, pageSize: 5 }}>
+        <Column title="Commission" width={30} render={(text, record: any) => <Typography.Text>{record.commission.title}</Typography.Text>} />
+        <Column title="Nama Konsumen" width={30} render={(text, record: any) => <Typography.Text>{record.consumer.name}</Typography.Text>} />
+        <Column title="Tanggal Pemesanan" dataIndex="orderDate" width={30} />
+        <Column title="Status" dataIndex="status" width={150} />
+
+        <Column title="Order ID" dataIndex="id" width={100} />
         <Column
-          title="Status"
-          dataIndex="tags"
-          key="tags"
-          width={12}
-          render={(tags) => (
-            <>
-              {tags.map((tag: any) => (
-                <Tag color="green" key={tag}>
-                  {tag}
-                </Tag>
-              ))}
-            </>
+          title="Action"
+          key="action"
+          width={20}
+          render={(text, record: any) => (
+            <Space size="middle">
+              <Link to={{ pathname: `/manage/order/${record.id}` }}>Detail</Link>
+            </Space>
           )}
         />
-          <Column title="Order ID" dataIndex="address" key="address"  width={100} />
-          <Column
-            title= 'Action'
-            key='action'
-            width={20}
-            render={(text, record) => (
-            <Space size="middle">
-            <Link  to={{ pathname: `/manage/order/1001` }}>Detail</Link>
-            </Space>
-            )}
-          />
       </Table>
     </div>
-  )
+  );
 }
 const data = [
   {
@@ -106,7 +101,6 @@ const data = [
     address: "1111111",
     tags: ["cool", "teacher"],
   },
- 
 ];
 
-export default OrderTable
+export default OrderTable;
