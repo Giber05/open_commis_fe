@@ -1,5 +1,5 @@
 import Resource from "../../../../../core/utils/resource";
-import { CategoryModel } from "../../data/models/category/category_model";
+import { CategoryModel } from "../../../../common/commission/data/models/category_model";
 import ComPostRepoImpl from "../../data/repositories_impl/compost_repo_impl";
 import ComPostRepo from "../repositories/compost_repo";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Card, Divider, Rate, Row, Typography, Image } from "antd";
 import useComPostsHandler from "../use_composts_handler";
-import { CommissionPost } from "../../../../data/models/compost_list/commission_post";
+import CommissionPost from "../../../../data/models/compost_list/commission_post";
 
 const { Meta } = Card;
 

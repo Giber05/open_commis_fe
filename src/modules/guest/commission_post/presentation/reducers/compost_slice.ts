@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../core/utils/redux";
 import PaginationModel from "../../../../common/pagination/model/pagination_model";
-import { CategoryModel } from "../../data/models/category/category_model";
+import { CategoryModel } from "../../../../common/commission/data/models/category_model";
 import { CommissionPostDetail } from "../../data/models/compost_detail/commission_post_detail";
-import { CommissionPost } from "../../data/models/compost_list/commission_post";
+import CommissionPost from "../../data/models/compost_list/commission_post";
 
 type ComPostState = {
   isLoadingComPosts: boolean;

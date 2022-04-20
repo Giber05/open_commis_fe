@@ -1,17 +1,18 @@
 import { Row, Image, Col, Typography, Card } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import ComPostModel from "../../../../data/models/ComPostModel";
+import AssetConstants from "../../../../../../../../core/constants/asset_constants";
+import IllustratorComposts from "../../../../data/models/illustrators_composts";
 import useHomePageHandler from "../use_home_page_handler";
 
 type PropsType = {
-  product: ComPostModel | null;
+  commission: IllustratorComposts | null;
 };
-function IlustratorComPostItem({ product }: PropsType) {
+function IlustratorComPostItem({ commission }: PropsType) {
   const { isLoadingComPost } = useHomePageHandler();
 
   return (
-    <Link to={{ pathname: `/manage/manage-compost/${product?.id}` }}>
+    <Link to={{ pathname: `/manage/manage-compost/${commission?.id}` }}>
       <Card
         loading={isLoadingComPost}
         className="rounded-xl my-4 p-3 mx-1 hover:opacity-75 comic-shadow"
@@ -20,8 +21,9 @@ function IlustratorComPostItem({ product }: PropsType) {
           <div className="pr-5  sm:text-left">
             <Image
               preview={false}
-              src={product?.imageSrc}
+              src={commission?.image_1}
               className="max-h-40 object-contain"
+              fallback={`${AssetConstants.imageURL}/placeholder/compost_placeholder.png`}
               style={{
                 minHeight: "160px",
                 maxWidth: "250px",
@@ -30,7 +32,7 @@ function IlustratorComPostItem({ product }: PropsType) {
           </div>
           <div>
             <Col>
-              <Typography.Title level={5}>{product?.name.length! > 22 ? `${product?.name.substring(0, 21)}...` : product?.name}</Typography.Title>
+              <Typography.Title level={5}>{commission?.title.length! > 22 ? `${commission?.title.substring(0, 21)}...` : commission?.title}</Typography.Title>
             </Col>
             <Col>
               <span>
@@ -42,12 +44,12 @@ function IlustratorComPostItem({ product }: PropsType) {
             </Col>
             <Col>
               <span>
-                Harga : <Typography.Text className=" font-bold">{product?.price}</Typography.Text>{" "}
+                Harga : <Typography.Text className=" font-bold">{commission?.price}</Typography.Text>{" "}
               </span>
             </Col>
             <Col>
               <span>
-                ID : <Typography.Text className=" font-bold">{product?.id}</Typography.Text>{" "}
+                ID : <Typography.Text className=" font-bold">{commission?.id}</Typography.Text>{" "}
               </span>
             </Col>
           </div>

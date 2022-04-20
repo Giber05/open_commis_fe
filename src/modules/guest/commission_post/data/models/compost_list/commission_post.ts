@@ -1,8 +1,42 @@
-import { CommissionPostEntity, Illustrator } from "../../../domain/entity/commission_post_entity";
+import { CommissionPostEntity, Illustrator } from "../../../../../common/commission/domain/entities/commission_post_entity";
 
-export class CommissionPost extends CommissionPostEntity {
-  public static fromJson(json: any): CommissionPost {
-    return new CommissionPost({
+class CommissionPosts extends CommissionPostEntity {
+  illustrator: Illustrator;
+
+  constructor(params: {
+    illustrator: Illustrator;
+    id: number;
+    title: string;
+    durationTime: number;
+    price: number;
+    description?: string;
+    status: string;
+    image_1: string;
+    image_2?: string;
+    image_3?: string;
+    image_4?: string;
+    createdAt: Date;
+    updatedAt?: Date;
+  }) {
+    super({
+      id: params.id,
+      title: params.title,
+      durationTime: params.durationTime,
+      price: params.price,
+      description: params.description,
+      status: params.status,
+      image_1: params.image_1,
+      image_2: params.image_2,
+      image_3: params.image_3,
+      image_4: params.image_4,
+      createdAt: params.createdAt,
+      updatedAt: params.updatedAt,
+    });
+    this.illustrator = params.illustrator;
+  }
+
+  public static fromJson(json: any): CommissionPosts {
+    return new CommissionPosts({
       id: json.id,
       title: json.title,
       price: json.price,
@@ -20,4 +54,4 @@ export class CommissionPost extends CommissionPostEntity {
   }
 }
 
-export default CommissionPost;
+export default CommissionPosts;

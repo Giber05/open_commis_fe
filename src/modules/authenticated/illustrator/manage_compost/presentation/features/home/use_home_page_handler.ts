@@ -1,33 +1,39 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
-import ComPostModel from "../../../data/models/ComPostModel";
+import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
+import IllustratorComposts from "../../../data/models/illustrators_composts";
 import GetIlustratorComPostList from "../../../domain/usecases/get_ilustrator_compost_list";
 import { fetchCommissionPosts, isLoading, selectManageComPosts } from "../../reducers/manage_compost_slice";
 
 type HomePageController = {
   isLoadingComPost: boolean;
-  commissionPosts: ComPostModel[] | null;
-  getCommissionPosts: (ilustrator: string) => void;
+  commissionPosts: IllustratorComposts[] | null;
+  getCommissionPosts: () => void;
 };
 
 function useHomePageHandler(): HomePageController {
   const dispatch = useAppDispatch();
   const getIlustratorComPosts = new GetIlustratorComPostList();
   const { isLoadingComPost, commissionPosts } = useSelector(selectManageComPosts);
+  const { authUser } = useSelector(selectAuth);
 
-  const getCommissionPosts = (ilustratorId: string) => {
+  const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getIlustratorComPosts.execute(ilustratorId);
+      const resource = await getIlustratorComPosts.execute(authUser?.data.token!);
       dispatch(isLoading(false));
 
       resource.whenWithResult({
         success: async (value) => {
+
           dispatch(fetchCommissionPosts(value.data));
         },
+        error: async (error) => {
+          console.log({ error });
+        },
       });
-    }, );
+    });
   };
 
   // useEffect(() => {

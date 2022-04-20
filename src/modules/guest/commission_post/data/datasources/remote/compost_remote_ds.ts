@@ -3,7 +3,7 @@ import axios from "axios";
 import NetworkConstant from "../../../../../../core/constants/network_constant";
 import BaseException from "../../../../../../core/error/base_exception";
 import BaseClient from "../../../../../../core/utils/base_client";
-import { CategoryModel } from "../../models/category/category_model";
+import { CategoryModel } from "../../../../../common/commission/data/models/category_model";
 import { ComPostDetailModel } from "../../models/compost_detail/compost_detail_model";
 import ComPostModel from "../../models/compost_list/compost_model";
 

@@ -1,5 +1,3 @@
-import { TagModel } from "../../data/models/tag/tag_model";
-
 export class CommissionPostEntity {
   id: number;
   title: string;
@@ -13,27 +11,8 @@ export class CommissionPostEntity {
   image_4?: string | null;
   createdAt: Date;
   updatedAt?: Date;
-  category?: string | null;
-  tags?: TagModel[] | null;
-  illustrator: Illustrator;
 
-  constructor(params: {
-    id: number;
-    title: string;
-    durationTime: number;
-    price: number;
-    description?: string;
-    status: string;
-    image_1: string;
-    image_2?: string;
-    image_3?: string;
-    image_4?: string;
-    createdAt: Date;
-    updatedAt?: Date;
-    category?: string | null;
-    tags?: TagModel[] | null;
-    illustrator: Illustrator;
-  }) {
+  constructor(params: { id: number; title: string; durationTime: number; price: number; description?: string; status: string; image_1: string; image_2?: string; image_3?: string; image_4?: string; createdAt: Date; updatedAt?: Date }) {
     this.id = params.id;
     this.title = params.title;
     this.durationTime = params.durationTime;
@@ -46,9 +25,6 @@ export class CommissionPostEntity {
     this.image_4 = params.image_4;
     this.createdAt = params.createdAt;
     this.updatedAt = params.updatedAt;
-    this.category = params.category;
-    this.tags = params.tags;
-    this.illustrator = params.illustrator;
   }
 }
 export class Illustrator {
@@ -57,11 +33,11 @@ export class Illustrator {
   username: string;
   profilePicture: string;
 
-  constructor(params: { id: number; name: string; username: string, profilePicture:string }) {
+  constructor(params: { id: number; name: string; username: string; profilePicture: string }) {
     this.id = params.id;
     this.name = params.name;
     this.username = params.username;
-    this.profilePicture=params.profilePicture;
+    this.profilePicture = params.profilePicture;
   }
   public static fromJson(json: any): Illustrator {
     return new Illustrator({

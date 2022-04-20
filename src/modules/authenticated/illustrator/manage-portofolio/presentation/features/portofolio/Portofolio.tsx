@@ -42,12 +42,16 @@ const imageUrl = [
 ];
 
 function Portofolio() {
-  const {isLoading, getIllustratorProfile,illustratorProfile} = usePortofolioHandler()
+  const { isLoading, getIllustratorProfile, illustratorProfile, getIllustratorComPosts, illustratorComPosts } = usePortofolioHandler();
   useEffect(() => {
-    getIllustratorProfile()
+    getIllustratorProfile();
   }, []);
-  console.log({illustratorProfile});
-  
+
+  useEffect(() => {
+    getIllustratorComPosts();
+  }, []);
+  console.log({ illustratorComPosts });
+
   return (
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
@@ -74,8 +78,7 @@ function Portofolio() {
       <div className="mx-auto my-5">
         <Avatar
           size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }}
-          src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-          
+          src={`${illustratorProfile?.profilePicture !== null ? illustratorProfile?.profilePicture : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}`}
         />
       </div>
       <div className="mx-auto text-center">
@@ -107,25 +110,25 @@ function Portofolio() {
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <FacebookFilled className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.portofolio?.facebookAcc}</Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.portofolio?.facebookAcc??"-"}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <TwitterOutlined className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.portofolio?.twitterAcc}</Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.portofolio?.twitterAcc??"-"}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <InstagramOutlined className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.portofolio?.instagramAcc}</Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.portofolio?.instagramAcc??"-"}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
               <WhatsAppOutlined className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.phone} </Typography.Title>
+              <Typography.Title level={4}>{illustratorProfile?.phone??"-"} </Typography.Title>
             </Space>
           </Col>
         </Row>
@@ -133,7 +136,8 @@ function Portofolio() {
       <div className="mx-auto sm:w-4/5 md:w-2/3 lg:1/2 my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Tentang</h2>
         <Typography.Title level={5} className="text-center">
-          {illustratorProfile?.portofolio?.bio}        </Typography.Title>
+          {illustratorProfile?.portofolio?.bio}{" "}
+        </Typography.Title>
       </div>
       <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Karya Seni Ilustrator</h2>
 
@@ -141,13 +145,14 @@ function Portofolio() {
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
           {illustratorProfile?.artworks?.map((e) => (
             <div className="inline-block px-3 content-center">
-              <div className="comic-shadow-btn  max-w-56 max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
+              <div className="comic-shadow-btn max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
                 <Image
                   src={e.image}
                   className="align-middle object-contain"
                   style={{
                     minHeight: "208px",
-                    minWidth: "250px",
+                    maxWidth: "300px",
+                    minWidth: "300px",
                   }}
                 />
               </div>
@@ -158,13 +163,13 @@ function Portofolio() {
       <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Open Commission</h2>
       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
-          {imageUrl.map((e) => (
+          {illustratorComPosts.map((commission) => (
             <div className="inline-block p-3 content-center">
               <div className="comic-shadow-btn w-56 p-3 flex items-center  justify-center max-w-xs overflow-hidden rounded-lg hover:comic-shadow transition-shadow duration-300 ease-in-out">
                 <div className="block">
                   <div className=" flex items-center text-center justify-center">
                     <Image
-                      src={e.src}
+                      src={commission.image_1}
                       className="max-h-40 w-56 object-contain "
                       style={{
                         minHeight: "160px",
@@ -173,13 +178,13 @@ function Portofolio() {
                     />
                   </div>
                   <div className="p-3">
-                    <Typography.Title level={5}>{e.title}</Typography.Title>
+                    <Typography.Title level={5}>{commission.title}</Typography.Title>
                     <Row justify="space-between">
                       <Col>
-                        <Typography.Text className="font-bold">Rp.{e.price}</Typography.Text>
+                        <Typography.Text className="font-bold">Rp. {commission.price}</Typography.Text>
                       </Col>
                       <Col>
-                        <Rate disabled defaultValue={e.rate} className="text-xs" />
+                        <Rate disabled defaultValue={3} className="text-xs" />
                       </Col>
                     </Row>
                   </div>

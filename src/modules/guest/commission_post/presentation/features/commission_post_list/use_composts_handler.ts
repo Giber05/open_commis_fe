@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
-import { CategoryModel } from "../../../data/models/category/category_model";
-import { CommissionPost } from "../../../data/models/compost_list/commission_post";
+import { CategoryModel } from "../../../../../common/commission/data/models/category_model";
+import CommissionPost from "../../../data/models/compost_list/commission_post";
 import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
@@ -33,7 +33,7 @@ function useComPostsHandler(): ComPostsController {
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 2 });
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 1 });
       dispatch(isLoading(false));
       resource.whenWithResult({
         success: (value) => {

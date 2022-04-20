@@ -1,20 +1,30 @@
 import BaseRepository from "../../../../../../core/utils/base_repository";
 import Resource from "../../../../../../core/utils/resource";
+import { ComPostDetailModel } from "../../../../../guest/commission_post/data/models/compost_detail/compost_detail_model";
 import ManageComPostRepo from "../../domain/repositories/manage_compost_repository";
 import ManageComPostRemoteDSImpl, { ManageComPostRemoteDS } from "../datasources/remote/manage_compost_remote_ds";
-import ComPostModel from "../models/ComPostModel";
+import IllustratorComposts from "../models/illustrators_composts";
 
 class ManageComPostRepoImpl extends BaseRepository implements ManageComPostRepo {
   private manageCompostRemoteDS: ManageComPostRemoteDS = new ManageComPostRemoteDSImpl();
 
-  getComPostList(ilustratorId: string): Promise<Resource<ComPostModel[]>> {
+  getIllustratorComPostDetail(compostId: number): Promise<Resource<ComPostDetailModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
-        const resource = await this.manageCompostRemoteDS.getComPostList(ilustratorId, "token");
-        return Resource.success({ data: resource });
+        const resource = await this.manageCompostRemoteDS.getIllustratorComPostDetail(compostId);
+        if (resource instanceof ComPostDetailModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
+  getComPostList(token: string): Promise<Resource<IllustratorComposts[]>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.manageCompostRemoteDS.getComPostList(token);
+        if (Array.isArray(resource)) return Resource.success({ data: resource });
+        return Resource.error({exception:resource})
       },
     });
   }
 }
 export default ManageComPostRepoImpl;
-

@@ -22,7 +22,6 @@ function CommissionPostListPage() {
   useEffect(() => {
     getCategories();
   }, []);
-  console.log(pagination?.currentPage);
 
   return (
     <div className="bg-white">

@@ -15,7 +15,6 @@ function TopNavigation() {
   const dispatch = useAppDispatch();
   const { authUser } = useAppSelector(selectAuth);
   const isUserLoggedIn = authUser && authUser?.data.role === "consumer";
-  console.log({ isUserLoggedIn });
   const navigate = useNavigate();
   const [currentMenu, setCurrentMenu] = useState<CurrentMenu>({ current: "compost" });
 
