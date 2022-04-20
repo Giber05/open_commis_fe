@@ -3,6 +3,8 @@ import OrderPage from "../../modules/authenticated/consumer/OrderPage";
 import Earning from "../../modules/authenticated/illustrator/earning/EarningIndex";
 import ManagePortofolio from "../../modules/authenticated/illustrator/manage-portofolio/ManagePortofolioIndex";
 import ManageComPost from "../../modules/authenticated/illustrator/manage_compost/ManageComPostIndex";
+import HomePage from "../../modules/authenticated/illustrator/manage_compost/presentation/features/home/HomePage";
+import Order from "../../modules/authenticated/illustrator/order/OrderIndex";
 import AuthenticationModule from "../../modules/guest/authentication/AuthenticationIndex";
 import CommissionPost from "../../modules/guest/commission_post/ComPostIndex";
 import ComPostDetail from "../../modules/guest/commission_post/ComPostDetailIndex";
@@ -26,8 +28,8 @@ function AppRoutes(): JSX.Element {
         <Route path="manage/*" element={<OpenCommissIlustrator />}>
           <Route path="manage-compost/*" element={<ManageComPost />} />
           <Route path="manage-portofolio/*" element={<ManagePortofolio />} />
-          <Route path="order/*" element="order" />
-          <Route path="earning/*" element={<Earning />} />
+          <Route path="order/*" element={<Order/>} />
+          <Route path="earning/*" element={<Earning/>} />
         </Route>
         <Route path="auth/*" element={<AuthenticationModule />}>
           <Route path="login/*" element={<ManageComPost />} />
