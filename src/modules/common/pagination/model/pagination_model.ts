@@ -1,7 +1,7 @@
 class PaginationModel {
-  totalData: number;
-  totalPage: number;
-  pageSize: number;
+  totalData?: number;
+  totalPage?: number;
+  pageSize?: number;
   currentPage: number;
   constructor(params: { totalData: number; totalPage: number; pageSize: number; currentPage: number }) {
     this.totalData = params.totalData;

@@ -1,7 +1,12 @@
 import Resource from "../../../../../core/utils/resource";
-import ComPostModel from "../../data/models/compost_model";
+import { CategoryModel } from "../../../../common/commission/data/models/category_model";
+import { ComPostDetailModel } from "../../data/models/compost_detail/compost_detail_model";
+import ComPostModel from "../../data/models/compost_list/compost_model";
 
 interface ComPostRepo {
-  getComPostList(): Promise<Resource<ComPostModel>>;
+  getComPostList(params:{page:number, limit:number, categoryId?:number}): Promise<Resource<ComPostModel>>;
+  getComPostDetail(compostId:number):Promise<Resource<ComPostDetailModel>>
+  getCategories(): Promise<Resource<CategoryModel[]>>;
+  searchComPosts(params:{keyword:string}): Promise<Resource<ComPostModel>>;
 }
 export default ComPostRepo;

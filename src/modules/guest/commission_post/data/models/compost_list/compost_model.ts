@@ -1,4 +1,4 @@
-import PaginationModel from "../../../../common/pagination/model/pagination_model";
+import PaginationModel from "../../../../../common/pagination/model/pagination_model";
 import CommissionPost from "./commission_post";
 
 class ComPostModel {

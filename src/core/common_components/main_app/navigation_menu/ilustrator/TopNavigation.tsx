@@ -23,18 +23,17 @@ function TopNavigation() {
     const logout = new Logout();
     dispatch(isAuthLoading(true));
     setTimeout(async () => {
-      const resource = await logout.execute();
+      const resource = await logout.execute(authUser?.data.token!);
       resource.whenWithResult({
         success: (_) => {
           dispatch(userLogout());
           dispatch(isAuthLoading(false));
         },
       });
-    }, 1000);
+    }, );
   };
 
   const onChangeMenu = (e: any) => {
-    console.log(e.key);
 
     setCurrentMenu({ current: e.key });
   };
@@ -51,7 +50,7 @@ function TopNavigation() {
       >
         <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
       </div>
-      <Menu onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
+      <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
         <Menu.Item key="manage_compost">
           <Link to="/manage/manage-compost"> Beranda</Link>
         </Menu.Item>

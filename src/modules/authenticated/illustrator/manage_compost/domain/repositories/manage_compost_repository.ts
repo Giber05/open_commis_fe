@@ -1,7 +1,10 @@
 import Resource from "../../../../../../core/utils/resource";
-import ComPostModel from "../../data/models/ComPostModel";
+import { ComPostDetailModel } from "../../../../../guest/commission_post/data/models/compost_detail/compost_detail_model";
+import IllustratorComposts from "../../data/models/illustrators_composts";
 
 interface ManageComPostRepo {
-  getComPostList(ilustratorId: string): Promise<Resource<ComPostModel[]>>;
+  getComPostList(token: string): Promise<Resource<IllustratorComposts[]>>;
+  getIllustratorComPostDetail(compostId: number): Promise<Resource<ComPostDetailModel>>;
+
 }
 export default ManageComPostRepo;

@@ -1,4 +1,3 @@
-// import PrimaryButton from '@root/core/common_components/buttons/PrimaryButton';
 import { LockOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, InputNumber, message, Radio, Typography, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
@@ -10,12 +9,15 @@ import ImageUploader from "../../../../../../core/common_components/ImageUploade
 import ConfigConstants from "../../../../../../core/constants/config_constants";
 import LoginContainer from "../Login/components/LoginContainer";
 import RegistrationContainer from "./components/RegistrationContainer";
+import useRegistrationHandler from "./use_registration_handler";
 
 function RegistrationPage() {
+  const {isLoadingUser, onFormSubmitted} = useRegistrationHandler()
   const onFinish = (values: any) => {
     console.log("Registration form Values: ", values);
   };
-  const normFile = (e: any) => {
+
+  const getFile = (e: any) => {
     console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
@@ -55,16 +57,16 @@ function RegistrationPage() {
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">OpenCommiss</h2>
         <Typography className="text-center my-3 text-black text-lg font-bold">Registrasi Akun</Typography>
 
-        <Form layout="vertical" onFinish={onFinish} name="normal_login" className="max-w-md m-auto font-semibold">
-          <Form.Item name="upload" label="Foto Profile" getValueFromEvent={normFile} rules={[{ required: true }]}>
+        <Form layout="vertical" onFinish={onFormSubmitted} name="registration_form" className="max-w-md m-auto font-semibold">
+          <Form.Item name="profilePicture"  label="Foto Profile" getValueFromEvent={getFile}>
             <Upload onPreview={onPreview} className="flex justify-center items-center" name="profile_picture" listType="picture-card" accept=".png,.jpg,.jpeg" beforeUpload={beforeUpload} maxCount={1}>
               <Button icon={<UploadOutlined />} />
             </Upload>
           </Form.Item>
           <Form.Item name="role" label="Jenis User" className="mt-6 mb-3" rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>
             <Radio.Group>
-              <Radio value="ILUSTRATOR">Ilustrator</Radio>
-              <Radio value="CONSUMER">Konsumen</Radio>
+              <Radio value="illustrator">Ilustrator</Radio>
+              <Radio value="consumer">Konsumen</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item className="" label="Nama" rules={[{ required: true, message: "Nama wajib diisi!" }]} name="name">
@@ -86,13 +88,13 @@ function RegistrationPage() {
           <Form.Item className="" label="Password" rules={[{ required: true, message: "Password wajib diisi!" }]} name="password">
             <Input.Password className="form-style " />
           </Form.Item>
-          <Form.Item className="" label="No. Telephone" rules={[{ required: true, message: "No. Telephone wajib diisi!" }]} name="phone_number">
-            <InputNumber className="form-style w-full " />
+          <Form.Item className="" label="No. Telephone" rules={[{ required: true, message: "No. Telephone wajib diisi!" }]} name="phone">
+            <Input className="form-style w-full " />
           </Form.Item>
 
           <div className="mx-auto justify-center flex">
             <Form.Item className="mt-3 mb-1 text-center ">
-              <SuccessButton htmlType="submit" title="Register akun" block />
+              <SuccessButton loading={isLoadingUser} htmlType="submit" title="Register akun" block />
             </Form.Item>
           </div>
           <Form.Item className="text-center font-bold ">

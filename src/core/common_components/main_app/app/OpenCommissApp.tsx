@@ -3,7 +3,7 @@ import { Content, Footer } from "antd/lib/layout/layout";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { selectAuth } from "../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
-import { selectCommon, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
+import { selectCommon, setIsMobile, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
 import { useAppDispatch, useAppSelector } from "../../../utils/redux";
 import BottomNavigation from "../navigation_menu/consumer/BottomNavigation";
 import TopNavigation from "../navigation_menu/consumer/TopNavigation";
@@ -18,8 +18,14 @@ function OpenCommissApp() {
       dispatch(updateWindowWidth(window.innerWidth));
     });
   }, [dispatch]);
+  useEffect(() => {
+    if (width < 768) {
+      dispatch(setIsMobile(true));
+    } else {
+      dispatch(setIsMobile(false));
+    }
+  }, [width]);
 
-  
   return (
     <Layout style={{ background: "fff" }}>
       {width < 768 ? <BottomNavigation /> : <TopNavigation />}

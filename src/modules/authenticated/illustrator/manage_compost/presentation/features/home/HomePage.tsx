@@ -4,13 +4,18 @@ import { Link } from "react-router-dom";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
 import useHomePageHandler from "./use_home_page_handler";
 import IlustratorComPostItem from "./components/IlustratorComPostItem";
+import ComPostModel from "../../../data/models/illustrators_composts";
+import { useEffect, useState } from "react";
 
 function HomePage() {
-  const { commissionPosts } = useHomePageHandler();
-
+  const { commissionPosts, getCommissionPosts } = useHomePageHandler();
+  useEffect(() => {
+     getCommissionPosts()
+  }, []);
+  
   return (
     <div className="bg-white">
-      <FullWidthCorousel />
+      <FullWidthCorousel  />
       <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Commission Post Anda</h2>
         <div className="flex justify-center sm:justify-end py-4">
@@ -28,9 +33,9 @@ function HomePage() {
         </div>
 
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-          {commissionPosts?.map((product: any) => (
+          {commissionPosts?.map((commission: any,index) => (
             <Col className=""  xs={24} sm={12} lg={12}>
-              <IlustratorComPostItem product={product} />
+              <IlustratorComPostItem commission={commission} />
             </Col>
           ))}
         </Row>

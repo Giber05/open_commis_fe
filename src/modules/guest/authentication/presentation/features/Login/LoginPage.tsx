@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Image, Col, Typography, Row, Radio } from "antd";
+import { Button, Checkbox, Form, Input, Image, Col, Typography, Row, Radio, Alert } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
@@ -8,8 +8,15 @@ import styles from "./SignInPage.module.css";
 import useLoginHandler from "./use_login_handler";
 
 function LoginPage() {
-  const { isLoadingUser, onFinish } = useLoginHandler();
-
+  const { isLoadingUser, onFinish, error, clearError } = useLoginHandler();
+  const loginFailed = () => {
+    if (error != "") {
+      clearError()
+      return Promise.reject(error);
+    }
+    return Promise.resolve();
+  };
+  
   return (
     <LoginContainer>
       <div
@@ -23,21 +30,43 @@ function LoginPage() {
         <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto ">
           <Form.Item name="role" label="Jenis User" className="mt-6 mb-3 " rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>
             <Radio.Group>
-              <Radio value="ILUSTRATOR">Ilustrator</Radio>
-              <Radio value="CONSUMER">Konsumen</Radio>
+              <Radio value="illustrator">Ilustrator</Radio>
+              <Radio value="consumer">Konsumen</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
             label="Email"
+            validateFirst={true}
             rules={[
               { required: true, message: "Email wajib diisi" },
               { type: "email", message: "Masukan email yang valid" },
+              () => ({
+                validator(rule, value) {
+                  if (error == "") {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(error);
+                },
+              }),
             ]}
             name="email"
           >
             <Input className="mt-2" prefix={<UserOutlined />} placeholder="Masukan email anda" />
           </Form.Item>
-          <Form.Item className="mb-0" label="Password" rules={[{ required: true, message: "Password wajib diisi!" }]} name="password">
+          <Form.Item
+            className="mb-0"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Password wajib diisi!",
+              },
+              {
+                validator: (_, __) => loginFailed(),
+              }
+            ]}
+            name="password"
+          >
             <Input.Password className="mt-2" prefix={<LockOutlined />} placeholder="Masukan password anda" />
           </Form.Item>
           <Form.Item>

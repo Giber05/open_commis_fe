@@ -1,38 +1,49 @@
+import ConsumerModel from "../../../../common/authentication/data/model/consumer_model";
+import IlustratorModel from "../../../../common/authentication/data/model/ilustrator_model";
+
 class UserModel {
-  id: string;
+  data: Data;
 
-  name: string;
-
-  cookie?: string | null;
-
-  constructor(params: { id: string; name: string; cookie?: string }) {
-    this.id = params.id;
-    this.name = params.name;
-    this.cookie = params.cookie;
+  constructor(params: { data: Data }) {
+    this.data = params.data;
   }
   public static fromJson(json: string): UserModel {
     const object = JSON.parse(json);
     return new UserModel({
-      id: object.id,
-      name: object.name,
-      cookie: object.cookie,
+      data: Data.fromJson(object.data),
     });
   }
 
   public toJson(): string {
     return JSON.stringify({
-      id: this.id,
-      name: this.name,
-      cookie: this.cookie,
+      data: this.data,
     });
   }
 
-  public toMap(): { id: string; name: string; cookie: string } {
-    return {
-      id: this.id,
-      name: this.name,
-      cookie: this.cookie ?? "",
-    };
+  // public toMap(): { id: string; name: string; cookie: string } {
+  //   return {
+  //     id: this.id,
+  //     name: this.name,
+  //     cookie: this.cookie ?? "",
+  //   };
+  // }
+}
+class Data {
+  user: any;
+  token?: string | null;
+  role: string;
+  constructor(params: { user: any; token: string; role:string }) {
+    this.user = params.user;
+    this.token = params.token;
+    this.role = params.role
+  }
+
+  public static fromJson(json: any): Data {
+    return new Data({
+      user: json.role === "illustrator"? IlustratorModel.fromJson(json.user):ConsumerModel.fromJson(json.user),
+      token:  json.token == undefined ? null : json.token,
+      role:json.role,
+    });
   }
 }
 

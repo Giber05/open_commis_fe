@@ -1,8 +1,13 @@
 import { Card, Col, Row, Tag, Typography } from "antd";
 import React from "react";
 import DangerButton from "../../../../../../../../core/common_components/buttons/DangerButton";
+import { CommissionPostDetail } from "../../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
 
-function DetailComPost() {
+type DetailComPostProps = {
+  commission?: CommissionPostDetail;
+};
+
+function DetailComPost({ commission }: DetailComPostProps) {
   return (
     <Card className="comic-shadow rounded-2xl">
       <Row>
@@ -10,20 +15,17 @@ function DetailComPost() {
           <Typography.Text className="">Pesanan: 10</Typography.Text>
           <br />
           <span>
-            Status : <Typography.Text className=" text-green-500">Tersedia</Typography.Text>
+            Status : <Typography.Text className=" text-green-500">{commission?.status}</Typography.Text>
           </span>
           <br />
           <span>
-            Harga : <Typography.Text className="w- font-bold">1020000</Typography.Text>
+            Harga : <Typography.Text className="w- font-bold">{commission?.price}</Typography.Text>
           </span>
           <br />
           <div>
-            <Tag color="magenta">magenta</Tag>
-            <Tag color="red">red</Tag>
-            <Tag color="volcano">volcano</Tag>
-            <Tag color="orange">orange</Tag>
-            <Tag color="gold">gold</Tag>
-            <Tag color="lime">lime</Tag>
+            {commission?.tags?.map((tag) => (
+              <Tag color="cyan">{tag.tagName}</Tag>
+            ))}
           </div>
         </Col>
         <Col xs={24} sm={24} lg={12}>
@@ -32,8 +34,7 @@ function DetailComPost() {
           </Col>
           <Col>
             <p>
-              But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth,
-              the master-builder of human happiness.
+              {commission?.description}
             </p>
           </Col>
         </Col>
