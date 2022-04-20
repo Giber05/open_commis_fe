@@ -1,15 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../../core/utils/redux";
+import IllustratorComposts from "../../../manage_compost/data/models/illustrators_composts";
 import { ManagePortofolio } from "../../data/models/portofolio";
 
 type ManagePortofolioState = {
   isLoading:boolean;
-  illustratorProfile:ManagePortofolio | null
+  illustratorProfile:ManagePortofolio | null;
+  illustratorComPosts:IllustratorComposts[] ;
 }
 
 const initialState:ManagePortofolioState = {
   isLoading :false,
   illustratorProfile:null,
+  illustratorComPosts:[],
 }
 
 export const managePortofolioSlice = createSlice({
@@ -22,8 +25,11 @@ export const managePortofolioSlice = createSlice({
     fetchIllustratorProfile: (state, action: PayloadAction<ManagePortofolio>) => {
       state.illustratorProfile = action.payload;
     },
+    fetchIllustratorComPost: (state, action: PayloadAction<IllustratorComposts[]>) => {
+      state.illustratorComPosts = action.payload;
+    },
   }
 });
-export const { setIsLoading, fetchIllustratorProfile } = managePortofolioSlice.actions;
+export const { setIsLoading, fetchIllustratorProfile, fetchIllustratorComPost } = managePortofolioSlice.actions;
 export const selectManagePortofolio = (state: RootState): ManagePortofolioState => state.manage_portofolio;
 export default managePortofolioSlice.reducer;

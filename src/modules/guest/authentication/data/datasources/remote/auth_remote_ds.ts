@@ -71,7 +71,6 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
   }
 
   async verifyToken(currentToken: string): Promise<VerifyTokenModel> {
-    console.log({ currentToken });
 
     let verifyTokenURL = `${NetworkConstant.baseUrl}auth/token/verify`;
     const response = await this.baseClient.postWithoutCookie({

@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
 import useHomePageHandler from "./use_home_page_handler";
 import IlustratorComPostItem from "./components/IlustratorComPostItem";
-import ComPostModel from "../../../data/models/ComPostModel";
+import ComPostModel from "../../../data/models/illustrators_composts";
 import { useEffect, useState } from "react";
 
 function HomePage() {
   const { commissionPosts, getCommissionPosts } = useHomePageHandler();
-  const [data, setData] = useState<ComPostModel[]>([]);
   useEffect(() => {
-     getCommissionPosts("asd")
-    
+     getCommissionPosts()
   }, []);
   
   return (
@@ -35,9 +33,9 @@ function HomePage() {
         </div>
 
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-          {commissionPosts?.map((product: any) => (
+          {commissionPosts?.map((commission: any,index) => (
             <Col className=""  xs={24} sm={12} lg={12}>
-              <IlustratorComPostItem product={product} />
+              <IlustratorComPostItem commission={commission} />
             </Col>
           ))}
         </Row>

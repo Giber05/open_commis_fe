@@ -4,13 +4,13 @@ import { useForm } from "antd/lib/form/Form";
 import { RcFile } from "antd/lib/upload";
 import React, { useEffect, useRef, useState } from "react";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
-import ComPostModel from "../../../data/models/ComPostModel";
+import ComPostModel from "../../../data/models/illustrators_composts";
 import UploadWithCrop from "../create_compost/components/FormMultiImage";
 
 let index = 0;
 const { Option } = Select;
 type EditProps = {
-  compost:ComPostModel,
+  compost:any,
   upload_image:any,
 }
 function EditComPost() {

@@ -1,7 +1,47 @@
-import { CommissionPostEntity, Illustrator } from "../../../domain/entity/commission_post_entity";
-import { TagModel } from "../tag/tag_model";
+import { TagModel } from "../../../../../common/commission/data/models/tag_model";
+import { CommissionPostEntity, Illustrator } from "../../../../../common/commission/domain/entities/commission_post_entity";
 
 export class CommissionPostDetail extends CommissionPostEntity {
+  category?: string | null;
+  tags?: TagModel[] | null;
+  illustrator: Illustrator;
+
+  constructor(params: {
+    category?: string;
+    tags?: TagModel[];
+    illustrator: Illustrator;
+    id: number;
+    title: string;
+    durationTime: number;
+    price: number;
+    description?: string;
+    status: string;
+    image_1: string;
+    image_2?: string;
+    image_3?: string;
+    image_4?: string;
+    createdAt: Date;
+    updatedAt?: Date;
+  }) {
+    super({
+      id: params.id,
+      title: params.title,
+      durationTime: params.durationTime,
+      price: params.price,
+      description: params.description,
+      status: params.status,
+      image_1: params.image_1,
+      image_2: params.image_2,
+      image_3: params.image_3,
+      image_4: params.image_4,
+      createdAt: params.createdAt,
+      updatedAt: params.updatedAt,
+    });
+    this.tags = params.tags;
+    this.illustrator = params.illustrator;
+    this.category = params.category;
+  }
+
   public static fromJson(json: any): CommissionPostDetail {
     return new CommissionPostDetail({
       id: json.id,

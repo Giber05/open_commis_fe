@@ -7,7 +7,6 @@ export class RegisterUser {
   private authRepository: AuthRepository = new AuthRepositoryImpl() 
 
   async execute(params:{role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: File |null  }):Promise<Resource<UserModel>> {
-    console.log("Register UC: picture => ",params.profilePicture );
     
     return this.authRepository.registerUser({
       name:params.name,

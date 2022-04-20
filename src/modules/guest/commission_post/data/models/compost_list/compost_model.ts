@@ -1,5 +1,5 @@
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
-import { CommissionPost } from "./commission_post";
+import CommissionPost from "./commission_post";
 
 class ComPostModel {
   success: boolean;
