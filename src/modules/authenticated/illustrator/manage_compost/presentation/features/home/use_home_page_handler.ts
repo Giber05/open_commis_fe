@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import IllustratorComposts from "../../../data/models/illustrators_composts";
@@ -10,6 +11,7 @@ type HomePageController = {
   isLoadingComPost: boolean;
   commissionPosts: IllustratorComposts[] | null;
   getCommissionPosts: () => void;
+  isMobile:boolean
 };
 
 function useHomePageHandler(): HomePageController {
@@ -17,6 +19,7 @@ function useHomePageHandler(): HomePageController {
   const getIlustratorComPosts = new GetIlustratorComPostList();
   const { isLoadingComPost, commissionPosts } = useSelector(selectManageComPosts);
   const { authUser } = useSelector(selectAuth);
+  const { isMobile } = useSelector(selectCommon);
 
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
@@ -46,6 +49,7 @@ function useHomePageHandler(): HomePageController {
     isLoadingComPost,
     commissionPosts,
     getCommissionPosts,
+    isMobile
   };
 }
 

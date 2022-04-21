@@ -48,7 +48,7 @@ function CommissionPostListPage() {
         </div>
         {!onSearch ? (
           <FullWidthCorousel
-            image3={`${AssetConstants.imageURL}corousels/color_pencils.svg`}
+            image3={`https://media.wired.com/photos/5c9572e72e8d9c717b83a846/16:9/w_2400,c_limit/CellPath_lede_fullwidth-2880x1620.jpg`}
             image1="https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg"
             image2="https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg"
           />
