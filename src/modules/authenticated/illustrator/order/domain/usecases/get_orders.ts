@@ -5,7 +5,7 @@ import { OrderRepo } from "../repositories/order_repo";
 
 export class GetOrders {
   private orderRepo: OrderRepo = new OrderRepoImpl();
-  async execute(params: { page: number; limit: number; categoryId?: number;token:string }): Promise<Resource<OrderListModel>> {
-    return this.orderRepo.getOrders({ page: params.page, limit: params.limit, token:params.token });
+  async execute(params: { page: number; limit: number; token: string; compostId?: number }): Promise<Resource<OrderListModel>> {
+    return this.orderRepo.getOrders({ page: params.page, limit: params.limit, token: params.token, compostId: params.compostId });
   }
 }

@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
+import { IllustratorOrderDetail } from "../../data/models/illustrator_detail_order";
 import { OrderList } from "../../data/models/order_list";
 
 type ComPostState = {
   isLoading: boolean;
   orders: OrderList[];
   pagination: PaginationModel | null;
+  orderDetail:IllustratorOrderDetail | null
 };
 
 const initialState: ComPostState = {
@@ -18,6 +20,7 @@ const initialState: ComPostState = {
     totalData: 0,
     totalPage: 1,
   },
+  orderDetail:null
 };
 
 export const illustratorOrderSlice = createSlice({
@@ -33,12 +36,17 @@ export const illustratorOrderSlice = createSlice({
     setPagination: (state, action: PayloadAction<PaginationModel>) => {
       state.pagination = action.payload;
     },
+    fetchOrderDetail: (state, action: PayloadAction<IllustratorOrderDetail>) => {
+      state.orderDetail = action.payload;
+    },
+    
   },
 });
 export const {
   setIsLoading,
   fetchOrders,
   setPagination,
+  fetchOrderDetail
 } = illustratorOrderSlice.actions;
 export const selectIllustratorOrder = (state: RootState): ComPostState => state.illustrator_order
 

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { fetchError } from "../../../../../../../core/AppRedux/reducers/common_reducer";
+import { OrderStatus } from "../../../../../../../core/utils/enums";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
@@ -25,7 +26,7 @@ function useIllustratorOrderListHandler(): OrdersController {
   const getOrders = () => {
     dispatch(setIsLoading(true));
     setTimeout(async () => {
-      const resource = await getOrdersUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 5, token:authUser?.data.token! });
+      const resource = await getOrdersUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 5, token: authUser?.data.token! });
       dispatch(setIsLoading(false));
 
       resource.whenWithResult({
@@ -46,6 +47,7 @@ function useIllustratorOrderListHandler(): OrdersController {
   const onChangePage = (page: number, pageSize?: number) => {
     dispatch(setPagination({ currentPage: page, pageSize: pageSize }));
   };
+  
   return {
     isLoading,
     orders,
