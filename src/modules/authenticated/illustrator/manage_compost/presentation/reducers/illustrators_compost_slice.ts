@@ -5,7 +5,7 @@ import { CommissionPostDetail } from "../../../../../guest/commission_post/data/
 import { OrderList } from "../../../order/data/models/order_list";
 import IllustratorComposts from "../../data/models/illustrators_composts";
 
-type ManageComPostState = {
+type IllustratorsComPostState = {
   isLoadingComPost: boolean;
   isLoadingOrders: boolean;
   commissionPosts: IllustratorComposts[];
@@ -15,7 +15,7 @@ type ManageComPostState = {
 
 };
 
-const initialState: ManageComPostState = {
+const initialState: IllustratorsComPostState = {
   isLoadingComPost: false,
   isLoadingOrders:false,
   commissionPosts: [],
@@ -30,8 +30,8 @@ const initialState: ManageComPostState = {
 
 };
 
-export const manageComPostSlice = createSlice({
-  name: "manage_compost",
+export const illustratorsComPostSlice = createSlice({
+  name: "illustrators_compost",
   initialState,
   reducers: {
     isLoading: (state, action: PayloadAction<boolean>) => {
@@ -55,9 +55,9 @@ export const manageComPostSlice = createSlice({
   },
 });
 
-export const { setIsLoadingOrders,isLoading, fetchCommissionPosts, fetchCommissionPostDetail,fetchOrders,setOrderPagination } = manageComPostSlice.actions;
+export const { setIsLoadingOrders,isLoading, fetchCommissionPosts, fetchCommissionPostDetail,fetchOrders,setOrderPagination } = illustratorsComPostSlice.actions;
 
-export const selectManageComPosts = (state:RootState):ManageComPostState => state.manage_compost;
+export const selectIllustratorsComPosts = (state:RootState):IllustratorsComPostState => state.illustrators_compost;
 
-export default manageComPostSlice.reducer;
+export default illustratorsComPostSlice.reducer;
 
