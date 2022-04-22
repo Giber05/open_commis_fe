@@ -8,7 +8,7 @@ import { CommissionPostDetail } from "../../../../../../guest/commission_post/da
 import { OrderList } from "../../../../order/data/models/order_list";
 import { GetOrders } from "../../../../order/domain/usecases/get_orders";
 import GetIllustratorComPostDetail from "../../../domain/usecases/get_illustrator_compost_detail";
-import { fetchCommissionPostDetail, fetchOrders, isLoading, selectManageComPosts, setIsLoadingOrders, setOrderPagination } from "../../reducers/manage_compost_slice";
+import { fetchCommissionPostDetail, fetchOrders, isLoading, selectIllustratorsComPosts, setIsLoadingOrders, setOrderPagination } from "../../reducers/illustrators_compost_slice";
 
 type IllustratorComPostDetailController = {
   isLoadingComPost: boolean;
@@ -30,7 +30,7 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
   const getIllustratorComPostDetailUC = new GetIllustratorComPostDetail();
   const getOrdersUC = new GetOrders();
 
-  const { commissionPostDetail, isLoadingComPost, orderPagination, orders, isLoadingOrders } = useSelector(selectManageComPosts);
+  const { commissionPostDetail, isLoadingComPost, orderPagination, orders, isLoadingOrders } = useSelector(selectIllustratorsComPosts);
   const { error, isMobile } = useSelector(selectCommon);
   const { authUser } = useSelector(selectAuth);
 

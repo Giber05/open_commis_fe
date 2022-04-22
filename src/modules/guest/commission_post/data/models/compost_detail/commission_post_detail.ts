@@ -1,13 +1,14 @@
+import { CategoryModel } from "../../../../../common/commission/data/models/category_model";
 import { TagModel } from "../../../../../common/commission/data/models/tag_model";
 import { CommissionPostEntity, Illustrator } from "../../../../../common/commission/domain/entities/commission_post_entity";
 
 export class CommissionPostDetail extends CommissionPostEntity {
-  category?: string | null;
+  category?: CategoryModel | null;
   tags?: TagModel[] | null;
   illustrator: Illustrator;
 
   constructor(params: {
-    category?: string;
+    category?: CategoryModel;
     tags?: TagModel[];
     illustrator: Illustrator;
     id: number;
@@ -56,7 +57,7 @@ export class CommissionPostDetail extends CommissionPostEntity {
       image_4: json.image_4,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
-      category: json.category,
+      category: CategoryModel.fromJson(json.category),
       tags: json.tags.map((tag: TagModel) => {
         return TagModel.fromJson(tag);
       }),

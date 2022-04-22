@@ -29,12 +29,11 @@ class BaseClient {
     }
   }
 
-  public async postWithCookie(params: { url: string; cookieValue: string; headers?: AxiosRequestHeaders; body?: any }): Promise<AxiosResponse> {
-    const finalHeader: AxiosRequestHeaders = this.headers(params.headers);
+  public async postWithCookie(params: { url: string; configs?: AxiosRequestConfig; body?: any }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
 
-    finalHeader.Authorization = params.cookieValue;
     try {
-      const result: AxiosResponse = await axios.post(params.url, params.body, finalHeader);
+      const result: AxiosResponse = await axios.post(params.url, params.body, finalConfig);
       return result;
     } catch (error: any) {
       // console.log(error.response);
