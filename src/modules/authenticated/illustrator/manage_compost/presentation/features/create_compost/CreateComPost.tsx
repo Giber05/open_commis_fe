@@ -1,15 +1,17 @@
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Divider, Form, Input, InputNumber, Row, Select, Space, Typography, Upload } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryButton from "../../../../../../../core/common_components/buttons/PrimaryButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import ImageUploader from "../../../../../../../core/common_components/ImageUploader/ImageUploader";
 import UploadWithCrop from "./components/FormMultiImage";
+import useCreateComPostHandler from "./use_create_compost_handler";
 
 const { Option } = Select;
 let index = 0;
 function CreateComPost() {
-  const [items, setItems] = useState(["Naruto", "Chibi"]);
+  const { isLoadingTag, isLoading, categories, getCategories, tags, getTags, createTag, createComPost } = useCreateComPostHandler();
+
   const [name, setName] = useState("");
 
   const onNameChange = (event: any) => {
@@ -18,7 +20,9 @@ function CreateComPost() {
 
   const addItem = (e: any) => {
     e.preventDefault();
-    setItems([...items, name || `New item ${index++}`]);
+    if (name.length > 0) {
+      createTag(name);
+    }
     setName("");
   };
   const validateMessages = {
@@ -41,10 +45,17 @@ function CreateComPost() {
   const onFinish = (e: any) => {
     console.log("Values Form:", e);
   };
+
+  useEffect(() => {
+    getTags();
+  }, [tags.length]);
+  useEffect(() => {
+    getCategories();
+  }, []);
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Membuat Commission Post</h2>
-      <Form  layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={onFinish}>
+      <Form layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={createComPost}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col xs={24} sm={12} lg={12}>
             <Form.Item name={["compost", "title"]} label="Judul" rules={[{ required: true }]}>
@@ -52,9 +63,9 @@ function CreateComPost() {
             </Form.Item>
             <Form.Item name={["compost", "category"]} label="Kategory" rules={[{ required: true }]}>
               <Select className="form-style-blue" bordered={false}>
-                <Option value="vector">Vektor</Option>
-                <Option value="anime">Anime</Option>
-                <Option value="realis">Realis</Option>
+              {categories.map((category) => (
+                <Option key={category.id}>{category.categoryName}</Option>
+              ))}
               </Select>
             </Form.Item>
             <Form.Item name={["compost", "tags"]} label="Tags">
@@ -70,15 +81,15 @@ function CreateComPost() {
                     <Divider style={{ margin: "8px 0" }} />
                     <Space align="center" style={{ padding: "0 8px 4px" }}>
                       <Input placeholder="Please enter item" value={name} onChange={onNameChange} />
-                      <Typography.Link onClick={addItem} style={{ whiteSpace: "nowrap" }}>
+                      <Typography.Link disabled={isLoadingTag} onClick={addItem} style={{ whiteSpace: "nowrap" }}>
                         <PlusOutlined /> Add item
                       </Typography.Link>
                     </Space>
                   </>
                 )}
               >
-                {items.map((item) => (
-                  <Option key={item}>{item}</Option>
+                {tags.map((tag) => (
+                  <Option key={tag.id}>{tag.tagName}</Option>
                 ))}
               </Select>
             </Form.Item>
