@@ -11,12 +11,32 @@ export interface ManageComPostRemoteDS {
   getTags(): Promise<TagModel[]>;
   createTag(params: { token: string; tagName: string }): Promise<TagModel>;
   createComPost(params: { token: string; formData: any }): Promise<ComPostDetailModel>;
+  changeComPostStatus(params: { token: string; status: string; compostId: number }): Promise<ComPostDetailModel>;
   getComPostList(token: string): Promise<IllustratorComposts[]>;
   getIllustratorComPostDetail(compostId: number): Promise<ComPostDetailModel>;
 }
 
 class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
   private baseClient = new BaseClient();
+
+  async changeComPostStatus(params: { token: string; status: string; compostId: number }): Promise<ComPostDetailModel> {
+    let changeComPostStatusURL = NetworkConstant.baseUrl + "commissions/" + params.compostId;
+    const response = await this.baseClient.putWithCookie({
+      url: changeComPostStatusURL,
+      body: {
+        status: params.status,
+      },
+      configs: {
+        headers: {
+          Authorization: "Bearer " + params.token,
+        },
+      },
+    });
+    if (response.status >= 200 && response.status <= 210) {
+      return ComPostDetailModel.fromJson(response.data);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
 
   async createComPost(params: { token: string; formData: any }): Promise<ComPostDetailModel> {
     let createComPostURL = NetworkConstant.baseUrl + "commissions";

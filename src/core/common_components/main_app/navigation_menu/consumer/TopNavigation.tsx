@@ -68,20 +68,20 @@ function TopNavigation() {
           )}
         </Menu>
       ) : (
-        <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
+        <Menu  activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
           <Menu.Item key="compost">
             <Link to="/"> Beranda</Link>
           </Menu.Item>
           <Menu.Item key="order">
             <Link to="/consumer/order">Pesananan</Link>
           </Menu.Item>
-          <SubMenu title="Profil">
-            <Menu.Item>
+          <SubMenu key="account" title="Profil">
+            <Menu.Item key="profile">
               <Link to="/consumer/profile">Profil</Link>
             </Menu.Item>
 
             <Divider />
-            <Menu.Item>
+            <Menu.Item key="logout">
               <Button icon={<LogoutOutlined />} type="dashed" className="text-center" onClick={onLogoutClick}>
                 Logout
               </Button>

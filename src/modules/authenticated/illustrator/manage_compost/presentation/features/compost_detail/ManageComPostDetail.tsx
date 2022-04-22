@@ -14,7 +14,6 @@ function ManageComPostDetail(): JSX.Element {
   useEffect(() => {
     getComPostDetail();
   }, []);
-  console.log({ commissionPostDetail });
 
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -56,7 +55,7 @@ function ManageComPostDetail(): JSX.Element {
           </div>
         </Col>
         <Col xs={24} sm={12} lg={12}>
-          <DetailComPost commission={commissionPostDetail!} />
+          <DetailComPost />
         </Col>
       </Row>
       <div>
