@@ -10,7 +10,8 @@ import ComPostModel from "../../models/illustrators_composts";
 export interface ManageComPostRemoteDS {
   getTags(): Promise<TagModel[]>;
   createTag(params: { token: string; tagName: string }): Promise<TagModel>;
-  createComPost(params: { token: string; formData: any }): Promise<ComPostDetailModel>;
+  createComPost(params: { token: string; formData: any;}): Promise<ComPostDetailModel>;
+  editComPost(params: { token: string; formData: any;compostId: number  }): Promise<ComPostDetailModel>;
   changeComPostStatus(params: { token: string; status: string; compostId: number }): Promise<ComPostDetailModel>;
   getComPostList(token: string): Promise<IllustratorComposts[]>;
   getIllustratorComPostDetail(compostId: number): Promise<ComPostDetailModel>;
@@ -18,6 +19,27 @@ export interface ManageComPostRemoteDS {
 
 class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
   private baseClient = new BaseClient();
+
+  async editComPost(params: { token: string; formData: any;compostId: number }): Promise<ComPostDetailModel> {
+    let editComPostURL =NetworkConstant.baseUrl + "commissions/" + params.compostId;
+    const response = await this.baseClient.putWithCookie({
+      url: editComPostURL,
+      body: params.formData,
+      configs: {
+        headers: {
+          Authorization: "Bearer " + params.token,
+          "content-type": "multipart/form-data",
+        },
+      },
+    });
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data.data;
+      console.log({ body });
+
+      return ComPostDetailModel.fromJson(response.data);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
 
   async changeComPostStatus(params: { token: string; status: string; compostId: number }): Promise<ComPostDetailModel> {
     let changeComPostStatusURL = NetworkConstant.baseUrl + "commissions/" + params.compostId;

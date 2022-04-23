@@ -9,6 +9,20 @@ import IllustratorComposts from "../models/illustrators_composts";
 class ManageComPostRepoImpl extends BaseRepository implements ManageComPostRepo {
   private manageCompostRemoteDS: ManageComPostRemoteDS = new ManageComPostRemoteDSImpl();
   
+  editComPost(params: { token: string; formData: any; compostId: number; }): Promise<Resource<ComPostDetailModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.manageCompostRemoteDS.editComPost({
+          token: params.token,
+          formData:params.formData,
+          compostId:params.compostId
+        });
+        if (resource instanceof ComPostDetailModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
+  
   changeComPostStatus(params: { token: string; status: string; compostId: number; }): Promise<Resource<ComPostDetailModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
