@@ -4,11 +4,13 @@ import BaseException from "../../../../../../../core/error/base_exception";
 import BaseClient from "../../../../../../../core/utils/base_client";
 import { TagModel } from "../../../../../../common/commission/data/models/tag_model";
 import { ComPostDetailModel } from "../../../../../../guest/commission_post/data/models/compost_detail/compost_detail_model";
+import { DeleteComPostModel } from "../../models/delete_compost_model";
 import IllustratorComposts from "../../models/illustrators_composts";
 import ComPostModel from "../../models/illustrators_composts";
 
 export interface ManageComPostRemoteDS {
   getTags(): Promise<TagModel[]>;
+  deleteComPost(params:{compostId:number, token:string}):Promise<DeleteComPostModel>;
   createTag(params: { token: string; tagName: string }): Promise<TagModel>;
   createComPost(params: { token: string; formData: any;}): Promise<ComPostDetailModel>;
   editComPost(params: { token: string; formData: any;compostId: number  }): Promise<ComPostDetailModel>;
@@ -19,6 +21,25 @@ export interface ManageComPostRemoteDS {
 
 class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
   private baseClient = new BaseClient();
+  
+  async deleteComPost(params:{compostId:number, token:string}): Promise<DeleteComPostModel> {
+    let deleteComPostURL =NetworkConstant.baseUrl + "commissions/" + params.compostId;
+    const response = await this.baseClient.deleteWithCookie({
+      url: deleteComPostURL,
+      configs: {
+        headers: {
+          Authorization: "Bearer " + params.token,
+        },
+      },
+    });
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data.data;
+      console.log({ body });
+
+      return DeleteComPostModel.fromJson(response.data);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
 
   async editComPost(params: { token: string; formData: any;compostId: number }): Promise<ComPostDetailModel> {
     let editComPostURL =NetworkConstant.baseUrl + "commissions/" + params.compostId;
