@@ -52,6 +52,17 @@ class BaseClient {
       return error.response;
     }
   }
+  public async putWithCookie(params: { url: string; configs?: AxiosRequestConfig; body?: any }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
+
+    try {
+      const result: AxiosResponse = await axios.put(params.url, params.body, finalConfig);
+      return result;
+    } catch (error: any) {
+      // console.log(error.response);
+      return error.response;
+    }
+  }
 }
 
 export default BaseClient;

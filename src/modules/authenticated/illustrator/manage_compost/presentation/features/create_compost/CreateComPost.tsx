@@ -42,9 +42,7 @@ function CreateComPost() {
     }
     return e && e.fileList;
   };
-  const onFinish = (e: any) => {
-    console.log("Values Form:", e);
-  };
+
 
   useEffect(() => {
     getTags();
@@ -134,7 +132,7 @@ function CreateComPost() {
         </Row>
         <Form.Item>
           <div className="mx-auto my-3 flex justify-center">
-            <SuccessButton block width="w-40" rounded title="Submit" htmlType="submit" />
+            <SuccessButton loading={isLoading} block width="w-40" rounded title="Submit" htmlType="submit" />
           </div>
         </Form.Item>
       </Form>

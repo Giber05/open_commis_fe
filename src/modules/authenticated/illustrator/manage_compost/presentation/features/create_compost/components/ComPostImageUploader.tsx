@@ -1,29 +1,16 @@
-import { Form, Upload } from 'antd';
 import React, { useState } from 'react';
+import { message, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
-import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
+import { RcFile } from 'antd/lib/upload';
 
-function ComPostImageUploader() {
-  const [form] = Form.useForm();
-  const formData = new FormData();
-  const [fileList, setFileList] = useState<any>([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
+const TestCropImage = () => {
+  const [fileList, setFileList] = useState([
   ]);
 
-  const onChange = (newFileList:any) => {
-    setFileList(newFileList.fileList);
-    formData.append("file", fileList);
-    form.setFieldsValue({ formData })
-    console.log({form});
-    const data = formData.values()
-    console.log({fileList});
-  
-
+  const onChange = (values:any) => {
+    console.log({values});
+    
+    setFileList(values.fileList);
   };
 
   const onPreview = async (file:any) => {
@@ -40,23 +27,34 @@ function ComPostImageUploader() {
     const imgWindow = window.open(src);
     imgWindow?.document.write(image.outerHTML);
   };
+
+  const beforeUpload = (file: File, fileList:File[]) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+      return false
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    console.log(`${file.size}`);
+  
+    if (!isLt2M) {
+      message.error("Image must smaller than 2MB!");
+      return false
+    }
+    return true ;
+  };
   return (
-    <ImgCrop rotate>
+    <ImgCrop beforeCrop={beforeUpload} rotate>
       <Upload
+        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
-        accept=".png,.jpeg,.jpg"
-        fileList={fileList}
         onChange={onChange}
         onPreview={onPreview}
-        beforeUpload={()=>{
-        
-        }}
-        
       >
         {fileList.length < 5 && '+ Upload'}
       </Upload>
     </ImgCrop>
   );
-}
+};
 
-export default ComPostImageUploader;
+export default TestCropImage;

@@ -7,10 +7,12 @@ import { selectAuth } from "../../../../../../guest/authentication/presentation/
 import { CommissionPostDetail } from "../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
 import { OrderList } from "../../../../order/data/models/order_list";
 import { GetOrders } from "../../../../order/domain/usecases/get_orders";
+import { ChangeComPostStatus } from "../../../domain/usecases/change_compost_status";
 import GetIllustratorComPostDetail from "../../../domain/usecases/get_illustrator_compost_detail";
-import { fetchCommissionPostDetail, fetchOrders, isLoading, selectIllustratorsComPosts, setIsLoadingOrders, setOrderPagination } from "../../reducers/illustrators_compost_slice";
+import { fetchCommissionPostDetail, fetchOrders, isLoading, selectIllustratorsComPosts, setIsLoadingChangeStatus, setIsLoadingOrders, setOrderPagination } from "../../reducers/illustrators_compost_slice";
 
 type IllustratorComPostDetailController = {
+  isLoadingChangeStatus: boolean;
   isLoadingComPost: boolean;
   isLoadingOrders: boolean;
   commissionPostDetail?: CommissionPostDetail | null;
@@ -20,6 +22,7 @@ type IllustratorComPostDetailController = {
   getOrdersByCommission: () => void;
   orders: OrderList[];
   onChangePage: ((page: number, pageSize: number) => void) | undefined;
+  onChangeComPostStatus: () => void;
 };
 
 function useIllustratorComPostDetailHandler(): IllustratorComPostDetailController {
@@ -29,8 +32,9 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
   const dispatch = useAppDispatch();
   const getIllustratorComPostDetailUC = new GetIllustratorComPostDetail();
   const getOrdersUC = new GetOrders();
+  const changeCompostStatusUC = new ChangeComPostStatus();
 
-  const { commissionPostDetail, isLoadingComPost, orderPagination, orders, isLoadingOrders } = useSelector(selectIllustratorsComPosts);
+  const { commissionPostDetail, isLoadingChangeStatus, isLoadingComPost, orderPagination, orders, isLoadingOrders } = useSelector(selectIllustratorsComPosts);
   const { error, isMobile } = useSelector(selectCommon);
   const { authUser } = useSelector(selectAuth);
 
@@ -56,15 +60,34 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
   const getOrdersByCommission = () => {
     dispatch(setIsLoadingOrders(true));
     setTimeout(async () => {
-      const resource = await getOrdersUC.execute({ page: orderPagination?.currentPage == undefined ? 1 : orderPagination?.currentPage, limit: 5, token: authUser?.data.token!, compostId:id });
+      const resource = await getOrdersUC.execute({ page: orderPagination?.currentPage == undefined ? 1 : orderPagination?.currentPage, limit: 5, token: authUser?.data.token!, compostId: id });
       dispatch(setIsLoadingOrders(false));
 
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
 
           dispatch(fetchOrders(value.data.data.orders));
           dispatch(setOrderPagination(value.data.data.pagination));
+          dispatch(fetchError(""));
+        },
+        error: (error) => {
+          dispatch(fetchError(error.exception.message));
+          console.log({ error });
+        },
+      });
+    });
+  };
+
+  const onChangeComPostStatus = () => {
+    let compostStatus = commissionPostDetail?.status === "OPEN" ? "CLOSED" : "OPEN";
+    dispatch(setIsLoadingChangeStatus(true));
+    setTimeout(async () => {
+      const resource = await changeCompostStatusUC.execute({ token: authUser?.data.token!, status: compostStatus, compostId: id });
+
+      dispatch(setIsLoadingChangeStatus(false));
+      resource.whenWithResult({
+        success: (value) => {
+          dispatch(fetchCommissionPostDetail(value.data.data));
           dispatch(fetchError(""));
         },
         error: (error) => {
@@ -87,7 +110,9 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
     orderPagination,
     onChangePage,
     orders,
-    isLoadingOrders
+    isLoadingOrders,
+    onChangeComPostStatus,
+    isLoadingChangeStatus,
   };
 }
 export default useIllustratorComPostDetailHandler;

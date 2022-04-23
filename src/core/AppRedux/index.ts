@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import  managePortofolioSlice  from "../../modules/authenticated/illustrator/manage-portofolio/presentation/reducers/manage_portofolio_slice";
 import  createComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/create_compost_slice";
+import  editComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/edit_compost_slice";
 import illustratorsComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/illustrators_compost_slice";
 import  illustratorOrderSlice  from "../../modules/authenticated/illustrator/order/presentation/reducers/illustrator_order_slice";
 import authSlice from "../../modules/guest/authentication/presentation/reducers/auth_reducer";
@@ -15,6 +16,7 @@ const store = configureStore({
     auth: authSlice,
     illustrators_compost: illustratorsComPostSlice,
     create_compost: createComPostSlice,
+    edit_compost: editComPostSlice,
     compost: comPostSlice,
     illustrators_portofolio: illustratorsPortofolioSlice,
     manage_portofolio:managePortofolioSlice,
