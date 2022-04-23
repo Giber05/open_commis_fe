@@ -4,11 +4,25 @@ import { TagModel } from "../../../../../common/commission/data/models/tag_model
 import { ComPostDetailModel } from "../../../../../guest/commission_post/data/models/compost_detail/compost_detail_model";
 import ManageComPostRepo from "../../domain/repositories/manage_compost_repository";
 import ManageComPostRemoteDSImpl, { ManageComPostRemoteDS } from "../datasources/remote/manage_compost_remote_ds";
+import { DeleteComPostModel } from "../models/delete_compost_model";
 import IllustratorComposts from "../models/illustrators_composts";
 
 class ManageComPostRepoImpl extends BaseRepository implements ManageComPostRepo {
   private manageCompostRemoteDS: ManageComPostRemoteDS = new ManageComPostRemoteDSImpl();
   
+  deleteComPost(params: { token: string; compostId: number; }): Promise<Resource<DeleteComPostModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.manageCompostRemoteDS.deleteComPost({
+          token: params.token,
+          compostId:params.compostId
+        });
+        if (resource instanceof DeleteComPostModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
+
   editComPost(params: { token: string; formData: any; compostId: number; }): Promise<Resource<ComPostDetailModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {

@@ -63,6 +63,17 @@ class BaseClient {
       return error.response;
     }
   }
+  public async deleteWithCookie(params: { url: string; configs?: AxiosRequestConfig; }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
+
+    try {
+      const result: AxiosResponse = await axios.delete(params.url, finalConfig);
+      return result;
+    } catch (error: any) {
+      // console.log(error.response);
+      return error.response;
+    }
+  }
 }
 
 export default BaseClient;

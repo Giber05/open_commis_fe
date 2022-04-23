@@ -1,5 +1,6 @@
+import { message } from "antd";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchError, selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
@@ -8,6 +9,7 @@ import { CommissionPostDetail } from "../../../../../../guest/commission_post/da
 import { OrderList } from "../../../../order/data/models/order_list";
 import { GetOrders } from "../../../../order/domain/usecases/get_orders";
 import { ChangeComPostStatus } from "../../../domain/usecases/change_compost_status";
+import { DeleteComPost } from "../../../domain/usecases/delete_compost";
 import GetIllustratorComPostDetail from "../../../domain/usecases/get_illustrator_compost_detail";
 import { fetchCommissionPostDetail, fetchOrders, isLoading, selectIllustratorsComPosts, setIsLoadingChangeStatus, setIsLoadingOrders, setOrderPagination } from "../../reducers/illustrators_compost_slice";
 
@@ -23,16 +25,18 @@ type IllustratorComPostDetailController = {
   orders: OrderList[];
   onChangePage: ((page: number, pageSize: number) => void) | undefined;
   onChangeComPostStatus: () => void;
+  onDeleteComPost:()=>void
 };
 
 function useIllustratorComPostDetailHandler(): IllustratorComPostDetailController {
   const { compostId } = useParams();
   let id = parseInt(compostId!);
-
+  const navigate = useNavigate()
   const dispatch = useAppDispatch();
   const getIllustratorComPostDetailUC = new GetIllustratorComPostDetail();
   const getOrdersUC = new GetOrders();
   const changeCompostStatusUC = new ChangeComPostStatus();
+  const deleteComPostUC = new DeleteComPost();
 
   const { commissionPostDetail, isLoadingChangeStatus, isLoadingComPost, orderPagination, orders, isLoadingOrders } = useSelector(selectIllustratorsComPosts);
   const { error, isMobile } = useSelector(selectCommon);
@@ -78,6 +82,26 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
     });
   };
 
+  const onDeleteComPost = ()=>{
+    dispatch(isLoading(true));
+    setTimeout(async () => {
+      const resource = await deleteComPostUC.execute({token:authUser?.data.token!, compostId:id});
+
+      dispatch(isLoading(false));
+      resource.whenWithResult({
+        success: (value) => {
+          console.log(value.data.data);
+          message.success(value.data.message,2)
+          navigate(-1)
+
+        },
+        error: (error) => {
+          message.error(error.exception.message,2)
+        },
+      });
+    });
+  }
+
   const onChangeComPostStatus = () => {
     let compostStatus = commissionPostDetail?.status === "OPEN" ? "CLOSED" : "OPEN";
     dispatch(setIsLoadingChangeStatus(true));
@@ -113,6 +137,7 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
     isLoadingOrders,
     onChangeComPostStatus,
     isLoadingChangeStatus,
+    onDeleteComPost
   };
 }
 export default useIllustratorComPostDetailHandler;
