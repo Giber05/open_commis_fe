@@ -9,38 +9,7 @@ import IllustratorsArtworksSection from "./components/IllustratorsArtworksSectio
 import IllustratorsBioSection from "./components/IllustratorsBioSection";
 import IllustratorsCommissionSection from "./components/IllustratorsCommissionSection";
 import useIllustratorsPortofolioHandler from "./use_illustrators_portofolio_handler";
-const imageUrl = [
-  {
-    title: "Commission 1",
-    price: 50000,
-    rate: 3,
-    src: "https://obs.line-scdn.net/0hl0gZ0aa8Mx9aIySVR3xMSGJ1P25pRSkWeEMofyx3bC0iD30bZ0VgfHZwPjN-FnQbekApfSwgaHtwFCdAbg/w644",
-  },
-  {
-    title: "Commission 2",
-    price: 60000,
-    rate: 5,
-    src: "https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg",
-  },
-  {
-    title: "Commission 3",
-    price: 40000,
-    rate: 4,
-    src: "https://pbs.twimg.com/media/FIBlp9FX0AINnsO.jpg:large",
-  },
-  {
-    title: "Commission 4",
-    price: 50000,
-    rate: 2,
-    src: "https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg",
-  },
-  {
-    title: "Commission 5",
-    price: 50000,
-    rate: 2,
-    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
-  },
-];
+
 function IllustratorsPortofolioPage() {
   const { isLoadingPortofolio, getIllustratorsPortofolio,illustratorsPortofolio } = useIllustratorsPortofolioHandler();
   useEffect(() => {
