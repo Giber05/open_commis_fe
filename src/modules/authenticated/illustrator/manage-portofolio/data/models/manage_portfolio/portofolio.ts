@@ -1,10 +1,10 @@
-import IlustratorEntity from "../../../../../common/authentication/domain/entities/ilustrator_entity";
-import { ArtworkModel } from "../../../../../guest/illustrators_portofolio/data/models/artwork_model";
-import { PortofolioModel } from "../../../../../guest/illustrators_portofolio/data/models/portofolio_model";
+import IlustratorEntity from "../../../../../../common/authentication/domain/entities/ilustrator_entity";
+import { ArtworkModel } from "../../../../../../guest/illustrators_portofolio/data/models/artwork_model";
+import { PortofolioModel } from "../../../../../../guest/illustrators_portofolio/data/models/portofolio_model";
 
 export class ManagePortofolio extends IlustratorEntity {
-  portofolio?: PortofolioModel;
-  artworks?: ArtworkModel[];
+  portofolio?: PortofolioModel |null;
+  artworks?: ArtworkModel[]|null;
 
   constructor(params: {
     id: number;
@@ -18,8 +18,8 @@ export class ManagePortofolio extends IlustratorEntity {
     emailVerified: boolean;
     createdAt: Date;
     updatedAt: Date;
-    portofolio?: PortofolioModel;
-    artworks?: ArtworkModel[];
+    portofolio?: PortofolioModel  |null;
+    artworks?: ArtworkModel[] | null;
   }) {
     super({
       id: params.id,
@@ -51,10 +51,13 @@ export class ManagePortofolio extends IlustratorEntity {
       emailVerified: json.emailVerified,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
-      artworks: json.artworks.map((artwork: any) => {
-        return ArtworkModel.fromJson(artwork);
-      }),
-      portofolio: PortofolioModel.fromJson(json.portfolio),
+      artworks:
+        json.artworks == undefined
+          ? null
+          : json.artworks.map((artwork: any) => {
+              return ArtworkModel.fromJson(artwork);
+            }),
+      portofolio: json.portfolio == undefined ? null : PortofolioModel.fromJson(json.portfolio),
     });
   }
 }

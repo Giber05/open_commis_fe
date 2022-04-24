@@ -1,48 +1,19 @@
 import { CheckCircleFilled, FacebookFilled, InstagramOutlined, ShoppingOutlined, TwitterOutlined, WhatsAppOutlined } from "@ant-design/icons";
-import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography } from "antd";
-import { useEffect } from "react";
+import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography, Button } from "antd";
+import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
+import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
+import ArtworkItem from "./components/ArtworkItem";
+import CommissionItem from "./components/CommissionItem";
+import PortfolioSection from "./components/PortfolioSection";
 import PortofolioContainer from "./components/PortofolioContainer";
 import usePortofolioHandler from "./use_portofolio_handler";
 import use_portofolio_handler from "./use_portofolio_handler";
 
-const imageUrl = [
-  {
-    title: "Commission 1",
-    price: 50000,
-    rate: 3,
-    src: "https://obs.line-scdn.net/0hl0gZ0aa8Mx9aIySVR3xMSGJ1P25pRSkWeEMofyx3bC0iD30bZ0VgfHZwPjN-FnQbekApfSwgaHtwFCdAbg/w644",
-  },
-  {
-    title: "Commission 2",
-    price: 60000,
-    rate: 5,
-    src: "https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg",
-  },
-  {
-    title: "Commission 3",
-    price: 40000,
-    rate: 4,
-    src: "https://pbs.twimg.com/media/FIBlp9FX0AINnsO.jpg:large",
-  },
-  {
-    title: "Commission 4",
-    price: 50000,
-    rate: 2,
-    src: "https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg",
-  },
-  {
-    title: "Commission 5",
-    price: 50000,
-    rate: 2,
-    src: "https://i.pinimg.com/originals/9a/84/80/9a8480513fca9ed7952ea4ee5724bca9.jpg",
-  },
-];
-
 function Portofolio() {
-  const { isLoading, getIllustratorProfile, illustratorProfile, getIllustratorComPosts, illustratorComPosts } = usePortofolioHandler();
+  const { isLoading, isLoadingUpdateProfile, changeAvailabilityStatus, getIllustratorProfile, illustratorProfile, getIllustratorComPosts, illustratorComPosts } = usePortofolioHandler();
   useEffect(() => {
     getIllustratorProfile();
   }, []);
@@ -51,23 +22,39 @@ function Portofolio() {
     getIllustratorComPosts();
   }, []);
   console.log({ illustratorComPosts });
-
+  const onClick = useCallback(() => {
+    changeAvailabilityStatus();
+  }, [illustratorProfile?.available]);
   return (
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
       <Row justify="space-between">
         <Col>
-          <Popconfirm
-            title="Tutup commission post ini?"
-            onCancel={() => {
-              return;
-            }}
-            onConfirm={() => {
-              return;
-            }}
-          >
-            <DangerButton title="CLOSE" block />
-          </Popconfirm>
+          {illustratorProfile?.available ? (
+            <Popconfirm
+              title="Ubah ketersediaan menjadi tidak menerima orderan?"
+              onCancel={() => {
+                return;
+              }}
+              onConfirm={onClick}
+            >
+              <DangerButton loading={isLoadingUpdateProfile} title="CLOSE" block />
+            </Popconfirm>
+          ) : (
+            <Popconfirm
+              title="Ubah ketersediaan menjadi siap menerima orderan?"
+              onCancel={() => {
+                return;
+              }}
+              onConfirm={onClick}
+            >
+              <div className={`w-20 sm:w-40`}>
+                <Button block={true} className={`comic-shadow-btn bg-[#00782C] text-white hover:text-white hover:bg-[#00782C] hover:opacity-75 hover:border-green-600 rounded`} loading={isLoadingUpdateProfile}>
+                  OPEN
+                </Button>
+              </div>
+            </Popconfirm>
+          )}
         </Col>
         <Col>
           <Link to="/manage/manage-portofolio/edit">
@@ -85,7 +72,7 @@ function Portofolio() {
         <Typography.Title level={2}>
           {illustratorProfile?.name} <CheckCircleFilled style={{ color: "#1890ff" }} />
         </Typography.Title>
-        <div className="border-green-500  bg-green-500 rounded-full text-center">
+        <div className={`${illustratorProfile?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>
           <Typography.Title
             level={3}
             italic
@@ -94,7 +81,7 @@ function Portofolio() {
               color: "white",
             }}
           >
-            {illustratorProfile?.available}
+            {illustratorProfile?.available ? "Tersedia" : "Tidak Tersedia"}
           </Typography.Title>
         </div>
         <Row>
@@ -105,92 +92,23 @@ function Portofolio() {
           </Space>
         </Row>
       </div>
-      <div className="my-5">
-        <Row justify="space-between" className="text-center">
-          <Col xs={24} sm={12} lg={12}>
-            <Space>
-              <FacebookFilled className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.portofolio?.facebookAcc??"-"}</Typography.Title>
-            </Space>
-          </Col>
-          <Col xs={24} sm={12} lg={12}>
-            <Space>
-              <TwitterOutlined className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.portofolio?.twitterAcc??"-"}</Typography.Title>
-            </Space>
-          </Col>
-          <Col xs={24} sm={12} lg={12}>
-            <Space>
-              <InstagramOutlined className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.portofolio?.instagramAcc??"-"}</Typography.Title>
-            </Space>
-          </Col>
-          <Col xs={24} sm={12} lg={12}>
-            <Space>
-              <WhatsAppOutlined className="text-xl" />
-              <Typography.Title level={4}>{illustratorProfile?.phone??"-"} </Typography.Title>
-            </Space>
-          </Col>
-        </Row>
-      </div>
-      <div className="mx-auto sm:w-4/5 md:w-2/3 lg:1/2 my-5">
-        <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Tentang</h2>
-        <Typography.Title level={5} className="text-center">
-          {illustratorProfile?.portofolio?.bio}{" "}
-        </Typography.Title>
-      </div>
-      <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Karya Seni Ilustrator</h2>
 
+      <PortfolioSection portofolio={illustratorProfile?.portofolio} phone={illustratorProfile?.phone!} />
+
+      <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Karya Seni Ilustrator</h2>
       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
-          {illustratorProfile?.artworks?.map((e) => (
-            <div className="inline-block px-3 content-center">
-              <div className="comic-shadow-btn max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
-                <Image
-                  src={e.image}
-                  className="align-middle object-contain"
-                  style={{
-                    minHeight: "208px",
-                    maxWidth: "300px",
-                    minWidth: "300px",
-                  }}
-                />
-              </div>
-            </div>
+          {illustratorProfile?.artworks?.map((artwork) => (
+            <ArtworkItem artwork={artwork} />
           ))}
         </div>
       </div>
+      
       <h2 className="text-2xl font-semibold tracking-tight text-gray-900 text-center">Open Commission</h2>
       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div className="flex flex-nowrap lg:mx-20 md:mx-10 mx-5 ">
           {illustratorComPosts.map((commission) => (
-            <div className="inline-block p-3 content-center">
-              <div className="comic-shadow-btn w-56 p-3 flex items-center  justify-center max-w-xs overflow-hidden rounded-lg hover:comic-shadow transition-shadow duration-300 ease-in-out">
-                <div className="block">
-                  <div className=" flex items-center text-center justify-center">
-                    <Image
-                      src={commission.image_1}
-                      className="max-h-40 w-56 object-contain "
-                      style={{
-                        minHeight: "160px",
-                        maxWidth: "300px",
-                      }}
-                    />
-                  </div>
-                  <div className="p-3">
-                    <Typography.Title level={5}>{commission.title}</Typography.Title>
-                    <Row justify="space-between">
-                      <Col>
-                        <Typography.Text className="font-bold">Rp. {commission.price}</Typography.Text>
-                      </Col>
-                      <Col>
-                        <Rate disabled defaultValue={3} className="text-xs" />
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CommissionItem commission={commission} />
           ))}
         </div>
       </div>
