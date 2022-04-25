@@ -64,19 +64,19 @@ function BottomNavigation() {
               </svg>
               <span className="tab tab-home block text-xs">Beranda</span>
             </Link>
-            <Link to="/order" className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
+            <Link to="/consumer/order" className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
               <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               <span className="tab tab-kategori block text-xs">Pesanan</span>
             </Link>
             <Dropdown overlay={menu} placement="top" arrow>
-              <div className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
+              <Link to="/consumer/profile" className="w-full text-gray-500 focus:text-[#1890ff] hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1">
                 <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <span className="tab tab-explore block text-xs">Profil</span>
-              </div>
+              </Link>
             </Dropdown>
           </div>
         ) : (
