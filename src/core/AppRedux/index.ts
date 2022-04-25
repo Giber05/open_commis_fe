@@ -5,6 +5,7 @@ import  createComPostSlice  from "../../modules/authenticated/illustrator/manage
 import  editComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/edit_compost_slice";
 import illustratorsComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/illustrators_compost_slice";
 import  illustratorOrderSlice  from "../../modules/authenticated/illustrator/order/presentation/reducers/illustrator_order_slice";
+import  illustratorSendOrderSlice  from "../../modules/authenticated/illustrator/order/presentation/reducers/illustrator_send_order_slice";
 import authSlice from "../../modules/guest/authentication/presentation/reducers/auth_reducer";
 import comPostSlice from "../../modules/guest/commission_post/presentation/reducers/compost_slice";
 import illustratorsPortofolioSlice from "../../modules/guest/illustrators_portofolio/presentation/reducers/illustrators_portofolio_slice";
@@ -22,6 +23,7 @@ const store = configureStore({
     illustrators_portofolio: illustratorsPortofolioSlice,
     manage_portofolio:managePortofolioSlice,
     illustrator_order:illustratorOrderSlice,
+    illustrator_send_order:illustratorSendOrderSlice,
     earning: earningSlice,
   },
   middleware,

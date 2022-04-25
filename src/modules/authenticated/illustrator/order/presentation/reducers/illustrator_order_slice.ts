@@ -4,7 +4,7 @@ import PaginationModel from "../../../../../common/pagination/model/pagination_m
 import { IllustratorOrderDetail } from "../../data/models/illustrator_detail_order";
 import { OrderList } from "../../data/models/order_list";
 
-type ComPostState = {
+type IllustratorOrderState = {
   isLoading: boolean;
   isConfirmOrderModalVisible:boolean;
   isSendOrderModalVisible:boolean;
@@ -13,7 +13,7 @@ type ComPostState = {
   orderDetail:IllustratorOrderDetail | null
 };
 
-const initialState: ComPostState = {
+const initialState: IllustratorOrderState = {
   isLoading: false,
   isConfirmOrderModalVisible:false,
   isSendOrderModalVisible:false,
@@ -60,7 +60,7 @@ export const {
   setIsConfirmOrderModalVisible,
   setIsSendOrderModalVisible,
 } = illustratorOrderSlice.actions;
-export const selectIllustratorOrder = (state: RootState): ComPostState => state.illustrator_order
+export const selectIllustratorOrder = (state: RootState): IllustratorOrderState => state.illustrator_order
 
 export default illustratorOrderSlice.reducer;
 

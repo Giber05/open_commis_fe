@@ -77,7 +77,7 @@ function DetailOrder() {
         {orderDetail?.status === OrderStatus.Created ? (
           <ConfirmIncomingOrderSection />
         ) : orderDetail?.status === OrderStatus.OnWork ? (
-          <Link to={{ pathname: `/manage/order/1001/sendOrder` }}>
+          <Link to={{ pathname: `/manage/order/${orderDetail?.id}/sendOrder` }}>
             <SuccessButton block title="Kirim Pekerjaan" rounded />
           </Link>
         ) : null}
