@@ -6,6 +6,7 @@ import { CommissionPostDetail } from "../../data/models/compost_detail/commissio
 import CommissionPost from "../../data/models/compost_list/commission_posts";
 
 type ComPostState = {
+  initLoading: boolean,
   isLoadingComPosts: boolean;
   commissionPosts: CommissionPost[];
   commissionPost: CommissionPostDetail | null;
@@ -17,6 +18,7 @@ type ComPostState = {
 
 const initialState: ComPostState = {
   isLoadingComPosts: false,
+  initLoading:true,
   commissionPosts: [],
   commissionPost: null,
   categories: [],
@@ -33,6 +35,9 @@ export const comPostSlice = createSlice({
   name: "compost",
   initialState,
   reducers: {
+    setInitLoading: (state, action: PayloadAction<boolean>) => {
+      state.initLoading = action.payload;
+    },
     isLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoadingComPosts = action.payload;
     },
@@ -61,6 +66,7 @@ export const {
   setSelectedCategory,
   fetchCommissionDetail,
   setPagination,
+  setInitLoading
 } = comPostSlice.actions;
 
 export const selectComPost = (state: RootState): ComPostState => state.compost;

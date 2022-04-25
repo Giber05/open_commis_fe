@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import SuccessButton from '../../../../../../../../../core/common_components/buttons/SuccessButton'
 import ConfigConstants from '../../../../../../../../../core/constants/config_constants'
+import NetworkConstant from '../../../../../../../../../core/constants/network_constant'
 
 const { Dragger } = Upload;
 
@@ -14,7 +15,7 @@ function SendOrder() {
   const props = {
   name: 'file',
   multiple: true,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  action: NetworkConstant.baseUrl+"/orders/submission/upload",
   onChange(info:any) {
     const { status } = info.file;
     if (status !== 'uploading') {

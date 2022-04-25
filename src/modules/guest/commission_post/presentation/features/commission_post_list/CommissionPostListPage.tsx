@@ -13,7 +13,20 @@ import { Link } from "react-router-dom";
 
 const { Search } = Input;
 function CommissionPostListPage() {
-  const { isMobile, isLoadingComPosts, pagination, searchComPosts, commissionPosts, getCommissionPosts, categories, getCategories, selectedCategory, chooseCategory, onChangePage } = useComPostsHandler();
+  const { 
+    initLoading,
+    isMobile, 
+    isLoadingComPosts, 
+    pagination, 
+    searchComPosts, 
+    commissionPosts, 
+    getCommissionPosts, 
+    categories, 
+    getCategories, 
+    selectedCategory, 
+    chooseCategory, 
+    onChangePage 
+  } = useComPostsHandler();
 
   const [onSearch, setOnSearch] = useState(false);
   useEffect(() => {
@@ -22,6 +35,8 @@ function CommissionPostListPage() {
   useEffect(() => {
     getCategories();
   }, []);
+
+  if(initLoading) return <CircularLoadingIndicator/>
 
   return (
     <div className="bg-white">
@@ -67,7 +82,7 @@ function CommissionPostListPage() {
               <Result title="Data tidak ditemukan" subTitle="Commission yang kamu cari tidak ditemukan" />
             </Card>
           )}
-          {}
+          
         </Row>
         <div className="mb-5 mt-10 text-center">
           {!isLoadingComPosts ? <Pagination simple = {isMobile} pageSize={pagination?.pageSize} total={pagination?.totalData} defaultCurrent={1} current={pagination?.currentPage} onChange={onChangePage} /> : null}

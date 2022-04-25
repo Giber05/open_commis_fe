@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import  earningSlice  from "../../modules/authenticated/illustrator/earning/presentation/reducers/earning_slice";
 import  managePortofolioSlice  from "../../modules/authenticated/illustrator/manage-portofolio/presentation/reducers/manage_portofolio_slice";
 import  createComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/create_compost_slice";
 import  editComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/edit_compost_slice";
@@ -20,7 +21,8 @@ const store = configureStore({
     compost: comPostSlice,
     illustrators_portofolio: illustratorsPortofolioSlice,
     manage_portofolio:managePortofolioSlice,
-    illustrator_order:illustratorOrderSlice
+    illustrator_order:illustratorOrderSlice,
+    earning: earningSlice,
   },
   middleware,
 });
