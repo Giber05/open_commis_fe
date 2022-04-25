@@ -1,6 +1,7 @@
 import { Button, Card, Col, Rate, Row, Tag, Typography } from "antd";
 import Paragraph from "antd/lib/skeleton/Paragraph";
 import Link from "antd/lib/typography/Link";
+import { Link as LinkReact } from "react-router-dom";
 import { randomInt } from "crypto";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -75,7 +76,11 @@ function DetailCommission({ commission }: CommissionProps) {
       </Row>
       <Row justify="center" className="mt-3 mx-auto">
         
-        {commission.status==="OPEN"?(<SuccessButton block title="Pesan" rounded />):<DisabledButton rounded title="Pesan"/> }
+        {commission.status==="OPEN"?(
+        <LinkReact to={{ pathname: `/consumer/${commission.id}/orderingForm` }}>
+        <SuccessButton block title="Pesan" rounded />
+        </LinkReact>
+        ):<DisabledButton rounded title="Pesan"/> }
       </Row>
     </Card>
   );
