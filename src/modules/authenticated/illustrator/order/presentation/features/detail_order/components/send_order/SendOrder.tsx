@@ -2,8 +2,8 @@ import { InboxOutlined } from '@ant-design/icons'
 import { Button, Col, Form, Input, InputNumber, message, Radio, Typography, Upload } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import SuccessButton from '../../../../../../../core/common_components/buttons/SuccessButton'
-import ConfigConstants from '../../../../../../../core/constants/config_constants'
+import SuccessButton from '../../../../../../../../../core/common_components/buttons/SuccessButton'
+import ConfigConstants from '../../../../../../../../../core/constants/config_constants'
 
 const { Dragger } = Upload;
 
@@ -70,12 +70,12 @@ function SendOrder() {
             </p>
             </Dragger>
           </Form.Item>
-        </Form>
           <div className="mx-auto justify-center flex">
             <Form.Item className="mt-3 mb-1 text-center ">
               <SuccessButton htmlType="submit" title="Submit" block rounded />
             </Form.Item>
           </div>
+        </Form>
       </div>
     </div>
   )

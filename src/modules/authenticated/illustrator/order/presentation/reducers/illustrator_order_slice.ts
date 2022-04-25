@@ -6,6 +6,8 @@ import { OrderList } from "../../data/models/order_list";
 
 type ComPostState = {
   isLoading: boolean;
+  isConfirmOrderModalVisible:boolean;
+  isSendOrderModalVisible:boolean;
   orders: OrderList[];
   pagination: PaginationModel | null;
   orderDetail:IllustratorOrderDetail | null
@@ -13,6 +15,8 @@ type ComPostState = {
 
 const initialState: ComPostState = {
   isLoading: false,
+  isConfirmOrderModalVisible:false,
+  isSendOrderModalVisible:false,
   orders: [],
   pagination: {
     currentPage: 1,
@@ -30,6 +34,12 @@ export const illustratorOrderSlice = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setIsConfirmOrderModalVisible: (state, action: PayloadAction<boolean>) => {
+      state.isConfirmOrderModalVisible = action.payload;
+    },
+    setIsSendOrderModalVisible: (state, action: PayloadAction<boolean>) => {
+      state.isSendOrderModalVisible = action.payload;
+    },
     fetchOrders: (state, action: PayloadAction<OrderList[]>) => {
       state.orders = action.payload;
     },
@@ -46,7 +56,9 @@ export const {
   setIsLoading,
   fetchOrders,
   setPagination,
-  fetchOrderDetail
+  fetchOrderDetail,
+  setIsConfirmOrderModalVisible,
+  setIsSendOrderModalVisible,
 } = illustratorOrderSlice.actions;
 export const selectIllustratorOrder = (state: RootState): ComPostState => state.illustrator_order
 

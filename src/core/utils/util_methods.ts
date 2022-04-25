@@ -37,15 +37,17 @@ export class UtilMethods {
       case OrderStatus.Denied:
         return "DITOLAK";
       case OrderStatus.NotPaid:
-        return "BELUM DIBAYAR";
+        return "MENUNGGU PEMBAYARAN";
       case OrderStatus.Sent:
         return "TELAH DIKIRIM";
       case OrderStatus.Created:
-        return "DIBUAT";
+        return "MENUNGGU KONFIRMASI";
       default:
         return "default";
     }
   };
+
+
 
   public static getDeadlineDate(orderDate: Date, durationTime: number): string {
     let deadline = moment(orderDate).add(durationTime, "days");

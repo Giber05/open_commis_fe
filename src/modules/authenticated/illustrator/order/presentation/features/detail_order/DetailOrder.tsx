@@ -4,7 +4,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import AssetConstants from "../../../../../../../core/constants/asset_constants";
+import { OrderStatus } from "../../../../../../../core/utils/enums";
 import { UtilMethods } from "../../../../../../../core/utils/util_methods";
+import ConfirmIncomingOrderSection from "./components/ConfirmIncomingOrderSection";
 import useIllustratorDetailOrderHandler from "./use_illustrator_detail_order_handler";
 
 function DetailOrder() {
@@ -13,8 +15,8 @@ function DetailOrder() {
     getOrderDetail();
   }, []);
   let orderDeadline = UtilMethods.getDeadlineDate(orderDetail?.orderDate!, orderDetail?.commission.durationTime!);
-  let orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!)
-  let statusColor = UtilMethods.matchStatusColor(orderDetail?.status!)
+  let orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!);
+  let statusColor = UtilMethods.matchStatusColor(orderDetail?.status!);
   return (
     <div className="mb-5">
       <h2 className="text-2xl font-extrabold tracking-tight pt-2 text-gray-900 text-center">Pesanan</h2>
@@ -35,7 +37,10 @@ function DetailOrder() {
           </Col>
           <Col xs={24} sm={24} lg={12} className="text-base leading-10">
             <Typography.Text className="text-xl">STATUS : </Typography.Text>
-            <Tag color={statusColor} className={`text-xl  p-2`}> {orderStatus}</Tag>
+            <Tag color={statusColor} className={`text-xl  p-2`}>
+              {" "}
+              {orderStatus}
+            </Tag>
             <br />
             <span>
               <Typography.Text className="text-xl">Tanggal Pemesanan: </Typography.Text>
@@ -53,26 +58,29 @@ function DetailOrder() {
           {" "}
           REFERENSI GAMBAR
           <br />
-          {orderDetail?.detail.referenceImage !== null? (
+          {orderDetail?.detail.referenceImage !== null ? (
             <Image
               src={orderDetail?.detail?.referenceImage!}
               className="max-h-40 object-contain"
-              fallback={AssetConstants.imageURL+'placeholder/compost_placeholder.png'}
+              fallback={AssetConstants.imageURL + "placeholder/compost_placeholder.png"}
               style={{
                 minHeight: "160px",
                 maxWidth: "250px",
               }}
             />
-          ):null}
+          ) : null}
         </div>
         <h3 className="text-2xl mt-5 text-center">Deskripsi permintaan</h3>
-        <p className="text-xl text-justify">
-          {orderDetail?.detail.requestDetail}</p>
+        <p className="text-xl text-justify">{orderDetail?.detail.requestDetail}</p>
       </Card>
       <div className="mx-auto mt-5 flex justify-center">
-        <Link to={{ pathname: `/manage/order/1001/sendOrder` }}>
-          <SuccessButton block title="Kirim Pekerjaan" rounded />
-        </Link>
+        {orderDetail?.status === OrderStatus.Created ? (
+          <ConfirmIncomingOrderSection />
+        ) : orderDetail?.status === OrderStatus.OnWork ? (
+          <Link to={{ pathname: `/manage/order/1001/sendOrder` }}>
+            <SuccessButton block title="Kirim Pekerjaan" rounded />
+          </Link>
+        ) : null}
       </div>
     </div>
   );

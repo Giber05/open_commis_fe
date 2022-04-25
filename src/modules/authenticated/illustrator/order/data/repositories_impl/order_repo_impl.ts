@@ -7,6 +7,16 @@ import OrderListModel from "../models/order_list_model";
 
 export class OrderRepoImpl extends BaseRepository implements OrderRepo {
   private orderRemoteDS: OrderRemoteDS = new OrderRemoteDSImpl();
+  confirmOrder(params: { orderId: number; token: string; accept: boolean; rejectReason?: string | undefined; }): Promise<Resource<IllustratorOrderDetailModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.orderRemoteDS.confirmOrder({ orderId: params.orderId, token: params.token, accept:params.accept, rejectReason:params.rejectReason });
+        if (resource instanceof IllustratorOrderDetailModel) return Resource.success({ data: resource });
+
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
   getOrders(params: { page: number; limit: number; token: string; compostId?: number }): Promise<Resource<OrderListModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
