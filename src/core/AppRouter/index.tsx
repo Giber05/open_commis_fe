@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import OrderPage from "../../modules/authenticated/consumer/OrderPage";
+import OrderPage from "../../modules/authenticated/consumer/order/presentation/OrderPage";
 import Earning from "../../modules/authenticated/illustrator/earning/EarningIndex";
 import ManagePortofolio from "../../modules/authenticated/illustrator/manage-portofolio/ManagePortofolioIndex";
 import ManageComPost from "../../modules/authenticated/illustrator/manage_compost/ManageComPostIndex";
@@ -13,16 +13,22 @@ import OpenCommissApp from "../common_components/main_app/app/OpenCommissApp";
 import OpenCommissIlustrator from "../common_components/main_app/app/OpenCommissIlustrator";
 import IllustratorsPortofolio from "../../modules/guest/illustrators_portofolio/IllustratorsPortofolioIndex";
 import RequireAuth from "../../modules/guest/authentication/RequireAuth";
+import OrderCustomer from "../../modules/authenticated/consumer/order/OrderCustomerIndex";
+import Ordering from "../../modules/authenticated/consumer/ordering/presentation/OrderingIndex";
+import ProfileCustomer from "../../modules/authenticated/consumer/profile/presentation/ProfileCustomerIndex";
+
 function AppRoutes(): JSX.Element {
   return (
     <Router>
       <Routes>
         <Route path="/*" element={<OpenCommissApp />}>
-          <Route index element={<CommissionPost />} />
+          <Route path="/*" element={<CommissionPost />} />
           <Route path=":compostId/*" element={<ComPostDetail />} />
           <Route path="illustrator/*" element={<IllustratorsPortofolio />} />
           <Route path="consumer/*" element={<RequireAuth />}>
-            <Route path="order/*" element={<OrderPage />} />
+            <Route path="order/*" element={<OrderCustomer/>} />
+            <Route path=":compostId/orderingForm/*" element={<Ordering/>} />
+             <Route path="profile/*" element={<ProfileCustomer/>} />
           </Route>
         </Route>
         <Route path="manage/*" element={<OpenCommissIlustrator />}>
