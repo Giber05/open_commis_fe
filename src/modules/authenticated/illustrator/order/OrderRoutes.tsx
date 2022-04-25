@@ -7,7 +7,7 @@ function OrderRoutes() {
       <Route index element={asyncComponent(() => import("./presentation/features/list_order/OrderPage"))} />
        <Route path=":orderId/*">
         <Route index element={asyncComponent(() => import("./presentation/features/detail_order/DetailOrder"))} />
-        <Route path="sendOrder" element={asyncComponent(() => import("./presentation/features/detail_order/components/send_order/SendOrder"))} />
+        <Route path="sendOrder" element={asyncComponent(() => import("./presentation/features/send_order/SendOrder"))} />
         <Route path="rejectOrder" element={asyncComponent(() => import("./presentation/features/detail_order/components/reject_order/Rejectorder"))} />
       </Route>
     </Routes>

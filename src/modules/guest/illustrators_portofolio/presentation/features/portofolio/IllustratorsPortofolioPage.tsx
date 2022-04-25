@@ -5,30 +5,29 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../core/common_components/buttons/InfoButton";
+import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import IllustratorsArtworksSection from "./components/IllustratorsArtworksSection";
 import IllustratorsBioSection from "./components/IllustratorsBioSection";
 import IllustratorsCommissionSection from "./components/IllustratorsCommissionSection";
 import useIllustratorsPortofolioHandler from "./use_illustrators_portofolio_handler";
 
 function IllustratorsPortofolioPage() {
-  const { isLoadingPortofolio, getIllustratorsPortofolio,illustratorsPortofolio } = useIllustratorsPortofolioHandler();
+  const { isLoadingPortofolio, getIllustratorsPortofolio, illustratorsPortofolio } = useIllustratorsPortofolioHandler();
   useEffect(() => {
     getIllustratorsPortofolio();
   }, []);
-  
-  
+
+  if (isLoadingPortofolio) return <CircularLoadingIndicator />;
   return (
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
       <div className="mx-auto my-5">
-        <Avatar
-          size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }}
-          src={illustratorsPortofolio?.profilePicture}
-        />
+        <Avatar size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }} src={illustratorsPortofolio?.profilePicture} />
       </div>
       <div className="mx-auto text-center">
         <Typography.Title level={2}>
-          {illustratorsPortofolio?.name}<CheckCircleFilled style={{ color: "#1890ff" }} />
+          {illustratorsPortofolio?.name}
+          <CheckCircleFilled style={{ color: "#1890ff" }} />
         </Typography.Title>
         <div className="border-green-500  bg-green-500 rounded-full text-center">
           <Typography.Title
@@ -39,7 +38,7 @@ function IllustratorsPortofolioPage() {
               color: "white",
             }}
           >
-            {illustratorsPortofolio?.available?"TERSEDIA":"TIDAK TERSEDIA"}
+            {illustratorsPortofolio?.available ? "TERSEDIA" : "TIDAK TERSEDIA"}
           </Typography.Title>
         </div>
         <Row justify="space-around">

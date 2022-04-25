@@ -1,3 +1,4 @@
+import { message } from "antd";
 import Password from "antd/lib/input/Password";
 import { useDispatch, useSelector } from "react-redux";
 import BaseException from "../../../../../core/error/base_exception";
@@ -13,23 +14,22 @@ import { VerifyTokenModel } from "../models/verify_token_model";
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   private authRemoteDS: AuthRemoteDS = new AuthRemoteDSImpl();
   private authLocalDS: AuthLocalDS = new AuthLocalDSImpl();
-  registerUser(params: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: File |null  }): Promise<Resource<UserModel>> {
+  registerUser(params: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: File | null }): Promise<Resource<UserModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
         const resource = await this.authRemoteDS.registerUser({
-          name:params.name,
-          email:params.email,
+          name: params.name,
+          email: params.email,
           username: params.username,
           password: params.password,
-          role:params.role,
-          phone:params.role,
-          profilePicture:params.profilePicture,
+          role: params.role,
+          phone: params.role,
+          profilePicture: params.profilePicture,
         });
         if (resource instanceof UserModel) return Resource.success({ data: resource });
         return Resource.error({ exception: resource });
       },
     });
-    
   }
 
   verifyToken(currentToken: string): Promise<Resource<VerifyTokenModel>> {
@@ -45,8 +45,6 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   login(params: { email: string; password: string; role: string }): Promise<Resource<UserModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
-        // let resource: UserAuthEntity | BaseException
-        //= await this._authRemoteDatasource.userLogin(paramsparams.)
         const resource: UserModel = await this.authRemoteDS.login({ email: params.email, password: params.password, role: params.role });
         if (resource instanceof UserModel) {
           this.authLocalDS.saveUser(resource);
@@ -60,10 +58,11 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   logout(currentToken: string): Promise<Resource<boolean>> {
     return this.networkOnlyCall({
       networkCall: async () => {
-        // await this.authRemoteDS.logout(currentToken)
         await this.authLocalDS.deleteLoggedInUser();
+        const resource = await this.authRemoteDS.logout(currentToken);
         await localStorage.removeItem("init-url");
-        return Resource.success({ data: true });
+        if (resource) return Resource.success({ data: true });
+        return Resource.error({ exception: new BaseException({ message: "Unauthorized" }) });
       },
     });
   }

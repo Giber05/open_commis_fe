@@ -9,8 +9,9 @@ import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
 import SearchComPosts from "../../../domain/usecases/search_composts";
-import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
+import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setInitLoading, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
 type ComPostsController = {
+  initLoading:boolean;
   isLoadingComPosts: boolean;
   isMobile: boolean;
   commissionPosts: CommissionPost[];
@@ -29,14 +30,17 @@ function useComPostsHandler(): ComPostsController {
   const getCategoriesUC = new GetCategories();
   const searchComPostsUC = new SearchComPosts();
   const { isMobile } = useSelector(selectCommon);
-  const { commissionPosts, isLoadingComPosts, categories, selectedCategory, pagination } = useSelector(selectComPost);
+  const { commissionPosts, isLoadingComPosts, categories, selectedCategory, initLoading,pagination } = useSelector(selectComPost);
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 15 });
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 4 });
       dispatch(isLoading(false));
+      dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
+          console.log({value});
+          
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
           dispatch(fetchError(""));
@@ -84,7 +88,7 @@ function useComPostsHandler(): ComPostsController {
 
   const chooseCategory = (categoryId: number) => () => {
     dispatch(setSelectedCategory(categoryId));
-    dispatch(setPagination({ currentPage: 1, pageSize: pagination?.pageSize, totalData: pagination?.totalData, totalPage: pagination?.totalPage }));
+    dispatch(setPagination({ currentPage: 1, pageSize: 0, totalData:0, totalPage: 0 }));
   };
 
   const onChangePage = (page: number, pageSize?: number) => {
@@ -103,6 +107,7 @@ function useComPostsHandler(): ComPostsController {
     pagination,
     onChangePage,
     isMobile,
+    initLoading,
   };
 }
 export default useComPostsHandler;
