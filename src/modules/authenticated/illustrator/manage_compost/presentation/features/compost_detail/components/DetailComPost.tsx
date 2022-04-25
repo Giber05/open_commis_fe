@@ -1,13 +1,21 @@
 import { Card, Col, Row, Tag, Typography } from "antd";
-import React from "react";
+import Link from "antd/lib/typography/Link";
+import React, { useCallback, useEffect, useState } from "react";
 import DangerButton from "../../../../../../../../core/common_components/buttons/DangerButton";
+import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
 import { CommissionPostDetail } from "../../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
+import useIllustratorComPostDetailHandler from "../use_illustrator_compost_detail_handler";
 
-type DetailComPostProps = {
-  commission?: CommissionPostDetail;
-};
+function DetailComPost() {
+  const [ellipsis, setEllipsis] = useState(true);
+  const { onChangeComPostStatus, isLoadingChangeStatus, commissionPostDetail } = useIllustratorComPostDetailHandler();
+  const onClick = useCallback(() => {
+    onChangeComPostStatus();
+  }, [commissionPostDetail?.status]);
+  console.log(commissionPostDetail?.status);
+  
 
-function DetailComPost({ commission }: DetailComPostProps) {
+  let status = commissionPostDetail?.status === "OPEN" ? true : false;
   return (
     <Card className="comic-shadow rounded-2xl">
       <Row>
@@ -15,15 +23,15 @@ function DetailComPost({ commission }: DetailComPostProps) {
           <Typography.Text className="">Pesanan: 10</Typography.Text>
           <br />
           <span>
-            Status : <Typography.Text className=" text-green-500">{commission?.status}</Typography.Text>
+            Status : <Typography.Text className={` ${status?"text-green-500":"text-red-500"} font-semibold`}>{commissionPostDetail?.status}</Typography.Text>
           </span>
           <br />
           <span>
-            Harga : <Typography.Text className="w- font-bold">{commission?.price}</Typography.Text>
+            Harga : <Typography.Text className="w- font-bold text-lg">Rp. {commissionPostDetail?.price}</Typography.Text>
           </span>
           <br />
           <div>
-            {commission?.tags?.map((tag) => (
+            {commissionPostDetail?.tags?.map((tag) => (
               <Tag color="cyan">{tag.tagName}</Tag>
             ))}
           </div>
@@ -33,14 +41,25 @@ function DetailComPost({ commission }: DetailComPostProps) {
             <h3>Deskripsi</h3>
           </Col>
           <Col>
-            <p>
-              {commission?.description}
-            </p>
+            <Typography.Paragraph className="leading-tight">
+              {ellipsis ? `${commissionPostDetail?.description?.substring(0, 150)}... ` : commissionPostDetail?.description}{" "}
+              {commissionPostDetail?.description?.length! > 150 ? (
+                <Link onClick={() => setEllipsis(!ellipsis)} className="text-blue-500">
+                  {ellipsis ? "More" : "Hide"}
+                </Link>
+              ) : (
+                ""
+              )}
+            </Typography.Paragraph>
           </Col>
         </Col>
       </Row>
       <Row justify="center" className="mt-3">
-        <DangerButton title="TUTUP COMMISSION" rounded />
+        {status ? (
+          <DangerButton title="TUTUP COMMISSION" block loading={isLoadingChangeStatus} rounded onClick={onClick} />
+        ) : (
+          <SuccessButton loading={isLoadingChangeStatus} title="BUKA COMMISSION" block onClick={onClick} rounded />
+        )}
       </Row>
     </Card>
   );

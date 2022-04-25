@@ -59,7 +59,11 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
     let logoutURL = NetworkConstant.baseUrl + "auth/logout";
     const response = await this.baseClient.postWithCookie({
       url: logoutURL,
-      cookieValue: "Bearer "+currentToken,
+      configs:{
+        headers:{
+          Authorization:"Bearer "+currentToken,
+        }
+      }
     });
     console.log("LOGOUT ",{response});
     

@@ -10,11 +10,10 @@ import Reviews from "./components/Reviews";
 import useIllustratorComPostDetailHandler from "./use_illustrator_compost_detail_handler";
 
 function ManageComPostDetail(): JSX.Element {
-  const { isLoadingComPost, commissionPostDetail, getComPostDetail } = useIllustratorComPostDetailHandler();
+  const { isLoadingComPost, commissionPostDetail, getComPostDetail, onDeleteComPost } = useIllustratorComPostDetailHandler();
   useEffect(() => {
     getComPostDetail();
   }, []);
-  console.log({ commissionPostDetail });
 
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -38,11 +37,9 @@ function ManageComPostDetail(): JSX.Element {
                   onCancel={() => {
                     return;
                   }}
-                  onConfirm={() => {
-                    return;
-                  }}
+                  onConfirm={onDeleteComPost}
                 >
-                  <DangerButton block title="HAPUS" rounded />
+                  <DangerButton loading={isLoadingComPost} block title="HAPUS" rounded />
                 </Popconfirm>
               </div>
             </Link>
@@ -56,7 +53,7 @@ function ManageComPostDetail(): JSX.Element {
           </div>
         </Col>
         <Col xs={24} sm={12} lg={12}>
-          <DetailComPost commission={commissionPostDetail!} />
+          <DetailComPost />
         </Col>
       </Row>
       <div>

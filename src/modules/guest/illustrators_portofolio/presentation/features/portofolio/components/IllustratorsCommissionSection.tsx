@@ -8,7 +8,7 @@ type CommissionProps = {
 function IllustratorsCommissionSection({ commission }: CommissionProps) {
   return (
     <div className="inline-block p-3 content-center">
-      <div className="comic-shadow-btn w-56 p-3 flex items-center justify-center max-w-xs overflow-hidden rounded-lg hover:comic-shadow transition-shadow duration-300 ease-in-out">
+      <div className="comic-shadow-btn w-56 p-3 flex items-center justify-center max-w-xs overflow-hidden rounded-lg hover-scale-up">
         <div className="block">
           <div className=" flex items-center text-center justify-center">
             <Image

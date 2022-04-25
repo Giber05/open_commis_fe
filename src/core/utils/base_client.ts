@@ -29,12 +29,11 @@ class BaseClient {
     }
   }
 
-  public async postWithCookie(params: { url: string; cookieValue: string; headers?: AxiosRequestHeaders; body?: any }): Promise<AxiosResponse> {
-    const finalHeader: AxiosRequestHeaders = this.headers(params.headers);
+  public async postWithCookie(params: { url: string; configs?: AxiosRequestConfig; body?: any }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
 
-    finalHeader.Authorization = params.cookieValue;
     try {
-      const result: AxiosResponse = await axios.post(params.url, params.body, finalHeader);
+      const result: AxiosResponse = await axios.post(params.url, params.body, finalConfig);
       return result;
     } catch (error: any) {
       // console.log(error.response);
@@ -47,6 +46,28 @@ class BaseClient {
 
     try {
       const result: AxiosResponse = await axios.get(params.url, finalConfig);
+      return result;
+    } catch (error: any) {
+      // console.log(error.response);
+      return error.response;
+    }
+  }
+  public async putWithCookie(params: { url: string; configs?: AxiosRequestConfig; body?: any }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
+
+    try {
+      const result: AxiosResponse = await axios.put(params.url, params.body, finalConfig);
+      return result;
+    } catch (error: any) {
+      // console.log(error.response);
+      return error.response;
+    }
+  }
+  public async deleteWithCookie(params: { url: string; configs?: AxiosRequestConfig; }): Promise<AxiosResponse> {
+    const finalConfig: AxiosRequestConfig = this.configs(params.configs);
+
+    try {
+      const result: AxiosResponse = await axios.delete(params.url, finalConfig);
       return result;
     } catch (error: any) {
       // console.log(error.response);

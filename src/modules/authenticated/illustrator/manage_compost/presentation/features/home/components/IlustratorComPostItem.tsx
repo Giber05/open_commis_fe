@@ -9,20 +9,17 @@ type PropsType = {
   commission: IllustratorComposts | null;
 };
 function IlustratorComPostItem({ commission }: PropsType) {
-  const { isLoadingComPost } = useHomePageHandler();
+  const { isLoadingComPost, isMobile } = useHomePageHandler();
 
   return (
     <Link to={{ pathname: `/manage/manage-compost/${commission?.id}` }}>
-      <Card
-        loading={isLoadingComPost}
-        className="rounded-xl my-4 p-3 mx-1 hover:opacity-75 comic-shadow"
-      >
+      <Card loading={isLoadingComPost} className="rounded-xl my-4 p-3 mx-1 hover:opacity-75 comic-shadow">
         <Row justify="start">
-          <div className="pr-5  sm:text-left">
+          <div className={` text-center mx-auto md:mx-0  md:text-left md:pr-5`}>
             <Image
               preview={false}
               src={commission?.image_1}
-              className="max-h-40 object-contain"
+              className="max-h-40 w-full object-contain"
               fallback={`${AssetConstants.imageURL}/placeholder/compost_placeholder.png`}
               style={{
                 minHeight: "160px",

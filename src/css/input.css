@@ -28,6 +28,9 @@
   .hide-scroll-bar::-webkit-scrollbar {
     display: none;
   }
+  .hover-scale-up{
+    @apply transform transition duration-500 hover:scale-105
+  }
 }
 @layer utilities {
 }

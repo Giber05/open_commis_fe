@@ -60,19 +60,19 @@ function TopNavigation() {
         <Menu.Item key="earning">
           <Link to="/manage/earning">Pendapatan</Link>
         </Menu.Item>
-        <SubMenu  title="Profile">
-          <Menu.Item>
+        <SubMenu key="account" title="Profile">
+          <Menu.Item key="manage_profile">
             <Link to="/manage/manage-portofolio">
               Profile
             </Link>
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key= "manage_portofolio">
             <Link to="/manage/profile">
               Portofolio
             </Link>
           </Menu.Item>
           <Divider/>
-          <Menu.Item>
+          <Menu.Item key="logout">
             <Button icon={<LogoutOutlined/>} type="dashed" className="text-center" onClick={onLogoutClick}>
               Logout
             </Button >

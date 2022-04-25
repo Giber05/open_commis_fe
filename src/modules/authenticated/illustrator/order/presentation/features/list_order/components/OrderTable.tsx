@@ -1,112 +1,55 @@
-import { Row, Space, Table, Tag } from 'antd';
-import Column from 'antd/lib/table/Column';
-import React from 'react'
-import { Link } from 'react-router-dom';
+import { Button, Row, Space, Table, Tag, Typography } from "antd";
+import Column from "antd/lib/table/Column";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
+import useIllustratorOrderListHandler from "../use_illustrator_order_list_handler";
+import CustomRow from "./CustomRow";
 
 function OrderTable() {
-    return (
+  const { getOrders, onChangePage, isLoading, orders, pagination } = useIllustratorOrderListHandler();
+  const navigate = useNavigate();
+  useEffect(() => {
+    getOrders();
+  }, [pagination?.currentPage]);
+
+  return (
     <div className="comic-shadow p-3 rounded-xl">
-      <Table style={{}} dataSource={data} scroll={{ x: "100vw" }} size="middle" pagination={{ responsive: true, pageSize: 5 }}>
-        <Column title="Nama Konsumen" dataIndex="firstName" key="firstName" width={100} />
-        <Column title="Tenggat Waktu" dataIndex="lastName" key="lastName" width={30} />
-        <Column title="Tanggal Pemesanan" dataIndex="age" key="age" width={30} />
-        <Column title="Commission Post" dataIndex="firstName" key="firstName" width={150}/>
+      <Table
+        loading={isLoading}
+        rowKey={"id"}
+        onRow={(record, rowIndex) => {
+          return {
+            onDoubleClick: (event) => navigate(`/manage/order/${record.id}`),
+          };
+        }}
+        components={{
+          body: {
+            row: CustomRow
+          }
+        }}
+        dataSource={orders}
+        scroll={{ x: "100vw" }}
+        size="middle"
+        pagination={{ pageSize: pagination?.pageSize, total: pagination?.totalData, current: pagination?.currentPage, onChange: onChangePage }}
+      >
+        <Column title="Commission" width={30} render={(text, record: any) => <Typography.Text>{record.commission.title}</Typography.Text>} />
+        <Column title="Nama Konsumen" width={30} render={(text, record: any) => <Typography.Text>{record.consumer.name}</Typography.Text>} />
+        <Column title="Tanggal Pemesanan" dataIndex="orderDate" width={30} />
         <Column
           title="Status"
-          dataIndex="tags"
-          key="tags"
-          width={12}
-          render={(tags) => (
-            <>
-              {tags.map((tag: any) => (
-                <Tag color="green" key={tag}>
-                  {tag}
-                </Tag>
-              ))}
-            </>
-          )}
+          width={150}
+          render={(text, record: any) => {
+            let color = UtilMethods.matchStatusColor(record.status);
+            let status = UtilMethods.translateOrderStatus(record.status)
+            return <Tag color={color}>{status}</Tag>;
+          }}
         />
-          <Column title="Order ID" dataIndex="address" key="address"  width={100} />
-          <Column
-            title= 'Action'
-            key='action'
-            width={20}
-            render={(text, record) => (
-            <Space size="middle">
-            <Link  to={{ pathname: `/manage/order/1001` }}>Detail</Link>
-            </Space>
-            )}
-          />
+
+        <Column title="Order ID" dataIndex="id" width={100} />
       </Table>
     </div>
-  )
+  );
 }
-const data = [
-  {
-    key: "1",
-    firstName: "Muhammad Ifaldzi liberty",
-    lastName: "12 December 2022",
-    age: "24 December 2022",
-    address: "1001",
-    tags: ["Menunggu Konfirmasi"],
-  },
-  {
-    key: "2",
-    firstName: "Jim",
-    lastName: "Green",
-    age: 42,
-    address: "2001",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "1111",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "4",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "11111",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "5",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "1111",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "6",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "1111111",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "7",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "1111111111111111111",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "7",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "1111111",
-    tags: ["cool", "teacher"],
-  },
- 
-];
 
-export default OrderTable
+export default OrderTable;

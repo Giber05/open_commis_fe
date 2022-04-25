@@ -4,7 +4,7 @@ import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reduce
 import { useAppDispatch } from "../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
 import { CategoryModel } from "../../../../../common/commission/data/models/category_model";
-import CommissionPost from "../../../data/models/compost_list/commission_post";
+import CommissionPost from "../../../data/models/compost_list/commission_posts";
 import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
@@ -12,7 +12,7 @@ import SearchComPosts from "../../../domain/usecases/search_composts";
 import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
 type ComPostsController = {
   isLoadingComPosts: boolean;
-  isMobile:boolean
+  isMobile: boolean;
   commissionPosts: CommissionPost[];
   categories: CategoryModel[];
   getCommissionPosts: () => void;
@@ -28,12 +28,12 @@ function useComPostsHandler(): ComPostsController {
   const getCommissionPostsUC = new GetCommissionPosts();
   const getCategoriesUC = new GetCategories();
   const searchComPostsUC = new SearchComPosts();
-  const {isMobile} = useSelector(selectCommon)
+  const { isMobile } = useSelector(selectCommon);
   const { commissionPosts, isLoadingComPosts, categories, selectedCategory, pagination } = useSelector(selectComPost);
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 1 });
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 15 });
       dispatch(isLoading(false));
       resource.whenWithResult({
         success: (value) => {
@@ -84,7 +84,7 @@ function useComPostsHandler(): ComPostsController {
 
   const chooseCategory = (categoryId: number) => () => {
     dispatch(setSelectedCategory(categoryId));
-    dispatch(setPagination({currentPage:1, pageSize:pagination?.pageSize, totalData:pagination?.totalData, totalPage:pagination?.totalPage}))
+    dispatch(setPagination({ currentPage: 1, pageSize: pagination?.pageSize, totalData: pagination?.totalData, totalPage: pagination?.totalPage }));
   };
 
   const onChangePage = (page: number, pageSize?: number) => {

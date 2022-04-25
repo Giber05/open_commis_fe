@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Card, Divider, Rate, Row, Typography, Image } from "antd";
 import useComPostsHandler from "../use_composts_handler";
-import CommissionPost from "../../../../data/models/compost_list/commission_post";
+import CommissionPost from "../../../../data/models/compost_list/commission_posts";
 
 const { Meta } = Card;
 
@@ -11,10 +11,10 @@ type CommissionProps = {
 function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
   const { isLoadingComPosts } = useComPostsHandler();
   const { commission } = commissionPost;
-  
+
   return (
     <Card
-      className="comic-shadow sm:shrink-0 hover:opacity-80"
+      className="comic-shadow hover-scale-up"
       loading={isLoadingComPosts}
       style={{
         minHeight: "360px",
@@ -34,7 +34,7 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
       </div>
       <Divider className="my-2" />
       <Typography.Title level={5} className="text-sm">
-      {commission?.title.length! > 30 ? `${commission?.title.substring(0, 30)}...` : commission?.title}
+        {commission?.title.length! > 30 ? `${commission?.title.substring(0, 30)}...` : commission?.title}
       </Typography.Title>
       <div className="">
         <Row justify="space-between">
