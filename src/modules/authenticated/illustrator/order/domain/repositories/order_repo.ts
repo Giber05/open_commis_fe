@@ -5,5 +5,6 @@ import OrderListModel from "../../data/models/order_list_model";
 export interface OrderRepo {
   getOrders(params: { page: number; limit: number;token:string,compostId?: number }): Promise<Resource<OrderListModel>>;
   getOrderDetail(params: { orderId: number;token:string, }): Promise<Resource<IllustratorOrderDetailModel>>;
+  confirmOrder(params: { orderId: number; token: string; accept: boolean; rejectReason?: string }): Promise<Resource<IllustratorOrderDetailModel>>;
 
 }

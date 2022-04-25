@@ -11,7 +11,7 @@ function ManageComPostRoutes(): JSX.Element {
         <Route path="edit" element={asyncComponent(() => import("./presentation/features/edit_compost/EditComPost"))} />
       </Route>
       <Route path="create" element={asyncComponent(() => import("./presentation/features/create_compost/CreateComPost"))} />
-      <Route path="/" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

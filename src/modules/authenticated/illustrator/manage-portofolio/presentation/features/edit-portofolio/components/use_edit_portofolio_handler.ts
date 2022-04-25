@@ -29,7 +29,6 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
 
     const formData = new FormData();
     formData.append("profile_picture", profilePicture[0]);
-
     formData.append("instagram", event.instagram);
     formData.append("bio", event.bio);
     formData.append("facebook", event.facebook);
