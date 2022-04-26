@@ -8,17 +8,17 @@ export class CommissionPostDetail extends CommissionPostEntity {
   category?: CategoryModel | null;
   tags?: TagModel[] | null;
   illustrator: UserTypeModel;
-  ordersCompleted: number;
-  overallRating: number;
-  reviews: ReviewModel[];
+  ordersCompleted?: number|null;
+  overallRating?: number|null;
+  reviews?: ReviewModel[]|null;
 
   constructor(params: {
     category?: CategoryModel;
     tags?: TagModel[];
     illustrator: UserTypeModel;
-    ordersCompleted: number;
-    overallRating: number;
-    reviews: ReviewModel[];
+    ordersCompleted?: number|null;
+    overallRating?: number|null;
+    reviews?: ReviewModel[]|null;
     id: number;
     title: string;
     durationTime: number;
@@ -73,9 +73,9 @@ export class CommissionPostDetail extends CommissionPostEntity {
         return TagModel.fromJson(tag);
       }),
       illustrator: UserTypeModel.fromJson(json.illustrator),
-      overallRating: json.overallRating,
-      ordersCompleted: json.ordersCompleted,
-      reviews: json.reviews.map((review: ReviewModel) => ReviewModel.fromJson(review)),
+      overallRating: json.overallRating == undefined?null:json.overallRating,
+      ordersCompleted: json.ordersCompleted== undefined?null:json.ordersCompleted,
+      reviews:json.reviews== undefined?null: json.reviews.map((review: ReviewModel) => ReviewModel.fromJson(review)),
     });
   }
 }

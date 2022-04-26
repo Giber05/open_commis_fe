@@ -18,7 +18,7 @@ function CommissionPostDetail() {
   const { getComPostDetail, commissionPost, isLoadingComPosts } = useComPostDetailHandler();
   useEffect(() => {
     getComPostDetail();
-  }, [commissionPost?.reviews.length]);
+  }, [commissionPost?.reviews?.length]);
   if (isLoadingComPosts) return <CircularLoadingIndicator />;
   else if (commissionPost == null) return <NotFound />;
   return (
@@ -41,7 +41,7 @@ function CommissionPostDetail() {
         <Col xs={24} sm={24} md={12} lg={12}>
           <div className="my-5 text-left">
             <h3 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h3>
-            {commissionPost.reviews.map((review) => (
+            {commissionPost.reviews?.map((review) => (
               <Reviews review={review} />
             ))}
           </div>

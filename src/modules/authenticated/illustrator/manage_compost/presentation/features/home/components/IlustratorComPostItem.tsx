@@ -33,7 +33,7 @@ function IlustratorComPostItem({ commission }: PropsType) {
             </Col>
             <Col>
               <span>
-                Status : <Typography.Text className=" text-green-500">Tersedia</Typography.Text>{" "}
+              Status : <Typography.Text className={` ${commission?.status ==="OPEN"?"text-green-500":"text-red-500"} font-semibold`}>{commission?.status}</Typography.Text>
               </span>
             </Col>
             <Col>
