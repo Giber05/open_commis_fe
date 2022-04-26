@@ -76,6 +76,8 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
       },
     });
     if (response.status >= 200 && response.status <= 210) {
+      console.log("Change status", response.data);
+      
       return ComPostDetailModel.fromJson(response.data);
     }
     throw new BaseException({ message: response.data.error });
@@ -146,6 +148,8 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
     });
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data.data;
+      console.log({body});
+      
       return body.map((e: any) => {
         return IllustratorComposts.fromJson(e);
       });

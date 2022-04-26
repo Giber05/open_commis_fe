@@ -103,6 +103,7 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
   }
 
   const onChangeComPostStatus = () => {
+    message.loading("Loading...")
     let compostStatus = commissionPostDetail?.status === "OPEN" ? "CLOSED" : "OPEN";
     dispatch(setIsLoadingChangeStatus(true));
     setTimeout(async () => {
@@ -111,12 +112,12 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
       dispatch(setIsLoadingChangeStatus(false));
       resource.whenWithResult({
         success: (value) => {
+
           dispatch(fetchCommissionPostDetail(value.data.data));
-          dispatch(fetchError(""));
+          message.success(value.data.message, 2)
         },
         error: (error) => {
-          dispatch(fetchError(error.exception.message));
-          console.log({ error });
+          message.error(error.exception.message, 2)
         },
       });
     });

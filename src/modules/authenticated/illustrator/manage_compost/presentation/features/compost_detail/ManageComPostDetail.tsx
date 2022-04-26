@@ -13,7 +13,7 @@ function ManageComPostDetail(): JSX.Element {
   const { isLoadingComPost, commissionPostDetail, getComPostDetail, onDeleteComPost } = useIllustratorComPostDetailHandler();
   useEffect(() => {
     getComPostDetail();
-  }, []);
+  }, [commissionPostDetail?.status]);
 
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -62,7 +62,7 @@ function ManageComPostDetail(): JSX.Element {
       </div>
       <div className="my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
-        {commissionPostDetail?.reviews?.length!>0? commissionPostDetail?.reviews.map((review) => (
+        {commissionPostDetail?.reviews?.length!>0? commissionPostDetail?.reviews?.map((review) => (
               <Reviews review={review} />
             )):
              <Card className="mx-auto">

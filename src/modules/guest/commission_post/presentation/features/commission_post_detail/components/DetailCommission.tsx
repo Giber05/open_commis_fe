@@ -37,7 +37,7 @@ function DetailCommission({ commission }: CommissionProps) {
               textAlign: isLongTitle || isMobile ? "left" : "right",
             }}
           >
-            <Rate disabled value={commission.overallRating} className="text-base md:text-lg mb-3" />
+            <Rate disabled value={commission.overallRating!} className="text-base md:text-lg mb-3" />
           </div>
         </Col>
       </Row>
