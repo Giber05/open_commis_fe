@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Col, Divider, Popconfirm, Row, Tag, Typography } from "antd";
+import { Avatar, Button, Card, Col, Divider, Popconfirm, Result, Row, Tag, Typography } from "antd";
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
@@ -62,9 +62,13 @@ function ManageComPostDetail(): JSX.Element {
       </div>
       <div className="my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
-        {/* <Reviews />
-        <Reviews />
-        <Reviews /> */}
+        {commissionPostDetail?.reviews?.length!>0? commissionPostDetail?.reviews.map((review) => (
+              <Reviews review={review} />
+            )):
+             <Card className="mx-auto">
+              <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
+            </Card>
+            }
       </div>
     </div>
   );
