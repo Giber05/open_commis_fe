@@ -31,6 +31,8 @@ function useComPostDetailHandler(): ComPostDetailController {
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionDetail(value.data.data));
+          console.log({value});
+          
           dispatch(fetchError(""));
         },
         error: (error) => {

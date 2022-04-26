@@ -27,24 +27,24 @@ export class CommissionPostEntity {
     this.updatedAt = params.updatedAt;
   }
 }
-export class Illustrator {
-  id: number;
-  name: string;
-  username: string;
-  profilePicture: string;
+// export class Illustrator {
+//   id: number;
+//   name: string;
+//   username: string;
+//   profilePicture: string;
 
-  constructor(params: { id: number; name: string; username: string; profilePicture: string }) {
-    this.id = params.id;
-    this.name = params.name;
-    this.username = params.username;
-    this.profilePicture = params.profilePicture;
-  }
-  public static fromJson(json: any): Illustrator {
-    return new Illustrator({
-      id: json.id,
-      name: json.name,
-      username: json.username,
-      profilePicture: json.profilePicture,
-    });
-  }
-}
+//   constructor(params: { id: number; name: string; username: string; profilePicture: string }) {
+//     this.id = params.id;
+//     this.name = params.name;
+//     this.username = params.username;
+//     this.profilePicture = params.profilePicture;
+//   }
+//   public static fromJson(json: any): Illustrator {
+//     return new Illustrator({
+//       id: json.id,
+//       name: json.name,
+//       username: json.username,
+//       profilePicture: json.profilePicture,
+//     });
+//   }
+// }

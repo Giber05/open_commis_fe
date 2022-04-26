@@ -2,10 +2,11 @@ import { Row, Col, Avatar, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
-import { Illustrator } from "../../../../../../common/commission/domain/entities/commission_post_entity";
+import { UserTypeModel } from "../../../../../../common/authentication/data/model/user_type_model";
+import UserModel from "../../../../../authentication/data/models/user_model";
 
 type IllustratorProps = {
-  illustrator: Illustrator;
+  illustrator: UserTypeModel;
 };
 function IllustratorSection({ illustrator }: IllustratorProps) {
   return (
