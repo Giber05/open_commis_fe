@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
 import { CommissionPostDetail } from "../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
-import { OrderList } from "../../../order/data/models/order_list";
+import { OrderList } from "../../../../../common/order/data/models/order_list";
 import IllustratorComposts from "../../data/models/illustrators_composts";
 
 type IllustratorsComPostState = {

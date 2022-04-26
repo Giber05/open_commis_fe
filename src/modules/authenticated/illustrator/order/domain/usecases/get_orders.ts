@@ -1,5 +1,5 @@
 import Resource from "../../../../../../core/utils/resource";
-import OrderListModel from "../../data/models/order_list_model";
+import OrderListModel from "../../../../../common/order/data/models/order_list_model";
 import { OrderRepoImpl } from "../../data/repositories_impl/order_repo_impl";
 import { OrderRepo } from "../repositories/order_repo";
 

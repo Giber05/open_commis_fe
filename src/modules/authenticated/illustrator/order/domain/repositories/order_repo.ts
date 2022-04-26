@@ -1,6 +1,6 @@
 import Resource from "../../../../../../core/utils/resource";
 import { IllustratorOrderDetailModel } from "../../data/models/illustrator_order_detail_model";
-import OrderListModel from "../../data/models/order_list_model";
+import OrderListModel from "../../../../../common/order/data/models/order_list_model";
 import { SubmissionFileModel } from "../../data/models/submission_file_model";
 
 export interface OrderRepo {

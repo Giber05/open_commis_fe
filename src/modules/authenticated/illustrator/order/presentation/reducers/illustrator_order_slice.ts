@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
 import { IllustratorOrderDetail } from "../../data/models/illustrator_detail_order";
-import { OrderList } from "../../data/models/order_list";
+import { OrderList } from "../../../../../common/order/data/models/order_list";
 
 type IllustratorOrderState = {
   isLoading: boolean;

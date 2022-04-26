@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
+import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
 import ArtworkItem from "./components/ArtworkItem";
 import CommissionItem from "./components/CommissionItem";
 import PortfolioSection from "./components/PortfolioSection";
@@ -25,6 +26,7 @@ function Portofolio() {
   const onClick = useCallback(() => {
     changeAvailabilityStatus();
   }, [illustratorProfile?.available]);
+  if(isLoading) return <CircularLoadingIndicator/>
   return (
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>

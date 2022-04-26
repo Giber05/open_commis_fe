@@ -56,7 +56,7 @@ function DetailComPost() {
       </Row>
       <Row justify="center" className="mt-3">
         {status ? (
-          <DangerButton title="TUTUP COMMISSION" block loading={isLoadingChangeStatus} rounded onClick={onClick} />
+          <DangerButton title="TUTUP COMMISSION"  loading={isLoadingChangeStatus} rounded onClick={onClick} />
         ) : (
           <SuccessButton loading={isLoadingChangeStatus} title="BUKA COMMISSION" block onClick={onClick} rounded />
         )}

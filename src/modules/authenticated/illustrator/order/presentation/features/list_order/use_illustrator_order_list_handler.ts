@@ -4,8 +4,8 @@ import { OrderStatus } from "../../../../../../../core/utils/enums";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
-import { OrderList } from "../../../data/models/order_list";
-import OrderListModel from "../../../data/models/order_list_model";
+import { OrderList } from "../../../../../../common/order/data/models/order_list";
+import OrderListModel from "../../../../../../common/order/data/models/order_list_model";
 import { GetOrders } from "../../../domain/usecases/get_orders";
 import { fetchOrders, selectIllustratorOrder, setIsLoading, setPagination } from "../../reducers/illustrator_order_slice";
 

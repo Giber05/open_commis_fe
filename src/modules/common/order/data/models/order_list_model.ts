@@ -1,4 +1,4 @@
-import PaginationModel from "../../../../../common/pagination/model/pagination_model";
+import PaginationModel from "../../../pagination/model/pagination_model";
 import { OrderList } from "./order_list";
 
 class OrderListModel {

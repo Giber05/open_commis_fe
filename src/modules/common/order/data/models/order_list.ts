@@ -1,6 +1,6 @@
-import ConsumerModel from "../../../../../common/authentication/data/model/consumer_model";
-import { CommissionPost } from "../../../../../common/commission/data/models/commission_post";
-import { OrderEntity } from "../../../../../common/order/domain/entities/order_entity";
+import ConsumerModel from "../../../authentication/data/model/consumer_model";
+import { CommissionPost } from "../../../commission/data/models/commission_post";
+import { OrderEntity } from "../../domain/entities/order_entity";
 
 export class OrderList extends OrderEntity {
   consumer: ConsumerModel;
