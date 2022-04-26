@@ -37,7 +37,7 @@ function DetailCommission({ commission }: CommissionProps) {
               textAlign: isLongTitle || isMobile ? "left" : "right",
             }}
           >
-            <Rate disabled value={4} className="text-base md:text-lg mb-3" />
+            <Rate disabled value={commission.overallRating} className="text-base md:text-lg mb-3" />
           </div>
         </Col>
       </Row>
@@ -47,7 +47,7 @@ function DetailCommission({ commission }: CommissionProps) {
             <Typography.Text className="text-xl md:text-2xl font-bold">RP. {commission.price}</Typography.Text>
           </Col>
 
-          <Typography.Text className="text-gray-400">Jumlah pesanan berhasil : 0</Typography.Text>
+          <Typography.Text className="text-gray-400">Jumlah pesanan berhasil : {commission.ordersCompleted}</Typography.Text>
 
           <Col>
             <h3>Deskripsi</h3>

@@ -1,16 +1,24 @@
+import { UserTypeModel } from "../../../../../common/authentication/data/model/user_type_model";
 import { CategoryModel } from "../../../../../common/commission/data/models/category_model";
 import { TagModel } from "../../../../../common/commission/data/models/tag_model";
-import { CommissionPostEntity, Illustrator } from "../../../../../common/commission/domain/entities/commission_post_entity";
+import { CommissionPostEntity } from "../../../../../common/commission/domain/entities/commission_post_entity";
+import { ReviewModel } from "../review/review_model";
 
 export class CommissionPostDetail extends CommissionPostEntity {
   category?: CategoryModel | null;
   tags?: TagModel[] | null;
-  illustrator: Illustrator;
+  illustrator: UserTypeModel;
+  ordersCompleted: number;
+  overallRating: number;
+  reviews: ReviewModel[];
 
   constructor(params: {
     category?: CategoryModel;
     tags?: TagModel[];
-    illustrator: Illustrator;
+    illustrator: UserTypeModel;
+    ordersCompleted: number;
+    overallRating: number;
+    reviews: ReviewModel[];
     id: number;
     title: string;
     durationTime: number;
@@ -41,6 +49,9 @@ export class CommissionPostDetail extends CommissionPostEntity {
     this.tags = params.tags;
     this.illustrator = params.illustrator;
     this.category = params.category;
+    this.overallRating = params.overallRating;
+    this.ordersCompleted = params.ordersCompleted;
+    this.reviews = params.reviews;
   }
 
   public static fromJson(json: any): CommissionPostDetail {
@@ -61,7 +72,10 @@ export class CommissionPostDetail extends CommissionPostEntity {
       tags: json.tags.map((tag: TagModel) => {
         return TagModel.fromJson(tag);
       }),
-      illustrator: Illustrator.fromJson(json.illustrator),
+      illustrator: UserTypeModel.fromJson(json.illustrator),
+      overallRating: json.overallRating,
+      ordersCompleted: json.ordersCompleted,
+      reviews: json.reviews.map((review: ReviewModel) => ReviewModel.fromJson(review)),
     });
   }
 }

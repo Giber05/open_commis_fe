@@ -62,9 +62,9 @@ function ManageComPostDetail(): JSX.Element {
       </div>
       <div className="my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
+        {/* <Reviews />
         <Reviews />
-        <Reviews />
-        <Reviews />
+        <Reviews /> */}
       </div>
     </div>
   );
