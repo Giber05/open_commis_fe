@@ -1,7 +1,7 @@
 import { Card, Typography, Divider, Row, Col } from 'antd';
 import React from 'react'
 
-function RincianPembayaran() {
+function PaymentDetail() {
   return (
   <Card
       className="comic-shadow sm:shrink-0 mt-5"
@@ -42,4 +42,4 @@ function RincianPembayaran() {
 }
 
 
-export default RincianPembayaran
+export default PaymentDetail

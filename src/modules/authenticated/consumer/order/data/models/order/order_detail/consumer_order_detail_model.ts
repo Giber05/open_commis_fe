@@ -1,5 +1,6 @@
 import { ConsumerOrderDetail } from "./consumer_detail_order";
 
+
 export class ConsumerOrderDetailModel {
   success: boolean;
   message: string;

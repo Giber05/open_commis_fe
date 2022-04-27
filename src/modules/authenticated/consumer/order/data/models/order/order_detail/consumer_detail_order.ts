@@ -1,16 +1,16 @@
-import IlustratorModel from "../../../../../../common/authentication/data/model/ilustrator_model";
-import { CommissionPost } from "../../../../../../common/commission/data/models/commission_post";
-import { OrderDetailModel } from "../../../../../../common/order/data/models/order_detail_model";
-import { OrderEntity } from "../../../../../../common/order/domain/entities/order_entity";
-import { PaymentModel } from "../payment/payment_model";
+import IlustratorModel from "../../../../../../../common/authentication/data/model/ilustrator_model";
+import { CommissionPost } from "../../../../../../../common/commission/data/models/commission_post";
+import { OrderDetailModel } from "../../../../../../../common/order/data/models/order_detail_model";
+import { OrderEntity } from "../../../../../../../common/order/domain/entities/order_entity";
+import { PaymentModel } from "../../payment/payment_model";
 
 export class ConsumerOrderDetail extends OrderEntity {
   illustrator: IlustratorModel;
   commission: CommissionPost;
   detail: OrderDetailModel;
-  payment: PaymentModel | null;
+  payment?: PaymentModel | null;
 
-  constructor(params: { payment: PaymentModel | null; illustrator: IlustratorModel; commission: CommissionPost; detail: OrderDetailModel; id: number; status: string; grandTotal: number; orderDate: Date }) {
+  constructor(params: { payment?: PaymentModel | null; illustrator: IlustratorModel; commission: CommissionPost; detail: OrderDetailModel; id: number; status: string; grandTotal: number; orderDate: Date }) {
     super({
       id: params.id,
       status: params.status,
@@ -32,7 +32,7 @@ export class ConsumerOrderDetail extends OrderEntity {
       illustrator: IlustratorModel.fromJson(json.illustrator),
       commission: CommissionPost.fromJson(json.commission),
       detail: OrderDetailModel.fromJson(json.detail),
-      payment: PaymentModel.fromJson(json.payment),
+      payment:json.payment==undefined?null: PaymentModel.fromJson(json.payment),
     });
   }
 }

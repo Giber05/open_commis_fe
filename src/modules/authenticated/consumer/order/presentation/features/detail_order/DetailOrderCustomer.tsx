@@ -3,9 +3,9 @@ import modal from 'antd/lib/modal'
 import React, { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import SuccessButton from '../../../../../../../core/common_components/buttons/SuccessButton'
-import DetailPesanan from './component/DetailPesanan'
-import DetailProduk from './component/DetailProduk'
-import RincianPembayaran from './component/RincianPembayaran'
+import OrderDetail from './component/OrderDetail'
+import ComPostDetail from './component/ComPostDetail'
+import PaymentDetail from './component/PaymentDetail'
 
 function DetailOrderCustomer() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -32,11 +32,11 @@ function DetailOrderCustomer() {
       <div className='max-w-3xl mx-auto py-3  sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8'>
         <Row gutter={[24, 24]} >
             <Col xs={24} sm={24} md={12} lg={12}>
-            <DetailPesanan/>
+            <OrderDetail/>
             </Col>
             <Col xs={24} sm={24} md={12} lg={12}>
-            <DetailProduk/>
-            <RincianPembayaran/>
+            <ComPostDetail/>
+            <PaymentDetail/>
             </Col>
             <div className="mx-auto flex justify-center"> 
               <SuccessButton 

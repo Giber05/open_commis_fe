@@ -2,7 +2,7 @@ import { Card, Divider, Row, Typography, Image, Col } from 'antd';
 import React, { useEffect, useState } from 'react'
 import useComPostDetailHandler from '../../../../../../../guest/commission_post/presentation/features/commission_post_detail/use_compost_detail_handler';
 
-function DetailProduk() {
+function ComPostDetail() {
   const { isMobile } = useComPostDetailHandler();
   let title="MAKE A CHIBI STYLE ONLY U  ";
   const [ellipsis, setEllipsis] = useState(false);
@@ -51,4 +51,4 @@ function DetailProduk() {
   );
 }
 
-export default DetailProduk
+export default ComPostDetail

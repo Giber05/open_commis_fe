@@ -1,7 +1,7 @@
 import { Card, Divider, Rate, Row, Typography, Image, Col, Tag } from 'antd';
 import React from 'react'
 
-function DetailPesanan() {
+function OrderDetail() {
   return (
     <Card
       className="comic-shadow sm:shrink-0"
@@ -60,4 +60,4 @@ function DetailPesanan() {
   );
 }
 
-export default DetailPesanan
+export default OrderDetail

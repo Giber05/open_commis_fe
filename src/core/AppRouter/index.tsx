@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import OrderPage from "../../modules/authenticated/consumer/order/presentation/OrderPage";
+import OrderPage from "../../modules/authenticated/consumer/order/presentation/features/order_list/OrderListPage";
 import Earning from "../../modules/authenticated/illustrator/earning/EarningIndex";
 import ManagePortofolio from "../../modules/authenticated/illustrator/manage-portofolio/ManagePortofolioIndex";
 import ManageComPost from "../../modules/authenticated/illustrator/manage_compost/ManageComPostIndex";
@@ -14,7 +14,7 @@ import OpenCommissIlustrator from "../common_components/main_app/app/OpenCommiss
 import IllustratorsPortofolio from "../../modules/guest/illustrators_portofolio/IllustratorsPortofolioIndex";
 import RequireAuth from "../../modules/guest/authentication/RequireAuth";
 import OrderCustomer from "../../modules/authenticated/consumer/order/OrderCustomerIndex";
-import Ordering from "../../modules/authenticated/consumer/ordering/presentation/OrderingIndex";
+import Ordering from "../../modules/authenticated/consumer/order/OrderingIndex";
 import ProfileCustomer from "../../modules/authenticated/consumer/profile/presentation/ProfileCustomerIndex";
 
 function AppRoutes(): JSX.Element {
@@ -26,16 +26,16 @@ function AppRoutes(): JSX.Element {
           <Route path=":compostId/*" element={<ComPostDetail />} />
           <Route path="illustrator/*" element={<IllustratorsPortofolio />} />
           <Route path="consumer/*" element={<RequireAuth />}>
-            <Route path="order/*" element={<OrderCustomer/>} />
-            <Route path=":compostId/orderingForm/*" element={<Ordering/>} />
-             <Route path="profile/*" element={<ProfileCustomer/>} />
+            <Route path="order/*" element={<OrderCustomer />} />
+            <Route path=":compostId/orderingForm/*" element={<Ordering />} />
+            <Route path="profile/*" element={<ProfileCustomer />} />
           </Route>
         </Route>
         <Route path="manage/*" element={<OpenCommissIlustrator />}>
           <Route path="manage-compost/*" element={<ManageComPost />} />
           <Route path="manage-portofolio/*" element={<ManagePortofolio />} />
-          <Route path="order/*" element={<Order/>} />
-          <Route path="earning/*" element={<Earning/>} />
+          <Route path="order/*" element={<Order />} />
+          <Route path="earning/*" element={<Earning />} />
         </Route>
         <Route path="auth/*" element={<AuthenticationModule />}>
           <Route path="login/*" element={<ManageComPost />} />
