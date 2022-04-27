@@ -20,38 +20,39 @@ function PaymentDetail({ payment, grandTotal }: PaymentProps) {
       <Typography className="text-center text-lg sm:text-lg lg:text-2xl font-bold">Rincian Pembayaran</Typography>
       <Divider className="my-2" />
       {payment != null ? (
-        <Row justify="space-between">
-          <Col className="text-base leading-10">
-            <Col>
+        <>
+          <Row justify="space-between" className="my-3">
+            <Col span={12} className="text-base leading-none">
               <Typography.Text className="text-sm  sm:text-sm lg:text-lg pr-5">Tanggal Pembayaran</Typography.Text>
             </Col>
-            <Col>
+            <Col span={12} className="text-base leading-none text-right">
+              <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg text-right font-bold">{payment?.paymentDate == null ? "Belum dibayar" : UtilMethods.getIndonesianFormatDate(payment?.paymentDate!)}</Typography.Text>
+            </Col>
+          </Row>
+          <Row justify="space-between" className="my-3">
+            <Col span={12} className="text-base leading-none">
               <Typography.Text className="text-sm  sm:text-sm lg:text-lg ">Metode Pembayaran</Typography.Text>
             </Col>
-            <Col>
+            <Col span={12} className="text-base leading-none text-right">
+              <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right"> {payment?.paymentMethod ?? "-"}</Typography.Text>
+            </Col>
+          </Row>
+          <Row justify="space-between" className="my-3">
+            <Col span={12} className="text-base leading-none">
               <Typography.Text className="text-sm  sm:text-sm lg:text-lg ">Total Pembayaran</Typography.Text>
             </Col>
-          </Col>
-
-          <Col className="text-base leading-10">
-            <Col>
-              <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg text-right font-bold">{UtilMethods.getIndonesianFormatDate(payment?.paymentDate!)}</Typography.Text>
-            </Col>
-            <Col>
-              <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right"> {payment?.paymentMethod}</Typography.Text>
-            </Col>
-            <Col>
+            <Col span={12} className="text-base leading-none text-right">
               <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right"> Rp. {grandTotal}</Typography.Text>
             </Col>
-          </Col>
-        </Row>
+          </Row>
+        </>
       ) : (
         <div className="text-center">
           <Col>
-          <Typography.Text>Total yang harus dibayar:</Typography.Text>
+            <Typography.Text>Total yang harus dibayar:</Typography.Text>
           </Col>
           <Col>
-          <Typography.Text className="font-bold text-lg">Rp. {grandTotal}</Typography.Text>
+            <Typography.Text className="font-bold text-lg">Rp. {grandTotal}</Typography.Text>
           </Col>
         </div>
       )}

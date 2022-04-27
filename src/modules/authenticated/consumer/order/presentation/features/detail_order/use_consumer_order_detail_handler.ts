@@ -1,11 +1,14 @@
+import { message } from "antd";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchError, selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { ConsumerOrderDetail } from "../../../data/models/order/order_detail/consumer_detail_order";
+import { FinishOrder } from "../../../domain/usecases/finish_order";
 import { GetOrderDetail } from "../../../domain/usecases/get_order_detail";
-import { fetchOrderDetail, selectConsumerOrder, setIsFinishOrderModalVisible, setIsLoading, setIsPaymentModalVisible } from "../../reducers/consumer_order_slice";
+import { MakePayment } from "../../../domain/usecases/make_payment";
+import { fetchOrderDetail, selectConsumerOrder, setIsFinishOrderModalVisible, setIsLoading, setIsLoadingChangeOrderStatus, setIsPaymentModalVisible } from "../../reducers/consumer_order_slice";
 
 type DetailOrderController = {
   isLoading: boolean;
@@ -16,23 +19,25 @@ type DetailOrderController = {
   changeFinishOrderModalVisibility: (visible: boolean) => void;
   changePaymentModalVisibility: (visible: boolean) => void;
   isMobile: boolean;
+  isLoadingChangeOrderStatus: boolean;
+  makePayment: (event: any) => void;
+  finishOrder: () => void;
 };
 
 function useConsumerOrderDetailHandler(): DetailOrderController {
   const { orderId } = useParams();
   let id = parseInt(orderId!);
-
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { error, isMobile } = useSelector(selectCommon);
 
-  const { isLoading, orderDetail, isPaymentModalVisible,isFinishOrderModalVisible } = useSelector(selectConsumerOrder);
+  const { isLoading, orderDetail, isPaymentModalVisible, isFinishOrderModalVisible, isLoadingChangeOrderStatus } = useSelector(selectConsumerOrder);
   const { authUser } = useSelector(selectAuth);
   const getOrderDetailUC = new GetOrderDetail();
-  // const confirmOrderUC = new ConfirmOrder();
+  const makePaymentUC = new MakePayment();
+  const finishOrderUC = new FinishOrder();
 
   const getOrderDetail = () => {
-    console.log("GETORDERDETAIL");
-
     dispatch(setIsLoading(true));
     setTimeout(async () => {
       const resource = await getOrderDetailUC.execute({ orderId: id, token: authUser?.data.token! });
@@ -59,6 +64,43 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
   const changePaymentModalVisibility = (visible: boolean) => {
     dispatch(setIsPaymentModalVisible(visible));
   };
+
+  const makePayment = (event: any) => {
+    message.loading("Loading...");
+    dispatch(setIsLoadingChangeOrderStatus(true));
+    setTimeout(async () => {
+      const resource = await makePaymentUC.execute({ token: authUser?.data.token!, method: event.payment_method, orderId: id });
+      dispatch(setIsLoadingChangeOrderStatus(false));
+      resource.whenWithResult({
+        success: (value) => {
+          console.log({ value });
+          const win = window.open(value.data.data.paymentLink, "_blank");
+          win?.focus();
+        },
+        error: (error) => {
+          message.error(error.exception.message);
+        },
+      });
+    });
+  };
+
+  const finishOrder = () => {
+    message.loading("Loading...");
+    dispatch(setIsLoadingChangeOrderStatus(true));
+    setTimeout(async () => {
+      const resource = await finishOrderUC.execute({ token: authUser?.data.token!, orderId: id });
+      dispatch(setIsLoadingChangeOrderStatus(false));
+      resource.whenWithResult({
+        success: (value) => {
+          message.success(value.data.message);
+          navigate("/consumer/order/" + value.data.data.commission.id + "/reviewForm");
+        },
+        error: (error) => {
+          message.error(error.exception.message);
+        },
+      });
+    });
+  };
   return {
     isLoading,
     orderDetail,
@@ -67,7 +109,10 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
     isMobile,
     isPaymentModalVisible,
     changePaymentModalVisibility,
-    isFinishOrderModalVisible
+    isFinishOrderModalVisible,
+    isLoadingChangeOrderStatus,
+    makePayment,
+    finishOrder,
   };
 }
 

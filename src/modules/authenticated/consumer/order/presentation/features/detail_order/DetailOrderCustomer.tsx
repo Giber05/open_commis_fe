@@ -17,9 +17,6 @@ import FinishOrderModal from "./component/FinishOrderModal";
 
 function DetailOrderCustomer() {
   const { getOrderDetail, isLoading, orderDetail, changePaymentModalVisibility, changeFinishOrderModalVisibility } = useConsumerOrderDetailHandler();
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getOrderDetail();
@@ -32,8 +29,9 @@ function DetailOrderCustomer() {
     changeFinishOrderModalVisibility(true);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleMakePayment = (url: string) => {
+    const win = window.open(url, "_blank");
+    win?.focus();
   };
 
   const orderButtons = (status: string) => {
@@ -42,12 +40,16 @@ function DetailOrderCustomer() {
         return <DisabledButton title="Lakukan Pembayaran" rounded />;
       case OrderStatus.Accepted:
         return <InfoButton size="large" title="Lakukan Pembayaran" rounded onClick={showPaymentModal} />;
+      case OrderStatus.NotPaid:
+        return <InfoButton onClick={() => handleMakePayment(orderDetail?.payment?.paymentLink!)} title="Lakukan Pembayaran" rounded />;
       case OrderStatus.OnWork:
         return <DisabledButton title="Selesaikan Pesanan" rounded />;
       case OrderStatus.Sent:
         return <SuccessButton block title="Selesaikan Pesanan" rounded onClick={showFinishModal} />;
       case OrderStatus.Finished:
-        return <InfoButton title="Beri Ulasan" rounded />;
+        return <Link to={`/consumer/order/${orderDetail?.commission.id}/reviewForm`}>
+        <InfoButton title="Beri Ulasan" rounded />;
+        </Link> 
       default:
         return null;
     }

@@ -5,9 +5,30 @@ import { OrderRepo } from "../../domain/repositories/order_repo";
 import { OrderRemoteDS, OrderRemoteDSImpl } from "../datasources/remote/order_remote_ds";
 import { ConsumerMakeOrderModel } from "../models/order/make_order/consumer_make_order_model";
 import { ConsumerOrderDetailModel } from "../models/order/order_detail/consumer_order_detail_model";
+import { MakePaymentModel } from "../models/payment/make_payment_model";
 
 export class OrderRepoImpl extends BaseRepository implements OrderRepo {
   private orderRemoteDS: OrderRemoteDS = new OrderRemoteDSImpl();
+  
+  finishOrder(params: { orderId: number; token: string; }): Promise<Resource<ConsumerMakeOrderModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.orderRemoteDS.finishOrder({ orderId: params.orderId, token: params.token });
+        if (resource instanceof ConsumerMakeOrderModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
+
+  makePayment(params: { token: string; orderId: number; method: string }): Promise<Resource<MakePaymentModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.orderRemoteDS.makePayment({ orderId: params.orderId, token: params.token, method: params.method });
+        if (resource instanceof MakePaymentModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
 
   createOrder(params: { orderForm: any; token: string }): Promise<Resource<ConsumerMakeOrderModel>> {
     return this.networkOnlyCall({

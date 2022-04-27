@@ -5,20 +5,57 @@ import OrderListModel from "../../../../../../common/order/data/models/order_lis
 import { ConsumerMakeOrderModel } from "../../models/order/make_order/consumer_make_order_model";
 import { ConsumerOrderDetail } from "../../models/order/order_detail/consumer_detail_order";
 import { ConsumerOrderDetailModel } from "../../models/order/order_detail/consumer_order_detail_model";
+import { MakePaymentModel } from "../../models/payment/make_payment_model";
 import { PaymentModel } from "../../models/payment/payment_model";
 
 export interface OrderRemoteDS {
   getOrders(params: { page: number; limit: number; token: string; }): Promise<OrderListModel>;
   getOrderDetail(params: { orderId: number; token: string }): Promise<ConsumerOrderDetailModel>;
   createOrder(params: { orderForm: any; token: string }): Promise<ConsumerMakeOrderModel>;
-  makePayment(params:{token:string; orderId:number; method:string}):Promise<PaymentModel>;
+  makePayment(params:{token:string; orderId:number; method:string}):Promise<MakePaymentModel>;
+  finishOrder(params: { orderId: number; token: string }): Promise<ConsumerMakeOrderModel>;
 }
 
 export class OrderRemoteDSImpl implements OrderRemoteDS {
   private baseClient = new BaseClient();
   
-  makePayment(params: { token: string; orderId: number; method: string; }): Promise<PaymentModel> {
-    throw new Error("Method not implemented.");
+  async finishOrder(params: { orderId: number; token: string; }): Promise<ConsumerMakeOrderModel> {
+    let finishOrderURL = NetworkConstant.baseUrl + "orders/"+params.orderId+"/finish";
+    const response = await this.baseClient.postWithCookie({
+      url: finishOrderURL,
+      configs: {
+        headers: {
+          Authorization: "Bearer " + params.token,
+        },
+      },
+    });
+
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data;
+      return ConsumerMakeOrderModel.fromJson(body);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
+  
+ async makePayment(params: { token: string; orderId: number; method: string; }): Promise<MakePaymentModel> {
+   let makePaymentURL = NetworkConstant.baseUrl + "orders/"+params.orderId+"/pay";
+    const response = await this.baseClient.postWithCookie({
+      url: makePaymentURL,
+      body:{
+        method:params.method
+      },
+      configs: {
+        headers: {
+          Authorization: "Bearer " + params.token,
+        },
+      },
+    });
+
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data;
+      return MakePaymentModel.fromJson(body);
+    }
+    throw new BaseException({ message: response.data.error });
   }
 
   async createOrder(params: { orderForm: any; token: string; }): Promise<ConsumerMakeOrderModel> {

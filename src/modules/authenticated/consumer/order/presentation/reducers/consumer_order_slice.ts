@@ -7,6 +7,7 @@ import { ConsumerOrderDetail } from "../../data/models/order/order_detail/consum
 type ConsumerOrderState = {
   initLoading: boolean,
   isLoading: boolean;
+  isLoadingChangeOrderStatus:boolean;
   isFinishOrderModalVisible: boolean;
   isPaymentModalVisible: boolean;
   orders: OrderList[];
@@ -16,7 +17,7 @@ type ConsumerOrderState = {
 
 const initialState: ConsumerOrderState = {
   initLoading:true,
-
+  isLoadingChangeOrderStatus:false,
   isLoading: false,
   isFinishOrderModalVisible: false,
   isPaymentModalVisible: false,
@@ -40,6 +41,9 @@ export const consumerOrderSlice = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setIsLoadingChangeOrderStatus: (state, action: PayloadAction<boolean>) => {
+      state.isLoadingChangeOrderStatus = action.payload;
+    },
     setIsFinishOrderModalVisible: (state, action: PayloadAction<boolean>) => {
       state.isFinishOrderModalVisible = action.payload;
     },
@@ -57,7 +61,7 @@ export const consumerOrderSlice = createSlice({
     },
   },
 });
-export const { setInitLoading,setIsLoading, fetchOrders, setPagination, fetchOrderDetail, setIsFinishOrderModalVisible, setIsPaymentModalVisible } = consumerOrderSlice.actions;
+export const { setIsLoadingChangeOrderStatus,setInitLoading,setIsLoading, fetchOrders, setPagination, fetchOrderDetail, setIsFinishOrderModalVisible, setIsPaymentModalVisible } = consumerOrderSlice.actions;
 export const selectConsumerOrder = (state: RootState): ConsumerOrderState => state.consumer_order;
 
 export default consumerOrderSlice.reducer;

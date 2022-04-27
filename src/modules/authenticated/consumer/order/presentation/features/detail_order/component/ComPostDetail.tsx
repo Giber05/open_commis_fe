@@ -23,24 +23,25 @@ function ComPostDetail({compost}:ComPostProps) {
     >
       <Typography className="text-center text-lg sm:text-lg lg:text-lg font-bold">Detail Produk</Typography>
       <Divider className="my-2" />
-      <Row justify="space-between">
-        <Col className="text-base leading-10">
-          <Col>
-            <Typography.Text className="text-sm  sm:text-sm lg:text-lg pr-5">Judul Commission</Typography.Text>
-          </Col>
-          <Col>
-            <Typography.Text className="text-lg ">Harga</Typography.Text>
-          </Col>
+      <Row justify="space-between" className="my-3">
+        <Col span={12} className="text-base leading-none">
+        <Typography.Text className="text-sm  sm:text-sm lg:text-lg pr-5">Judul Commission</Typography.Text>
+
         </Col>
-        <Col className="text-base leading-10">
-          <Col>
-            <Typography.Text className="text-sm  sm:text-sm lg:text-lg font-bold">{ellipsis ? `${compost.title?.substring(0, 15)}... ` : compost.title}</Typography.Text>
-          </Col>
-          <Col>
-            <Typography.Text className="text-lg font-bold text-right"> Rp.{compost.price}</Typography.Text>
-          </Col>
+        <Col span={12} className="text-base leading-none text-right">
+        <Typography.Text className="text-sm  sm:text-sm lg:text-lg font-bold">{ellipsis ? `${compost.title?.substring(0, 15)}... ` : compost.title}</Typography.Text>
         </Col>
       </Row>
+      <Row justify="space-between" className="my-3">
+        <Col span={12} className="text-base leading-none">
+        <Typography.Text className="text-lg ">Harga</Typography.Text>
+
+        </Col>
+        <Col span={12} className="text-base leading-none text-right">
+        <Typography.Text className="text-lg font-bold text-right"> Rp.{compost.price}</Typography.Text>
+        </Col>
+      </Row>
+
       <div className="text-center">
         <Image
           src={compost.image_1}
