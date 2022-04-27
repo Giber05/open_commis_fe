@@ -44,7 +44,7 @@ function OrderingForm() {
       <div className="max-w-full w-11/12 m-auto text-sm shadow-none">
         <Typography className="text-center my-3 text-black text-2xl font-bold">Formulir Pemesanan</Typography>
         <Form layout="vertical" onFinish={createOrder} name="order_form" className="max-w-md m-auto font-semibold">
-          <Form.Item className="" label="Deskripsi permintaan" name="req_description">
+          <Form.Item rules={[{required:true, message:"Deskripsi permintaan wajib diisi!"}]} className="" label="Deskripsi permintaan" name="req_description">
             <Input.TextArea autoSize={true} className="form-style-blue" />
           </Form.Item>
           <Form.Item getValueFromEvent={normFile} label="Referensi Gambar" name="file">

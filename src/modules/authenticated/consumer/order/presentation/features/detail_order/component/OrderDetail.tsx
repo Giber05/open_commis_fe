@@ -60,6 +60,7 @@ function OrderDetail({ order }: OrderDetailProps) {
         <Col>
           <Image
             src={order?.detail?.referenceImage ?? AssetConstants.imageURL + "placeholder/compost_placeholder.png"}
+            
             preview={false}
             loading="eager"
             className="max-h-44 object-contain"

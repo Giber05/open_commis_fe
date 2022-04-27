@@ -51,7 +51,7 @@ function PaymentDetail({ payment, grandTotal }: PaymentProps) {
           <Typography.Text>Total yang harus dibayar:</Typography.Text>
           </Col>
           <Col>
-          <Typography.Text className="font-bold text-base">Rp. {grandTotal}</Typography.Text>
+          <Typography.Text className="font-bold text-lg">Rp. {grandTotal}</Typography.Text>
           </Col>
         </div>
       )}

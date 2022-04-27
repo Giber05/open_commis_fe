@@ -35,7 +35,7 @@ function OrderItem({ order }: OrderProps): JSX.Element {
         <Col span={14}>
           <Typography className="text-sm mb-1 sm:text-sm lg:text-lg">{order.commission?.title}</Typography>
           <Typography className="text-sm mb-2 sm:text-sm lg:text-lg">{order.commission?.durationTime} hari pengerjaan</Typography>
-          <Tag color={statusColor} className="text-sm mb-2 sm:text-sm lg:text-lg">
+          <Tag color={statusColor} className="text-xs mb-2 sm:text-sm md:text-base lg:text-lg">
             {UtilMethods.translateOrderStatus(order.status)}
           </Tag>
           <Typography className="text-2xl mb-1 sm:text-lg lg:text-2xl font-bold">Rp. {order.grandTotal}</Typography>

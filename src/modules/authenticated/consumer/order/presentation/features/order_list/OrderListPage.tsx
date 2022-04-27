@@ -31,7 +31,7 @@ function OrderListPage(): JSX.Element {
           <Link to={{ pathname: `/consumer/order/${order.id}` }}>
             <OrderItem order={order} />
           </Link>
-          ;
+          
         </div>
       ))}
     </div>

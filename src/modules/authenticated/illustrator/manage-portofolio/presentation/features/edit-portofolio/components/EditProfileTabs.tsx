@@ -21,7 +21,6 @@ function EditProfileTabs() {
     facebook: illustratorProfile?.portofolio?.facebookAcc??"",
     bio: illustratorProfile?.portofolio?.bio??"",
     twitter: illustratorProfile?.portofolio?.twitterAcc??"",
-    profile_picture: illustratorProfile?.profilePicture ?? `${AssetConstants.imageURL}placeholder/profile_placeholder.png`,
     id: illustratorProfile?.id,
   };
 
@@ -69,7 +68,7 @@ function EditProfileTabs() {
               <Typography.Title level={5} className="my-4 text-center">
                 Foto Profil
               </Typography.Title>
-              <Avatar size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }} src={initialValues.profile_picture} />
+              <Avatar size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }} src={illustratorProfile?.profilePicture} />
               <Form.Item name="profile_picture" getValueFromEvent={normFile}>
                 <Upload maxCount={1} accept=".png,.jpg,.jpeg" beforeUpload={beforeUpload}>
                   <Button className="comic-shadow-btn bg-[#1D94C8] text-white rounded-full mt-4 mb-2" icon={<UploadOutlined />}>

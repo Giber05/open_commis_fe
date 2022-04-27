@@ -26,12 +26,12 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
   const editProfile = (event: any) => {
     message.loading({ content: "Loading..." });
     
+    console.log({ event });
     const formData = new FormData();
-    if (event.profile_picture.length>0) {
+    if (event.profile_picture != undefined) {
       let profilePicture = event.profile_picture.map((file: any) => file.originFileObj);
       formData.append("profile_picture", profilePicture[0]);
     }
-    console.log({ event });
 
     formData.append("instagram", event.instagram);
     formData.append("bio", event.bio);
