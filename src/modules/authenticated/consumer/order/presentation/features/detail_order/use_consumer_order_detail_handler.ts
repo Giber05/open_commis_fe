@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchError } from "../../../../../../../core/AppRedux/reducers/common_reducer";
+import { fetchError, selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { ConsumerOrderDetail } from "../../../data/models/order/order_detail/consumer_detail_order";
@@ -10,8 +10,9 @@ import { fetchOrderDetail, selectConsumerOrder, setIsFinishOrderModalVisible, se
 type DetailOrderController = {
   isLoading: boolean;
   orderDetail: ConsumerOrderDetail | null;
-  getOrderDetail(): void;
+  getOrderDetail:()=> void;
   changeOrderModalVisibility: (visible: boolean) => void;
+  isMobile: boolean;
 };
 
 function useConsumerOrderDetailHandler(): DetailOrderController {
@@ -19,12 +20,16 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
   let id = parseInt(orderId!);
 
   const dispatch = useAppDispatch();
+  const { error, isMobile } = useSelector(selectCommon);
+
   const { isLoading, orderDetail } = useSelector(selectConsumerOrder);
   const { authUser } = useSelector(selectAuth);
   const getOrderDetailUC = new GetOrderDetail();
   // const confirmOrderUC = new ConfirmOrder();
 
   const getOrderDetail = () => {
+    console.log("GETORDERDETAIL");
+    
     dispatch(setIsLoading(true));
     setTimeout(async () => {
       const resource = await getOrderDetailUC.execute({ orderId: id, token: authUser?.data.token! });
@@ -44,7 +49,6 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
       });
     });
   };
-  
 
   const changeOrderModalVisibility = (visible: boolean) => {
     dispatch(setIsFinishOrderModalVisible(visible));
@@ -54,6 +58,7 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
     orderDetail,
     getOrderDetail,
     changeOrderModalVisibility,
+    isMobile
   };
 }
 

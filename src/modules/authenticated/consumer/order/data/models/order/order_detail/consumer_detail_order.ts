@@ -32,7 +32,7 @@ export class ConsumerOrderDetail extends OrderEntity {
       illustrator: IlustratorModel.fromJson(json.illustrator),
       commission: CommissionPost.fromJson(json.commission),
       detail: OrderDetailModel.fromJson(json.detail),
-      payment:json.payment==undefined?null: PaymentModel.fromJson(json.payment),
+      payment: json.payment == undefined ? null : PaymentModel.fromJson(json.payment),
     });
   }
 }

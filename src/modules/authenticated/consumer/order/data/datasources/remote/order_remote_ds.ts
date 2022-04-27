@@ -47,8 +47,10 @@ export class OrderRemoteDSImpl implements OrderRemoteDS {
       },
     });
 
+    console.log({response});
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data;
+      
       return ConsumerOrderDetailModel.fromJson(body);
     }
     throw new BaseException({ message: response.data.error });
