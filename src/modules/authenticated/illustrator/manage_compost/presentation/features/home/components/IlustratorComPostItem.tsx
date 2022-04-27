@@ -37,7 +37,7 @@ function IlustratorComPostItem({ commission }: PropsType) {
               </span>
             </Col>
             <Col>
-              <Typography.Text>Jumlah Pesanan: 10</Typography.Text>
+              <Typography.Text>Jumlah Pesanan: {commission?.ordersCompleted}</Typography.Text>
             </Col>
             <Col>
               <span>

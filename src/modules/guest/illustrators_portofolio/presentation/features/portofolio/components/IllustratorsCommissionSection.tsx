@@ -21,7 +21,7 @@ function IllustratorsCommissionSection({ commission }: CommissionProps) {
             />
           </div>
           <div className="p-3">
-            <Typography.Title level={5}>Commission Title</Typography.Title>
+            <Typography.Title level={5}>{}</Typography.Title>
             <Row justify="space-between">
               <Col>
                 <Typography.Text className="font-bold">Commission Price</Typography.Text>

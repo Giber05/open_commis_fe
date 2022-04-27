@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { CommissionPostDetail } from "../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
-import { OrderList } from "../../../../order/data/models/order_list";
+import { OrderList } from "../../../../../../common/order/data/models/order_list";
 import { GetOrders } from "../../../../order/domain/usecases/get_orders";
 import { ChangeComPostStatus } from "../../../domain/usecases/change_compost_status";
 import { DeleteComPost } from "../../../domain/usecases/delete_compost";

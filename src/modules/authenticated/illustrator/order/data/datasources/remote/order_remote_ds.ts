@@ -2,7 +2,7 @@ import NetworkConstant from "../../../../../../../core/constants/network_constan
 import BaseException from "../../../../../../../core/error/base_exception";
 import BaseClient from "../../../../../../../core/utils/base_client";
 import { IllustratorOrderDetailModel } from "../../models/illustrator_order_detail_model";
-import OrderListModel from "../../models/order_list_model";
+import OrderListModel from "../../../../../../common/order/data/models/order_list_model";
 import { SubmissionFileModel } from "../../models/submission_file_model";
 
 export interface OrderRemoteDS {

@@ -43,8 +43,9 @@ function OrdersTable() {
         width={30}
 
           render={(text, record: any) => {
-            let statusColor = UtilMethods.matchStatusColor(record.status);
-            return <Tag color={statusColor}>{record.status}</Tag>;
+            let color = UtilMethods.matchStatusColor(record.status);
+            let status = UtilMethods.translateOrderStatus(record.status)
+            return <Tag color={color}>{status}</Tag>;
           }}
         />
 

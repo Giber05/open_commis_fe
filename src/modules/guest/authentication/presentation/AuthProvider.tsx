@@ -31,8 +31,11 @@ function AuthProvider(props: Props): JSX.Element {
       });
     }
     getAuthUser();
+    
   }, [getCurrentUser, dispatch]);
 
+
+  
   // const { isLoadingUser, authUser } = useAppSelector(selectAuth);
 
   // useEffect(() => {

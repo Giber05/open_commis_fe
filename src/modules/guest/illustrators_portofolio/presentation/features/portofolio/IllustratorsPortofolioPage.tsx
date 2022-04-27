@@ -18,6 +18,8 @@ function IllustratorsPortofolioPage() {
   }, []);
 
   if (isLoadingPortofolio) return <CircularLoadingIndicator />;
+  console.log(illustratorsPortofolio?.id);
+  
   return (
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
@@ -29,7 +31,7 @@ function IllustratorsPortofolioPage() {
           {illustratorsPortofolio?.name}
           <CheckCircleFilled style={{ color: "#1890ff" }} />
         </Typography.Title>
-        <div className="border-green-500  bg-green-500 rounded-full text-center">
+        <div className={`${illustratorsPortofolio?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>
           <Typography.Title
             level={3}
             italic

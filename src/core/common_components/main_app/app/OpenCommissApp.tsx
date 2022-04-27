@@ -17,6 +17,7 @@ function OpenCommissApp() {
     window.addEventListener("resize", () => {
       dispatch(updateWindowWidth(window.innerWidth));
     });
+      window.scrollTo(0, 0);
   }, [dispatch]);
   useEffect(() => {
     if (width < 768) {
@@ -25,6 +26,7 @@ function OpenCommissApp() {
       dispatch(setIsMobile(false));
     }
   }, [width]);
+
 
   return (
     <Layout style={{ background: "fff" }}>

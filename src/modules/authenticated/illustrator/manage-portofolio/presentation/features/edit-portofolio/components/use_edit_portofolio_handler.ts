@@ -11,8 +11,8 @@ import { fetchIllustratorProfile, selectManagePortofolio, setisLoadingUpdateProf
 type EditPortofolioConstroller = {
   editProfile: (event: any) => void;
   isLoadingUpdateProfile: boolean;
-  addArtwork:(event:any) =>void;
-  deleteArtwork:(artworkId:number)=>void
+  addArtwork: (event: any) => void;
+  deleteArtwork: (artworkId: number) => void;
 };
 function useEditPortofolioHandler(): EditPortofolioConstroller {
   const dispatch = useAppDispatch();
@@ -25,10 +25,14 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
 
   const editProfile = (event: any) => {
     message.loading({ content: "Loading..." });
-    let profilePicture = event.profile_picture.map((file: any) => file.originFileObj);
-
+    
+    console.log({ event });
     const formData = new FormData();
-    formData.append("profile_picture", profilePicture[0]);
+    if (event.profile_picture != undefined) {
+      let profilePicture = event.profile_picture.map((file: any) => file.originFileObj);
+      formData.append("profile_picture", profilePicture[0]);
+    }
+
     formData.append("instagram", event.instagram);
     formData.append("bio", event.bio);
     formData.append("facebook", event.facebook);
@@ -41,6 +45,7 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
         token: authUser?.data.token!,
         formData: formData,
       });
+      console.log({ resource });
 
       dispatch(setisLoadingUpdateProfile(false));
       resource.whenWithResult({
@@ -57,7 +62,7 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
     });
   };
 
-  const addArtwork  = (event:any)=>{
+  const addArtwork = (event: any) => {
     message.loading({ content: "Loading..." });
     let image = event.artwork_picture.map((file: any) => file.originFileObj);
 
@@ -84,9 +89,9 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
         },
       });
     });
-  }
+  };
 
-  const deleteArtwork = (artworkId:number)=>{
+  const deleteArtwork = (artworkId: number) => {
     message.loading({ content: "Loading..." });
     dispatch(setisLoadingUpdateProfile(true));
     setTimeout(async () => {
@@ -107,14 +112,14 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
         },
       });
     });
-  }
+  };
 
   return {
     isLoadingUpdateProfile,
     editProfile,
     addArtwork,
-    deleteArtwork
-  }
+    deleteArtwork,
+  };
 }
 
 export default useEditPortofolioHandler;

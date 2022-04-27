@@ -3,7 +3,7 @@ import Resource from "../../../../../../core/utils/resource";
 import { OrderRepo } from "../../domain/repositories/order_repo";
 import { OrderRemoteDS, OrderRemoteDSImpl } from "../datasources/remote/order_remote_ds";
 import { IllustratorOrderDetailModel } from "../models/illustrator_order_detail_model";
-import OrderListModel from "../models/order_list_model";
+import OrderListModel from "../../../../../common/order/data/models/order_list_model";
 import { SubmissionFileModel } from "../models/submission_file_model";
 
 export class OrderRepoImpl extends BaseRepository implements OrderRepo {

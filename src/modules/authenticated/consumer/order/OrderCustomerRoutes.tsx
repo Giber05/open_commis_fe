@@ -5,10 +5,9 @@ import NotFound from "../../../../core/common_components/NotFound";
 function OrderCustomerRoutes(): JSX.Element {
   return (
     <Routes>
-      <Route index element={asyncComponent(() => import("./presentation/OrderPage"))} />
+      <Route index element={asyncComponent(() => import("./presentation/features/order_list/OrderListPage"))} />
         <Route path=":orderId/*">
           <Route index element={asyncComponent(() => import("./presentation/features/detail_order/DetailOrderCustomer"))} />
-          <Route path="reviewForm" element={asyncComponent(() => import("./presentation/features/form_review/FormReview"))} />
         </Route>
     </Routes>
   );

@@ -77,7 +77,7 @@ function DetailCommission({ commission }: CommissionProps) {
       <Row justify="center" className="mt-3 mx-auto">
         
         {commission.status==="OPEN"?(
-        <LinkReact to={{ pathname: `/consumer/${commission.id}/orderingForm` }}>
+        <LinkReact to={{ pathname: `/consumer/${commission.id}/make-order` }}>
         <SuccessButton block title="Pesan" rounded />
         </LinkReact>
         ):<DisabledButton rounded title="Pesan"/> }
