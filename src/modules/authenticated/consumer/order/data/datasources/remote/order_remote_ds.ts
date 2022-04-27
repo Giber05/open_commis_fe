@@ -5,16 +5,21 @@ import OrderListModel from "../../../../../../common/order/data/models/order_lis
 import { ConsumerMakeOrderModel } from "../../models/order/make_order/consumer_make_order_model";
 import { ConsumerOrderDetail } from "../../models/order/order_detail/consumer_detail_order";
 import { ConsumerOrderDetailModel } from "../../models/order/order_detail/consumer_order_detail_model";
+import { PaymentModel } from "../../models/payment/payment_model";
 
 export interface OrderRemoteDS {
   getOrders(params: { page: number; limit: number; token: string; }): Promise<OrderListModel>;
   getOrderDetail(params: { orderId: number; token: string }): Promise<ConsumerOrderDetailModel>;
   createOrder(params: { orderForm: any; token: string }): Promise<ConsumerMakeOrderModel>;
-
+  makePayment(params:{token:string; orderId:number; method:string}):Promise<PaymentModel>;
 }
 
 export class OrderRemoteDSImpl implements OrderRemoteDS {
   private baseClient = new BaseClient();
+  
+  makePayment(params: { token: string; orderId: number; method: string; }): Promise<PaymentModel> {
+    throw new Error("Method not implemented.");
+  }
 
   async createOrder(params: { orderForm: any; token: string; }): Promise<ConsumerMakeOrderModel> {
     let createOrderURL = NetworkConstant.baseUrl + "orders/checkout";

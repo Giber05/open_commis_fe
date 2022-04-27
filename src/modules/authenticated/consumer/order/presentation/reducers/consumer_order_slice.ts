@@ -5,18 +5,21 @@ import { OrderList } from "../../../../../common/order/data/models/order_list";
 import { ConsumerOrderDetail } from "../../data/models/order/order_detail/consumer_detail_order";
 
 type ConsumerOrderState = {
+  initLoading: boolean,
   isLoading: boolean;
   isFinishOrderModalVisible: boolean;
-  isSendOrderModalVisible: boolean;
+  isPaymentModalVisible: boolean;
   orders: OrderList[];
   pagination: PaginationModel | null;
   orderDetail: ConsumerOrderDetail | null;
 };
 
 const initialState: ConsumerOrderState = {
+  initLoading:true,
+
   isLoading: false,
   isFinishOrderModalVisible: false,
-  isSendOrderModalVisible: false,
+  isPaymentModalVisible: false,
   orders: [],
   pagination: {
     currentPage: 1,
@@ -31,14 +34,17 @@ export const consumerOrderSlice = createSlice({
   name: "consumer_order",
   initialState,
   reducers: {
+    setInitLoading: (state, action: PayloadAction<boolean>) => {
+      state.initLoading = action.payload;
+    },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
     setIsFinishOrderModalVisible: (state, action: PayloadAction<boolean>) => {
       state.isFinishOrderModalVisible = action.payload;
     },
-    setIsSendOrderModalVisible: (state, action: PayloadAction<boolean>) => {
-      state.isSendOrderModalVisible = action.payload;
+    setIsPaymentModalVisible: (state, action: PayloadAction<boolean>) => {
+      state.isPaymentModalVisible = action.payload;
     },
     fetchOrders: (state, action: PayloadAction<OrderList[]>) => {
       state.orders = action.payload;
@@ -51,7 +57,7 @@ export const consumerOrderSlice = createSlice({
     },
   },
 });
-export const { setIsLoading, fetchOrders, setPagination, fetchOrderDetail, setIsFinishOrderModalVisible, setIsSendOrderModalVisible } = consumerOrderSlice.actions;
+export const { setInitLoading,setIsLoading, fetchOrders, setPagination, fetchOrderDetail, setIsFinishOrderModalVisible, setIsPaymentModalVisible } = consumerOrderSlice.actions;
 export const selectConsumerOrder = (state: RootState): ConsumerOrderState => state.consumer_order;
 
 export default consumerOrderSlice.reducer;

@@ -4,6 +4,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { OrderModel } from "../../../../../../../common/order/data/models/order_model";
 import { OrderList } from "../../../../../../../common/order/data/models/order_list";
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
+import useConsumerOrderListHandler from "../use_consumer_order_list_handler";
 // import useComPostsHandler from "../use_composts_handler";
 // import CommissionPost from "../../../../data/models/compost_list/commission_post";
 
@@ -11,9 +12,11 @@ type OrderProps = {
   order: OrderList;
 };
 function OrderItem({ order }: OrderProps): JSX.Element {
+  const { isLoading } = useConsumerOrderListHandler();
   let statusColor = UtilMethods.matchStatusColor(order.status);
   return (
     <Card
+      loading={isLoading}
       className="comic-shadow mb-5 hover:opacity-80"
       // loading={isLoadingComPosts}
       style={{

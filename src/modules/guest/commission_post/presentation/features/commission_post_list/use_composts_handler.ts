@@ -34,7 +34,7 @@ function useComPostsHandler(): ComPostsController {
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 4 });
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 15 });
       dispatch(isLoading(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({

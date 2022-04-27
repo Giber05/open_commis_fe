@@ -5,9 +5,11 @@ import { OrderList } from "../../../../../../common/order/data/models/order_list
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { GetOrders } from "../../../domain/usecases/get_orders";
-import { fetchOrders, selectConsumerOrder, setIsLoading, setPagination } from "../../reducers/consumer_order_slice";
+import { fetchOrders, selectConsumerOrder, setInitLoading, setIsLoading, setPagination } from "../../reducers/consumer_order_slice";
 
 type OrdersController = {
+  initLoading:boolean;
+
   isLoading: boolean;
   orders: OrderList[];
   getOrders: () => void;
@@ -18,7 +20,7 @@ type OrdersController = {
 function useConsumerOrderListHandler(): OrdersController {
   const dispatch = useAppDispatch();
   const getOrdersUC = new GetOrders();
-  const { orders, isLoading, pagination } = useSelector(selectConsumerOrder);
+  const { orders, isLoading, pagination,initLoading } = useSelector(selectConsumerOrder);
   const { authUser } = useSelector(selectAuth);
 
   const getOrders = () => {
@@ -26,6 +28,7 @@ function useConsumerOrderListHandler(): OrdersController {
     setTimeout(async () => {
       const resource = await getOrdersUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 5, token: authUser?.data.token! });
       dispatch(setIsLoading(false));
+      dispatch(setInitLoading(false));
 
       resource.whenWithResult({
         success: (value) => {
@@ -52,6 +55,7 @@ function useConsumerOrderListHandler(): OrdersController {
     getOrders,
     onChangePage,
     pagination,
+    initLoading
   };
 }
 

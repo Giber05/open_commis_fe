@@ -8,15 +8,17 @@ type ButtonPropsType = {
   rounded?: boolean;
   loading?: boolean;
   block?:boolean;
+  size?:"large" | "middle" | "small"
 };
 function InfoButton(props: ButtonPropsType):JSX.Element {
-  const { title, onClick, htmlType, additionalClass, rounded, loading, block } = props;
+  const { title, onClick, htmlType, additionalClass, rounded, loading, block, size} = props;
   return (
     <div className={`w-20 sm:w-40` }>
       <Button
         block={block}
         className={`comic-shadow-btn bg-[#1D94C8] text-white ${rounded ? "rounded-full" : "rounded"} ${additionalClass}`}
         onClick={onClick}
+        size={size}
         htmlType={htmlType}
         loading={loading}
       >

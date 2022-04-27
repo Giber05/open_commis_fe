@@ -1,23 +1,20 @@
 import React, { useEffect } from "react";
-import { Avatar, Card, Divider, Rate, Row, Typography, Image } from "antd";
+import { Avatar, Card, Divider, Rate, Row, Typography, Image, Pagination } from "antd";
 import OrderItem from "./component/OrderItem";
 import { Link } from "react-router-dom";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import useConsumerOrderListHandler from "./use_consumer_order_list_handler";
 import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
-// import useComPostsHandler from "../use_composts_handler";
-// import CommissionPost from "../../../../data/models/compost_list/commission_post";
 
 function OrderListPage(): JSX.Element {
-  // const { isLoadingComPosts } = useComPostsHandler();
-  // const { commission } = commissionPost;
-  const { isLoading, getOrders, orders, pagination } = useConsumerOrderListHandler();
+  const { isLoading, initLoading, getOrders, orders, pagination, onChangePage } = useConsumerOrderListHandler();
 
   useEffect(() => {
     getOrders();
+    window.scrollTo(0, 0);
   }, [pagination?.currentPage]);
 
-  if (isLoading) {
+  if (initLoading) {
     return <CircularLoadingIndicator />;
   }
   console.log({ orders });
@@ -25,15 +22,14 @@ function OrderListPage(): JSX.Element {
   return (
     <div>
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Daftar Pesanan</h2>
-
-      {orders.map((order, index) => (
-        <div>
+      <div>
+        {orders.map((order, index) => (
           <Link to={{ pathname: `/consumer/order/${order.id}` }}>
             <OrderItem order={order} />
           </Link>
-          
-        </div>
-      ))}
+        ))}
+      </div>
+      <div className="mx-auto text-center my-3">{!isLoading ? <Pagination responsive pageSize={pagination?.pageSize} total={pagination?.totalData} defaultCurrent={1} current={pagination?.currentPage} onChange={onChangePage} /> : null}</div>
     </div>
   );
 }
