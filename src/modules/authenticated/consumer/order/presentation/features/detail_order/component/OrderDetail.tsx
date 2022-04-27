@@ -8,6 +8,7 @@ type OrderDetailProps = {
   order: ConsumerOrderDetail | null;
 };
 function OrderDetail({ order }: OrderDetailProps) {
+  let statusColor = UtilMethods.matchStatusColor(order?.status!)
   return (
     <Card
       className="comic-shadow sm:shrink-0"
@@ -26,7 +27,7 @@ function OrderDetail({ order }: OrderDetailProps) {
           <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg pr-5">Status Pesanan</Typography.Text>
         </Col>
         <Col span={12} className="text-base leading-none text-right">
-          <Tag color="blue" className="text-xs mb-1 sm:text-xs lg:text-lg text-right">
+          <Tag color={statusColor} className="text-xs mb-1 sm:text-xs lg:text-lg text-right">
             {UtilMethods.translateOrderStatus(order?.status!)}
           </Tag>
         </Col>

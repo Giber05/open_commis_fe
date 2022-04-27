@@ -7,7 +7,7 @@ import DangerButton from "../../../../../../../core/common_components/buttons/Da
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import useMakeOrderHandler from "./use_make_order_handler";
 
-function OrderingForm() {
+function MakeOrderPage() {
   const { isLoading, createOrder, navigate } = useMakeOrderHandler();
   const onFinish = (values: any) => {
     console.log("Ordering form Values: ", values);
@@ -88,4 +88,4 @@ function OrderingForm() {
   );
 }
 
-export default OrderingForm;
+export default MakeOrderPage;

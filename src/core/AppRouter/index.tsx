@@ -13,6 +13,7 @@ import RequireAuth from "../../modules/guest/authentication/RequireAuth";
 import OrderCustomer from "../../modules/authenticated/consumer/order/OrderCustomerIndex";
 import Ordering from "../../modules/authenticated/consumer/order/OrderingIndex";
 import ProfileCustomer from "../../modules/authenticated/consumer/profile/presentation/ProfileCustomerIndex";
+import Review from "../../modules/authenticated/consumer/review/ReviewIndex";
 
 function AppRoutes(): JSX.Element {
   return (
@@ -24,7 +25,8 @@ function AppRoutes(): JSX.Element {
           <Route path="illustrator/*" element={<IllustratorsPortofolio />} />
           <Route path="consumer/*" element={<RequireAuth />}>
             <Route path="order/*" element={<OrderCustomer />} />
-            <Route path=":compostId/orderingForm/*" element={<Ordering />} />
+            <Route path=":compostId/make-order/*" element={<Ordering />} />
+            <Route path=":compostId/add-review*" element={<Review />} />
             <Route path="profile/*" element={<ProfileCustomer />} />
           </Route>
         </Route>

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import  consumerMakeOrderSlice  from "../../modules/authenticated/consumer/order/presentation/reducers/consumer_make_order_slice";
 import  consumerOrderSlice  from "../../modules/authenticated/consumer/order/presentation/reducers/consumer_order_slice";
+import  addReviewSlice  from "../../modules/authenticated/consumer/review/presentation/reducers/add_review_slice";
 import  earningSlice  from "../../modules/authenticated/illustrator/earning/presentation/reducers/earning_slice";
 import  managePortofolioSlice  from "../../modules/authenticated/illustrator/manage-portofolio/presentation/reducers/manage_portofolio_slice";
 import  createComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/create_compost_slice";
@@ -29,6 +30,7 @@ const store = configureStore({
     earning: earningSlice,
     consumer_order:consumerOrderSlice,
     consumer_make_order:consumerMakeOrderSlice,
+    add_review:addReviewSlice,
   },
   middleware,
 });

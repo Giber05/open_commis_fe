@@ -47,7 +47,7 @@ function DetailOrderCustomer() {
       case OrderStatus.Sent:
         return <SuccessButton block title="Selesaikan Pesanan" rounded onClick={showFinishModal} />;
       case OrderStatus.Finished:
-        return <Link to={`/consumer/order/${orderDetail?.commission.id}/reviewForm`}>
+        return <Link to={`/consumer/${orderDetail?.commission.id}/add-review`}>
         <InfoButton title="Beri Ulasan" rounded />;
         </Link> 
       default:

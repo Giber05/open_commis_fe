@@ -3,16 +3,19 @@ import { Modal, Form, Radio, Space, Typography, Button } from "antd";
 import React from "react";
 import useConsumerOrderDetailHandler from "../use_consumer_order_detail_handler";
 
-
 function PaymentMethodModal() {
-  const {isPaymentModalVisible, changePaymentModalVisibility, makePayment}  = useConsumerOrderDetailHandler()
+  const { isPaymentModalVisible, changePaymentModalVisibility, makePayment } = useConsumerOrderDetailHandler();
   const handleCancel = () => {
     changePaymentModalVisibility(false);
   };
+  const onMakePayment = (event: any) => {
+    changePaymentModalVisibility(false);
+    makePayment(event);
+  };
   return (
     <Modal footer={false} title="Pilih Metode Pembayaran" visible={isPaymentModalVisible} onCancel={handleCancel}>
-      <Form layout="vertical" onFinish={makePayment}>
-        <Form.Item rules={[{required:true, message:"Pilih salah satu metode pembayaran yang tersedia"}]} name="payment_method" label="Metode Pembayaran">
+      <Form layout="vertical" onFinish={onMakePayment}>
+        <Form.Item rules={[{ required: true, message: "Pilih salah satu metode pembayaran yang tersedia" }]} name="payment_method" label="Metode Pembayaran">
           <Radio.Group size="large" buttonStyle="solid" className="large-icons text-center ">
             <Radio.Button className="m-2" value="bank">
               <Space>

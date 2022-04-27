@@ -93,7 +93,7 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
       resource.whenWithResult({
         success: (value) => {
           message.success(value.data.message);
-          navigate("/consumer/order/" + value.data.data.commission.id + "/reviewForm");
+          navigate("/consumer/" + value.data.data.commission.id + "/add-review");
         },
         error: (error) => {
           message.error(error.exception.message);
