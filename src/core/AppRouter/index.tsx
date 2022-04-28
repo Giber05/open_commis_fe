@@ -26,7 +26,7 @@ function AppRoutes(): JSX.Element {
           <Route path="consumer/*" element={<RequireAuth />}>
             <Route path="order/*" element={<OrderCustomer />} />
             <Route path=":compostId/make-order/*" element={<Ordering />} />
-            <Route path=":compostId/add-review*" element={<Review />} />
+            <Route path=":compostId/add-review/*" element={<Review />} />
             <Route path="profile/*" element={<ProfileCustomer />} />
           </Route>
         </Route>

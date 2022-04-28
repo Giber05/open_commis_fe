@@ -7,7 +7,7 @@ class ConsumerModel extends ConsumerEntity {
       name: json.name,
       username: json.username,
       email: json.email,
-      phone: json.phone,
+      phone: json.phone== undefined ? null:json.phone,
       profilePicture:  json.profilePicture == undefined ? null : json.profilePicture,
       emailVerified: json.emailVerified,
       createdAt: json.createdAt,

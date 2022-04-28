@@ -3,7 +3,7 @@ class ConsumerEntity {
   name: string;
   email: string;
   username: string;
-  phone: string;
+  phone: string|null;
   profilePicture: string | null;
   emailVerified: boolean;
   createdAt: Date;
@@ -14,7 +14,7 @@ class ConsumerEntity {
   name: string;
   email: string;
   username: string;
-  phone: string;
+  phone: string|null;
   profilePicture:  string | null;
   emailVerified: boolean;
   createdAt: Date;
