@@ -6,17 +6,19 @@ import { selectAuth } from "../../../../../../../guest/authentication/presentati
 import { AddArtwork } from "../../../../domain/usecases/add_artwork";
 import { DeleteArtwork } from "../../../../domain/usecases/delete_artwork";
 import { EditProfile } from "../../../../domain/usecases/edit_profile";
-import { fetchIllustratorProfile, selectManagePortofolio, setisLoadingUpdateProfile } from "../../../reducers/manage_portofolio_slice";
+import { fetchIllustratorProfile, selectManagePortofolio, setisLoadingUpdateProfile, setIsUploadable } from "../../../reducers/manage_portofolio_slice";
 
 type EditPortofolioConstroller = {
   editProfile: (event: any) => void;
   isLoadingUpdateProfile: boolean;
   addArtwork: (event: any) => void;
   deleteArtwork: (artworkId: number) => void;
+  uploadableHandler: (file: any) => void;
+  isUploadable: boolean;
 };
 function useEditPortofolioHandler(): EditPortofolioConstroller {
   const dispatch = useAppDispatch();
-  const { isLoadingUpdateProfile } = useSelector(selectManagePortofolio);
+  const { isLoadingUpdateProfile, isUploadable } = useSelector(selectManagePortofolio);
   const navigate = useNavigate();
   const { authUser } = useSelector(selectAuth);
   const editProfileUC = new EditProfile();
@@ -25,7 +27,7 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
 
   const editProfile = (event: any) => {
     message.loading({ content: "Loading..." });
-    
+
     console.log({ event });
     const formData = new FormData();
     if (event.profile_picture != undefined) {
@@ -114,11 +116,17 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
     });
   };
 
+  const uploadableHandler = (value: boolean) => {
+    dispatch(setIsUploadable(value));
+  };
+
   return {
     isLoadingUpdateProfile,
     editProfile,
     addArtwork,
     deleteArtwork,
+    isUploadable,
+    uploadableHandler,
   };
 }
 

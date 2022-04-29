@@ -1,6 +1,7 @@
 import { CloseCircleFilled, CloseCircleOutlined, DeleteOutlined, ExclamationCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import { Badge, Button, Form, Image, Input, message, Modal, Upload } from "antd";
 import React, { useCallback, useEffect } from "react";
+import DisabledButton from "../../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
 import ImageWithCrop from "../../../../../../../../core/common_components/ImageUploader/ImageWithCrop";
 import UploadWithCrop from "../../../../../manage_compost/presentation/features/create_compost/components/FormMultiImage";
@@ -18,7 +19,7 @@ const normFile = (e: any) => {
 
 function EditArtworks() {
   const { illustratorProfile } = usePortofolioHandler();
-  const { addArtwork, deleteArtwork } = useEditPortofolioHandler();
+  const { addArtwork, deleteArtwork,isUploadable } = useEditPortofolioHandler();
   
   const onFinish = useCallback(
     (e) => {
@@ -66,8 +67,9 @@ function EditArtworks() {
       </div>
       <div className="max-w-full w-11/12 sm:w-5/6 md:w-3/4 xl:w-1/2 m-auto text-center text-sm shadow-none">
         <Form layout="vertical" name="artwork_form" onFinish={onFinish}>
-          <Form.Item name="artwork_picture" getValueFromEvent={normFile}>
-            <ImageWithCrop listType="picture" maxCount={1} accept=".png,.jpg,.jpeg">
+          <Form.Item rules={[{required:true}]}  name="artwork_picture" getValueFromEvent={normFile}>
+            <ImageWithCrop listType="picture" maxCount={3} accept=".png,.jpg,.jpeg">
+              {}
               <Button className="comic-shadow-btn bg-[#1D94C8] text-white rounded-full mt-4 mb-2" icon={<UploadOutlined />}>
                 Tambah Karya Seni Sebelumnya
               </Button>
@@ -78,7 +80,9 @@ function EditArtworks() {
           </Form.Item>
           <Form.Item>
             <div className="mx-auto my-3 flex justify-center">
-              <SuccessButton block width="w-40" rounded title="Submit" htmlType="submit" />
+              {isUploadable?(
+                <SuccessButton block width="w-40" rounded title="Submit" htmlType="submit" />
+              ):<DisabledButton title="Submit" rounded/>}
             </div>
           </Form.Item>
         </Form>

@@ -6,7 +6,8 @@ export class OrderModel extends OrderEntity {
      id:json.id,
      status:json.status,
      grandTotal:json.grandTotal,
-     orderDate:json.orderDate
+     orderDate:json.orderDate,
+     reviewed:json.reviewed
 
    })
  } 
