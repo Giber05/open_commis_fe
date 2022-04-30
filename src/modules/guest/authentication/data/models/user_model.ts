@@ -2,15 +2,15 @@ import ConsumerModel from "../../../../common/authentication/data/model/consumer
 import IlustratorModel from "../../../../common/authentication/data/model/ilustrator_model";
 
 class UserModel {
-  data: Data;
+  data: UserData;
 
-  constructor(params: { data: Data }) {
+  constructor(params: { data: UserData }) {
     this.data = params.data;
   }
   public static fromJson(json: string): UserModel {
     const object = JSON.parse(json);
     return new UserModel({
-      data: Data.fromJson(object.data),
+      data: UserData.fromJson(object.data),
     });
   }
 
@@ -28,7 +28,7 @@ class UserModel {
   //   };
   // }
 }
-class Data {
+export class UserData {
   user: any;
   token?: string | null;
   role: string;
@@ -38,13 +38,23 @@ class Data {
     this.role = params.role
   }
 
-  public static fromJson(json: any): Data {
-    return new Data({
+  public static fromJson(json: any): UserData {
+    
+    return new UserData({
       user: json.role === "illustrator"? IlustratorModel.fromJson(json.user):ConsumerModel.fromJson(json.user),
       token:  json.token == undefined ? null : json.token,
       role:json.role,
     });
   }
+
+  public toJson(): string {
+    return JSON.stringify({
+      user: this.user,
+      role: this.role,
+      token: this.token,
+    });
+  }
+
 }
 
 export default UserModel;

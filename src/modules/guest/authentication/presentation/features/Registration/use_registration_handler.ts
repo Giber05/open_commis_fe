@@ -1,18 +1,25 @@
+import { message } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../../../core/utils/redux";
+import { UserData } from "../../../data/models/user_model";
+import GetRegisteredUser from "../../../domain/usecases/get_registered_user";
 import { RegisterUser } from "../../../domain/usecases/register_user";
-import { isAuthLoading, selectAuth } from "../../reducers/auth_reducer";
+import { ResendVerifEmail } from "../../../domain/usecases/resend_verif_email";
+import { isAuthLoading, selectAuth, setRegisteredUser } from "../../reducers/auth_reducer";
 
 export type RegistrationController = {
   isLoadingUser: boolean;
   onFormSubmitted: (values: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: any }) => void;
+  resendVerifEmail:()=>void
 };
 
 function useRegistrationHandler(): RegistrationController {
   const dispatch = useAppDispatch();
-  const { isLoadingUser } = useSelector(selectAuth);
+  const { isLoadingUser,registeredUser } = useSelector(selectAuth);
   const registerUserUC = new RegisterUser();
+  const getRegisteredUserUC = new GetRegisteredUser();
+  const resendVerifEmailUC = new ResendVerifEmail();
   const navigate = useNavigate();
 
   const onFormSubmitted = (values: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: any }) => {
@@ -33,7 +40,6 @@ function useRegistrationHandler(): RegistrationController {
 
       resource.whenWithResult({
         success: async (value) => {
-
           navigate("/auth/registration/success");
         },
         error: async (error) => {
@@ -42,9 +48,45 @@ function useRegistrationHandler(): RegistrationController {
       });
     }, 1000);
   };
+
+  const resendVerifEmail = () => {
+    setTimeout(async () => {
+      const resource = await getRegisteredUserUC.execute();
+      
+      resource.whenWithResult({
+        success: async (value) => {
+        await  dispatch(setRegisteredUser(value.data))
+        
+      },
+        error: async (error) => {
+          message.error(error.exception.message)
+          dispatch(setRegisteredUser(null))
+        },
+      });
+    },4000);
+    
+    if (registeredUser != null) {
+      setTimeout(async () => {
+        message.loading("Mengirim Ulang Email ...")
+        const resource = await resendVerifEmailUC.execute({ role: registeredUser?.role, userId: registeredUser?.user.id });
+        resource.whenWithResult({
+          success: async (value) => {
+            message.success(value.data.message);
+          },
+          error: async (error) => {
+            message.success(error.exception.message);
+            console.log({ error });
+          },
+        });
+      });
+    }else{
+      message.error("Gagal mengirim ulang email verifikasi, silahkan coba lagi!")
+    }
+  };
   return {
     isLoadingUser,
     onFormSubmitted,
+    resendVerifEmail
   };
 }
 

@@ -1,5 +1,6 @@
 import Resource from "../../../../../core/utils/resource";
-import UserModel from "../../data/models/user_model";
+import { ResendVerifModel } from "../../data/models/resend_verif_model";
+import UserModel, { UserData } from "../../data/models/user_model";
 import { VerifyTokenModel } from "../../data/models/verify_token_model";
 
 interface AuthRepository {
@@ -20,6 +21,10 @@ interface AuthRepository {
     password:string,
     profilePicture?:File | null,
   }):Promise<Resource<UserModel>>
+
+  resendVerifEmail(params: { userId: number; role: string }): Promise<Resource<ResendVerifModel>>;
+
+  getRegisteredUser(): Promise<Resource<UserData>>;
 }
 
 export default AuthRepository;

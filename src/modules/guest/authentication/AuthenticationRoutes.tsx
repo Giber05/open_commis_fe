@@ -10,6 +10,8 @@ function AuthenticationRoutes(): JSX.Element {
       <Route path="registration/*">
         <Route index element={asyncComponent(() => import("./presentation/features/Registration/RegistrationPage"))} />
         <Route path="success" element={asyncComponent(() => import("./presentation/features/Registration/components/RegistrationSuccessPage"))} />
+        <Route path="verif/failed" element={asyncComponent(() => import("./presentation/features/Registration/components/VerificationFailedPage"))} />
+        <Route path="verif/success" element={asyncComponent(() => import("./presentation/features/Registration/components/VerificationSuccessPage"))} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

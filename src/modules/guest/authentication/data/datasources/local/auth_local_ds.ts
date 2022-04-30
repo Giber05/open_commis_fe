@@ -1,27 +1,53 @@
 import ed from "../../../../../../core/utils/ed";
-import UserModel from "../../models/user_model";
+import UserModel, { UserData } from "../../models/user_model";
 
 export interface AuthLocalDS {
   saveUser(user: UserModel): Promise<void>;
 
-  getUser():Promise<UserModel | null>;
+  getUser(): Promise<UserModel | null>;
+  
+  deleteLoggedInUser(): Promise<void>;
+  
+  saveRegisteredUser(user: UserData): Promise<void>;
 
-  deleteLoggedInUser():Promise<void>
-
+  getRegisteredUser(): Promise<UserData | null>;
 }
 
 class AuthLocalDSImpl implements AuthLocalDS {
-  private getUserType(user:UserModel):string {
-    return user.data.role
-  }
   private readonly userBox: string = "user";
+  private readonly registeredUserBox: string = "registered_user";
+  
+ async getRegisteredUser(): Promise<UserData | null> {
+    let registeredUser: UserData | null = null;
+    try {
+      const json: string | null = await localStorage.getItem(this.registeredUserBox);
 
-  async saveUser(user: UserModel): Promise<void> {
-    
+      if (json != null) {
+        const decData = ed.dec(json, 2, 6);
+        registeredUser = UserData.fromJson(JSON.parse(decData));
+      }
+      return registeredUser;
+    } catch (error) {
+      throw new Error("Error Get registered user");
+    }
+  }
+
+ async  saveRegisteredUser(user: UserData): Promise<void> {
     try {
       const encData = ed.enc(user.toJson(), 2, 6);
-      
+
+      await localStorage.setItem(this.registeredUserBox, encData);
+    } catch (error) {
+      throw new Error("Error Save user");
+    }
+  }
+
+  async saveUser(user: UserModel): Promise<void> {
+    try {
+      const encData = ed.enc(user.toJson(), 2, 6);
+
       await localStorage.setItem(this.userBox, encData);
+      await localStorage.removeItem(this.registeredUserBox);
     } catch (error) {
       throw new Error("Error Save user");
     }
@@ -30,7 +56,7 @@ class AuthLocalDSImpl implements AuthLocalDS {
     let user: UserModel | null = null;
     try {
       const json: string | null = await localStorage.getItem(this.userBox);
-      
+
       if (json != null) {
         const decData = ed.dec(json, 2, 6);
         user = UserModel.fromJson(decData);
@@ -50,4 +76,3 @@ class AuthLocalDSImpl implements AuthLocalDS {
 }
 
 export default AuthLocalDSImpl;
-

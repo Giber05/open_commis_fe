@@ -8,12 +8,35 @@ import AuthRepository from "../../domain/repositories/auth_repository";
 import { selectAuth } from "../../presentation/reducers/auth_reducer";
 import AuthLocalDSImpl, { AuthLocalDS } from "../datasources/local/auth_local_ds";
 import AuthRemoteDSImpl, { AuthRemoteDS } from "../datasources/remote/auth_remote_ds";
-import UserModel from "../models/user_model";
+import { ResendVerifModel } from "../models/resend_verif_model";
+import UserModel, { UserData } from "../models/user_model";
 import { VerifyTokenModel } from "../models/verify_token_model";
 
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   private authRemoteDS: AuthRemoteDS = new AuthRemoteDSImpl();
   private authLocalDS: AuthLocalDS = new AuthLocalDSImpl();
+
+  getRegisteredUser(): Promise<Resource<UserData>> {
+    return this.cacheOnlyCall({
+      cacheCall: async () => {
+        const resource: UserData | null = await this.authLocalDS.getRegisteredUser();
+        if (resource instanceof UserData) {
+          return Resource.success({ data: resource });
+        }
+        return Resource.error({ exception: new BaseException({ message: "No Data" }) });
+      },
+    });
+  }
+
+  resendVerifEmail(params: { userId: number; role: string }): Promise<Resource<ResendVerifModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.authRemoteDS.resendVerifEmail({ role: params.role, userId: params.userId });
+        if (resource instanceof ResendVerifModel) return Resource.success({ data: resource });
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
   registerUser(params: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: File | null }): Promise<Resource<UserModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
@@ -26,9 +49,13 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
           phone: params.role,
           profilePicture: params.profilePicture,
         });
-        if (resource instanceof UserModel) return Resource.success({ data: resource });
+        if (resource instanceof UserModel) {
+          this.authLocalDS.saveRegisteredUser(resource.data)
+          return Resource.success({ data: resource });
+        }
         return Resource.error({ exception: resource });
       },
+      
     });
   }
 
