@@ -17,8 +17,9 @@ type EditProps = {
 };
 function EditComPost() {
   const { isLoadingTag, isLoading, categories, getCategories, tags, getTags, createTag, editComPost, commissionPostDetail } = useEditComPostHandler();
-
+  const [defaultFileList, setDefaultFileList] = useState([]);
   const [name, setName] = useState("");
+
   const initialValues = {
     compost: {
       id: commissionPostDetail?.id,
@@ -27,8 +28,25 @@ function EditComPost() {
       price: commissionPostDetail?.price,
       name: commissionPostDetail?.title,
     },
-  }
-  
+  };
+
+  const validateMessages = {
+    required: "${label} wajib diisi!",
+    types: {
+      email: "${label} bukan inputan yang valid!",
+      number: "${label} bukan inputan yang valid!",
+    },
+    number: {
+      range: "${label} harus >= ${min} atau <= ${max}",
+    },
+  };
+
+  const handleOnChange = ({ file, fileList, event }: any) => {
+    // console.log(file, fileList, event);
+    //Using Hooks to update the state to the current filelist
+    setDefaultFileList(fileList);
+    //filelist - [{uid: "-1",url:'Some url to image'}]
+  };
 
   const onNameChange = (event: any) => {
     setName(event.target.value);
@@ -41,16 +59,7 @@ function EditComPost() {
     }
     setName("");
   };
-  const validateMessages = {
-    required: "${label} wajib diisi!",
-    types: {
-      email: "${label} bukan inputan yang valid!",
-      number: "${label} bukan inputan yang valid!",
-    },
-    number: {
-      range: "${label} harus >= ${min} atau <= ${max}",
-    },
-  };
+
   const normFile = (e: any) => {
     console.log("Upload event:", e);
     if (Array.isArray(e)) {
@@ -59,29 +68,29 @@ function EditComPost() {
     return e && e.fileList;
   };
 
-
   useEffect(() => {
     getTags();
   }, [tags.length]);
+
   useEffect(() => {
     getCategories();
   }, []);
   console.log("EDITPAGE");
-  
+
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Mengedit Commission Post</h2>
       <Form layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={editComPost} initialValues={initialValues}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col xs={24} sm={12} lg={12}>
-            <Form.Item name={["compost", "name"]} label="Judul" rules={[{ required: true }, {max:25,}]}>
+            <Form.Item name={["compost", "name"]} label="Judul" rules={[{ required: true }, { max: 25 }]}>
               <Input className="form-style-blue" />
             </Form.Item>
             <Form.Item name={["compost", "category"]} label="Kategori" rules={[{ required: true }]}>
-              <Select className="form-style-blue" bordered={false} >
-              {categories.map((category) => (
-                <Option key={category.id}>{category.categoryName}</Option>
-              ))}
+              <Select className="form-style-blue" bordered={false}>
+                {categories.map((category) => (
+                  <Option key={category.id}>{category.categoryName}</Option>
+                ))}
               </Select>
             </Form.Item>
             <Form.Item name={["compost", "tags"]} label="Tags">
@@ -93,20 +102,20 @@ function EditComPost() {
                 menuItemSelectedIcon
                 dropdownRender={(menu) => (
                   <>
-                  {menu}
-                  <Divider style={{ margin: "8px 0" }} />
-                  <Space align="center" style={{ padding: "0 8px 4px" }}>
-                    <Input placeholder="Please enter item" value={name} onChange={onNameChange} />
-                    <Typography.Link disabled={isLoadingTag} onClick={addItem} style={{ whiteSpace: "nowrap" }}>
-                      <PlusOutlined /> Add item
-                    </Typography.Link>
-                  </Space>
-                </>
-              )}
-            >
-              {tags.map((tag) => (
-                <Option key={tag.id}>{tag.tagName}</Option>
-              ))}
+                    {menu}
+                    <Divider style={{ margin: "8px 0" }} />
+                    <Space align="center" style={{ padding: "0 8px 4px" }}>
+                      <Input placeholder="Please enter item" value={name} onChange={onNameChange} />
+                      <Typography.Link disabled={isLoadingTag} onClick={addItem} style={{ whiteSpace: "nowrap" }}>
+                        <PlusOutlined /> Add item
+                      </Typography.Link>
+                    </Space>
+                  </>
+                )}
+              >
+                {tags.map((tag) => (
+                  <Option key={tag.id}>{tag.tagName}</Option>
+                ))}
               </Select>
             </Form.Item>
             <Form.Item name={["compost", "duration"]} label="Durasi" rules={[{ type: "number", min: 1, max: 30, required: true }]}>
@@ -133,7 +142,9 @@ function EditComPost() {
             </Typography.Title>
             <Card className="border-black rounded-2xl bg-white my-2">
               <Form.Item rules={[{ required: true }]} name="upload_image" label="Upload gambar" valuePropName="fileList" getValueFromEvent={normFile}>
-                <UploadWithCrop children={<PlusOutlined />} />
+                <UploadWithCrop onChange={handleOnChange}>
+                  {defaultFileList.length<4 && (<PlusOutlined />)}
+                </UploadWithCrop>
               </Form.Item>
             </Card>
             <Col>
@@ -150,7 +161,7 @@ function EditComPost() {
         </Row>
         <Form.Item>
           <div className="mx-auto my-3 flex justify-center">
-            <SuccessButton loading={isLoading}  block width="w-40" rounded title="Submit" htmlType="submit" />
+            <SuccessButton loading={isLoading} block width="w-40" rounded title="Submit" htmlType="submit" />
           </div>
         </Form.Item>
       </Form>

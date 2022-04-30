@@ -6,12 +6,13 @@ export class OrderList extends OrderEntity {
   consumer: ConsumerModel;
   commission?: CommissionPost | null;
 
-  constructor(params: { consumer: ConsumerModel; commission?: CommissionPost | null; id: number; status: string; grandTotal: number; orderDate: Date }) {
+  constructor(params: { consumer: ConsumerModel; commission?: CommissionPost | null; id: number; status: string; grandTotal: number; orderDate: Date;reviewed:boolean }) {
     super({
       id: params.id,
       status: params.status,
       grandTotal: params.grandTotal,
       orderDate: params.orderDate,
+      reviewed: params.reviewed,
     });
     this.consumer = params.consumer;
     this.commission = params.commission;
@@ -23,6 +24,7 @@ export class OrderList extends OrderEntity {
       status: json.status,
       grandTotal: json.grandTotal,
       orderDate: json.orderDate,
+      reviewed: json.reviewed,
       consumer: ConsumerModel.fromJson(json.consumer),
       commission: json.commission == undefined || null ? null : CommissionPost.fromJson(json.commission),
     });

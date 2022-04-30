@@ -9,12 +9,13 @@ export class ConsumerMakeOrder extends OrderEntity {
   commission: CommissionPost;
   detail: OrderDetailModel;
 
-  constructor(params: { payment?: PaymentModel | null; consumer: ConsumerModel; commission: CommissionPost; detail: OrderDetailModel; id: number; status: string; grandTotal: number; orderDate: Date }) {
+  constructor(params: { payment?: PaymentModel | null; consumer: ConsumerModel; reviewed:boolean; commission: CommissionPost; detail: OrderDetailModel; id: number; status: string; grandTotal: number; orderDate: Date }) {
     super({
       id: params.id,
       status: params.status,
       grandTotal: params.grandTotal,
       orderDate: params.orderDate,
+      reviewed: params.reviewed,
     });
     this.consumer = params.consumer;
     this.commission = params.commission;
@@ -27,6 +28,7 @@ export class ConsumerMakeOrder extends OrderEntity {
       status: json.status,
       grandTotal: json.grandTotal,
       orderDate: json.orderDate,
+      reviewed: json.reviewed,
       consumer: ConsumerModel.fromJson(json.consumer),
       commission: CommissionPost.fromJson(json.commission),
       detail: OrderDetailModel.fromJson(json.detail),

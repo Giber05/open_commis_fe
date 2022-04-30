@@ -1,7 +1,4 @@
-  import { InboxOutlined } from '@ant-design/icons';
 import { Form, Input, message, Rate, Typography } from 'antd';
-import Dragger from 'antd/lib/upload/Dragger';
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import DangerButton from '../../../../../../../core/common_components/buttons/DangerButton';
 import SuccessButton from '../../../../../../../core/common_components/buttons/SuccessButton';

@@ -10,7 +10,7 @@ export interface ReviewRemoteDS {
 export class ReviewRemoteDSImpl implements ReviewRemoteDS {
   private baseClient = new BaseClient();
   async addReview(params: { token: string; compostId: number; rate: number; comment: string }): Promise<AddReviewModel> {
-    let addReviewURL = NetworkConstant.baseUrl + "commissions/" + params.compostId + "/reviews";
+    let addReviewURL = NetworkConstant.baseUrl + "orders/" + params.compostId + "/review";
     const response = await this.baseClient.postWithCookie({
       url: addReviewURL,
       body: {

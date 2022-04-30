@@ -11,8 +11,12 @@ const { Option } = Select;
 let index = 0;
 function CreateComPost() {
   const { isLoadingTag, isLoading, categories, getCategories, tags, getTags, createTag, createComPost } = useCreateComPostHandler();
-
+  const [defaultFileList, setDefaultFileList] = useState([]);
   const [name, setName] = useState("");
+
+  const handleOnChange = ({ file, fileList, event }: any) => {
+    setDefaultFileList(fileList);
+  };
 
   const onNameChange = (event: any) => {
     setName(event.target.value);
@@ -25,6 +29,7 @@ function CreateComPost() {
     }
     setName("");
   };
+
   const validateMessages = {
     required: "${label} wajib diisi!",
     types: {
@@ -35,6 +40,7 @@ function CreateComPost() {
       range: "${label} harus >= ${min} atau <= ${max}",
     },
   };
+
   const normFile = (e: any) => {
     console.log("Upload event:", e);
     if (Array.isArray(e)) {
@@ -47,9 +53,11 @@ function CreateComPost() {
   useEffect(() => {
     getTags();
   }, [tags.length]);
+
   useEffect(() => {
     getCategories();
   }, []);
+
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Membuat Commission Post</h2>
@@ -66,7 +74,7 @@ function CreateComPost() {
               ))}
               </Select>
             </Form.Item>
-            <Form.Item name={["compost", "tags"]} label="Tags">
+            <Form.Item rules={[{ required: true }]} name={["compost", "tags"]} label="Tags">
               <Select
                 className="form-style-blue"
                 mode="tags"
@@ -105,7 +113,7 @@ function CreateComPost() {
                 }}
               />
             </Form.Item>
-            <Form.Item name={["compost", "description"]} label="Description">
+            <Form.Item rules={[{required:true}]} name={["compost", "description"]} label="Description">
               <Input.TextArea autoSize={true} className="form-style-blue" />
             </Form.Item>
           </Col>
@@ -115,7 +123,9 @@ function CreateComPost() {
             </Typography.Title>
             <Card className="border-black rounded-2xl bg-white my-2">
               <Form.Item rules={[{ required: true }]} name="upload_image" label="Upload gambar" valuePropName="fileList" getValueFromEvent={normFile}>
-                <UploadWithCrop children={<PlusOutlined />} />
+                <UploadWithCrop >
+                {defaultFileList.length<4 && (<PlusOutlined />)}
+                </UploadWithCrop>
               </Form.Item>
             </Card>
             <Col>
