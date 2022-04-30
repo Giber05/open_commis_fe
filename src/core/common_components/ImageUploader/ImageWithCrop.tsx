@@ -23,7 +23,7 @@ const onPreview = async (file: any) => {
 };
 
 function ImageWithCrop(props: Props) {
-  const { uploadableHandler } = useEditPortofolioHandler();
+  const { uploadableHandler, } = useEditPortofolioHandler();
 
   const beforeUpload = (file: File) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg";
@@ -44,10 +44,26 @@ function ImageWithCrop(props: Props) {
     uploadableHandler(true);
     return true;
   };
+  const beforeCrop = (file: File) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+      return false;
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    console.log(`${file.size}`);
+
+    if (!isLt2M) {
+      message.error("Image must smaller than 2MB!");
+
+      return false;
+    }
+    return true;
+  };
 
   return (
-    <ImgCrop zoom={true} rotate quality={1} aspect={5 / 4}>
-      <Upload {...props} beforeUpload={beforeUpload} onPreview={onPreview} />
+    <ImgCrop zoom={false} rotate quality={1} aspect={5 / 4}>
+      <Upload {...props}  onPreview={onPreview} />
     </ImgCrop>
   );
 }

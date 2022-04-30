@@ -1,6 +1,6 @@
 import { CloseCircleFilled, CloseCircleOutlined, DeleteOutlined, ExclamationCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import { Badge, Button, Form, Image, Input, message, Modal, Upload } from "antd";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DisabledButton from "../../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
 import ImageWithCrop from "../../../../../../../../core/common_components/ImageUploader/ImageWithCrop";
@@ -19,15 +19,25 @@ const normFile = (e: any) => {
 
 function EditArtworks() {
   const { illustratorProfile } = usePortofolioHandler();
-  const { addArtwork, deleteArtwork,isUploadable } = useEditPortofolioHandler();
+  const { addArtwork, deleteArtwork,isUploadable,uploadFile } = useEditPortofolioHandler();
   
+  const [defaultFileList, setDefaultFileList] = useState([]);
+
+  const handleOnChange = ({ file, fileList, event }: any) => {
+    // console.log(file, fileList, event);
+    //Using Hooks to update the state to the current filelist
+    console.log({file});
+    
+    setDefaultFileList(fileList);
+    //filelist - [{uid: "-1",url:'Some url to image'}]
+  };
+
   const onFinish = useCallback(
     (e) => {
       addArtwork(e);
     },
     [illustratorProfile?.artworks?.length]
     );
-    console.log("ADD ARTWORk");
     const showDeleteConfirmation = (artworkId:number)=> {
       confirm({
         title: 'Apakah Anda yakin akan menghapus karya ini?',
@@ -66,10 +76,17 @@ function EditArtworks() {
         </div>
       </div>
       <div className="max-w-full w-11/12 sm:w-5/6 md:w-3/4 xl:w-1/2 m-auto text-center text-sm shadow-none">
-        <Form layout="vertical" name="artwork_form" onFinish={onFinish}>
+        <Form layout="vertical" name="artwork_form" onFinish={addArtwork}>
           <Form.Item rules={[{required:true}]}  name="artwork_picture" getValueFromEvent={normFile}>
-            <ImageWithCrop listType="picture" maxCount={3} accept=".png,.jpg,.jpeg">
-              {}
+            <ImageWithCrop  
+               maxCount={1}
+               accept=".png,.jpg,.jpeg,.pdf"
+               defaultFileList={defaultFileList} 
+               customRequest={uploadFile} 
+               listType="picture" 
+               onChange={handleOnChange}  
+            >
+            
               <Button className="comic-shadow-btn bg-[#1D94C8] text-white rounded-full mt-4 mb-2" icon={<UploadOutlined />}>
                 Tambah Karya Seni Sebelumnya
               </Button>

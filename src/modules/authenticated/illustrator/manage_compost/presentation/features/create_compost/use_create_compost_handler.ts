@@ -5,6 +5,7 @@ import { fetchError } from "../../../../../../../core/AppRedux/reducers/common_r
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { CategoryModel } from "../../../../../../common/commission/data/models/category_model";
 import { TagModel } from "../../../../../../common/commission/data/models/tag_model";
+import { UploadFile } from "../../../../../../common/upload_file/domain/usecases/upload_file";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { GetCategories } from "../../../../../../guest/commission_post/domain/usecases/get_categories";
 import { CreateComPost } from "../../../domain/usecases/create_compost";
@@ -21,18 +22,20 @@ type CreateComPostController = {
   categories: CategoryModel[];
   getCategories: () => void;
   createComPost: (event: any) => void;
+  uploadFile: (option: any) => void;
 };
+
 
 function useCreateComPostHandler(): CreateComPostController {
   const dispatch = useAppDispatch();
   const { isLoading, tags, isLoadingTag, categories } = useSelector(selectCreateComPost);
   const { authUser } = useSelector(selectAuth);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const getTagsUC = new GetTags();
   const createTagUC = new CreateTag();
   const getCategoriesUC = new GetCategories();
   const createComPostUC = new CreateComPost();
-
+  const uploadFileUC = new UploadFile()
 
   const getTags = () => {
     dispatch(setIsLoading(true));
@@ -51,6 +54,7 @@ function useCreateComPostHandler(): CreateComPostController {
       });
     });
   };
+
   const getCategories = () => {
     dispatch(setIsLoading(true));
     setTimeout(async () => {
@@ -86,6 +90,7 @@ function useCreateComPostHandler(): CreateComPostController {
       });
     });
   };
+
   const createComPost = (event: any) => {
     let imageFiles = event.upload_image.map((file: any) => file.originFileObj);
     let commission = event.compost;
@@ -94,34 +99,76 @@ function useCreateComPostHandler(): CreateComPostController {
     imageFiles.forEach((image: any) => {
       formData.append("images", image);
     });
-    formData.append("title", commission.title,);
-    formData.append("description", commission.description,);
+    formData.append("title", commission.title);
+    formData.append("description", commission.description);
     formData.append("duration", commission.duration.toString());
     formData.append("price", commission.price.toString());
     formData.append("category", commission.category);
-    commission.tags.forEach((tag:any) => {
-      formData.append("tags[]", tag.toString());
-    });
+    if (commission.tags != undefined) {
+      commission.tags.forEach((tag: any) => {
+        formData.append("tags[]", tag.toString());
+      });
+    }
 
     dispatch(setIsLoading(true));
     setTimeout(async () => {
       const resource = await createComPostUC.execute({
         token: authUser?.data.token!,
-        formData:formData
+        formData: formData,
       });
 
       dispatch(setIsLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          setTimeout(() => {
-            message.success(value.data.message)
-          }, 2000);
-          navigate("/manage/manage-compost")
+          message.success(value.data.message);
+          navigate("/manage/manage-compost");
         },
         error: (error) => {
-          setTimeout(() => {
-            message.success(error.exception.message)
-          }, 2000);
+          message.error(error.exception.message);
+        },
+      });
+    });
+  };
+
+  const uploadFile = async (options: any) => {
+    const { onSuccess, onError, file, onProgress } = options;
+    // const allowedFileType = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
+
+    // dispatch(fetchUploadedFilePath(null));
+
+    // let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 10 });
+    // if (!isValidFile) {
+    //   onError("File is not valid");
+    //   return;
+    // }
+    message.loading({ content: "Loading..." });
+    const fmData = new FormData();
+
+    const progressConfig = (event: any) => {
+      const percent = Math.floor((event.loaded / event.total) * 100);
+      // dispatch(setUploadProgress(percent));
+      if (percent === 100) {
+        // setTimeout(() => dispatch(setUploadProgress(0)), 1000);
+      }
+      onProgress({ percent: (event.loaded / event.total) * 100 });
+    };
+    fmData.append("submission_file", file);
+
+    // dispatch(setIsUploadFileLoading(true));
+    setTimeout(async () => {
+      const resource = await uploadFileUC.execute({ formData: fmData, token: authUser?.data.token!, progressConfig: progressConfig });
+      // dispatch(setIsUploadFileLoading(false));
+
+      resource.whenWithResult({
+        success: (value) => {
+          onSuccess(value.data.message);
+          // dispatch(fetchUploadedFilePath(value.data.data));
+
+          message.success(value.data.message, 2);
+        },
+        error: (error) => {
+          onError(error.exception.message);
+          message.error(error.exception.message, 2);
         },
       });
     });
@@ -136,6 +183,7 @@ function useCreateComPostHandler(): CreateComPostController {
     getCategories,
     categories,
     createComPost,
+    uploadFile,
   };
 }
 

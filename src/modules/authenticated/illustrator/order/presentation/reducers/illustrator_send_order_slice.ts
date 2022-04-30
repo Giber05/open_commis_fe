@@ -26,7 +26,7 @@ export const illustratorSendOrderSlice = createSlice({
     setIsUploadFileLoading: (state, action: PayloadAction<boolean>) => {
       state.isUploadFileLoading = action.payload;
     },
-    fetchUploadedFilePath: (state, action: PayloadAction<UploadedFileModel>) => {
+    fetchUploadedFilePath: (state, action: PayloadAction<UploadedFileModel | null>) => {
       state.uploadedFilePath = action.payload;
     },
     setUploadProgress: (state, action: PayloadAction<number>) => {

@@ -2,11 +2,14 @@ import { message } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../../../../../../../core/utils/redux";
+import { UploadFileValidation } from "../../../../../../../../core/utils/validation/upload_file_validation";
+import { UploadedFileModel } from "../../../../../../../common/upload_file/data/models/uploaded_file_model";
+import { UploadFile } from "../../../../../../../common/upload_file/domain/usecases/upload_file";
 import { selectAuth } from "../../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { AddArtwork } from "../../../../domain/usecases/add_artwork";
 import { DeleteArtwork } from "../../../../domain/usecases/delete_artwork";
 import { EditProfile } from "../../../../domain/usecases/edit_profile";
-import { fetchIllustratorProfile, selectManagePortofolio, setisLoadingUpdateProfile, setIsUploadable } from "../../../reducers/manage_portofolio_slice";
+import { fetchIllustratorProfile, fetchUploadedFilePath, selectManagePortofolio, setisLoadingUpdateProfile, setIsUploadable, setIsUploadFileLoading, setUploadProgress } from "../../../reducers/manage_portofolio_slice";
 
 type EditPortofolioConstroller = {
   editProfile: (event: any) => void;
@@ -15,15 +18,20 @@ type EditPortofolioConstroller = {
   deleteArtwork: (artworkId: number) => void;
   uploadableHandler: (file: any) => void;
   isUploadable: boolean;
+  uploadedFilePath: UploadedFileModel | null;
+  uploadFile: (option: any) => void;
+  isUploadFileLoading: boolean;
+  uploadProgress: number;
 };
 function useEditPortofolioHandler(): EditPortofolioConstroller {
   const dispatch = useAppDispatch();
-  const { isLoadingUpdateProfile, isUploadable } = useSelector(selectManagePortofolio);
+  const { isLoadingUpdateProfile, isUploadable, uploadedFilePath, uploadProgress, isUploadFileLoading } = useSelector(selectManagePortofolio);
   const navigate = useNavigate();
   const { authUser } = useSelector(selectAuth);
   const editProfileUC = new EditProfile();
   const addArtworkUC = new AddArtwork();
   const deleteArtworkUC = new DeleteArtwork();
+  const uploadFileUC = new UploadFile();
 
   const editProfile = (event: any) => {
     message.loading({ content: "Loading..." });
@@ -65,9 +73,15 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
   };
 
   const addArtwork = (event: any) => {
+    console.log({ uploadedFilePath });
+
+    if (uploadedFilePath == null) {
+      message.error("Gagal Menambahkan Karya!");
+      return;
+    }
+
     message.loading({ content: "Loading..." });
     let image = event.artwork_picture.map((file: any) => file.originFileObj);
-
     const formData = new FormData();
     formData.append("image", image[0]);
     formData.append("description", event.description);
@@ -120,6 +134,51 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
     dispatch(setIsUploadable(value));
   };
 
+  const uploadFile = async (options: any) => {
+    const { onSuccess, onError, file, onProgress } = options;
+    const allowedFileType = ["image/png", "image/jpg", "image/jpeg"];
+    console.log({options});
+    
+    dispatch(fetchUploadedFilePath(null));
+
+    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 10 });
+    if (!isValidFile) {
+      onError("File is not valid");
+      return;
+    }
+    message.loading({ content: "Loading..." });
+    const fmData = new FormData();
+
+    const progressConfig = (event: any) => {
+      const percent = Math.floor((event.loaded / event.total) * 100);
+      dispatch(setUploadProgress(percent));
+      if (percent === 100) {
+        setTimeout(() => dispatch(setUploadProgress(0)), 1000);
+      }
+      onProgress({ percent: (event.loaded / event.total) * 100 });
+    };
+    fmData.append("submission_file", file);
+
+    dispatch(setIsUploadFileLoading(true));
+    setTimeout(async () => {
+      const resource = await uploadFileUC.execute({ formData: fmData, token: authUser?.data.token!, progressConfig: progressConfig });
+      dispatch(setIsUploadFileLoading(false));
+
+      resource.whenWithResult({
+        success: (value) => {
+          onSuccess(value.data.message);
+          dispatch(fetchUploadedFilePath(value.data.data));
+
+          message.success(value.data.message, 2);
+        },
+        error: (error) => {
+          onError(error.exception.message);
+          message.error(error.exception.message, 2);
+        },
+      });
+    });
+  };
+
   return {
     isLoadingUpdateProfile,
     editProfile,
@@ -127,6 +186,9 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
     deleteArtwork,
     isUploadable,
     uploadableHandler,
+    isUploadFileLoading,
+    uploadFile,
+    uploadedFilePath,uploadProgress
   };
 }
 

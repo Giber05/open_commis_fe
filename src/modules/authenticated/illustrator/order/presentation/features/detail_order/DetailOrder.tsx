@@ -10,7 +10,7 @@ import ConfirmIncomingOrderSection from "./components/ConfirmIncomingOrderSectio
 import useIllustratorDetailOrderHandler from "./use_illustrator_detail_order_handler";
 
 function DetailOrder() {
-  const { isLoading, getOrderDetail, orderDetail } = useIllustratorDetailOrderHandler();
+  const { isLoading, getOrderDetail, orderDetail, } = useIllustratorDetailOrderHandler();
   useEffect(() => {
     getOrderDetail();
   }, []);

@@ -7,15 +7,15 @@ import { selectAuth } from "../../../../../../guest/authentication/presentation/
 import { UploadSubmissionFile } from "../../../domain/usecases/upload_submission_file";
 import { message } from "antd";
 import { SendOrder } from "../../../domain/usecases/send_order";
+import { UploadFileValidation } from "../../../../../../../core/utils/validation/upload_file_validation";
 
 type SendOrderController = {
   isSendOrderLoading: boolean;
   uploadedFilePath: UploadedFileModel | null;
   uploadProgress: number;
   uploadFile: (option: any) => void;
-  sendOrder:(values:any)=>void;
-  isUploadFileLoading:boolean;
-
+  sendOrder: (values: any) => void;
+  isUploadFileLoading: boolean;
 };
 
 function useSendOrderHandler(): SendOrderController {
@@ -23,14 +23,24 @@ function useSendOrderHandler(): SendOrderController {
   let id = parseInt(orderId!);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isSendOrderLoading, uploadedFilePath, uploadProgress,isUploadFileLoading } = useSelector(selectSendOrder);
+  const { isSendOrderLoading, uploadedFilePath, uploadProgress, isUploadFileLoading } = useSelector(selectSendOrder);
   const { authUser } = useSelector(selectAuth);
   const uploadSubmissionFileUC = new UploadSubmissionFile();
   const sendOrderUC = new SendOrder();
 
   const uploadFile = async (options: any) => {
-    message.loading({ content: "Loading..." });
     const { onSuccess, onError, file, onProgress } = options;
+    const allowedFileType = ["image/png", "image/jpg", "image/jpeg", "application/x-zip-compressed"];
+    
+    dispatch(fetchUploadedFilePath(null))
+    
+    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 25 });
+    if (!isValidFile) {
+      onError("File is not valid");
+      return;
+    }
+    message.loading({ content: "Loading..." });
+    
     const fmData = new FormData();
 
     const progressConfig = (event: any) => {
@@ -52,8 +62,7 @@ function useSendOrderHandler(): SendOrderController {
         success: (value) => {
           onSuccess(value.data.message);
           dispatch(fetchUploadedFilePath(value.data.data));
-          console.log(`${uploadedFilePath?.path}`);
-          
+
           message.success(value.data.message, 2);
         },
         error: (error) => {
@@ -65,11 +74,15 @@ function useSendOrderHandler(): SendOrderController {
   };
 
   const sendOrder = (values: any) => {
+    if(uploadedFilePath==null){
+      message.error("Gagal Mengirimkan pesanan")
+      return
+    }
     message.loading({ content: "Loading..." });
     dispatch(setIsSendOrderLoading(true));
     setTimeout(async () => {
-      console.log("Uploadded file",uploadedFilePath?.path);
-      
+      console.log("Uploadded file", uploadedFilePath?.path);
+
       const resource = await sendOrderUC.execute({ token: authUser?.data.token!, submissionFile: uploadedFilePath?.path!, description: values.description, cloudLink: values.cloud_link, orderId: id });
       dispatch(setIsSendOrderLoading(false));
 
@@ -90,7 +103,7 @@ function useSendOrderHandler(): SendOrderController {
     uploadProgress,
     uploadedFilePath,
     sendOrder,
-    isUploadFileLoading
+    isUploadFileLoading,
   };
 }
 export default useSendOrderHandler;

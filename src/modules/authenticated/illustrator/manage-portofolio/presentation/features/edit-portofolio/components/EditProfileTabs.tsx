@@ -70,7 +70,7 @@ function EditProfileTabs() {
               </Typography.Title>
               <Avatar size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }} src={illustratorProfile?.profilePicture} />
               <Form.Item name="profile_picture" getValueFromEvent={normFile}>
-                <Upload maxCount={1} accept=".png,.jpg,.jpeg" beforeUpload={beforeUpload}>
+                <Upload listType="picture" maxCount={1} accept=".png,.jpg,.jpeg" beforeUpload={beforeUpload}>
                   <Button className="comic-shadow-btn bg-[#1D94C8] text-white rounded-full mt-4 mb-2" icon={<UploadOutlined />}>
                     Ubah Foto Profile
                   </Button>

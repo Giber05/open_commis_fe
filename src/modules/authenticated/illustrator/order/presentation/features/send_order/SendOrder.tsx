@@ -24,6 +24,8 @@ function SendOrder() {
   const handleOnChange = ({ file, fileList, event }: any) => {
     // console.log(file, fileList, event);
     //Using Hooks to update the state to the current filelist
+    console.log({file});
+    
     setDefaultFileList(fileList);
     //filelist - [{uid: "-1",url:'Some url to image'}]
   };
@@ -50,7 +52,7 @@ function SendOrder() {
             rules={[
               () => ({
                 validator(rule, value) {
-                  if (defaultFileList.length > 0) {
+                  if (defaultFileList.length > 0 && uploadedFilePath !=null) {
                     return Promise.resolve();
                   }
                   return Promise.reject("File wajib diisi");
@@ -73,7 +75,7 @@ function SendOrder() {
               *Maksimal gambar yang dapat diupload 25MB
               <br />
             </Typography.Text>
-            <Dragger className="mt-3" maxCount={1} accept=".png,.jpg,.jpeg,.zip" defaultFileList={defaultFileList} customRequest={uploadFile} listType="picture" onChange={handleOnChange}>
+            <Dragger onDrop={(event)=>console.log(event)} className="mt-3" maxCount={1} accept=".png,.jpg,.jpeg,.zip" defaultFileList={defaultFileList} customRequest={uploadFile} listType="picture" onChange={handleOnChange}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>

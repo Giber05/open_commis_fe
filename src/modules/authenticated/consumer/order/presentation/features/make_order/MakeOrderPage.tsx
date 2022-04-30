@@ -1,16 +1,21 @@
 import { InboxOutlined } from "@ant-design/icons";
-import { Typography, Form, Rate, Input, message } from "antd";
+import { Typography, Form, Rate, Input, message, Upload } from "antd";
 import Dragger from "antd/lib/upload/Dragger";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import useMakeOrderHandler from "./use_make_order_handler";
 
 function MakeOrderPage() {
-  const { isLoading, createOrder, navigate } = useMakeOrderHandler();
-  const onFinish = (values: any) => {
-    console.log("Ordering form Values: ", values);
+  const { isLoading, createOrder, navigate,uploadFile } = useMakeOrderHandler();
+  const [defaultFileList, setDefaultFileList] = useState([]);
+
+  const handleOnChange = ({ file, fileList, event }: any) => {
+    // console.log(file, fileList, event);
+    //Using Hooks to update the state to the current filelist
+    setDefaultFileList(fileList);
+    //filelist - [{uid: "-1",url:'Some url to image'}]
   };
   const normFile = (e: any) => {
     console.log("Upload event:", e);
@@ -19,26 +24,23 @@ function MakeOrderPage() {
     }
     return e && e.fileList;
   };
-  const props = {
-    name: "file",
-    multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange(info: any) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+  const  beforeUpload=(file:File)=> {
+    
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg" || file.type === "application/pdf";
+      if (!isJpgOrPng) {
+        message.error("You can only upload JPG/PNG/JPEG/PDF file!");
+        return Upload.LIST_IGNORE
       }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
+      const isLt2M = file.size / 1024 / 1024 < 10;
+      console.log(`${file.size}`);
+    
+      if (!isLt2M) {
+        message.error("File must smaller than 10MB!");
+        return Upload.LIST_IGNORE
       }
-    },
+      return isJpgOrPng && isLt2M; ;
+  }
 
-    onDrop(e: any) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
-  };
   return (
     <div>
       <div className="max-w-full w-11/12 m-auto text-sm shadow-none">
@@ -48,7 +50,15 @@ function MakeOrderPage() {
             <Input.TextArea autoSize={true} className="form-style-blue" />
           </Form.Item>
           <Form.Item getValueFromEvent={normFile} label="Referensi Gambar" name="file">
-            <Dragger className="mt-3" maxCount={1} listType="picture" {...props}>
+            <Dragger 
+              className="mt-3" 
+              maxCount={1}
+              accept=".png,.jpg,.jpeg,.pdf"
+              defaultFileList={defaultFileList} 
+              customRequest={uploadFile} 
+              listType="picture" 
+              onChange={handleOnChange}
+            >
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
