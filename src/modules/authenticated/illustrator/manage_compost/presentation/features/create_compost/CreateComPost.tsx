@@ -3,7 +3,7 @@ import { Button, Card, Col, Divider, Form, Input, InputNumber, Row, Select, Spac
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "../../../../../../../core/common_components/buttons/PrimaryButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
-import ImageUploader from "../../../../../../../core/common_components/ImageUploader/ImageUploader";
+import ImageUploader from "../../../../../../../core/common_components/image_uploader/ImageUploader";
 import UploadWithCrop from "./components/FormMultiImage";
 import useCreateComPostHandler from "./use_create_compost_handler";
 

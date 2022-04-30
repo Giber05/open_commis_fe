@@ -5,14 +5,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
 import SuccessButton from "../../../../../../core/common_components/buttons/SuccessButton";
-import ImageUploader from "../../../../../../core/common_components/ImageUploader/ImageUploader";
+import ImageUploader from "../../../../../../core/common_components/image_uploader/ImageUploader";
 import ConfigConstants from "../../../../../../core/constants/config_constants";
 import LoginContainer from "../Login/components/LoginContainer";
 import RegistrationContainer from "./components/RegistrationContainer";
 import useRegistrationHandler from "./use_registration_handler";
 
 function RegistrationPage() {
-  const {isLoadingUser, onFormSubmitted} = useRegistrationHandler()
+  const {isLoadingUser, onFormSubmitted,resendVerifEmail} = useRegistrationHandler()
   const onFinish = (values: any) => {
     console.log("Registration form Values: ", values);
   };
@@ -94,7 +94,7 @@ function RegistrationPage() {
 
           <div className="mx-auto justify-center flex">
             <Form.Item className="mt-3 mb-1 text-center ">
-              <SuccessButton loading={isLoadingUser} htmlType="submit" title="Register akun" block />
+              <SuccessButton  loading={isLoadingUser} htmlType="submit" title="Register akun" block />
             </Form.Item>
           </div>
           <Form.Item className="text-center font-bold ">

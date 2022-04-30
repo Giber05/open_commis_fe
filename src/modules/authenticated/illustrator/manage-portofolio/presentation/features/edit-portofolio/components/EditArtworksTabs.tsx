@@ -3,7 +3,7 @@ import { Badge, Button, Form, Image, Input, message, Modal, Upload } from "antd"
 import React, { useCallback, useEffect, useState } from "react";
 import DisabledButton from "../../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
-import ImageWithCrop from "../../../../../../../../core/common_components/ImageUploader/ImageWithCrop";
+import ImageWithCrop from "../../../../../../../../core/common_components/image_uploader/ImageWithCrop";
 import UploadWithCrop from "../../../../../manage_compost/presentation/features/create_compost/components/FormMultiImage";
 import usePortofolioHandler from "../../portofolio/use_portofolio_handler";
 import useEditPortofolioHandler from "./use_edit_portofolio_handler";
