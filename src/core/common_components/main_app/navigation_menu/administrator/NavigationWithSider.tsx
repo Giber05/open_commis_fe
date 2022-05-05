@@ -75,7 +75,7 @@ export default () => {
   );
   return (
     <div className="flex flex-row min-h-screen bg-[#f1f1f1] text-gray-800">
-      <aside className={`sidebar w-64  transform ${showSidebar ? "-translate-x-full" : ""}  z-10 md:translate-x-0 transition-transform duration-150 ease-in bg-white shadow-lg`}>
+      <aside className={`sidebar fixed w-64 h-full  transform ${showSidebar ? "-translate-x-full" : ""}  z-10 md:translate-x-0 transition-transform duration-150 ease-in bg-white shadow-lg`}>
         <div className="flex justify-end text-right">{width < 768 ? <Button onClick={() => setShowSidebar(true)} type="text" icon={<CloseCircleOutlined />} /> : null}</div>
         <div className="sidebar-header flex items-center justify-center py-4">
           <div className="inline-flex">
@@ -188,8 +188,8 @@ export default () => {
       <main className="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <header className="header bg-primary shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
-            <div className="flex md:hidden">{width < 768 ? <Button onClick={() => setShowSidebar(false)} icon={<MenuOutlined />}></Button> : null}</div>
-            <h1 className="font-bold text-base ml-3 md:text-2xl md:ml-0 text-white">{currentMenu}</h1>
+            <div className="flex ml-64 md:hidden">{width < 768 ? <Button onClick={() => setShowSidebar(false)} icon={<MenuOutlined />}></Button> : null}</div>
+            <h1 className="font-bold text-base ml-3 md:text-2xl md:ml-64 text-white">{currentMenu}</h1>
             <div className="flex ml-auto">
               <Dropdown overlay={menu}>
                 <div className="flex flex-row items-center text-primary">
@@ -203,14 +203,14 @@ export default () => {
             </div>
           </div>
         </header>
-        <div className="main-content flex flex-col flex-grow ">
+        <div className="main-content flex flex-col flex-grow ml-64 ">
           <div className="flex flex-col flex-grow bg-[#f1f1f1] rounded ">
             <Outlet />
           </div>
         </div>
-        <footer className="footer px-4 py-6">
-          <div className="footer-content">
-            <p className="text-sm text-gray-600 text-center">
+        <footer className="footer px-4 py-6  bg-primary">
+          <div className="footer-content mx-auto">
+            <p className={`text-sm text-white text-center ml-64 `}>
               © OpenCommiss 2022. All rights reserved. <a href="https://twitter.com/iaminos">by KoTA 101</a>
             </p>
           </div>
