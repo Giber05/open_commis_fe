@@ -21,8 +21,8 @@ function DashboardPage() {
             </div>
           </div>
         </div>
-        <div className="container mx-auto max-w-full">
-          <Typography.Title level={4}>Tabel Transaksi</Typography.Title>  
+        <div className="container  max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
+          <Typography.Title level={4}>Tabel Transaksi</Typography.Title>
           <TransactionTable />
         </div>
       </div>

@@ -1,13 +1,14 @@
 import React from "react";
 import faker from "@faker-js/faker";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,PointElement,LineElement } from "chart.js";
 
-import { Chart as ChartJS } from "chart.js/auto";
 
 import { Bar, Line } from "react-chartjs-2";
+ChartJS.register(LineElement);
 
 
 
-export const options = {
+export const options:any = {
   responsive: true,
   plugins: {
     legend: {
@@ -20,9 +21,9 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels:any = ["January", "February", "March", "April", "May", "June", "July"];
 
-export const data = {
+export const data:any = {
   labels,
   datasets: [
     {

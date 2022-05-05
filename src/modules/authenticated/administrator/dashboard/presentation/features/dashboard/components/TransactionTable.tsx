@@ -157,7 +157,7 @@ function TransactionTable() {
       <div>
         <Typography.Title level={5}>Transaksi Terbaru</Typography.Title>
       </div>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table scroll={{ x: 1024 }} size="middle" columns={columns} dataSource={data} onChange={onChange} />
     </div>
   );
 }
