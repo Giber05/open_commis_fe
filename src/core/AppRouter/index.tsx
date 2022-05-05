@@ -14,6 +14,11 @@ import OrderCustomer from "../../modules/authenticated/consumer/order/OrderCusto
 import Ordering from "../../modules/authenticated/consumer/order/OrderingIndex";
 import ProfileCustomer from "../../modules/authenticated/consumer/profile/presentation/ProfileCustomerIndex";
 import Review from "../../modules/authenticated/consumer/review/ReviewIndex";
+import OpenCommissAdministrator from "../common_components/main_app/app/OpenCommissAdministrator";
+import DashboardAdmin from "../../modules/authenticated/administrator/dashboard/DashboardIndex";
+import ManageUser from "../../modules/authenticated/administrator/manage_user/ManageUserIndex";
+import ManageComPostAdmin from "../../modules/authenticated/administrator/manage_compost/ManageComPostIndex";
+import ManageReview from "../../modules/authenticated/administrator/manage_review/ManageReviewIndex";
 
 function AppRoutes(): JSX.Element {
   return (
@@ -35,6 +40,12 @@ function AppRoutes(): JSX.Element {
           <Route path="manage-portofolio/*" element={<ManagePortofolio />} />
           <Route path="order/*" element={<Order />} />
           <Route path="earning/*" element={<Earning />} />
+        </Route>
+        <Route path="admin/*" element={<OpenCommissAdministrator />}>
+          <Route index element={<DashboardAdmin />} />
+          <Route path="manage-user/*" element={<ManageUser />} />
+          <Route path="manage-compost/*" element={<ManageComPostAdmin />} />
+          <Route path="manage-review/*" element={<ManageReview />} />
         </Route>
         <Route path="auth/*" element={<AuthenticationModule />}>
           <Route path="login/*" element={<ManageComPost />} />
