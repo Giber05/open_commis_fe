@@ -1,12 +1,18 @@
 import React from "react";
-import { Button, Table, Typography } from "antd";
+import { Avatar, Button, Row, Table, Typography } from "antd";
 import { Link } from "react-router-dom";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 
 const columns: any = [
   {
     title: "Nama pengguna",
-    dataIndex: "name",
+    render:(value:any,record:any)=>{
+      return <Row >
+        <Avatar size={50} icon={<UserOutlined/>} className="mr-2" />
+        <Typography.Text className="my-auto" strong>{record.name}</Typography.Text>
+      </Row>
+    },
+    width:200,
     fixed: 'left',
     sorter: (a: any, b: any) => a.name.length - b.name.length,
   },
@@ -50,6 +56,7 @@ const columns: any = [
   {
     title: "Aksi",
     fixed: 'right',
+    width:50,
     render: () => <Button type="text" style={{ color: "red"}} icon={<DeleteOutlined />}></Button>,
   },
 ];
@@ -99,9 +106,7 @@ function onChange(pagination: any, filters: any, sorter: any, extra: any) {
 function UserListTable() {
   return (
     <div >
-      <div>
-        <Typography.Title level={5}>Pengguna</Typography.Title>
-      </div>
+
       <Table pagination={{showSizeChanger:true}} indentSize={10} scroll={{ x: 768 }} size="middle" columns={columns} dataSource={data} onChange={onChange} />
     </div>
   );

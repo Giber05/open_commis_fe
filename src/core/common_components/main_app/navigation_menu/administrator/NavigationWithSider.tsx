@@ -110,7 +110,7 @@ export default () => {
               </Link>
             </li>
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase ">Manages</span>
+              <span className="flex font-medium text-sm text-gray-600 px-4 my-4 uppercase ">kelola</span>
             </li>
             <li className="my-px">
               <Link
@@ -188,7 +188,7 @@ export default () => {
       <main className="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <header className="header bg-primary shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
-            <div className="flex ml-64 md:hidden">{width < 768 ? <Button onClick={() => setShowSidebar(false)} icon={<MenuOutlined />}></Button> : null}</div>
+            <div className="flex ml-64 md:hidden">{width < 768 ? <Button className="rounded-lg" onClick={() => setShowSidebar(false)} icon={<MenuOutlined />}></Button> : null}</div>
             <h1 className="font-bold text-base ml-3 md:text-2xl md:ml-64 text-white">{currentMenu}</h1>
             <div className="flex ml-auto">
               <Dropdown overlay={menu}>
@@ -211,7 +211,7 @@ export default () => {
         <footer className="footer px-4 py-6  bg-primary">
           <div className="footer-content mx-auto">
             <p className={`text-sm text-white text-center ml-64 `}>
-              © OpenCommiss 2022. All rights reserved. <a href="https://twitter.com/iaminos">by KoTA 101</a>
+              © OpenCommiss 2022. All rights reserved. by KoTA 101
             </p>
           </div>
         </footer>
