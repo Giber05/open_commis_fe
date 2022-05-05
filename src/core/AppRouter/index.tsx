@@ -17,7 +17,7 @@ import Review from "../../modules/authenticated/consumer/review/ReviewIndex";
 import OpenCommissAdministrator from "../common_components/main_app/app/OpenCommissAdministrator";
 import DashboardAdmin from "../../modules/authenticated/administrator/dashboard/DashboardIndex";
 import ManageUser from "../../modules/authenticated/administrator/manage_user/ManageUserIndex";
-import ManageComPostAdmin from "../../modules/authenticated/administrator/manage_compost/ManageComPostIndex";
+import ManageComPostAdmin from "../../modules/authenticated/administrator/manage_compost/AdminComPostIndex";
 import ManageReview from "../../modules/authenticated/administrator/manage_review/ManageReviewIndex";
 
 function AppRoutes(): JSX.Element {
