@@ -1,5 +1,5 @@
 import PaginationModel from "../../../../../common/pagination/model/pagination_model";
-import CommissionPost from "./commission_posts";
+import CommissionPosts from "./commission_posts";
 
 class ComPostModel {
   success: boolean;
@@ -22,8 +22,8 @@ class ComPostModel {
 
 class Data {
   pagination: PaginationModel;
-  commissionPosts: CommissionPost[];
-  constructor(params: { pagination: PaginationModel; commissionPosts: CommissionPost[] }) {
+  commissionPosts: CommissionPosts[];
+  constructor(params: { pagination: PaginationModel; commissionPosts: CommissionPosts[] }) {
     this.pagination = params.pagination;
     this.commissionPosts = params.commissionPosts;
   }
@@ -32,7 +32,7 @@ class Data {
     return new Data({
       pagination: PaginationModel.fromJson(json.pagination),
       commissionPosts: json.commissionPosts.map((commission: any) => {
-        return CommissionPost.fromJson(commission);
+        return CommissionPosts.fromJson(commission);
       }),
     });
   }

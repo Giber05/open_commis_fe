@@ -1,4 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import adminComPostDetailSlice  from "../../modules/authenticated/administrator/manage_compost/presentation/reducers/admin_compost_detail_slice";
+import  adminComPostListSlice  from "../../modules/authenticated/administrator/manage_compost/presentation/reducers/admin_compost_list_slice";
 import  consumerMakeOrderSlice  from "../../modules/authenticated/consumer/order/presentation/reducers/consumer_make_order_slice";
 import  consumerOrderSlice  from "../../modules/authenticated/consumer/order/presentation/reducers/consumer_order_slice";
 import consumerProfileSlice  from "../../modules/authenticated/consumer/profile/presentation/reducers/customer_profile_slice";
@@ -33,6 +35,8 @@ const store = configureStore({
     consumer_make_order:consumerMakeOrderSlice,
     add_review:addReviewSlice,
     consumer_profile:consumerProfileSlice,
+    admin_compost_list: adminComPostListSlice,
+    admin_compost_detail: adminComPostDetailSlice,
   },
   middleware,
 });

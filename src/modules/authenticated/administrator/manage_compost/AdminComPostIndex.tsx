@@ -1,5 +1,5 @@
 import React from 'react';
-import ManageCompostRoutes from './ManageCompostRoutes';
+import ManageCompostRoutes from './AdminCompostRoutes';
 
 function ManageComPostAdmin() {
   return <ManageCompostRoutes/>;
