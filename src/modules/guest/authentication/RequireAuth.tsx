@@ -10,11 +10,12 @@ function RequireAuth() {
   const verifyCurrentToken = new VerifyCurrentToken();
   const navigate = useNavigate();
   useEffect(() => {
-    let isIllustrator = authUser?.data.role === "consumer";
-    if (!isLoadingUser && (authUser == null || !isIllustrator)) {
+    let isConsumer = authUser?.data.role === "consumer";
+    if (!isLoadingUser && (authUser == null || !isConsumer)) {
       navigate("/auth/login");
     }
   }, [isLoadingUser]);
+  
   useEffect(() => {
     async function verifyToken() {
       const resource = await verifyCurrentToken.execute(authUser?.data?.token!);

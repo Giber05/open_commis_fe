@@ -6,19 +6,16 @@ import CustomRow from "./CustomRow";
 import useAdminComPostListHandler from "../use_admin_compost_list_handler";
 import CommissionPosts from "../../../../../../../guest/commission_post/data/models/compost_list/commission_posts";
 
-
 function onChange(pagination: any, filters: any, sorter: any, extra: any) {
   console.log("params", pagination, filters, sorter, extra);
 }
 
 type ComPostsProps = {
-  composts:CommissionPosts[];
-}
-function ComPostListTable({composts}:ComPostsProps) {
+  composts: CommissionPosts[];
+};
+function ComPostListTable({ composts }: ComPostsProps) {
   const navigate = useNavigate();
-  const { isLoadingComPosts, pagination, onChangePage,  } = useAdminComPostListHandler();
-
-  
+  const { isLoadingComPosts, pagination, onChangePage, deleteComPost } = useAdminComPostListHandler();
 
   const columns: any = [
     {
@@ -79,7 +76,7 @@ function ComPostListTable({composts}:ComPostsProps) {
       title: "Illustrator",
       render: (value: any, record: any) => (
         <Typography.Text className="my-auto" strong>
-         {record.illustrator.name}
+          {record.illustrator.name}
         </Typography.Text>
       ),
 
@@ -89,14 +86,14 @@ function ComPostListTable({composts}:ComPostsProps) {
       title: "Aksi",
       fixed: "right",
       width: 50,
-      render: () => <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>,
+      render: (value: any, record: any) => <Button onClick={() => deleteComPost(record.id)} type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>,
     },
   ];
 
   return (
     <div>
       <Table
-      loading={isLoadingComPosts}
+        loading={isLoadingComPosts}
         onRow={(record, rowIndex) => {
           return {
             onDoubleClick: (event) => navigate(`/admin/manage-compost/${record.id}`),

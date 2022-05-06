@@ -4,7 +4,7 @@ import { CommissionPostDetail } from "../../../../../guest/commission_post/data/
 
 
 type AdminComPostDetailState = {
-  initLoading: boolean,
+  isDeleteComPostLoading: boolean,
   isLoadingComPost: boolean;
   commissionPost: CommissionPostDetail | null;
   
@@ -12,7 +12,7 @@ type AdminComPostDetailState = {
 
 const initialState: AdminComPostDetailState = {
   isLoadingComPost: false,
-  initLoading:true,
+  isDeleteComPostLoading:false,
   commissionPost: null,
  
 };
@@ -21,8 +21,8 @@ export const adminComPostDetailSlice = createSlice({
   name: "admin_compost_detail",
   initialState,
   reducers: {
-    setInitLoading: (state, action: PayloadAction<boolean>) => {
-      state.initLoading = action.payload;
+    setIsDeleteComPostLoading: (state, action: PayloadAction<boolean>) => {
+      state.isDeleteComPostLoading = action.payload;
     },
     setIsLoadingComPost: (state, action: PayloadAction<boolean>) => {
       state.isLoadingComPost = action.payload;
@@ -37,7 +37,7 @@ export const adminComPostDetailSlice = createSlice({
 export const {
   setIsLoadingComPost,
   fetchCommissionDetail,
-  setInitLoading
+  setIsDeleteComPostLoading
 } = adminComPostDetailSlice.actions;
 
 export const selectAdminComPostDetail = (state: RootState): AdminComPostDetailState => state.admin_compost_detail;

@@ -10,7 +10,7 @@ import Reviews from "./components/Reviews";
 import useAdminComPostDetailHandler from "./use_admin_compost_detail_handler";
 
 function AdminComPostDetailPage() {
-  const { getComPostDetail, isLoadingComPost, isMobile, commissionPost } = useAdminComPostDetailHandler();
+  const { getComPostDetail, isLoadingComPost, isMobile, deleteComPost, isDeleteComPostLoading, commissionPost } = useAdminComPostDetailHandler();
   useEffect(() => {
     getComPostDetail();
   }, []);
@@ -28,11 +28,6 @@ function AdminComPostDetailPage() {
               <div className="bg-gradient-to-tr from-gray-100 to-gray-200 shadow-md shadow-gray-400 rounded-xl">
                 <FullWidthCorousel image1={commissionPost?.image_1} image2={commissionPost?.image_2} image3={commissionPost?.image_3} image4={commissionPost?.image_4} />
               </div>
-              <div className="text-center mx-auto my-4 ">
-                <Button size="large" className="hover:bg-reject hover:text-white text-reject border-reject rounded-xl comic-shadow-btn">
-                  HAPUS COMMISSION POST
-                </Button>
-              </div>
             </Col>
             <Col xs={24} sm={24} md={12} lg={12}>
               <div>
@@ -40,20 +35,29 @@ function AdminComPostDetailPage() {
               </div>
             </Col>
           </Row>
+          <div className="text-center mx-auto my-6 ">
+            <Button loading={isDeleteComPostLoading} onClick={deleteComPost} size="large" className="hover:bg-reject hover:text-white text-reject border-reject rounded-xl comic-shadow-btn">
+              HAPUS COMMISSION POST
+            </Button>
+          </div>
         </div>
       </div>
       <div className="mb-5 mt-16 container max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-5xl lg:px-8  bg-white rounded-xl overflow-hdden shadow-md ">
         <div className="bg-gradient-to-t from-green-300 to-submit -mt-10 mb-4 rounded-xl text-white grid items-center w-full h-24 py-4 px-8  shadow-green-400 shadow-md undefined">
-          <Row justify="space-between" className="flex-1" >
+          <Row justify="space-between" className="flex-1">
             <h2 className="text-white text-md md:text-lg lg:text-xl xl:text-2xl">Ulasan</h2>
-            <Link to="" className="text-white text-md md:text-lg lg:text-xl xl:text-2xl hover:text-green-900">Selengkapnya...</Link >
+            {commissionPost?.reviews?.length! > 5 ? (
+              <Link to={`/admin/manage-review/${commissionPost?.id}/reviews`} className="text-white text-md md:text-lg lg:text-xl xl:text-2xl hover:text-green-900">
+                Selengkapnya...
+              </Link>
+            ) : null}
           </Row>
         </div>
         {commissionPost?.reviews?.length! > 0 ? (
           commissionPost?.reviews?.slice(0, 5).map((review) => <Reviews review={review} />)
         ) : (
-          <Card className="mx-auto">
-            <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
+          <Card className="mx-auto border-0">
+            <Result  title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
           </Card>
         )}
       </div>

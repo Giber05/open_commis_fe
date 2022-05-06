@@ -2,19 +2,21 @@ import { DeleteFilled, QuestionCircleOutlined } from "@ant-design/icons";
 import { Avatar, Button, Comment, Divider, Popconfirm, Rate, Row, Tooltip } from "antd";
 import moment from "moment";
 import React from "react";
+import AssetConstants from "../../../../../../../../core/constants/asset_constants";
+import { ReviewList } from "../../../../../../../common/reviews/data/models/review_list";
 import { ReviewModel } from "../../../../../../../guest/commission_post/data/models/review/review_model";
 
 type ReviewProps = {
-  review: ReviewModel;
+  review: ReviewList;
 };
-function Reviews({ review }: ReviewProps) {
+function ReviewItem({ review }: ReviewProps) {
   return (
     <div>
       <Row justify="space-between">
         <div>
           <Comment
             author={<a>{review.consumer.name}</a>}
-            avatar={<Avatar src={review.consumer.profilePicture} alt={review.consumer.username} />}
+            avatar={<Avatar  src={review?.consumer?.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : review?.consumer?.profilePicture} alt={review.consumer.username} />}
             content={<p>{review.comment}</p>}
             datetime={
               <Row>
@@ -36,7 +38,10 @@ function Reviews({ review }: ReviewProps) {
             onConfirm={(e) => console.log(e)}
             onVisibleChange={() => console.log("visible change")}
           >
+            <div className="text-center mx-auto">
+
             <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} onClick={() => console.log("Dleet review")} />
+            </div>
           </Popconfirm>
         </div>
       </Row>
@@ -45,4 +50,4 @@ function Reviews({ review }: ReviewProps) {
   );
 }
 
-export default Reviews;
+export default ReviewItem;
