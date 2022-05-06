@@ -7,6 +7,7 @@ function AdminComPostList() {
   const { initLoading, getCommissionPosts, pagination,commissionPosts } = useAdminComPostListHandler();
   useEffect(() => {
     getCommissionPosts();
+    window.scrollTo(0, 0);
     
   }, [pagination?.currentPage]);
   if (initLoading) return <CircularLoadingIndicator />;

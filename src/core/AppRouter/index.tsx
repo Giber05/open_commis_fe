@@ -19,6 +19,7 @@ import DashboardAdmin from "../../modules/authenticated/administrator/dashboard/
 import ManageUser from "../../modules/authenticated/administrator/manage_user/ManageUserIndex";
 import ManageComPostAdmin from "../../modules/authenticated/administrator/manage_compost/AdminComPostIndex";
 import ManageReview from "../../modules/authenticated/administrator/manage_review/ManageReviewIndex";
+import AdminAuthentication from "../../modules/guest/authentication/AdminAuthenticationIndex";
 
 function AppRoutes(): JSX.Element {
   return (
@@ -42,6 +43,7 @@ function AppRoutes(): JSX.Element {
           <Route path="earning/*" element={<Earning />} />
         </Route>
         <Route path="admin/*" element={<OpenCommissAdministrator />}>
+          
           <Route index element={<DashboardAdmin />} />
           <Route path="manage-user/*" element={<ManageUser />} />
           <Route path="manage-compost/*" element={<ManageComPostAdmin />} />
@@ -51,6 +53,8 @@ function AppRoutes(): JSX.Element {
           <Route path="login/*" element={<ManageComPost />} />
           <Route path="registration/*" element={<ManagePortofolio />} />
         </Route>
+        <Route path="admin/auth*" element={<AdminAuthentication />} />
+
       </Routes>
     </Router>
   );

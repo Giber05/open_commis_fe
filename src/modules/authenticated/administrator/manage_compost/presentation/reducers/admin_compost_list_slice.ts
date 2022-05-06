@@ -7,15 +7,19 @@ import CommissionPosts from "../../../../../guest/commission_post/data/models/co
 type AdminComPostListState = {
   initLoading: boolean,
   isLoadingComPosts: boolean;
+  isSearchComPostLoading: boolean;
   commissionPosts: CommissionPosts[];
+  searchedComPosts: CommissionPosts[];
   pagination: PaginationModel | null
   
 };
 
 const initialState: AdminComPostListState = {
   isLoadingComPosts: false,
+  isSearchComPostLoading:false,
   initLoading:true,
   commissionPosts: [],
+  searchedComPosts: [],
   pagination:{
     currentPage:1,
     pageSize:1,
@@ -34,8 +38,14 @@ export const adminComPostListSlice = createSlice({
     setIsLoadingComPosts: (state, action: PayloadAction<boolean>) => {
       state.isLoadingComPosts = action.payload;
     },
+    setIsSearchComPostLoading: (state, action: PayloadAction<boolean>) => {
+      state.isSearchComPostLoading = action.payload;
+    },
     fetchCommissionPosts: (state, action: PayloadAction<CommissionPosts[]>) => {
       state.commissionPosts = action.payload;
+    },
+    fetchSearchedCommissionPosts: (state, action: PayloadAction<CommissionPosts[]>) => {
+      state.searchedComPosts = action.payload;
     },
     setPagination:(state, action:PayloadAction<PaginationModel>)=>{
       state.pagination = action.payload;
@@ -46,7 +56,8 @@ export const adminComPostListSlice = createSlice({
 export const {
   setIsLoadingComPosts,
   fetchCommissionPosts,
-  
+  setIsSearchComPostLoading,
+  fetchSearchedCommissionPosts,
   setPagination,
   setInitLoading
 } = adminComPostListSlice.actions;
