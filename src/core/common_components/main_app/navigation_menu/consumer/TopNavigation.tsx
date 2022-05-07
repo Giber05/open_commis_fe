@@ -41,12 +41,15 @@ function TopNavigation() {
   return (
     <Header className="bg-white ">
       <div
+        onClick={() => navigate("/")}
         style={{
           width: "120px",
           height: "31px",
           margin: "0 24px 16px 0",
           float: "left",
+          
         }}
+        className="cursor-pointer"
       >
         <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
       </div>
@@ -68,7 +71,7 @@ function TopNavigation() {
           )}
         </Menu>
       ) : (
-        <Menu  activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
+        <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
           <Menu.Item key="compost">
             <Link to="/"> Beranda</Link>
           </Menu.Item>

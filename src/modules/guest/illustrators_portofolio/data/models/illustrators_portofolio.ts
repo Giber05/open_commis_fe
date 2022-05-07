@@ -1,11 +1,14 @@
 import IlustratorEntity from "../../../../common/authentication/domain/entities/ilustrator_entity";
+import { CommissionPost } from "../../../../common/commission/data/models/commission_post";
+import CommissionPosts from "../../../commission_post/data/models/compost_list/commission_posts";
 import { ArtworkModel } from "./artwork_model";
 import { PortofolioModel } from "./portofolio_model";
 
 export class IllustratorsPortofolio extends IlustratorEntity {
   portofolio?: PortofolioModel;
   artworks?: ArtworkModel[];
-
+  commissions?: CommissionPosts[];
+  ordersCompleted:number;
   constructor(params: {
     id: number;
     name: string;
@@ -19,7 +22,10 @@ export class IllustratorsPortofolio extends IlustratorEntity {
     createdAt: Date;
     updatedAt: Date;
     portofolio?: PortofolioModel;
+    commissions?: CommissionPosts[];
     artworks?: ArtworkModel[];
+  ordersCompleted:number;
+
   }) {
     super({
       id: params.id,
@@ -36,6 +42,8 @@ export class IllustratorsPortofolio extends IlustratorEntity {
     });
     this.portofolio = params.portofolio;
     this.artworks = params.artworks;
+    this.commissions = params.commissions;
+    this.ordersCompleted = params.ordersCompleted;
   }
 
   public static fromJson(json: any): IllustratorsPortofolio {
@@ -55,6 +63,10 @@ export class IllustratorsPortofolio extends IlustratorEntity {
         return ArtworkModel.fromJson(artwork);
       }),
       portofolio: PortofolioModel.fromJson(json.portfolio),
+      commissions: json.commissions.map((commission: any) => {
+        return CommissionPosts.fromJson(commission);
+      }),
+      ordersCompleted: json.ordersCompleted,
     });
   }
 }

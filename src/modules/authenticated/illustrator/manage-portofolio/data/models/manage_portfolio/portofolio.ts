@@ -1,10 +1,12 @@
 import IlustratorEntity from "../../../../../../common/authentication/domain/entities/ilustrator_entity";
 import { ArtworkModel } from "../../../../../../guest/illustrators_portofolio/data/models/artwork_model";
 import { PortofolioModel } from "../../../../../../guest/illustrators_portofolio/data/models/portofolio_model";
-
+import CommissionPosts from "../../../../../../guest/commission_post/data/models/compost_list/commission_posts";
 export class ManagePortofolio extends IlustratorEntity {
-  portofolio?: PortofolioModel |null;
-  artworks?: ArtworkModel[]|null;
+  portofolio?: PortofolioModel | null;
+  artworks?: ArtworkModel[] | null;
+  ordersCompleted: number;
+  commissions?: CommissionPosts[] | null;
 
   constructor(params: {
     id: number;
@@ -18,8 +20,10 @@ export class ManagePortofolio extends IlustratorEntity {
     emailVerified: boolean;
     createdAt: Date;
     updatedAt: Date;
-    portofolio?: PortofolioModel  |null;
+    portofolio?: PortofolioModel | null;
     artworks?: ArtworkModel[] | null;
+    ordersCompleted: number;
+    commissions?: CommissionPosts[] | null;
   }) {
     super({
       id: params.id,
@@ -36,6 +40,8 @@ export class ManagePortofolio extends IlustratorEntity {
     });
     this.portofolio = params.portofolio;
     this.artworks = params.artworks;
+    this.ordersCompleted = params.ordersCompleted;
+    this.commissions = params.commissions;
   }
 
   public static fromJson(json: any): ManagePortofolio {
@@ -58,6 +64,13 @@ export class ManagePortofolio extends IlustratorEntity {
               return ArtworkModel.fromJson(artwork);
             }),
       portofolio: json.portfolio == undefined ? null : PortofolioModel.fromJson(json.portfolio),
+      ordersCompleted: json.ordersCompleted,
+      commissions:
+        json.commissions == undefined
+          ? null
+          : json.commissions.map((commission: any) => {
+              return CommissionPosts.fromJson(commission);
+            }),
     });
   }
 }

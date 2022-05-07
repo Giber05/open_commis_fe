@@ -11,7 +11,7 @@ import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
 import SearchComPosts from "../../../domain/usecases/search_composts";
 import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setInitLoading, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
 type ComPostsController = {
-  initLoading:boolean;
+  initLoading: boolean;
   isLoadingComPosts: boolean;
   isMobile: boolean;
   commissionPosts: CommissionPost[];
@@ -30,7 +30,7 @@ function useComPostsHandler(): ComPostsController {
   const getCategoriesUC = new GetCategories();
   const searchComPostsUC = new SearchComPosts();
   const { isMobile } = useSelector(selectCommon);
-  const { commissionPosts, isLoadingComPosts, categories, selectedCategory, initLoading,pagination } = useSelector(selectComPost);
+  const { commissionPosts, isLoadingComPosts, categories, selectedCategory, initLoading, pagination } = useSelector(selectComPost);
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
@@ -39,8 +39,8 @@ function useComPostsHandler(): ComPostsController {
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log({value});
-          
+          console.log({ value });
+
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
           dispatch(fetchError(""));
@@ -77,6 +77,7 @@ function useComPostsHandler(): ComPostsController {
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
+          dispatch(setPagination({ currentPage: 1, pageSize: value.data.data.pagination.pageSize, totalData: value.data.data.pagination.totalData, totalPage: value.data.data.pagination.totalPage }));
           dispatch(fetchError(""));
         },
         error: (error) => {
@@ -88,7 +89,7 @@ function useComPostsHandler(): ComPostsController {
 
   const chooseCategory = (categoryId: number) => () => {
     dispatch(setSelectedCategory(categoryId));
-    dispatch(setPagination({ currentPage: 1, pageSize: 0, totalData:0, totalPage: 0 }));
+    dispatch(setPagination({ currentPage: 1, pageSize: 0, totalData: 0, totalPage: 0 }));
   };
 
   const onChangePage = (page: number, pageSize?: number) => {

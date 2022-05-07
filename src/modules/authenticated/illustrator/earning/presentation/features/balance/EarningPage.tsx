@@ -1,22 +1,26 @@
-import { Card, List, Typography } from "antd";
+import { Card, Col, List, Row, Table, Tag, Typography } from "antd";
+import Column from "antd/lib/table/Column";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DisabledButton from "../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
+import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import useEarningHandler from "./use_earning_handler";
 
 function EarningPage() {
   const data = ["Minimal saldo untuk melakukan penarikan Rp. 50.000", "Penarikan yang dilakukan terjadi potongan Rp 5.500 sekali penarikan"];
-  const { getIllustratorsBalance, illustratorsBalance, isLoadingBalance } = useEarningHandler();
+  const { getIllustratorsBalance, illustratorsBalance, isLoadingBalance, getWithdrawalHistory, isWithdrawalHistoryLoading, withdrawalHistory } = useEarningHandler();
 
   useEffect(() => {
     getIllustratorsBalance();
   }, []);
+  useEffect(() => {
+    getWithdrawalHistory();
+  }, []);
 
   return (
     <div className="bg-white">
-      <FullWidthCorousel />
       <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Total Pendapatan Anda</h2>
         <div className="h-1/4">
@@ -48,6 +52,41 @@ function EarningPage() {
               </List.Item>
             )}
           />
+        </div>
+        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center my-5">Riwayat Penarikan</h2>
+
+        <div className="comic-shadow p-3 rounded-xl my-5">
+          <Table key="id" loading={isWithdrawalHistoryLoading} dataSource={withdrawalHistory} scroll={{ x: "80vw" }} size="middle">
+            <Column
+              title="Tanggal Penarikan"
+              render={(text, record: any) => {
+                let withdrawDate = UtilMethods.getIndonesianFormatDate(record.createdAt);
+                return <Typography.Text>{withdrawDate}</Typography.Text>;
+              }}
+            />
+            <Column  title="Jumlah penarikan" render={(text, record: any) => <Typography.Text>Rp. {record.amount}</Typography.Text>} />
+            <Column
+              title="No. Tujuan"
+              render={(text, record: any) => {
+                return (
+                  <Row >
+                    <Col>
+                      <Tag>{record.destination}</Tag>
+                    </Col>
+                    <Col>
+                      <Typography.Text>{record.accountNumber}</Typography.Text>
+                    </Col>
+                  </Row>
+                );
+              }}
+            />
+            <Column
+              title="Status"
+              render={(text, record: any) => {
+                return <Tag color="gold">{record.status}</Tag>;
+              }}
+            />
+          </Table>
         </div>
       </div>
     </div>

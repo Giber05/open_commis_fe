@@ -13,7 +13,7 @@ const { Option } = Select;
 
 function EditProfileTabs() {
   const {editProfile,isLoadingUpdateProfile} = useEditPortofolioHandler()
-  const { illustratorProfile, illustratorComPosts } = usePortofolioHandler();
+  const { illustratorProfile } = usePortofolioHandler();
   const initialValues = {
     name: illustratorProfile?.name,
     whatsapp: illustratorProfile?.phone,

@@ -13,6 +13,7 @@ function ManageComPostDetail(): JSX.Element {
   const { isLoadingComPost, commissionPostDetail, getComPostDetail, onDeleteComPost } = useIllustratorComPostDetailHandler();
   useEffect(() => {
     getComPostDetail();
+    window.scroll(0, 0);
   }, [commissionPostDetail?.status]);
 
   return (
@@ -62,13 +63,13 @@ function ManageComPostDetail(): JSX.Element {
       </div>
       <div className="my-5">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
-        {commissionPostDetail?.reviews?.length!>0? commissionPostDetail?.reviews?.map((review) => (
-              <Reviews review={review} />
-            )):
-             <Card className="mx-auto">
-              <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
-            </Card>
-            }
+        {commissionPostDetail?.reviews?.length! > 0 ? (
+          commissionPostDetail?.reviews?.map((review) => <Reviews review={review} />)
+        ) : (
+          <Card className="mx-auto">
+            <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
+          </Card>
+        )}
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ type ManagePortofolioState = {
   isLoading: boolean;
   isLoadingUpdateProfile:boolean;
   illustratorProfile: ManagePortofolio | null;
-  illustratorComPosts: IllustratorComposts[];
   isUploadable:boolean;
   isUploadFileLoading: boolean;
   uploadedFilePath: UploadedFileModel | null;
@@ -21,7 +20,6 @@ const initialState: ManagePortofolioState = {
   isUploadable:true,
   isLoadingUpdateProfile:false,
   illustratorProfile: null,
-  illustratorComPosts: [],
   isUploadFileLoading:false,
   uploadedFilePath: null,
   uploadProgress: 0,
@@ -40,9 +38,7 @@ export const managePortofolioSlice = createSlice({
     fetchIllustratorProfile: (state, action: PayloadAction<ManagePortofolio>) => {
       state.illustratorProfile = action.payload;
     },
-    fetchIllustratorComPost: (state, action: PayloadAction<IllustratorComposts[]>) => {
-      state.illustratorComPosts = action.payload;
-    },
+    
     setIsUploadable: (state, action: PayloadAction<boolean>) => {
       state.isUploadable = action.payload;
     },
@@ -58,6 +54,6 @@ export const managePortofolioSlice = createSlice({
   },
 
 });
-export const {fetchUploadedFilePath,setIsUploadFileLoading,setUploadProgress ,setIsUploadable, setIsLoading,setisLoadingUpdateProfile, fetchIllustratorProfile, fetchIllustratorComPost } = managePortofolioSlice.actions;
+export const {fetchUploadedFilePath,setIsUploadFileLoading,setUploadProgress ,setIsUploadable, setIsLoading,setisLoadingUpdateProfile, fetchIllustratorProfile,  } = managePortofolioSlice.actions;
 export const selectManagePortofolio = (state: RootState): ManagePortofolioState => state.manage_portofolio;
 export default managePortofolioSlice.reducer;

@@ -1,20 +1,23 @@
-import { List, Avatar, Space, Row, Col, Card, Divider, Rate, Image, Typography, Input, Result, Button, Pagination } from "antd";
+import { List, Avatar, Space, Row, Col, Card, Divider, Rate, Image, Typography, Input, Result, Button, Pagination, Carousel } from "antd";
 import useComPostsHandler from "./use_composts_handler";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import millify from "millify";
 import CommissionPostItem from "./components/CommissionPostItem";
-import FullWidthCorousel from "../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { useEffect, useState } from "react";
 import { CategoryItem } from "../../../../../../core/common_components/main_app/category_button/CategoryItems";
 import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
-import AssetConstants from "../../../../../../core/constants/asset_constants";
 import { Link } from "react-router-dom";
+import React from "react";
+import { TestItem } from "./components/TestItem";
+import AssetConstants from "../../../../../../core/constants/asset_constants";
 
 const { Search } = Input;
 function CommissionPostListPage() {
   const { initLoading, isMobile, isLoadingComPosts, pagination, searchComPosts, commissionPosts, getCommissionPosts, categories, getCategories, selectedCategory, chooseCategory, onChangePage } = useComPostsHandler();
+  const visibility = React.useContext(VisibilityContext);
 
+  // const visible = visibility.isItemVisible(itemId);
   const [onSearch, setOnSearch] = useState(false);
   useEffect(() => {
     getCommissionPosts();
@@ -33,10 +36,11 @@ function CommissionPostListPage() {
           <Search
             placeholder="Pencarian"
             allowClear
-            onSearch={(keyword) => {
+            onSearch={(keyword,e) => {
               if (keyword != "") {
-                searchComPosts(keyword);
+                e?.preventDefault()
                 setOnSearch(true);
+                searchComPosts(keyword);
               }
             }}
           />
@@ -49,17 +53,17 @@ function CommissionPostListPage() {
             ))}
           </ScrollMenu>
         </div>
-        {!onSearch ? (
-          <FullWidthCorousel
-            image3={`https://media.wired.com/photos/5c9572e72e8d9c717b83a846/16:9/w_2400,c_limit/CellPath_lede_fullwidth-2880x1620.jpg`}
-            image1="https://kpopping.com/documents/6c/3/211226-IVE-Leeseo-documents-2.jpeg"
-            image2="https://thumb.zigi.id/frontend/thumbnail/2021/06/04/zigi-60b9e121dab72-go-yoon-jung_910_512.jpeg"
-          />
-        ) : null}
+      </div>
+      {!onSearch ? (
+        <div className="object-cover mx-auto text-center">
+          <Image preview={false}  src={`${AssetConstants.imageURL}/corousels/color_pencils.svg`}/>
+        </div>
+      ) : null}
+      <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-screen-2xl lg:px-7">
         <Row gutter={[32, 32]} className="my-auto">
           {commissionPosts.length > 0 ? (
             commissionPosts.map((commission) => (
-              <Col xs={24} sm={12} lg={8}>
+              <Col xs={24} sm={12} lg={8} xxl={6}>
                 <Link to={`${commission.id}/detail`}>
                   <CommissionPostItem commission={commission} />
                 </Link>

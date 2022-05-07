@@ -30,17 +30,17 @@ function TopNavigation() {
           dispatch(isAuthLoading(false));
         },
       });
-    }, );
+    });
   };
 
   const onChangeMenu = (e: any) => {
-
     setCurrentMenu({ current: e.key });
   };
 
   return (
     <Header className="bg-white ">
-      <div
+      <Link
+        to="/"
         style={{
           width: "120px",
           height: "31px",
@@ -49,33 +49,27 @@ function TopNavigation() {
         }}
       >
         <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
-      </div>
+      </Link>
       <Menu activeKey={currentMenu.current} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
         <Menu.Item key="manage_compost">
           <Link to="/manage/manage-compost"> Beranda</Link>
         </Menu.Item>
-        <Menu.Item key="order"> 
-          <Link to="/manage/order">Pesananan</Link>
+        <Menu.Item key="order">
+          <Link to="/manage/order">Pesanan</Link>
         </Menu.Item>
         <Menu.Item key="earning">
           <Link to="/manage/earning">Pendapatan</Link>
         </Menu.Item>
         <SubMenu key="account" title="Profile">
           <Menu.Item key="manage_profile">
-            <Link to="/manage/manage-portofolio">
-              Profile
-            </Link>
+            <Link to="/manage/manage-portofolio">Profile</Link>
           </Menu.Item>
-          <Menu.Item key= "manage_portofolio">
-            <Link to="/manage/profile">
-              Portofolio
-            </Link>
-          </Menu.Item>
-          <Divider/>
+
+          <Divider />
           <Menu.Item key="logout">
-            <Button icon={<LogoutOutlined/>} type="dashed" className="text-center" onClick={onLogoutClick}>
+            <Button icon={<LogoutOutlined />} type="dashed" className="text-center" onClick={onLogoutClick}>
               Logout
-            </Button >
+            </Button>
           </Menu.Item>
         </SubMenu>
       </Menu>

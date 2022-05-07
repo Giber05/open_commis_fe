@@ -52,6 +52,7 @@ function CreateComPost() {
 
   useEffect(() => {
     getTags();
+    window.scroll(0,0)
   }, [tags.length]);
 
   useEffect(() => {
