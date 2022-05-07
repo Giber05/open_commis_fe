@@ -4,13 +4,13 @@ import BaseClient from "../../../../../../../core/utils/base_client";
 import { AddReviewModel } from "../../models/add_review_model";
 
 export interface ReviewRemoteDS {
-  addReview(params: { token: string; compostId: number; rate: number; comment: string }): Promise<AddReviewModel>;
+  addReview(params: { token: string; orderId: number; rate: number; comment: string }): Promise<AddReviewModel>;
 }
 
 export class ReviewRemoteDSImpl implements ReviewRemoteDS {
   private baseClient = new BaseClient();
-  async addReview(params: { token: string; compostId: number; rate: number; comment: string }): Promise<AddReviewModel> {
-    let addReviewURL = NetworkConstant.baseUrl + "orders/" + params.compostId + "/review";
+  async addReview(params: { token: string; orderId: number; rate: number; comment: string }): Promise<AddReviewModel> {
+    let addReviewURL = NetworkConstant.baseUrl + "orders/" + params.orderId + "/review";
     const response = await this.baseClient.postWithCookie({
       url: addReviewURL,
       body: {

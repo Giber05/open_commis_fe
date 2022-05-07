@@ -28,6 +28,8 @@ function Portofolio() {
   }, [illustratorProfile?.available]);
   if(isLoading) return <CircularLoadingIndicator/>
   return (
+    <div className="bg-[url('/public/assets/images/background/profile-background.svg')] bg-cover bg-center w-auto min-h-screen  ">
+
     <div className="flex flex-col m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
       <Row justify="space-between">
@@ -114,6 +116,7 @@ function Portofolio() {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }

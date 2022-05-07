@@ -8,9 +8,11 @@ function OrderCustomerRoutes(): JSX.Element {
       <Route index element={asyncComponent(() => import("./presentation/features/order_list/OrderListPage"))} />
         <Route path=":orderId/*">
           <Route index element={asyncComponent(() => import("./presentation/features/detail_order/DetailOrderCustomer"))} />
+          <Route path="payment-success" element={asyncComponent(() => import("./presentation/features/make_order/components/OrderSuccessPage"))} />
         </Route>
     </Routes>
   );
 }
 
 export default OrderCustomerRoutes;
+

@@ -106,9 +106,7 @@ function RegistrationPage() {
             </span>
           </Form.Item>
         </Form>
-        <Col>
-          <Typography className="text-gray font-semibold text-center">{ConfigConstants.copyright}</Typography>
-        </Col>
+        
       </div>
     </RegistrationContainer>
   );

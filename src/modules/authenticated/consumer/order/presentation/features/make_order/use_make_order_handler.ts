@@ -50,7 +50,7 @@ function useMakeOrderHandler(): MakeOrderController {
         success: (value) => {
           message.success(value.data.message, 2);
 
-          navigate(`/consumer/order/${value.data.data.id}`);
+          navigate(`/consumer/${compostId}/make-order/${value.data.data.id}/created`);
         },
         error: (error) => {
           message.error(error.exception.message, 2);
