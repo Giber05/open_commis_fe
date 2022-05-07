@@ -10,11 +10,13 @@ function ConsumerProfilePage() {
   const { consumer, getConsumerProfile, isProfileLoading } = useConsumerProfileHandler();
   useEffect(() => {
     getConsumerProfile();
+    window.scroll(0, 0);
+    
   }, []);
   let profilePicture = consumer?.profilePicture ?? AssetConstants.imageURL + "placeholder/profile_placeholder.png";
   if (isProfileLoading) return <CircularLoadingIndicator />;
   return (
-    <RegistrationContainer>
+    <div className="bg-[url('/public/assets/images/background/registration-background.svg')] bg-cover bg-center w-auto h-auto relative flex flex-col justify-between ">
       <div
         style={{
           padding: "35px 35px 20px",
@@ -39,7 +41,7 @@ function ConsumerProfilePage() {
           </Form.Item>
         </Form>
       </div>
-    </RegistrationContainer>
+    </div>
   );
 }
 

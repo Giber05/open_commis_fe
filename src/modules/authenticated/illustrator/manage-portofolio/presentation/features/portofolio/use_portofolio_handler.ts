@@ -10,16 +10,14 @@ import { setIsLoadingChangeStatus } from '../../../../manage_compost/presentatio
 import { ManagePortofolio } from '../../../data/models/manage_portfolio/portofolio';
 import { ChangeAvailabilityStatus } from '../../../domain/usecases/changeAvailabilityStatus';
 import { GetProfile } from '../../../domain/usecases/get_profile';
-import { fetchIllustratorComPost, fetchIllustratorProfile, selectManagePortofolio, setIsLoading } from '../../reducers/manage_portofolio_slice';
+import { fetchIllustratorProfile, selectManagePortofolio, setIsLoading } from '../../reducers/manage_portofolio_slice';
 
 
 type PortofolioController = {
   isLoading: boolean;
   isLoadingUpdateProfile:boolean;
   illustratorProfile: ManagePortofolio | null;
-  illustratorComPosts: IllustratorComposts[];
   getIllustratorProfile: () => void;
-  getIllustratorComPosts: () =>void;
   changeAvailabilityStatus:()=>void;
 };
 function usePortofolioHandler():PortofolioController {
@@ -27,7 +25,7 @@ function usePortofolioHandler():PortofolioController {
   const getProfileUC = new GetProfile();
   const getIllustratorComPostListUC = new GetIlustratorComPostList();
   const changeAvailabilityStatusUC = new ChangeAvailabilityStatus();
-  const { isLoading, illustratorProfile, illustratorComPosts, isLoadingUpdateProfile } = useSelector(selectManagePortofolio);
+  const { isLoading, illustratorProfile,  isLoadingUpdateProfile } = useSelector(selectManagePortofolio);
   const { authUser } = useSelector(selectAuth);
 
   const getIllustratorProfile = () => {
@@ -64,31 +62,11 @@ function usePortofolioHandler():PortofolioController {
       });
     });
   };
-  const getIllustratorComPosts = () => {
-    dispatch(setIsLoading(true));
-    setTimeout(async () => {
-      const resource = await getIllustratorComPostListUC.execute(authUser?.data.token!);
 
-      dispatch(setIsLoading(false));
-      resource.whenWithResult({
-        success: (value) => {
-          dispatch(fetchIllustratorComPost(value.data));
-          dispatch(fetchError(""));
-        },
-        error: (error) => {
-          dispatch(fetchError(error.exception.message));
-          console.log({error});
-          
-        },
-      });
-    });
-  };
   return{
     isLoading,
     illustratorProfile,
     getIllustratorProfile,
-    getIllustratorComPosts,
-    illustratorComPosts,
     changeAvailabilityStatus,
     isLoadingUpdateProfile
   }

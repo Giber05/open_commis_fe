@@ -21,7 +21,7 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
         padding: "0",
       }}
     >
-      <Card.Meta avatar={<Avatar src={commission.illustrator.profilePicture} />} title={commission.illustrator.name} />
+      <Card.Meta avatar={<Avatar src={commission?.illustrator?.profilePicture} />} title={commission?.illustrator?.name} />
       <Divider className="my-2" />
       <div className="text-center">
         <Image

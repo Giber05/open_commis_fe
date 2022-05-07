@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 function HomePage() {
   const { commissionPosts, getCommissionPosts } = useHomePageHandler();
   useEffect(() => {
-     getCommissionPosts()
+     getCommissionPosts();
+     window.scroll(0,0);
   }, []);
   
   return (

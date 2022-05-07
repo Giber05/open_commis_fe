@@ -20,6 +20,8 @@ function DetailOrderCustomer() {
 
   useEffect(() => {
     getOrderDetail();
+    window.scroll(0, 0);
+    
   }, []);
 
   const showPaymentModal = () => {

@@ -1,7 +1,7 @@
 import { InboxOutlined } from "@ant-design/icons";
 import { Typography, Form, Rate, Input, message, Upload } from "antd";
 import Dragger from "antd/lib/upload/Dragger";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
@@ -37,6 +37,10 @@ function MakeOrderPage() {
       }
       return isJpgOrPng && isLt2M; ;
   }
+useEffect(() => {
+  window.scroll(0, 0);
+
+}, []);
 
   return (
     <div>

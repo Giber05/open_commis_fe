@@ -1,4 +1,4 @@
-import { Row, Col, Popconfirm, Avatar, Typography, Card, Divider } from "antd";
+import { Row, Col, Popconfirm, Avatar, Typography, Card, Divider, Result } from "antd";
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -18,6 +18,7 @@ function CommissionPostDetail() {
   const { getComPostDetail, commissionPost, isLoadingComPosts } = useComPostDetailHandler();
   useEffect(() => {
     getComPostDetail();
+    window.scroll(0, 0);
   }, [commissionPost?.reviews?.length]);
   if (isLoadingComPosts) return <CircularLoadingIndicator />;
   else if (commissionPost == null) return <NotFound />;
@@ -41,9 +42,13 @@ function CommissionPostDetail() {
         <Col xs={24} sm={24} md={12} lg={12}>
           <div className="my-5 text-left">
             <h3 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h3>
-            {commissionPost.reviews?.map((review) => (
-              <Reviews review={review} />
-            ))}
+            {commissionPost?.reviews?.length! > 0 ? (
+              commissionPost?.reviews?.map((review) => <Reviews review={review} />)
+            ) : (
+              <Card className="mx-auto">
+                <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
+              </Card>
+            )}
           </div>
         </Col>
       </Row>

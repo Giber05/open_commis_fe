@@ -2,9 +2,9 @@ import { UserTypeModel } from "../../../../../common/authentication/data/model/u
 import { CommissionPostEntity } from "../../../../../common/commission/domain/entities/commission_post_entity";
 
 class CommissionPosts extends CommissionPostEntity {
-  illustrator: UserTypeModel;
+  illustrator?: UserTypeModel | null;
   overallRating: number;
-  ordersCompleted: number;
+  ordersCompleted?: number | null;
 
   constructor(params: {
     id: number;
@@ -20,8 +20,8 @@ class CommissionPosts extends CommissionPostEntity {
     createdAt: Date;
     updatedAt?: Date;
     overallRating: number;
-    ordersCompleted: number;
-    illustrator: UserTypeModel;
+    ordersCompleted?: number | null;
+    illustrator?: UserTypeModel | null;
   }) {
     super({
       id: params.id,
@@ -40,7 +40,6 @@ class CommissionPosts extends CommissionPostEntity {
     this.overallRating = params.overallRating;
     this.ordersCompleted = params.ordersCompleted;
     this.illustrator = params.illustrator;
-    
   }
 
   public static fromJson(json: any): CommissionPosts {
@@ -57,9 +56,9 @@ class CommissionPosts extends CommissionPostEntity {
       image_4: json.image_4,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
-      overallRating:json.overallRating,
-      ordersCompleted:json.ordersCompleted,
-      illustrator: UserTypeModel.fromJson(json.illustrator),
+      overallRating: json.overallRating,
+      ordersCompleted: json.ordersCompleted == undefined ? null : json.ordersCompleted,
+      illustrator: json.illustrator == undefined ? null : UserTypeModel.fromJson(json.illustrator),
     });
   }
 }

@@ -5,6 +5,17 @@ import { VisibilityContext } from "react-horizontal-scrolling-menu";
 
 function Arrow({ children, disabled, onClick }: { children: React.ReactNode; disabled: boolean; onClick: VoidFunction }) {
   return (
+    <div
+      style={{
+        cursor: "pointer",
+        right: "",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        userSelect: "none",
+      }}
+    >
+
     <Button
       disabled={disabled}
       onClick={onClick}
@@ -18,7 +29,8 @@ function Arrow({ children, disabled, onClick }: { children: React.ReactNode; dis
       icon={children}
       shape="circle"
       size="large"
-    />
+      />
+      </div>
   );
 }
 

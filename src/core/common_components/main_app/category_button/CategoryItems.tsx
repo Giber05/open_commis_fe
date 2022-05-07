@@ -4,7 +4,8 @@ import React from "react";
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
 import "./hideScrollbar.css";
 
-export function CategoryItem({ itemId, selected, onClick, title }: { itemId: string; selected: boolean; onClick: Function; title: string }) {
+type CategoryItemProps = { itemId: string; selected: boolean; onClick: Function; title: string };
+export function CategoryItem({ itemId, selected, onClick, title }: CategoryItemProps) {
   const visibility = React.useContext(VisibilityContext);
 
   const visible = visibility.isItemVisible(itemId);
@@ -23,9 +24,9 @@ export function CategoryItem({ itemId, selected, onClick, title }: { itemId: str
           className="shadow-blue-500 font-semibold"
           style={{
             backgroundColor: selected ? "#dbeafe" : "white",
-            borderRadius:"50%",
-            borderColor:"skyblue",
-            color: selected?"#3b82f6" :"black"
+            borderRadius: "50%",
+            borderColor: "skyblue",
+            color: selected ? "#3b82f6" : "black",
           }}
         >
           {title}

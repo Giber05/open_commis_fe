@@ -50,7 +50,7 @@ export const comPostSlice = createSlice({
     fetchCategories: (state, action: PayloadAction<CategoryModel[]>) => {
       state.categories = action.payload;
     },
-    setSelectedCategory:(state, action:PayloadAction<number>)=>{
+    setSelectedCategory:(state, action:PayloadAction<number|undefined>)=>{
       state.selectedCategory = action.payload;
     },
     setPagination:(state, action:PayloadAction<PaginationModel>)=>{

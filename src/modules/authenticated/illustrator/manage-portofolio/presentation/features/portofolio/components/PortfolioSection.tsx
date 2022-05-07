@@ -1,38 +1,39 @@
-import { FacebookFilled, TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from '@ant-design/icons';
-import { Row, Col, Space, Typography } from 'antd';
-import React from 'react';
-import { PortofolioModel } from '../../../../../../../guest/illustrators_portofolio/data/models/portofolio_model';
+import { FacebookFilled, TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
+import { Row, Col, Space, Typography } from "antd";
+import React from "react";
+import { PortofolioModel } from "../../../../../../../guest/illustrators_portofolio/data/models/portofolio_model";
 
 type PortfolioProps = {
-  portofolio?:PortofolioModel|null,
-  phone:string
-}
-function PortfolioSection({portofolio,phone}:PortfolioProps) {
-  return <div>
-    <div className="my-5">
+  portofolio?: PortofolioModel | null;
+  phone: string;
+};
+function PortfolioSection({ portofolio, phone }: PortfolioProps) {
+  return (
+    <div>
+      <div className="my-5">
         <Row justify="space-between" className="text-center">
           <Col xs={24} sm={12} lg={12}>
             <Space>
-              <FacebookFilled className="text-xl" />
+              <FacebookFilled style={{ color: "#2b3990" }} className="text-2xl" />
               <Typography.Title level={4}>{portofolio?.facebookAcc ?? "-"}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
-              <TwitterOutlined className="text-xl" />
-              <Typography.Title level={4}>{portofolio?.twitterAcc ?? "-"}</Typography.Title>
+              <WhatsAppOutlined style={{ color: "#3ab926" }} className="text-2xl  " />
+              <Typography.Title level={4}>{phone}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
-              <InstagramOutlined className="text-xl" />
+              <InstagramOutlined className="text-2xl text-[#ea4f52]" />
               <Typography.Title level={4}>{portofolio?.instagramAcc ?? "-"}</Typography.Title>
             </Space>
           </Col>
           <Col xs={24} sm={12} lg={12}>
             <Space>
-              <WhatsAppOutlined className="text-xl" />
-              <Typography.Title level={4}>{phone ?? "-"} </Typography.Title>
+              <TwitterOutlined style={{ color: "#00a2f3" }} className="text-2xl" />
+              <Typography.Title level={4}>{portofolio?.twitterAcc ?? "-"}</Typography.Title>
             </Space>
           </Col>
         </Row>
@@ -43,7 +44,8 @@ function PortfolioSection({portofolio,phone}:PortfolioProps) {
           {portofolio?.bio}{" "}
         </Typography.Title>
       </div>
-  </div>;
+    </div>
+  );
 }
 
 export default PortfolioSection;

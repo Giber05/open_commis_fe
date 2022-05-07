@@ -4,15 +4,36 @@ import BaseClient from "../../../../../../../core/utils/base_client";
 import { DestinationCodeModel } from "../../models/destination_code_model";
 import { IllustratorsBalanceModel } from "../../models/illustrators_balance_model";
 import { WithdrawalBalanceModel } from "../../models/withdrawal_balance_model";
+import { WithdrawalHistoryModel } from "../../models/withdrawa_history_model";
 
 export interface EarningRemoteDS {
   getIllustratorsBalance(token: string): Promise<IllustratorsBalanceModel>;
   getDestinationCode(token: string): Promise<DestinationCodeModel>;
   withdrawBalance(params: { token: string; amount: number; destination: string; accountNumber: string }): Promise<WithdrawalBalanceModel>;
+  getWithdrawalHistory(token: string): Promise<WithdrawalHistoryModel>;
 }
 
 export class EarningRemoteDSImpl implements EarningRemoteDS {
   private baseClient = new BaseClient();
+
+async   getWithdrawalHistory(token: string): Promise<WithdrawalHistoryModel> {
+    let getWithdrawalHistoryURL = NetworkConstant.baseUrl + "withdrawals";
+    const response = await this.baseClient.getWithCookie({
+      url: getWithdrawalHistoryURL,
+      configs: {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      },
+    });
+
+    if (response.status >= 200 && response.status <= 210) {
+      const body = response.data;
+
+      return WithdrawalHistoryModel.fromJson(body);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
 
   async getDestinationCode(token: string): Promise<DestinationCodeModel> {
     let getDestinationCodeURL = NetworkConstant.baseUrl + "withdrawals/banks";
