@@ -13,7 +13,7 @@ type AddReviewController = {
 
 function useAddReviewHandler(): AddReviewController {
   const dispatch = useAppDispatch();
-  const { compostId } = useParams();
+  const { orderId } = useParams();
   const { authUser } = useSelector(selectAuth);
   const { isAddReviewLoading } = useSelector(selectAddReview);
   const navigate = useNavigate();
@@ -28,14 +28,14 @@ function useAddReviewHandler(): AddReviewController {
         token: authUser?.data.token!,
         comment: event.comment,
         rate: event.rating,
-        compostId: parseInt(compostId!),
+        orderId: parseInt(orderId!),
       });
 
       dispatch(setIsAddReviewLoading(false));
       resource.whenWithResult({
         success: (value) => {
           message.success(value.data.message, 2);
-          navigate(`/${value.data.data.commissionPostId}/detail`);
+          navigate(-1);
         },
         error: (error) => {
           message.error(error.exception.message, 2);

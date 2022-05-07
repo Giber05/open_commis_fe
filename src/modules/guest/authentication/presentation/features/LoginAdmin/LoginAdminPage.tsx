@@ -6,7 +6,7 @@ import PrimaryButton from "../../../../../../core/common_components/buttons/Prim
 function LoginAdminPage() {
   const error = "";
   return (
-    <div className="bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] bg-cover bg-center w-screen h-screen relative flex flex-col justify-between bg-opacity-75">
+    <div className="bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] bg-cover bg-center w-screen h-screen relative flex flex-col justify-between ">
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="max-w-sm w-96">
           <div className="w-full bg-white rounded-xl overflow-hdden shadow-md p-4 undefined">

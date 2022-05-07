@@ -47,9 +47,11 @@ function DetailOrderCustomer() {
       case OrderStatus.Sent:
         return <SuccessButton block title="Selesaikan Pesanan" rounded onClick={showFinishModal} />;
       case OrderStatus.Finished:
-        return <Link to={`/consumer/${orderDetail?.commission.id}/add-review`}>
-        <InfoButton title="Beri Ulasan" rounded />;
-        </Link> 
+        return (
+          <Link to={`/consumer/${orderDetail?.id}/add-review`}>
+            <InfoButton title="Beri Ulasan" rounded />
+          </Link>
+        );
       default:
         return null;
     }
@@ -67,7 +69,7 @@ function DetailOrderCustomer() {
           {orderDetail?.commission == null ? null : <ComPostDetail compost={orderDetail?.commission!} />}
           <PaymentDetail payment={orderDetail?.payment ?? null} grandTotal={orderDetail?.grandTotal!} />
         </Col>
-        <div className="mx-auto mt-9 ">{orderButtons(orderDetail?.status!)}</div>
+        <div className="mx-auto mt-9 ">{orderDetail?.reviewed == false ? orderButtons(orderDetail?.status!) : <DisabledButton title="Telah diberi ulasan" rounded />}</div>
       </Row>
       {orderDetail?.status == OrderStatus.Accepted ? <PaymentMethodModal /> : orderDetail?.status == OrderStatus.Sent ? <FinishOrderModal /> : null}
     </div>

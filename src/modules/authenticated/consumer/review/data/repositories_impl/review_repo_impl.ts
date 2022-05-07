@@ -7,10 +7,10 @@ import { AddReviewModel } from "../models/add_review_model";
 export class ReviewRepoImpl extends BaseRepository implements ReviewRepo {
   private reviewRemoteDS: ReviewRemoteDS = new ReviewRemoteDSImpl();
 
-  addReview(params: { token: string; compostId: number; rate: number; comment: string }): Promise<Resource<AddReviewModel>> {
+  addReview(params: { token: string; orderId: number; rate: number; comment: string }): Promise<Resource<AddReviewModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
-        const resource = await this.reviewRemoteDS.addReview({ token: params.token, comment: params.comment, compostId: params.compostId, rate: params.rate });
+        const resource = await this.reviewRemoteDS.addReview({ token: params.token, comment: params.comment, orderId: params.orderId, rate: params.rate });
         if (resource instanceof AddReviewModel) return Resource.success({ data: resource });
         return Resource.error({ exception: resource });
       },

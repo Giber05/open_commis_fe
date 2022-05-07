@@ -6,7 +6,7 @@ type ArtworkProps = {
 }
 function ArtworkItem({artwork}:ArtworkProps) {
   return <div className="inline-block px-3 content-center">
-  <div className="comic-shadow-btn max-h-52  flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
+  <div className="comic-shadow-btn max-h-52 bg-white flex items-center max-w-xs overflow-hidden rounded-lg transition-shadow duration-300 ease-in-out">
     <Image
       src={artwork.image}
       className="align-middle object-contain"

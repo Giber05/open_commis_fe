@@ -6,7 +6,7 @@ import { ReviewRepo } from "../repositories/review_repo";
 export class AddReview {
   private reviewRepo: ReviewRepo = new ReviewRepoImpl();
 
-  async execute(params: { token: string; compostId: number; rate: number; comment: string }): Promise<Resource<AddReviewModel>> {
-    return this.reviewRepo.addReview({ token: params.token, compostId: params.compostId, comment: params.comment, rate: params.rate });
+  async execute(params: { token: string; orderId: number; rate: number; comment: string }): Promise<Resource<AddReviewModel>> {
+    return this.reviewRepo.addReview({ token: params.token, orderId: params.orderId, comment: params.comment, rate: params.rate });
   }
 }

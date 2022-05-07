@@ -11,7 +11,7 @@ function LoginContainer(props: PropsType): JSX.Element {
     >
         
       <Col className={styles.absolute_1}>
-        <Image preview={false} src="/assets/images/background/login/absolute_1.png" alt="" />
+        <Image preview={false} src="/assets/images/background/login/absolute_11.png" alt="" />
       </Col>
       {children}
       <Col className={styles.absolute_2} sm={8} xs={12} md={24}>
@@ -27,16 +27,16 @@ function LoginContainer(props: PropsType): JSX.Element {
         <Image preview={false} src="/assets/images/background/login/absolute_5.png" alt="" />
       </Col>
       <Col className={styles.absolute_6} sm={8} xs={12} md={24}>
-        <Image preview={false} src="/assets/images/background/login/absolute_6.png" alt="" />
+        <Image width={200} preview={false} src="/assets/images/background/login/absolute_13.png" alt="" />
       </Col>
       <Col className={styles.absolute_7} sm={8} xs={12} md={24}>
         <Image preview={false} src="/assets/images/background/login/absolute_7.png" alt="" />
       </Col>
       <Col className={styles.absolute_8} sm={0} xs={0} md={24}>
-        <Image preview={false} src="/assets/images/background/login/absolute_8.png" alt="" />
+        <Image preview={false} src="/assets/images/background/login/absolute_9.png" alt="" />
       </Col>
       <Col className={styles.absolute_9} sm={0} xs={0} md={24}>
-        <Image preview={false} src="/assets/images/background/login/absolute_9.png" alt="" />
+        <Image width={200} preview={false} src="/assets/images/background/login/absolute_11.png" alt="" />
       </Col>
       <Col className={styles.absolute_10} sm={0} xs={0} md={24}>
         <Image preview={false} src="/assets/images/background/login/absolute_10.png" alt="" />
