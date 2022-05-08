@@ -57,7 +57,6 @@ function TopNavigation() {
     };
     selectedCurrentMenu(location);
   }, [location]);
-  console.log("CALLED");
   
   return (
     <Header className="bg-white ">
