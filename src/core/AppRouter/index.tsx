@@ -53,7 +53,7 @@ function AppRoutes(): JSX.Element {
           <Route path="login/*" element={<ManageComPost />} />
           <Route path="registration/*" element={<ManagePortofolio />} />
         </Route>
-        <Route path="admin/auth*" element={<AdminAuthentication />} />
+        <Route path="admin/auth/*" element={<AdminAuthentication />} />
 
       </Routes>
     </Router>
