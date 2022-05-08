@@ -20,15 +20,12 @@ import ManageUser from "../../modules/authenticated/administrator/manage_user/Ma
 import ManageComPostAdmin from "../../modules/authenticated/administrator/manage_compost/AdminComPostIndex";
 import ManageReview from "../../modules/authenticated/administrator/manage_review/ManageReviewIndex";
 import AdminAuthentication from "../../modules/guest/authentication/AdminAuthenticationIndex";
-import OrderSuccessPage from "../../modules/authenticated/consumer/order/presentation/features/make_order/components/OrderSuccessPage";
-import OrderCreatedPage from "../../modules/authenticated/consumer/order/presentation/features/make_order/components/OrderCreatedPage";
 
 function AppRoutes(): JSX.Element {
   return (
     <Router>
       <Routes>
         <Route path="/*" element={<OpenCommissApp />}>
-          <Route path="orderCreated/*" element={<OrderCreatedPage />}/>
           <Route path="/*" element={<CommissionPost />} />
           <Route path=":compostId/*" element={<ComPostDetail />} />
           <Route path="illustrator/*" element={<IllustratorsPortofolio />} />

@@ -1,3 +1,4 @@
+import { message } from "antd";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../core/utils/redux";
@@ -9,28 +10,38 @@ function RequireAuth() {
   const { isLoadingUser, authUser } = useAppSelector(selectAuth);
   const verifyCurrentToken = new VerifyCurrentToken();
   const navigate = useNavigate();
-  useEffect(() => {
-    let isConsumer = authUser?.data.role === "consumer";
-    if (!isLoadingUser && (authUser == null || !isConsumer)) {
-      navigate("/auth/login");
-    }
-  }, [isLoadingUser]);
-  
-  useEffect(() => {
+
     async function verifyToken() {
       const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
       resource.whenWithResult({
         success: async (value) => {
           console.log("Token Valid => ", value.data.message);
-          let tokenValid = value.data.data.tokenValid;
-          if (!tokenValid) {
-            navigate("/auth/login");
-          }
+         
+        },
+        error: (error) => {
+          message.error("Verify token error: " + error.exception.message);
+          return navigate("/auth/login");
         },
       });
     }
-    verifyToken();
-  }, [verifyCurrentToken, isLoadingUser]);
+
+  useEffect(() => {
+    let isConsumer = authUser?.data.role === "consumer";
+    if (!isLoadingUser) {
+      if(authUser == null || !isConsumer){
+
+        return navigate("/auth/login");
+      }
+      else{
+        verifyToken();
+      }
+    }
+  }, [isLoadingUser]);
+  
+  // useEffect(() => {
+  
+  //   verifyToken();
+  // }, [ isLoadingUser]);
 
   return <Outlet />;
 }

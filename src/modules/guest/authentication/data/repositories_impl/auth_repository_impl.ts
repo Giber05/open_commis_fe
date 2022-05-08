@@ -50,12 +50,11 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
           profilePicture: params.profilePicture,
         });
         if (resource instanceof UserModel) {
-          this.authLocalDS.saveRegisteredUser(resource.data)
+          this.authLocalDS.saveRegisteredUser(resource.data);
           return Resource.success({ data: resource });
         }
         return Resource.error({ exception: resource });
       },
-      
     });
   }
 
@@ -63,7 +62,13 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
     return this.networkOnlyCall({
       networkCall: async () => {
         const resource = await this.authRemoteDS.verifyToken(currentToken);
-        if (resource instanceof VerifyTokenModel) return Resource.success({ data: resource });
+        if (resource instanceof VerifyTokenModel) {
+          if (resource.data.tokenValid == true) return Resource.success({ data: resource });
+          else {
+            await this.authLocalDS.deleteLoggedInUser();
+            return Resource.error({ exception: new BaseException({ message: "Token Expired" }) });
+          }
+        }
         return Resource.error({ exception: resource });
       },
     });
@@ -98,6 +103,7 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
     return this.cacheOnlyCall({
       cacheCall: async () => {
         const resource: UserModel | null = await this.authLocalDS.getUser();
+        console.log({ resource });
         if (resource instanceof UserModel) {
           this.authLocalDS.saveUser(resource);
           return Resource.success({ data: resource });
