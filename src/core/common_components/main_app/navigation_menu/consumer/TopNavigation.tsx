@@ -76,7 +76,7 @@ function TopNavigation() {
             <Link to="/"> Beranda</Link>
           </Menu.Item>
           <Menu.Item key="order">
-            <Link to="/consumer/order">Pesananan</Link>
+            <Link to="/consumer/order">Pesanan</Link>
           </Menu.Item>
           <SubMenu key="account" title="Profil">
             <Menu.Item key="profile">

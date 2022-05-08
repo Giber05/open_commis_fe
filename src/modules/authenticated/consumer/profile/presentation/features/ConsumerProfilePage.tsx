@@ -8,13 +8,20 @@ import useConsumerProfileHandler from "./use_consumer_profile_handler";
 
 function ConsumerProfilePage() {
   const { consumer, getConsumerProfile, isProfileLoading } = useConsumerProfileHandler();
+  
   useEffect(() => {
     getConsumerProfile();
     window.scroll(0, 0);
-    
-  }, []);
-  let profilePicture = consumer?.profilePicture ?? AssetConstants.imageURL + "placeholder/profile_placeholder.png";
+  }, [consumer?.id]);
+
   if (isProfileLoading) return <CircularLoadingIndicator />;
+  let profilePicture = consumer?.profilePicture ?? AssetConstants.imageURL + "placeholder/profile_placeholder.png";
+
+  const initialValues = {
+    name: consumer?.name,
+    email: consumer?.email,
+    username: consumer?.username,
+  };
   return (
     <div className="bg-[url('/public/assets/images/background/registration-background.svg')] bg-cover bg-center w-auto h-auto relative flex flex-col justify-between ">
       <div
@@ -25,19 +32,19 @@ function ConsumerProfilePage() {
       >
         <Typography.Title className="text-center my-3 text-black text-lg font-bold">Profil Anda</Typography.Title>
 
-        <Form layout="vertical" className="max-w-md m-auto font-semibold">
+        <Form initialValues={initialValues} layout="vertical" className="max-w-md m-auto font-semibold">
           <Typography className="text-center mb-5">Foto Profil </Typography>
           <div className="m-auto justify-center flex">
             <Avatar className="mb-3" size={128} src={profilePicture} />
           </div>
-          <Form.Item initialValue={consumer?.name} className="" label="Nama" name="name">
-            <Input disabled className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
+          <Form.Item label="Nama" name="name">
+            <Input disabled value={consumer?.name} className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
           </Form.Item>
-          <Form.Item initialValue={consumer?.username} className="" label="Username" name="username">
-            <Input disabled className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
+          <Form.Item label="Username" name="username">
+            <Input disabled value={consumer?.username} className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
           </Form.Item>
-          <Form.Item initialValue={consumer?.email} label="Email" name="email">
-            <Input disabled className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
+          <Form.Item label="Email" name="email">
+            <Input disabled value={consumer?.email} className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
           </Form.Item>
         </Form>
       </div>
@@ -46,7 +53,3 @@ function ConsumerProfilePage() {
 }
 
 export default ConsumerProfilePage;
-
-function useRegistrationHandler(): { isLoadingUser: any; onFormSubmitted: any } {
-  throw new Error("Function not implemented.");
-}

@@ -8,6 +8,6 @@ export class VerifyCurrentToken {
   private authRepository: AuthRepository = new AuthRepositoryImpl() 
 
   async execute(currentToken:string):Promise<Resource<VerifyTokenModel>> {
-    return this.authRepository.verifyToken(currentToken);
+    return await this.authRepository.verifyToken(currentToken);
   }
 }

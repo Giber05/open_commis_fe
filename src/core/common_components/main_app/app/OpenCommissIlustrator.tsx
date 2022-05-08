@@ -1,7 +1,8 @@
-import { Layout } from "antd";
+import { Layout, message } from "antd";
 import { Content, Footer } from "antd/lib/layout/layout";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import Logout from "../../../../modules/guest/authentication/domain/usecases/logout";
 import { VerifyCurrentToken } from "../../../../modules/guest/authentication/domain/usecases/verify_token";
 import { selectAuth } from "../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
 import { selectCommon, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
@@ -22,27 +23,49 @@ function OpenCommissIlustrator() {
   }, [dispatch]);
   console.log("User Role =>");
 
+  async function verifyToken() {
+    const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
+    resource.whenWithResult({
+      success: async (value) => {
+        console.log("Token Valid => ", value.data.data.tokenValid);
+      },
+      error: (error) => {
+        message.error("Verify token error: " + error.exception.message);
+        return navigate("/auth/login");
+      },
+    });
+  }
+
   useEffect(() => {
     let isIllustrator = authUser?.data.role === "illustrator";
-    if (!isLoadingUser && (authUser == null || !isIllustrator)) {
-      navigate("/auth/login");
+    if (!isLoadingUser) {
+      if(authUser == null || !isIllustrator){
+
+        return navigate("/auth/login");
+      }
+      else{
+        verifyToken();
+
+      }
     }
   }, [isLoadingUser]);
-  useEffect(() => {
-    async function verifyToken() {
-      const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
-      resource.whenWithResult({
-        success: async (value) => {
-          console.log("Token Valid => ", value.data.message);
-          let tokenValid = value.data.data.tokenValid;
-          if (!tokenValid) {
-            navigate("/auth/login");
-          }
-        },
-      });
-    }
-    verifyToken();
-  }, [verifyCurrentToken, isLoadingUser]);
+
+  
+  // useEffect(() => {
+  //   async function verifyToken() {
+  //     const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
+  //     resource.whenWithResult({
+  //       success: async (value) => {
+  //         console.log("Token Valid => ", value.data.message);
+  //         let tokenValid = value.data.data.tokenValid;
+  //         if (!tokenValid) {
+  //           navigate("/auth/login");
+  //         }
+  //       },
+  //     });
+  //   }
+  //   verifyToken();
+  // }, [verifyCurrentToken, isLoadingUser]);
 
   return (
     <Layout>
