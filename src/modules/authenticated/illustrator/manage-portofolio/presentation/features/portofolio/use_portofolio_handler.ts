@@ -1,10 +1,7 @@
 import { message } from 'antd';
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { fetchError } from '../../../../../../../core/AppRedux/reducers/common_reducer';
 import { useAppDispatch } from '../../../../../../../core/utils/redux';
 import { selectAuth } from '../../../../../../guest/authentication/presentation/reducers/auth_reducer';
-import IllustratorComposts from '../../../../manage_compost/data/models/illustrators_composts';
 import GetIlustratorComPostList from '../../../../manage_compost/domain/usecases/get_ilustrator_compost_list';
 import { setIsLoadingChangeStatus } from '../../../../manage_compost/presentation/reducers/illustrators_compost_slice';
 import { ManagePortofolio } from '../../../data/models/manage_portfolio/portofolio';
@@ -23,7 +20,6 @@ type PortofolioController = {
 function usePortofolioHandler():PortofolioController {
   const dispatch = useAppDispatch();
   const getProfileUC = new GetProfile();
-  const getIllustratorComPostListUC = new GetIlustratorComPostList();
   const changeAvailabilityStatusUC = new ChangeAvailabilityStatus();
   const { isLoading, illustratorProfile,  isLoadingUpdateProfile } = useSelector(selectManagePortofolio);
   const { authUser } = useSelector(selectAuth);

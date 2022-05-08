@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DisabledButton from "../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
-import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
 import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import useEarningHandler from "./use_earning_handler";
 
