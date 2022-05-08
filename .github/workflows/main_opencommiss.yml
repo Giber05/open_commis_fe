@@ -25,6 +25,8 @@ jobs:
         run: |
           npm install
           npm run build --if-present
+        env:
+          CI: false
       
       # Zip the build directory
       - name: Zip Release
