@@ -44,21 +44,16 @@ export default () => {
 
   useMemo(() => {
     const selectedCurrentMenu = (menu: string) => {
-      switch (menu) {
-        case "/admin":
-          setCurrentMenu("DASHBOARD");
-          break;
-        case "/admin/manage-user":
-          setCurrentMenu("KELOLA USER");
-          break;
-        case "/admin/manage-compost":
-          setCurrentMenu("KELOLA COMMISSION POST");
-          break;
-        case "/admin/manage-review":
-          setCurrentMenu("KELOLA ULASAN");
-          break;
-        default:
-          break;
+      if (menu === "/admin") {
+        setCurrentMenu("DASHBOARD");
+      } else if (menu.includes("/admin/manage-user")) {
+        setCurrentMenu("KELOLA USER");
+      } else if (menu.includes("/admin/manage-compost")) {
+        setCurrentMenu("KELOLA COMMISSION POST");
+      } else if (menu.includes("/admin/manage-review")) {
+        setCurrentMenu("KELOLA ULASAN");
+      } else {
+        setCurrentMenu("");
       }
     };
     selectedCurrentMenu(location);
@@ -210,9 +205,7 @@ export default () => {
         </div>
         <footer className="footer px-4 py-6  bg-primary">
           <div className="footer-content mx-auto">
-            <p className={`text-sm text-white text-center ml-64 `}>
-              © OpenCommiss 2022. All rights reserved. by KoTA 101
-            </p>
+            <p className={`text-sm text-white text-center ml-64 `}>© OpenCommiss 2022. All rights reserved. by KoTA 101</p>
           </div>
         </footer>
       </main>

@@ -1,9 +1,10 @@
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { Select, Form, Row, Col, Input, Divider, Space, Typography, InputNumber, Card, Avatar, Upload, Button, message } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
 import AssetConstants from "../../../../../../../../core/constants/asset_constants";
 import UploadWithCrop from "../../../../../manage_compost/presentation/features/create_compost/components/FormMultiImage";
+import { ManagePortofolio } from "../../../../data/models/manage_portfolio/portofolio";
 import usePortofolioHandler from "../../portofolio/use_portofolio_handler";
 import useEditPortofolioHandler from "./use_edit_portofolio_handler";
 import useEditPortofolio from "./use_edit_portofolio_handler";
@@ -11,9 +12,12 @@ import useEditPortofolio from "./use_edit_portofolio_handler";
 let index = 0;
 const { Option } = Select;
 
-function EditProfileTabs() {
+type EditProfileProps = {
+  illustratorProfile:ManagePortofolio
+}
+function EditProfileTabs({illustratorProfile}:EditProfileProps) {
   const {editProfile,isLoadingUpdateProfile} = useEditPortofolioHandler()
-  const { illustratorProfile } = usePortofolioHandler();
+  
   const initialValues = {
     name: illustratorProfile?.name,
     whatsapp: illustratorProfile?.phone,
