@@ -2,7 +2,7 @@ import IlustratorModel from "../../../../../../../common/authentication/data/mod
 import { CommissionPost } from "../../../../../../../common/commission/data/models/commission_post";
 import { OrderDetailModel } from "../../../../../../../common/order/data/models/order_detail_model";
 import { OrderEntity } from "../../../../../../../common/order/domain/entities/order_entity";
-import { PaymentModel } from "../../payment/payment_model";
+import { PaymentModel } from "../../../../../../../common/payment/data/models/payment_model";
 
 export class ConsumerOrderDetail extends OrderEntity {
   illustrator: IlustratorModel;

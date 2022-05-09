@@ -2,13 +2,15 @@ import ConsumerModel from "../../../../../common/authentication/data/model/consu
 import { CommissionPost } from "../../../../../common/commission/data/models/commission_post";
 import { OrderDetailModel } from "../../../../../common/order/data/models/order_detail_model";
 import { OrderEntity } from "../../../../../common/order/domain/entities/order_entity";
+import { PaymentModel } from "../../../../../common/payment/data/models/payment_model";
 
 export class IllustratorOrderDetail extends OrderEntity {
   consumer: ConsumerModel;
   commission: CommissionPost;
   detail: OrderDetailModel;
+  payment?:PaymentModel|null;
 
-  constructor(params: { consumer: ConsumerModel; commission: CommissionPost; detail: OrderDetailModel; id: number; status: string; grandTotal: number; orderDate: Date ;reviewed:boolean}) {
+  constructor(params: { consumer: ConsumerModel; commission: CommissionPost; detail: OrderDetailModel; payment?:PaymentModel|null; id: number; status: string; grandTotal: number; orderDate: Date ;reviewed:boolean}) {
     super({
       id: params.id,
       status: params.status,
@@ -19,6 +21,7 @@ export class IllustratorOrderDetail extends OrderEntity {
     this.consumer = params.consumer;
     this.commission = params.commission;
     this.detail = params.detail;
+    this.payment = params.payment;
   }
 
   public static fromJson(json:any):IllustratorOrderDetail{
@@ -30,7 +33,8 @@ export class IllustratorOrderDetail extends OrderEntity {
       reviewed: json.reviewed,
       consumer:ConsumerModel.fromJson(json.consumer) ,
       commission:CommissionPost.fromJson(json.commission) ,
-      detail:OrderDetailModel.fromJson(json.detail)
+      detail:OrderDetailModel.fromJson(json.detail),
+      payment:PaymentModel.fromJson(json.detail),
 
     })
   }

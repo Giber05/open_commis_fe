@@ -2,7 +2,6 @@ import { message } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../../../core/utils/redux";
-import { UserData } from "../../../data/models/user_model";
 import GetRegisteredUser from "../../../domain/usecases/get_registered_user";
 import { RegisterUser } from "../../../domain/usecases/register_user";
 import { ResendVerifEmail } from "../../../domain/usecases/resend_verif_email";

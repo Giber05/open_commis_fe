@@ -1,5 +1,5 @@
 import moment, { Moment } from "moment";
-import { OrderStatus } from "./enums";
+import { OrderStatus, WithdrawStatus } from "./enums";
 
 export class UtilMethods {
   public static matchStatusColor = (status: string) => {
@@ -47,8 +47,6 @@ export class UtilMethods {
     }
   };
 
-
-
   public static getDeadlineDate(orderDate: Date, durationTime: number): string {
     let deadline = moment(orderDate).add(durationTime, "days");
     return this.getIndonesianFormatDate(deadline);
@@ -57,4 +55,29 @@ export class UtilMethods {
   public static getIndonesianFormatDate(date: Date | Moment | string): string {
     return moment(date).format("DD-MMMM-YYYY");
   }
+
+  public static matchWithdrawStatusColor = (status: string) => {
+    switch (status) {
+      case WithdrawStatus.Completed:
+        return "success";
+      case WithdrawStatus.Pending:
+        return "orange";
+      case WithdrawStatus.Failed:
+        return "red";
+      default:
+        return "default";
+    }
+  };
+  public static translateWithdrawStatus = (status: string) => {
+    switch (status) {
+      case WithdrawStatus.Completed:
+        return "BERHASIL";
+      case WithdrawStatus.Pending:
+        return "SEDANG DIPROSES";
+      case WithdrawStatus.Failed:
+        return "GAGAL";
+      default:
+        return "default";
+    }
+  };
 }

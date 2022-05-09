@@ -1,4 +1,4 @@
-import { PaymentEntity } from "../../../domain/entities/payment_entity";
+import { PaymentEntity } from "../../domain/entities/payment_entity";
 
 export class PaymentModel extends PaymentEntity {
   public static fromJson(json: any): PaymentModel {
