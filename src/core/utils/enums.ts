@@ -8,3 +8,8 @@ export enum OrderStatus {
   Sent = "SENT",
   Finished = "FINISHED",
 }
+export enum WithdrawStatus {
+  Completed = "COMPLETED",
+  Pending = "PENDING",
+  Failed = "FAILED",
+}

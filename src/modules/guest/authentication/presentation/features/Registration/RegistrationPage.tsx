@@ -1,21 +1,13 @@
-import { LockOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, InputNumber, message, Radio, Typography, Upload } from "antd";
+import {  UploadOutlined } from "@ant-design/icons";
+import { Button,  Form, Input, message, Radio, Typography, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
-import React from "react";
 import { Link } from "react-router-dom";
-import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
 import SuccessButton from "../../../../../../core/common_components/buttons/SuccessButton";
-import ImageUploader from "../../../../../../core/common_components/image_uploader/ImageUploader";
-import ConfigConstants from "../../../../../../core/constants/config_constants";
-import LoginContainer from "../Login/components/LoginContainer";
 import RegistrationContainer from "./components/RegistrationContainer";
 import useRegistrationHandler from "./use_registration_handler";
 
 function RegistrationPage() {
-  const {isLoadingUser, onFormSubmitted,resendVerifEmail} = useRegistrationHandler()
-  const onFinish = (values: any) => {
-    console.log("Registration form Values: ", values);
-  };
+  const {isLoadingUser, onFormSubmitted} = useRegistrationHandler()
 
   const getFile = (e: any) => {
     console.log("Upload event:", e);

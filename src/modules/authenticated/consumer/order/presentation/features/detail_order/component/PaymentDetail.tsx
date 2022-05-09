@@ -1,7 +1,7 @@
 import { Card, Typography, Divider, Row, Col } from "antd";
 import React from "react";
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
-import { PaymentModel } from "../../../../data/models/payment/payment_model";
+import { PaymentModel } from "../../../../../../../common/payment/data/models/payment_model";
 
 type PaymentProps = {
   payment: PaymentModel | null;

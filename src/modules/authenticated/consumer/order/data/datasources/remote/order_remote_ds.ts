@@ -6,7 +6,7 @@ import { ConsumerMakeOrderModel } from "../../models/order/make_order/consumer_m
 import { ConsumerOrderDetail } from "../../models/order/order_detail/consumer_detail_order";
 import { ConsumerOrderDetailModel } from "../../models/order/order_detail/consumer_order_detail_model";
 import { MakePaymentModel } from "../../models/payment/make_payment_model";
-import { PaymentModel } from "../../models/payment/payment_model";
+import { PaymentModel } from "../../../../../../common/payment/data/models/payment_model";
 
 export interface OrderRemoteDS {
   getOrders(params: { page: number; limit: number; token: string; }): Promise<OrderListModel>;

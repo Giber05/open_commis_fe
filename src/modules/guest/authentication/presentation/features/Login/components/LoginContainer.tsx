@@ -41,8 +41,8 @@ function LoginContainer(props: PropsType): JSX.Element {
       <Col className={styles.absolute_10} sm={0} xs={0} md={24}>
         <Image preview={false} src="/assets/images/background/login/absolute_10.png" alt="" />
       </Col>
-       <Col className={styles.footer}>
-        <Typography className="text-gray my-1 font-semibold ">{ConfigConstants.copyright}</Typography>
+       <Col  >
+        <Typography className="text-gray my-1 font-bold ">{ConfigConstants.copyright}</Typography>
       </Col> 
     </div>
   );

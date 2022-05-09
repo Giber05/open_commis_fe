@@ -63,12 +63,12 @@ function EarningPage() {
                 return <Typography.Text>{withdrawDate}</Typography.Text>;
               }}
             />
-            <Column  title="Jumlah penarikan" render={(text, record: any) => <Typography.Text>Rp. {record.amount}</Typography.Text>} />
+            <Column title="Jumlah penarikan" render={(text, record: any) => <Typography.Text>Rp. {record.amount}</Typography.Text>} />
             <Column
               title="No. Tujuan"
               render={(text, record: any) => {
                 return (
-                  <Row >
+                  <Row>
                     <Col>
                       <Tag>{record.destination}</Tag>
                     </Col>
@@ -82,7 +82,10 @@ function EarningPage() {
             <Column
               title="Status"
               render={(text, record: any) => {
-                return <Tag color="gold">{record.status}</Tag>;
+                const withdrawStatusColor = UtilMethods.matchWithdrawStatusColor(record.status);
+                const withdrawStatus = UtilMethods.translateWithdrawStatus(record.status);
+
+                return <Tag color={withdrawStatusColor}>{withdrawStatus}</Tag>;
               }}
             />
           </Table>
