@@ -1,14 +1,15 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Typography, Form, Input, Avatar } from "antd";
 import React, { useEffect } from "react";
+import DangerButton from "../../../../../../core/common_components/buttons/DangerButton";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import AssetConstants from "../../../../../../core/constants/asset_constants";
 import RegistrationContainer from "../../../../../guest/authentication/presentation/features/Registration/components/RegistrationContainer";
 import useConsumerProfileHandler from "./use_consumer_profile_handler";
 
 function ConsumerProfilePage() {
-  const { consumer, getConsumerProfile, isProfileLoading } = useConsumerProfileHandler();
-  
+  const { consumer, getConsumerProfile, isProfileLoading,onLogoutClick } = useConsumerProfileHandler();
+
   useEffect(() => {
     getConsumerProfile();
     window.scroll(0, 0);
@@ -47,6 +48,9 @@ function ConsumerProfilePage() {
             <Input disabled value={consumer?.email} className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
           </Form.Item>
         </Form>
+        <div className="flex justify-center">
+          <DangerButton onClick={onLogoutClick} title="Logout" block rounded />
+        </div>
       </div>
     </div>
   );

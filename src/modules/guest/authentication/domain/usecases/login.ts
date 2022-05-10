@@ -7,7 +7,7 @@ class Login {
   private authRepository: AuthRepository = new AuthRepositoryImpl() 
 
   async execute(params:{email:string; password:string, role:string}):Promise<Resource<UserModel>> {
-    return this.authRepository.login({email:params.email, password:params.password,role:params.role});
+    return await this.authRepository.login({email:params.email, password:params.password,role:params.role});
   }
 }
 
