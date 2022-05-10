@@ -1,5 +1,5 @@
 import { LogoutOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, Image, Divider } from "antd";
+import { Button, Layout, Menu, Image, Divider, message } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -28,10 +28,13 @@ function TopNavigation() {
         success: (_) => {
           dispatch(setConsumerCurrentMenu("compost"));
 
-          navigate("/");
           dispatch(userLogout());
           dispatch(isAuthLoading(false));
+          navigate("/");
         },
+        error:(error)=>{
+          message.error(error.exception.message)
+        }
       });
     });
   };

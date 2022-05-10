@@ -44,10 +44,8 @@ function TopNavigation() {
         dispatch(setIllustratorCurrentMenu("manage_earning"));
       } else if (menu.includes("/manage-portofolio")) {
         dispatch(setIllustratorCurrentMenu("manage_profile"));
-      } 
-      else {
+      } else {
         dispatch(setIllustratorCurrentMenu(""));
-
       }
     };
     selectedCurrentMenu(location);
@@ -56,7 +54,7 @@ function TopNavigation() {
   return (
     <Header className="bg-white ">
       <Link
-        to="/"
+        to="/manage/manage-compost"
         style={{
           width: "120px",
           height: "31px",
