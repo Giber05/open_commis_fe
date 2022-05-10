@@ -59,7 +59,7 @@ function TopNavigation() {
   }, [location]);
   
   return (
-    <Header className="bg-white ">
+    <Header className="bg-white " >
       <div
         onClick={() => navigate("/")}
         style={{
