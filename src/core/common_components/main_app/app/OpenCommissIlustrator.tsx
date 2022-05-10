@@ -1,19 +1,24 @@
-import { Layout, message } from "antd";
+import { Drawer, Layout, Menu, message } from "antd";
 import { Content, Footer } from "antd/lib/layout/layout";
+import Sider from "antd/lib/layout/Sider";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Logout from "../../../../modules/guest/authentication/domain/usecases/logout";
 import { VerifyCurrentToken } from "../../../../modules/guest/authentication/domain/usecases/verify_token";
 import { selectAuth } from "../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
-import { selectCommon, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
+import { selectCommon, toggleCollapsedSideNav, updateWindowWidth } from "../../../AppRedux/reducers/common_reducer";
 import { useAppDispatch, useAppSelector } from "../../../utils/redux";
 import TopNavigation from "../navigation_menu/ilustrator/TopNavigation";
+import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import React from "react";
+import OnCollapsedNav from "../navigation_menu/ilustrator/OnCollapsedNav";
+import DrawerSection from "../navigation_menu/ilustrator/DrawerSection";
 
 function OpenCommissIlustrator() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLoadingUser, authUser } = useAppSelector(selectAuth);
-  const { width } = useAppSelector(selectCommon);
+  const { navCollapsed, width } = useAppSelector(selectCommon);
   const verifyCurrentToken = new VerifyCurrentToken();
 
   useEffect(() => {
@@ -39,37 +44,19 @@ function OpenCommissIlustrator() {
   useEffect(() => {
     let isIllustrator = authUser?.data.role === "illustrator";
     if (!isLoadingUser) {
-      if(authUser == null || !isIllustrator){
-
+      if (authUser == null || !isIllustrator) {
         return navigate("/auth/login");
-      }
-      else{
+      } else {
         verifyToken();
-
       }
     }
   }, [isLoadingUser]);
 
-  
-  // useEffect(() => {
-  //   async function verifyToken() {
-  //     const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
-  //     resource.whenWithResult({
-  //       success: async (value) => {
-  //         console.log("Token Valid => ", value.data.message);
-  //         let tokenValid = value.data.data.tokenValid;
-  //         if (!tokenValid) {
-  //           navigate("/auth/login");
-  //         }
-  //       },
-  //     });
-  //   }
-  //   verifyToken();
-  // }, [verifyCurrentToken, isLoadingUser]);
-
   return (
     <Layout>
-      <TopNavigation />
+      {width < 768 ? <OnCollapsedNav /> : <TopNavigation />}
+
+      <DrawerSection />
       <Content className="">
         <div className="min-h-screen bg-white">
           <Outlet />

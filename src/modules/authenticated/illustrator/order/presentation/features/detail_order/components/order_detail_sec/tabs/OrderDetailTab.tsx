@@ -52,7 +52,7 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
                 </Typography.Text>
               </Col>
               <Col span={12} className="leading-none text-right my-auto">
-                <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">{orderDetail.commission.durationTime} Hari</Typography.Text>
+                <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">{orderDetail?.commission?.durationTime} Hari</Typography.Text>
               </Col>
             </Row>
 

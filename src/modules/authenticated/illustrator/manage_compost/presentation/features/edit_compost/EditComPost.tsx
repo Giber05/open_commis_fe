@@ -161,7 +161,7 @@ function EditComPost() {
         </Row>
         <Form.Item>
           <div className="mx-auto my-3 flex justify-center">
-            <SuccessButton loading={isLoading} block width="w-40" rounded title="Submit" htmlType="submit" />
+            <SuccessButton loading={isLoading} block width="w-40" rounded title="Simpan" htmlType="submit" />
           </div>
         </Form.Item>
       </Form>
