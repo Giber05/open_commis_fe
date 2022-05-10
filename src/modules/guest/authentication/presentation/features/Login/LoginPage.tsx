@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input,  Col, Typography, Row, Image, Radio, Alert, Avatar } from "antd";
+import { Button, Checkbox, Form, Input, Col, Typography, Row, Image, Radio, Alert, Avatar } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
@@ -27,8 +27,7 @@ function LoginPage() {
         className="max-w-full w-11/12 m-auto text-sm shadow-none"
       >
         <div className="text-center mx-auto">
-
-        <Image preview={false}  className="text-center mx-auto flex h-36  sm:h-44 md:h-52  lg:h-60 xl:h-64 " src={`${AssetConstants.iconURL}/logo/open_commiss.png`}></Image>
+          <Image preview={false} className="text-center mx-auto flex h-36  sm:h-44 md:h-52  lg:h-60 xl:h-64 " src={`${AssetConstants.iconURL}/logo/open_commiss.png`}></Image>
         </div>
         <Typography className="text-sm text-center ">Comission Post adalah sebuah aplikasi yang mempertemukan antara para illustrator digital dan konsumen</Typography>
         <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto font-semibold ">
@@ -93,6 +92,11 @@ function LoginPage() {
                 Disini!
               </Link>
             </span>
+          </Form.Item>
+          <Form.Item className="text-center font-bold">
+            <Link className="text-blue-400 text-center text-base md:text-lg" to="/">
+              Kembali Ke Beranda
+            </Link>
           </Form.Item>
         </Form>
       </div>
