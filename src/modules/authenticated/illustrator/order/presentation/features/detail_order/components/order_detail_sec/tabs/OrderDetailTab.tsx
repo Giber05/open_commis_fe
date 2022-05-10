@@ -11,7 +11,7 @@ const { Text } = Typography;
 
 function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
   const orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!);
-  const paymentStatus = orderDetail.payment != null ? "Sudah Dibayar" : "Belum Dibayar";
+  const paymentStatus = orderDetail?.payment != null ? "Sudah Dibayar" : "Belum Dibayar";
   const statusColor = UtilMethods.matchStatusColor(orderDetail?.status!);
   const orderDeadline = UtilMethods.getDeadlineDate(orderDetail?.orderDate!, orderDetail?.commission.durationTime!);
   const orderCreated = UtilMethods.getIndonesianFormatDate(orderDetail?.orderDate!);
