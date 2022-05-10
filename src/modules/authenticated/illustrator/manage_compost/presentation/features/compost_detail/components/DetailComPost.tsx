@@ -1,5 +1,6 @@
 import { Card, Col, Row, Tag, Typography } from "antd";
 import Link from "antd/lib/typography/Link";
+import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import DangerButton from "../../../../../../../../core/common_components/buttons/DangerButton";
 import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
@@ -41,7 +42,7 @@ function DetailComPost() {
             <h3>Deskripsi</h3>
           </Col>
           <Col>
-            <Typography.Paragraph className="leading-tight">
+            <Typography.Paragraph className="leading-tight text-justify">
               {ellipsis ? `${commissionPostDetail?.description?.substring(0, 150)}... ` : commissionPostDetail?.description}{" "}
               {commissionPostDetail?.description?.length! > 150 ? (
                 <Link onClick={() => setEllipsis(!ellipsis)} className="text-blue-500">
@@ -51,6 +52,8 @@ function DetailComPost() {
                 ""
               )}
             </Typography.Paragraph>
+          <Typography.Text className="text-gray-400">Terakhir diupdate: {moment(commissionPostDetail?.updatedAt).format("DD-MMM-YYYY")}</Typography.Text>
+
           </Col>
         </Col>
       </Row>

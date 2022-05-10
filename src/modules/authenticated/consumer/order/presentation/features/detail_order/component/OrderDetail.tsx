@@ -8,7 +8,8 @@ type OrderDetailProps = {
   order: ConsumerOrderDetail | null;
 };
 function OrderDetail({ order }: OrderDetailProps) {
-  let statusColor = UtilMethods.matchStatusColor(order?.status!)
+  const statusColor = UtilMethods.matchStatusColor(order?.status!);
+  const deadlineDate = order?.payment == null ? order?.commission.durationTime + " Hari" : UtilMethods.getDeadlineDate(order?.payment?.paymentDate, order?.commission.durationTime);
   return (
     <Card
       className="comic-shadow sm:shrink-0"
@@ -33,14 +34,6 @@ function OrderDetail({ order }: OrderDetailProps) {
         </Col>
       </Row>
 
-      <Row justify="space-between" className="my-3">
-        <Col span={12} className="text-base leading-none">
-          <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg ">Perkiraan waktu selesai</Typography.Text>
-        </Col>
-        <Col span={12} className="text-base leading-none text-right">
-          <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right">{order?.commission.durationTime} Hari</Typography.Text>
-        </Col>
-      </Row>
 
       <Row justify="space-between" className="my-3">
         <Col span={12} className="text-base leading-none">
@@ -48,6 +41,15 @@ function OrderDetail({ order }: OrderDetailProps) {
         </Col>
         <Col span={12} className="text-base leading-none text-right">
           <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right">{UtilMethods.getIndonesianFormatDate(order?.orderDate!)}</Typography.Text>
+        </Col>
+      </Row>
+      
+      <Row justify="space-between" className="my-3">
+        <Col span={12} className="text-base leading-none">
+          <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg ">Perkiraan waktu selesai</Typography.Text>
+        </Col>
+        <Col span={12} className="text-base leading-none text-right">
+          <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right">{deadlineDate}</Typography.Text>
         </Col>
       </Row>
 

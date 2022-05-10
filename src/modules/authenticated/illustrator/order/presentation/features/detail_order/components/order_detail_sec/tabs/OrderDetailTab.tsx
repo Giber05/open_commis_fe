@@ -13,7 +13,7 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
   const orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!);
   const paymentStatus = orderDetail?.payment != null ? "Sudah Dibayar" : "Belum Dibayar";
   const statusColor = UtilMethods.matchStatusColor(orderDetail?.status!);
-  const orderDeadline = UtilMethods.getDeadlineDate(orderDetail?.orderDate!, orderDetail?.commission.durationTime!);
+  const orderDeadline = orderDetail?.payment != null ? UtilMethods.getDeadlineDate(orderDetail?.payment.paymentDate!, orderDetail?.commission.durationTime!):"-";
   const orderCreated = UtilMethods.getIndonesianFormatDate(orderDetail?.orderDate!);
   const paymentDate = orderDetail?.payment != null ? UtilMethods.getIndonesianFormatDate(orderDetail?.payment.paymentDate) : "-";
   return (
@@ -42,6 +42,17 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
               </Col>
               <Col span={12} className="leading-none text-right my-auto">
                 <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">{orderCreated}</Typography.Text>
+              </Col>
+            </Row>
+
+            <Row justify="space-between" className="">
+              <Col span={12} className="leading-none my-auto">
+                <Typography.Text type="secondary" className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base font-semibold">
+                  Durasi Pengerjaan
+                </Typography.Text>
+              </Col>
+              <Col span={12} className="leading-none text-right my-auto">
+                <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">{orderDetail.commission.durationTime} Hari</Typography.Text>
               </Col>
             </Row>
 
