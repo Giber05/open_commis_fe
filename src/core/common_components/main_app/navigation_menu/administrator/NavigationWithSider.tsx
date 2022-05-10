@@ -75,7 +75,7 @@ export default () => {
         <div className="sidebar-header flex items-center justify-center py-4">
           <div className="inline-flex">
             <a href="#" className="inline-flex flex-row items-center ">
-              <Image preview={false} className="text-xs" src={`${AssetConstants.iconURL}logo/app_name.svg`} />
+              <Image width={150} preview={false} className="text-xs" src={`${AssetConstants.iconURL}logo/open_commiss.png`} />
             </a>
           </div>
         </div>

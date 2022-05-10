@@ -64,7 +64,7 @@ function TopNavigation() {
           float: "left",
         }}
       >
-        <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
+        <Image src={`/assets/icons/logo/open_commiss.png`} preview={false} />
       </Link>
       <Menu activeKey={illustratorCurrentMenu} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
         <Menu.Item key="manage_compost">
