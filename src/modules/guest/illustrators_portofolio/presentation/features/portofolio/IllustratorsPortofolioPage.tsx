@@ -8,6 +8,7 @@ import DangerButton from "../../../../../../core/common_components/buttons/Dange
 import InfoButton from "../../../../../../core/common_components/buttons/InfoButton";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
+import AssetConstants from "../../../../../../core/constants/asset_constants";
 import { TestItem } from "../../../../commission_post/presentation/features/commission_post_list/components/TestItem";
 import IllustratorsArtworksSection from "./components/IllustratorsArtworksSection";
 import IllustratorsBioSection from "./components/IllustratorsBioSection";
@@ -31,7 +32,10 @@ function IllustratorsPortofolioPage() {
       <div className="m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Profil</h2>
         <div className="mx-auto text-center justify-center my-5 flex flex-row">
-          <Avatar size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }} src={illustratorsPortofolio?.profilePicture} />
+          <Avatar
+            size={{ xs: 72, sm: 84, md: 92, lg: 100, xl: 120, xxl: 132 }}
+            src={illustratorsPortofolio?.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : illustratorsPortofolio?.profilePicture}
+          />
         </div>
         <div className="mx-auto text-center ">
           <Typography.Title level={2}>

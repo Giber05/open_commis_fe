@@ -1,5 +1,6 @@
 import { Card, Tabs, Typography } from "antd";
 import React from "react";
+import CircularLoadingIndicator from "../../../../../../../../../core/common_components/CircularLoadingIndicator";
 import useIllustratorDetailOrderHandler from "../../use_illustrator_detail_order_handler";
 import ComPostTab from "./tabs/ComPostTab";
 import OrderDetailTab from "./tabs/OrderDetailTab";
@@ -9,7 +10,7 @@ const { TabPane } = Tabs;
 function OrderDetailSection() {
   const { orderDetail, isLoading } = useIllustratorDetailOrderHandler();
   return (
-    <Card className="comic-shadow rounded-xl">
+    <Card loading={isLoading} className="comic-shadow rounded-xl">
       <div className=" py-1 px-1 sm:py-2 sm:px-2 lg:px-4">
         <Tabs defaultActiveKey="1">
           <TabPane
@@ -20,7 +21,7 @@ function OrderDetailSection() {
             }
             key="1"
           >
-            <OrderDetailTab />
+            <OrderDetailTab orderDetail={orderDetail!} />
           </TabPane>
           <TabPane
             tab={

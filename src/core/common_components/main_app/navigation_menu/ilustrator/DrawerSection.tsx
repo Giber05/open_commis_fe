@@ -1,20 +1,17 @@
-import { LogoutOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, Typography, Image, Row, Col, Divider } from "antd";
+import { CloseCircleOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Col, Drawer, Row, Image, Button, Divider, Menu } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
-import Text from "antd/lib/typography/Text";
-import { useMemo, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Logout from "../../../../../modules/guest/authentication/domain/usecases/logout";
 import { isAuthLoading, selectAuth, userLogout } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
-import { selectCommon, setIllustratorCurrentMenu } from "../../../../AppRedux/reducers/common_reducer";
+import { selectCommon, setIllustratorCurrentMenu, toggleCollapsedSideNav } from "../../../../AppRedux/reducers/common_reducer";
 import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
 
-const { Header } = Layout;
-
-function TopNavigation() {
+function DrawerSection() {
   const dispatch = useAppDispatch();
+  const { navCollapsed, illustratorCurrentMenu } = useAppSelector(selectCommon);
   const location = useLocation().pathname;
-  const { illustratorCurrentMenu } = useAppSelector(selectCommon);
   const { authUser } = useAppSelector(selectAuth);
 
   const onLogoutClick = () => {
@@ -35,6 +32,8 @@ function TopNavigation() {
     dispatch(setIllustratorCurrentMenu(e.key));
   };
   useMemo(() => {
+    console.log("Usememo");
+    
     const selectedCurrentMenu = (menu: string) => {
       if (menu.includes("/manage-compost")) {
         dispatch(setIllustratorCurrentMenu("manage_compost"));
@@ -44,29 +43,36 @@ function TopNavigation() {
         dispatch(setIllustratorCurrentMenu("manage_earning"));
       } else if (menu.includes("/manage-portofolio")) {
         dispatch(setIllustratorCurrentMenu("manage_profile"));
-      } 
-      else {
+      } else {
         dispatch(setIllustratorCurrentMenu(""));
-
       }
     };
     selectedCurrentMenu(location);
   }, [location]);
 
+  const onCloseDrawer = () => {
+    dispatch(toggleCollapsedSideNav(false));
+  };
   return (
-    <Header className="bg-white ">
-      <Link
-        to="/"
-        style={{
-          width: "120px",
-          height: "31px",
-          margin: "0 24px 16px 0",
-          float: "left",
-        }}
-      >
-        <Image src={`/assets/icons/logo/open_commiss.png`} preview={false} />
-      </Link>
-      <Menu activeKey={illustratorCurrentMenu} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">
+    <Drawer
+      title={
+        <Row justify="space-between">
+          <Col span={12}>
+            <Image src={`/assets/icons/logo/app_name.svg`} preview={false} />
+          </Col>
+          <Col span={12} className="text-right">
+            <Button type="text" onClick={onCloseDrawer} icon={<CloseCircleOutlined className="text-base" />} />
+          </Col>
+        </Row>
+      }
+      placement="left"
+      closable={false}
+      onClose={onCloseDrawer}
+      visible={navCollapsed}
+      key="left"
+      width={250}
+    >
+     <Menu key="drawer" activeKey={illustratorCurrentMenu} onClick={onChangeMenu} theme="light" mode="vertical">
         <Menu.Item key="manage_compost">
           <Link to="/manage/manage-compost"> Beranda</Link>
         </Menu.Item>
@@ -76,7 +82,7 @@ function TopNavigation() {
         <Menu.Item key="manage_earning">
           <Link to="/manage/earning">Pendapatan</Link>
         </Menu.Item>
-        <SubMenu key="account" title="Profile">
+        
           <Menu.Item key="manage_profile">
             <Link to="/manage/manage-portofolio">Profile</Link>
           </Menu.Item>
@@ -87,10 +93,8 @@ function TopNavigation() {
               Logout
             </Button>
           </Menu.Item>
-        </SubMenu>
       </Menu>
-    </Header>
+    </Drawer>
   );
 }
-
-export default TopNavigation;
+export default DrawerSection;

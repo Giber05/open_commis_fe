@@ -9,20 +9,20 @@ type OrderDetaiProps = {
 };
 const { Text } = Typography;
 
-function OrderDetailTab() {
-  const { orderDetail, isLoading } = useIllustratorDetailOrderHandler();
+function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
   const orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!);
-  console.log("Order status ", orderDetail?.status);
-
+  const paymentStatus = orderDetail?.payment != null ? "Sudah Dibayar" : "Belum Dibayar";
   const statusColor = UtilMethods.matchStatusColor(orderDetail?.status!);
-  const orderDeadline = UtilMethods.getDeadlineDate(orderDetail?.orderDate!, orderDetail?.commission.durationTime!);
+  const orderDeadline = orderDetail?.payment != null ? UtilMethods.getDeadlineDate(orderDetail?.payment.paymentDate!, orderDetail?.commission.durationTime!):"-";
   const orderCreated = UtilMethods.getIndonesianFormatDate(orderDetail?.orderDate!);
   const paymentDate = orderDetail?.payment != null ? UtilMethods.getIndonesianFormatDate(orderDetail?.payment.paymentDate) : "-";
   return (
     <div>
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-          <Card bordered={true}  className="md:border-r-2 border-0"
+          <Card
+            bordered={true}
+            className="md:border-r-2 border-0"
             title={
               <Text className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg  font-extrabold" strong>
                 Overview
@@ -44,7 +44,18 @@ function OrderDetailTab() {
                 <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">{orderCreated}</Typography.Text>
               </Col>
             </Row>
-            
+
+            <Row justify="space-between" className="">
+              <Col span={12} className="leading-none my-auto">
+                <Typography.Text type="secondary" className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base font-semibold">
+                  Durasi Pengerjaan
+                </Typography.Text>
+              </Col>
+              <Col span={12} className="leading-none text-right my-auto">
+                <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">{orderDetail?.commission?.durationTime} Hari</Typography.Text>
+              </Col>
+            </Row>
+
             <Row justify="space-between" className="">
               <Col span={12} className="leading-none my-auto">
                 <Typography.Text type="secondary" className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">
@@ -58,11 +69,14 @@ function OrderDetailTab() {
           </Card>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-          <Card bordered={false} title={
+          <Card
+            bordered={false}
+            title={
               <Text className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg  font-extrabold" strong>
                 Pembayaran
               </Text>
-            }>
+            }
+          >
             <Row justify="space-between" className="">
               <Col span={12} className="leading-none my-auto">
                 <Typography.Text type="secondary" className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">
@@ -80,7 +94,7 @@ function OrderDetailTab() {
                 </Typography.Text>
               </Col>
               <Col span={12} className="leading-none my-auto text-right">
-                <Typography.Text className={`text-${statusColor} text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold`}>{orderDetail?.payment == null ? "Belum Dibayar" : "Sudah Dibayar"}</Typography.Text>
+                <Typography.Text className={`${orderDetail?.payment ==null? "text-red-500" : "text-green-500"} text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold`}>{paymentStatus}</Typography.Text>
               </Col>
             </Row>
             <Row justify="space-between" className="">

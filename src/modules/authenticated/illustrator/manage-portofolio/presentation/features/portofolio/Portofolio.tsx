@@ -108,7 +108,7 @@ function Portofolio() {
         <div className=" mx-auto pb-10">
           <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
             {artworks?.length! > 0 ? (
-              artworks!.map((artwork) => <ArtworkItem artwork={artwork} itemId={artwork?.id.toString()} />)
+              artworks!.map((artwork) => <ArtworkItem key={artwork?.id} artwork={artwork} itemId={artwork?.id.toString()} />)
             ) : (
               <Typography.Text type="secondary" strong italic>
                 Belum ada karya yang diunggah
@@ -120,7 +120,7 @@ function Portofolio() {
           <div className=" mx-auto pb-10  ">
             <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
               {commissions?.length! > 0 ? (
-                commissions!.map((commission) => <CommissionItem commission={commission} itemId={commission.id.toString()} />)
+                commissions!.map((commission) => <CommissionItem key={commission?.id} commission={commission} itemId={commission.id.toString()} />)
               ) : (
                 <Typography.Text type="secondary" strong italic>
                   Belum ada commission post yang ditawarkan

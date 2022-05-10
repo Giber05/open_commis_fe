@@ -9,6 +9,7 @@ type CommonState = {
   navStyle: string;
   navCollapsed: boolean;
   consumerCurrentMenu:string;
+  illustratorCurrentMenu:string;
 };
 
 const initialState: CommonState = {
@@ -17,7 +18,8 @@ const initialState: CommonState = {
   navCollapsed: false,
   width:window.innerWidth,
   error:"",
-  consumerCurrentMenu:"compost"
+  consumerCurrentMenu:"compost",
+  illustratorCurrentMenu:"manage_compost"
 };
 
 export const commonSlice = createSlice({
@@ -42,6 +44,9 @@ export const commonSlice = createSlice({
     setConsumerCurrentMenu: (state, action: PayloadAction<string>) => {
       state.consumerCurrentMenu = action.payload;
     },
+    setIllustratorCurrentMenu: (state, action: PayloadAction<string>) => {
+      state.illustratorCurrentMenu = action.payload;
+    },
   },
 });
 
@@ -51,7 +56,8 @@ export const {
   fetchError,
   onNavStyleChange,
   toggleCollapsedSideNav,
-  setConsumerCurrentMenu
+  setConsumerCurrentMenu,
+  setIllustratorCurrentMenu,
 } = commonSlice.actions;
 
 export const selectCommon = (state:RootState):CommonState=>state.common;

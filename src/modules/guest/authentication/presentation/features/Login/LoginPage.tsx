@@ -26,7 +26,10 @@ function LoginPage() {
         }}
         className="max-w-full w-11/12 m-auto text-sm shadow-none"
       >
-        <Avatar shape="square" size={{ xs: 150, sm: 180, md: 200, lg: 250, xl: 250, xxl: 300 }} className="text-center mx-auto flex " src={`${AssetConstants.iconURL}/logo/open_commiss.png`}></Avatar>
+        <div className="text-center mx-auto">
+
+        <Image preview={false}  className="text-center mx-auto flex h-36  sm:h-44 md:h-52  lg:h-60 xl:h-64 " src={`${AssetConstants.iconURL}/logo/open_commiss.png`}></Image>
+        </div>
         <Typography className="text-sm text-center ">Comission Post adalah sebuah aplikasi yang mempertemukan antara para illustrator digital dan konsumen</Typography>
         <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto font-semibold ">
           <Form.Item name="role" label="Jenis User" className="mt-6 mb-3 " rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>

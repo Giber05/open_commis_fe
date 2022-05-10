@@ -53,7 +53,7 @@ function DetailCommission({ commission }: CommissionProps) {
             <h3>Deskripsi</h3>
           </Col>
           <Col>
-            <Typography.Paragraph className="leading-tight">
+            <Typography.Paragraph className="leading-tight text-justify" >
               {ellipsis ? `${commission?.description?.substring(0, 150)}... ` : commission?.description}{" "}
               {commission?.description?.length! > 150 ? (
                 <Link onClick={() => setEllipsis(!ellipsis)} className="text-blue-500">
@@ -71,7 +71,6 @@ function DetailCommission({ commission }: CommissionProps) {
               return <Tag color={colors[random]}>{tag.tagName}</Tag>;
             })}
           </div>
-          <Typography.Text className="text-gray-400">{moment(commission.createdAt).format("DD-MMM-YYYY")}</Typography.Text>
         </Col>
       </Row>
       <Row justify="center" className="mt-3 mx-auto">
