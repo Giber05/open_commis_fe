@@ -4,6 +4,7 @@ import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import DangerButton from "../../../../../../../../core/common_components/buttons/DangerButton";
 import SuccessButton from "../../../../../../../../core/common_components/buttons/SuccessButton";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 import { CommissionPostDetail } from "../../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
 import useIllustratorComPostDetailHandler from "../use_illustrator_compost_detail_handler";
 
@@ -16,7 +17,8 @@ function DetailComPost() {
   console.log(commissionPostDetail?.status);
   
 
-  let status = commissionPostDetail?.status === "OPEN" ? true : false;
+  const status = commissionPostDetail?.status === "OPEN" ? true : false;
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commissionPostDetail?.price!)
   return (
     <Card className="comic-shadow rounded-2xl">
       <Row>
@@ -28,7 +30,7 @@ function DetailComPost() {
           </span>
           <br />
           <span>
-            Harga : <Typography.Text className="w- font-bold text-lg">Rp. {commissionPostDetail?.price}</Typography.Text>
+            Harga : <Typography.Text className="w- font-bold text-lg">Rp. {commissionPrice}</Typography.Text>
           </span>
           <br />
           <div>

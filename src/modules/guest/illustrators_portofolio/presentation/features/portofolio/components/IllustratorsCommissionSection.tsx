@@ -2,6 +2,7 @@ import { Typography, Row, Col, Rate, Image } from "antd";
 import React from "react";
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
 import { Link } from "react-router-dom";
+import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import { CommissionPost } from "../../../../../../common/commission/data/models/commission_post";
 import CommissionPosts from "../../../../../commission_post/data/models/compost_list/commission_posts";
 import { ArtworkModel } from "../../../../data/models/artwork_model";
@@ -15,6 +16,8 @@ function IllustratorsCommissionSection({ commission,itemId }: CommissionProps) {
   const visibility = React.useContext(VisibilityContext);
 
   const visible = visibility.isItemVisible(itemId);
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price)
+
   return (
     <div className="inline-block p-3 content-center">
       <div className="comic-shadow-btn w-56 p-3 bg-white flex items-center justify-center max-w-xs overflow-hidden rounded-lg hover-scale-up">
@@ -35,7 +38,7 @@ function IllustratorsCommissionSection({ commission,itemId }: CommissionProps) {
             <Typography.Title level={5}>{commission.title}</Typography.Title>
             <Row justify="space-between">
               <Col>
-                <Typography.Text className="font-bold">Rp. {commission.price}</Typography.Text>
+                <Typography.Text className="font-bold">Rp. {commissionPrice}</Typography.Text>
               </Col>
               <Col>
                 <Rate disabled defaultValue={commission.overallRating==null?0:commission.overallRating} className="text-xs" />

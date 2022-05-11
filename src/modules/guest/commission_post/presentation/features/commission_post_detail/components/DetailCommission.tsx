@@ -10,6 +10,7 @@ import DisabledButton from "../../../../../../../core/common_components/buttons/
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import { CommissionPostDetail } from "../../../../data/models/compost_detail/commission_post_detail";
 import useComPostDetailHandler from "../use_compost_detail_handler";
+import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 
 export type CommissionProps = {
   commission: CommissionPostDetail;
@@ -25,6 +26,9 @@ function DetailCommission({ commission }: CommissionProps) {
     if (commission?.description?.length! > 150) setEllipsis(true);
     if (commission.title.length > 30) setIsLongTitle(true);
   }, [isMobile]);
+
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price)
+
   return (
     <Card className="comic-shadow ">
       <Row justify="space-between">
@@ -44,7 +48,7 @@ function DetailCommission({ commission }: CommissionProps) {
       <Row>
         <Col className="text-base leading-10">
           <Col>
-            <Typography.Text className="text-xl md:text-2xl font-bold">RP. {commission.price}</Typography.Text>
+            <Typography.Text className="text-xl md:text-2xl font-bold">Rp. {commissionPrice}</Typography.Text>
           </Col>
 
           <Typography.Text className="text-gray-400">Jumlah pesanan berhasil : {commission.ordersCompleted}</Typography.Text>

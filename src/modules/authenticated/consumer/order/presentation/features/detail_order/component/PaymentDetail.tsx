@@ -8,6 +8,8 @@ type PaymentProps = {
   grandTotal: number;
 };
 function PaymentDetail({ payment, grandTotal }: PaymentProps) {
+  const totalPrice = UtilMethods.getIndonesianCurrencyFormat(grandTotal)
+
   return (
     <Card
       className="comic-shadow sm:shrink-0 mt-5"
@@ -42,7 +44,7 @@ function PaymentDetail({ payment, grandTotal }: PaymentProps) {
               <Typography.Text className="text-sm  sm:text-sm lg:text-lg ">Total Pembayaran</Typography.Text>
             </Col>
             <Col span={12} className="text-base leading-none text-right">
-              <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right"> Rp. {grandTotal}</Typography.Text>
+              <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right"> Rp. {totalPrice}</Typography.Text>
             </Col>
           </Row>
         </>
@@ -52,7 +54,7 @@ function PaymentDetail({ payment, grandTotal }: PaymentProps) {
             <Typography.Text>Total yang harus dibayar:</Typography.Text>
           </Col>
           <Col>
-            <Typography.Text className="font-bold text-lg">Rp. {grandTotal}</Typography.Text>
+            <Typography.Text className="font-bold text-lg">Rp. {totalPrice}</Typography.Text>
           </Col>
         </div>
       )}

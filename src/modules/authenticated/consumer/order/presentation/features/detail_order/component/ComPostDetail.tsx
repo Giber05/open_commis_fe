@@ -1,5 +1,6 @@
 import { Card, Divider, Row, Typography, Image, Col } from "antd";
 import React, { useEffect, useState } from "react";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 import { CommissionPost } from "../../../../../../../common/commission/data/models/commission_post";
 import useComPostDetailHandler from "../../../../../../../guest/commission_post/presentation/features/commission_post_detail/use_compost_detail_handler";
 import useConsumerOrderDetailHandler from "../use_consumer_order_detail_handler";
@@ -13,6 +14,8 @@ function ComPostDetail({compost}:ComPostProps) {
   useEffect(() => {
     if (compost.title.length >= 25 && isMobile === true) setEllipsis(true);
   }, [isMobile]);
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(compost?.price)
+
   return (
     <Card
       className="comic-shadow sm:shrink-0"
@@ -38,7 +41,7 @@ function ComPostDetail({compost}:ComPostProps) {
 
         </Col>
         <Col span={12} className="text-base leading-none text-right">
-        <Typography.Text className="text-lg font-bold text-right"> Rp.{compost.price}</Typography.Text>
+        <Typography.Text className="text-lg font-bold text-right"> Rp. {commissionPrice}</Typography.Text>
         </Col>
       </Row>
 

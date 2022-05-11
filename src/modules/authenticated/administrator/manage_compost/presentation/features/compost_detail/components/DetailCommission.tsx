@@ -7,6 +7,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { CommissionPostDetail } from "../../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
 import useAdminComPostDetailHandler from "../use_admin_compost_detail_handler";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 
 export type CommissionProps = {
   commission: CommissionPostDetail;
@@ -22,6 +23,9 @@ function DetailCommission({ commission }: CommissionProps) {
     if (commission?.description?.length! > 150) setEllipsis(true);
     if (commission?.title.length > 30) setIsLongTitle(true);
   }, [isMobile]);
+  
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price!);
+
   return (
     <Card bordered={false} className="bg-gradient-to-tr from-sky-300 to-sky-500 px-3 md:px-8 rounded-lg shadow-md shadow-primary">
       <Row justify="space-between">
@@ -41,7 +45,7 @@ function DetailCommission({ commission }: CommissionProps) {
       <Row>
         <Col className="text-base leading-10">
           <Col>
-            <Typography.Text className="text-xl md:text-2xl font-bold text-white">Rp. {commission?.price}</Typography.Text>
+            <Typography.Text className="text-xl md:text-2xl font-bold text-white">Rp. {commissionPrice}</Typography.Text>
           </Col>
 
           <Typography.Text className="text-gray-100">Jumlah pesanan berhasil : {commission?.ordersCompleted}</Typography.Text>

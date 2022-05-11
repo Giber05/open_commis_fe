@@ -2,6 +2,7 @@ import { Row, Image, Col, Typography, Card } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import AssetConstants from "../../../../../../../../core/constants/asset_constants";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 import IllustratorComposts from "../../../../data/models/illustrators_composts";
 import useHomePageHandler from "../use_home_page_handler";
 
@@ -10,6 +11,7 @@ type PropsType = {
 };
 function IlustratorComPostItem({ commission }: PropsType) {
   const { isLoadingComPost, isMobile } = useHomePageHandler();
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price!)
 
   return (
     <Link to={{ pathname: `/manage/manage-compost/${commission?.id}` }}>
@@ -41,7 +43,7 @@ function IlustratorComPostItem({ commission }: PropsType) {
             </Col>
             <Col>
               <span>
-                Harga : <Typography.Text className=" font-bold">{commission?.price}</Typography.Text>{" "}
+                Harga : <Typography.Text className=" font-bold">Rp. {commissionPrice}</Typography.Text>{" "}
               </span>
             </Col>
             <Col>

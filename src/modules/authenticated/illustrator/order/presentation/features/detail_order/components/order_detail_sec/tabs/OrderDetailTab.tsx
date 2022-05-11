@@ -16,6 +16,8 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
   const orderDeadline = orderDetail?.payment != null ? UtilMethods.getDeadlineDate(orderDetail?.payment.paymentDate!, orderDetail?.commission.durationTime!):"-";
   const orderCreated = UtilMethods.getIndonesianFormatDate(orderDetail?.orderDate!);
   const paymentDate = orderDetail?.payment != null ? UtilMethods.getIndonesianFormatDate(orderDetail?.payment.paymentDate) : "-";
+  const totalPayment = UtilMethods.getIndonesianCurrencyFormat(orderDetail?.grandTotal)
+
   return (
     <div>
       <Row>
@@ -104,7 +106,7 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
                 </Typography.Text>
               </Col>
               <Col span={12} className="leading-none text-right my-auto">
-                <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">Rp. {orderDetail?.grandTotal}</Typography.Text>
+                <Typography.Text className="text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold">Rp. {totalPayment}</Typography.Text>
               </Col>
             </Row>
           </Card>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
+import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import { CommissionPostDetail } from "../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
 import DetailCommission from "./components/DetailCommission";
 import Reviews from "./components/Reviews";
@@ -15,6 +16,7 @@ function AdminComPostDetailPage() {
     getComPostDetail();
   }, []);
   if (isLoadingComPost) return <CircularLoadingIndicator />;
+  
   return (
     <>
       <div className="bg-gradient-to-t from-sky-400 to-primary px-3 md:px-8 h-40" />

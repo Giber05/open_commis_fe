@@ -5,6 +5,7 @@ import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import CustomRow from "./CustomRow";
 import useAdminComPostListHandler from "../use_admin_compost_list_handler";
 import CommissionPosts from "../../../../../../../guest/commission_post/data/models/compost_list/commission_posts";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 
 function onChange(pagination: any, filters: any, sorter: any, extra: any) {
   console.log("params", pagination, filters, sorter, extra);
@@ -46,10 +47,12 @@ function ComPostListTable({ composts }: ComPostsProps) {
     {
       title: "Harga",
       render: (value: any, record: any) => {
+        const price = UtilMethods.getIndonesianCurrencyFormat(record.price);
+
         return (
           <Row>
             <Typography.Text className="my-auto" strong>
-              Rp. {record.price}
+              Rp. {price}
             </Typography.Text>
           </Row>
         );

@@ -1,11 +1,14 @@
 import { Typography, Row, Col, Rate, Image } from "antd";
 import React from "react";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 import { CommissionPost } from "../../../../../../../common/commission/data/models/commission_post";
 
 type CommissionProps = {
   commission: CommissionPost;
 };
 function CommissionItem({ commission }: CommissionProps) {
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price!);
+
   return (
     <div className="inline-block p-3 content-center ">
   
@@ -26,7 +29,7 @@ function CommissionItem({ commission }: CommissionProps) {
             <Typography.Title level={5}>{commission.title}</Typography.Title>
             <Row justify="space-between">
               <Col>
-                <Typography.Text className="font-bold">Rp. {commission.price}</Typography.Text>
+                <Typography.Text className="font-bold">Rp. {commissionPrice}</Typography.Text>
               </Col>
               <Col>
                 <Rate disabled defaultValue={3} className="text-xs" />

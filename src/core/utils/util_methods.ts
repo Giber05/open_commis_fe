@@ -80,4 +80,5 @@ export class UtilMethods {
         return "default";
     }
   };
+  public static getIndonesianCurrencyFormat = (price: number) => new Intl.NumberFormat("id-ID", { maximumSignificantDigits: 3 }).format(price);
 }

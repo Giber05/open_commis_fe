@@ -3,6 +3,7 @@ import FormItem from "antd/lib/form/FormItem";
 import React, { useEffect } from "react";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
+import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import useEarningHandler from "../balance/use_earning_handler";
 import useWithdrawalHandler from "./use_withdrawal_handler";
 
@@ -25,14 +26,15 @@ function WithdrawalPage() {
   useEffect(() => {
     getDestinationCode();
   }, []);
-
+  
+  const balance = UtilMethods.getIndonesianCurrencyFormat(illustratorsBalance?.balance!);
   if (isDestinationCodeLoading) return <CircularLoadingIndicator />;
   return (
     <div className="bg-white">
       <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Penarikan Saldo</h2>
         <div className="mx-auto text-center">
-          <Typography.Text className="font-bold text-base text-cyan-500"> Saldo Anda Sekarang: Rp. {illustratorsBalance?.balance}</Typography.Text>
+          <Typography.Text className="font-bold text-base text-cyan-500"> Saldo Anda Sekarang: Rp. {balance}</Typography.Text>
         </div>
         <div className="w-11/12 sm:w-5/6 md:w-3/4 xl:w-1/2 m-auto text-center ">
           <Form layout="vertical" className="text-sm font-semibold" name="withdraw-form" validateMessages={validateMessages} onFinish={withdrawBalance}>
@@ -60,6 +62,7 @@ function WithdrawalPage() {
                 }}
                 className="form-style-blue"
                 placeholder="Masukan jumlah yang akan ditarik"
+                prefix="Rp."
               />
             </FormItem>
             <FormItem name="withdraw_button" className="flex text-center align-middle items-center mx-auto justify-center">

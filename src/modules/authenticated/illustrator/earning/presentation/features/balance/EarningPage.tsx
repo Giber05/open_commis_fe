@@ -17,6 +17,7 @@ function EarningPage() {
   useEffect(() => {
     getWithdrawalHistory();
   }, []);
+  const balance = UtilMethods.getIndonesianCurrencyFormat(illustratorsBalance?.balance!);
 
   return (
     <div className="bg-white">
@@ -24,7 +25,7 @@ function EarningPage() {
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Total Pendapatan Anda</h2>
         <div className="h-1/4">
           <Card loading={isLoadingBalance} title="Saldo Anda Sekarang" className="w-full form-style-blue min-h-full text-center">
-            <Typography.Text className="font-bold text-lg">Rp. {illustratorsBalance?.balance}</Typography.Text>
+            <Typography.Text className="font-bold text-lg">Rp. {balance}</Typography.Text>
           </Card>
         </div>
         <div className="mx-auto my-4 flex justify-center">
@@ -63,7 +64,13 @@ function EarningPage() {
                 return <Typography.Text>{withdrawDate}</Typography.Text>;
               }}
             />
-            <Column title="Jumlah penarikan" render={(text, record: any) => <Typography.Text>Rp. {record.amount}</Typography.Text>} />
+            <Column
+              title="Jumlah penarikan"
+              render={(text, record: any) => {
+                let amount = UtilMethods.getIndonesianCurrencyFormat(record?.amount);
+                return <Typography.Text>Rp. {amount}</Typography.Text>;
+              }}
+            />
             <Column
               title="No. Tujuan"
               render={(text, record: any) => {

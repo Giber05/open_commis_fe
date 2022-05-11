@@ -14,6 +14,8 @@ type OrderProps = {
 function OrderItem({ order }: OrderProps): JSX.Element {
   const { isLoading } = useConsumerOrderListHandler();
   let statusColor = UtilMethods.matchStatusColor(order.status);
+  const grandTotal = UtilMethods.getIndonesianCurrencyFormat(order?.grandTotal)
+
   return (
     <Card
       loading={isLoading}
@@ -41,7 +43,7 @@ function OrderItem({ order }: OrderProps): JSX.Element {
           <Tag color={statusColor} className="text-xs mb-2 sm:text-sm md:text-base lg:text-lg">
             {UtilMethods.translateOrderStatus(order.status)}
           </Tag>
-          <Typography className="text-2xl mb-1 sm:text-lg lg:text-2xl font-bold">Rp. {order.grandTotal}</Typography>
+          <Typography className="text-2xl mb-1 sm:text-lg lg:text-2xl font-bold">Rp. {grandTotal}</Typography>
         </Col>
         <Col span={10}>
           <div className="text-right">
