@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, Card, Divider, Rate, Row, Typography, Image } from "antd";
 import useComPostsHandler from "../use_composts_handler";
 import CommissionPost from "../../../../data/models/compost_list/commission_posts";
+import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 
 const { Meta } = Card;
 
@@ -11,7 +12,7 @@ type CommissionProps = {
 function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
   const { isLoadingComPosts } = useComPostsHandler();
   const { commission } = commissionPost;
-
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price);
   return (
     <Card
       className="comic-shadow hover-scale-up"
@@ -39,10 +40,10 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
       <div className="">
         <Row justify="space-between">
           <div>
-            <Typography.Text className="font-bold text-base sm:text-xl">Rp. {commission.price}</Typography.Text>
+            <Typography.Text className="font-bold text-base sm:text-xl">Rp. {commissionPrice}</Typography.Text>
           </div>
           <div>
-            <Rate  disabled value={commission.overallRating} className="text-xs sm:text-sm" />
+            <Rate disabled value={commission.overallRating} className="text-xs sm:text-sm" />
           </div>
         </Row>
       </div>

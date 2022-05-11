@@ -9,6 +9,8 @@ type ComPostProps = {
   commission: CommissionPost;
 };
 function ComPostTab({ commission }: ComPostProps) {
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price)
+
   return (
     <div>
       <Row gutter={[8, 16]}>
@@ -39,7 +41,7 @@ function ComPostTab({ commission }: ComPostProps) {
                 </Typography.Text>
               </Col>
               <Col span={16} className="leading-none">
-                <Typography.Text className="text-[10px] mb-1 sm:text-[11px] md:text-xs lg:text-sm xl:text-base  font-semibold">Rp. {commission?.price}</Typography.Text>
+                <Typography.Text className="text-[10px] mb-1 sm:text-[11px] md:text-xs lg:text-sm xl:text-base  font-semibold">Rp. {commissionPrice}</Typography.Text>
               </Col>
             </Row>
             <Row justify="center" className="my-2">
