@@ -47,7 +47,6 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
 
     if (response.status >= 200 && response.status <= 210) {
       const body = JSON.stringify(response.data);
-      console.log("Body register => ", { body });
       return UserModel.fromJson(body);
     }
     throw new BaseException({ message: response.data.error });
@@ -63,7 +62,6 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
         },
       },
     });
-    console.log("LOGOUT ", { response });
 
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data;
