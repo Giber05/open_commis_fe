@@ -40,7 +40,7 @@ function IllustratorsPortofolioPage() {
         <div className="mx-auto text-center ">
           <Typography.Title level={2}>
             {illustratorsPortofolio?.name}
-            <CheckCircleFilled style={{ color: "#1890ff" }} />
+            {illustratorsPortofolio?.emailVerified ? <CheckCircleFilled style={{ color: "#1890ff" }} /> : null}
           </Typography.Title>
           <div className="md:w-1/2 mx-auto">
             <div className={`${illustratorsPortofolio?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>

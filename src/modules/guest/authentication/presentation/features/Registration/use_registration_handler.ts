@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message, notification } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../../../core/utils/redux";
@@ -41,8 +41,9 @@ function useRegistrationHandler(): RegistrationController {
         success: async (value) => {
           navigate("/auth/registration/success");
         },
-        error: async (error) => {
-          console.log({ error });
+        error:  (error) => {
+          notification.error({ message: error.exception.message, placement: "topRight", duration: 5 });
+
         },
       });
     }, 1000);

@@ -75,7 +75,7 @@ function Portofolio() {
         </div>
         <div className="mx-auto text-center">
           <Typography.Title level={2}>
-            {illustratorProfile?.name} <CheckCircleFilled style={{ color: "#1890ff" }} />
+            {illustratorProfile?.name} {illustratorProfile?.emailVerified ? <CheckCircleFilled style={{ color: "#1890ff" }} /> : null}
           </Typography.Title>
           <div className="md:w-1/2 mx-auto">
             <div className={`${illustratorProfile?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>

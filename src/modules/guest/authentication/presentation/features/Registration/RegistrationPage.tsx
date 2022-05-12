@@ -1,5 +1,5 @@
-import {  UploadOutlined } from "@ant-design/icons";
-import { Button,  Form, Input, message, Radio, Typography, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Form, Input, message, Radio, Typography, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
 import { Link } from "react-router-dom";
 import SuccessButton from "../../../../../../core/common_components/buttons/SuccessButton";
@@ -7,7 +7,7 @@ import RegistrationContainer from "./components/RegistrationContainer";
 import useRegistrationHandler from "./use_registration_handler";
 
 function RegistrationPage() {
-  const {isLoadingUser, onFormSubmitted} = useRegistrationHandler()
+  const { isLoadingUser, onFormSubmitted } = useRegistrationHandler();
 
   const getFile = (e: any) => {
     console.log("Upload event:", e);
@@ -38,6 +38,21 @@ function RegistrationPage() {
     const imgWindow = window.open(src);
     imgWindow?.document.write(image.outerHTML);
   };
+
+  const validateMessages = {
+    required: "${label} wajib diisi!",
+    string: {
+      range: "${label} harus berisi minimal ${min} karakter, maksimal ${max} karakter",
+    },
+    types: {
+      email: "Masukan ${label} yang valid!",
+      number: "${label} bukan inputan yang valid!",
+    },
+    number: {
+      range: "${label} harus >= ${min} atau <= ${max}",
+    },
+  };
+
   return (
     <RegistrationContainer>
       <div
@@ -49,44 +64,60 @@ function RegistrationPage() {
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">OpenCommiss</h2>
         <Typography className="text-center my-3 text-black text-lg font-bold">Registrasi Akun</Typography>
 
-        <Form layout="vertical" onFinish={onFormSubmitted} name="registration_form" className="max-w-md m-auto font-semibold">
-          <Form.Item name="profilePicture"  label="Foto Profile" getValueFromEvent={getFile}>
+        <Form layout="vertical" validateMessages={validateMessages} onFinish={(values)=>console.log(values)} name="registration_form" className="max-w-md m-auto font-semibold">
+          {/* <Form.Item name="profilePicture"  label="Foto Profile" getValueFromEvent={getFile}>
             <Upload onPreview={onPreview} className="flex justify-center items-center" name="profile_picture" listType="picture-card" accept=".png,.jpg,.jpeg" beforeUpload={beforeUpload} maxCount={1}>
               <Button icon={<UploadOutlined />} />
             </Upload>
-          </Form.Item>
-          <Form.Item name="role" label="Jenis User" className="mt-6 mb-3" rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>
+          </Form.Item> */}
+          <Form.Item name="role" label="Jenis User" className="mt-6 mb-3" rules={[{ required: true }]}>
             <Radio.Group>
               <Radio value="illustrator">Ilustrator</Radio>
               <Radio value="consumer">Konsumen</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item className="" label="Nama" rules={[{ required: true, message: "Nama wajib diisi!" }]} name="name">
+          <Form.Item
+            className=""
+            label="Nama"
+            rules={[
+              { required: true,},
+              { max: 50, message: "Nama maksimal 50 karakter" },
+            ]}
+            name="name"
+          >
             <Input className="form-style" />
           </Form.Item>
-          <Form.Item className="" label="Username" rules={[{ required: true, message: "Password wajib diisi!" }]} name="username">
+          <Form.Item
+            className=""
+            label="Username"
+            rules={[
+              { required: true, },
+              { max: 25, message: "Username maksimal 25 karakter" },
+            ]}
+            name="username"
+          >
             <Input className="form-style" />
           </Form.Item>
           <Form.Item
             label="Email"
             rules={[
-              { required: true, message: "Email wajib diisi" },
-              { type: "email", message: "Masukan email yang valid" },
+              { required: true, type: "email" },
+              { max: 100, message: "Email maksimal 100 karakter" },
             ]}
             name="email"
           >
             <Input className="form-style" />
           </Form.Item>
-          <Form.Item className="" label="Password" rules={[{ required: true, message: "Password wajib diisi!" }]} name="password">
+          <Form.Item className="" label="Password" rules={[{ required: true, type: "string", max: 25, min: 8 }]} name="password">
             <Input.Password className="form-style " />
           </Form.Item>
-          <Form.Item className="" label="No. Telephone" rules={[{ required: true, message: "No. Telephone wajib diisi!" }]} name="phone">
+          <Form.Item className="" label="No. Telephone"rules={[{ required: true, type: "string", max: 13, min: 11 }]} name="phone">
             <Input className="form-style w-full " />
           </Form.Item>
 
           <div className="mx-auto justify-center flex">
             <Form.Item className="mt-3 mb-1 text-center ">
-              <SuccessButton  loading={isLoadingUser} htmlType="submit" title="Register akun" block />
+              <SuccessButton loading={isLoadingUser} htmlType="submit" title="Register akun" block />
             </Form.Item>
           </div>
           <Form.Item className="text-center font-bold ">
@@ -98,7 +129,6 @@ function RegistrationPage() {
             </span>
           </Form.Item>
         </Form>
-        
       </div>
     </RegistrationContainer>
   );

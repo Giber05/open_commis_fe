@@ -14,7 +14,7 @@ export class RegisterUser {
       username: params.username,
       password: params.password,
       role:params.role,
-      phone:params.role,
+      phone:params.phone,
       profilePicture:params.profilePicture,});
   }
 } 
