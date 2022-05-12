@@ -7,12 +7,12 @@ import ResultSuccess from "../../../../../../../../core/common_components/feedba
 import { runFireworks } from "../../../../../../../../core/utils/fireworks/fireworks";
 
 function OrderSuccessPage() {
-  const {orderId} = useParams()
+  const { orderId } = useParams();
 
   useEffect(() => {
     runFireworks();
   }, []);
-  return(
+  return (
     <div className="bg-white" style={{ minHeight: "60vh" }}>
       <div
         className="mt-10 shadow-xl"
@@ -43,13 +43,13 @@ function OrderSuccessPage() {
             color: "#324d67",
           }}
         >
-         Terimakasih atas pembelian Anda!
+          Terimakasih atas pembelian Anda!
         </h2>
         <p className="text-sm sm:text-base font-semibold ">Cek kotak pesan email anda untuk melihat invoice.</p>
         <p className="text-sm sm:text-base font-semibold text-center m-2 mt-8">
-        Jika Anda memiliki pertanyaan, silahkan email
+          Jika Anda memiliki pertanyaan, silahkan email
           <a className="ml-1" style={{ color: "#f02d34" }} href="mailto:opencommiss@gmail.com">
-          opencommiss@gmail.com
+            opencommiss@gmail.com
           </a>
         </p>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center" className="my-2 ">
@@ -59,7 +59,7 @@ function OrderSuccessPage() {
             </Link>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12}>
-            <Link to={`/consumer/order/${orderId}/payment-success`}>
+            <Link to={`/consumer/order/${orderId}`}>
               <Button className="comic-shadow-btn bg-gray-50 text-submit hover:bg-submit hover:text-white border-submit rounded-full mt-5 md:mt-0">Lihat Pesanan</Button>
             </Link>
           </Col>
@@ -68,6 +68,5 @@ function OrderSuccessPage() {
     </div>
   );
 }
-
 
 export default OrderSuccessPage;

@@ -1,3 +1,4 @@
+import {  message, notification } from "antd";
 import { useSelector } from "react-redux";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reducers/common_reducer";
@@ -8,19 +9,17 @@ import { isAuthLoading, selectAuth, userLogin } from "../../reducers/auth_reduce
 export type LoginController = {
   isLoadingUser: boolean;
   navigate: NavigateFunction;
-  error: string;
   onFinish: (values: { email: string; password: string; role: string }) => void;
-  clearError: () => void;
 };
 
 function useLoginHandler(): LoginController {
   const dispatch = useAppDispatch();
   const { isLoadingUser } = useSelector(selectAuth);
-  const { error } = useSelector(selectCommon);
   const login = new Login();
   const navigate = useNavigate();
 
   const onFinish = (values: { email: string; password: string; role: string }) => {
+    message.loading("Loading ... ")
     dispatch(isAuthLoading(true));
     dispatch(fetchError(""));
     setTimeout(async () => {
@@ -36,23 +35,19 @@ function useLoginHandler(): LoginController {
             navigate("/");
           }
         },
-        error: async (error) => {
-          dispatch(fetchError(error.exception.message));
+        error: (error) => {
+          notification.error({ message: error.exception.message, placement: "topRight", duration: 5 });
         },
       });
-    });
+    }, 1000);
   };
 
-  const clearError = () => {
-    dispatch(fetchError(""));
-  };
+
 
   return {
     isLoadingUser,
     navigate,
     onFinish,
-    error,
-    clearError,
   };
 }
 
