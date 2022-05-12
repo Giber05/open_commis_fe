@@ -91,24 +91,20 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
 
   public async login(params: { email: string; password: string; role: string }): Promise<UserModel> {
     let loginURL = `${NetworkConstant.baseUrl}auth/login?role=${params.role}`;
-    try {
-      const response = await this.baseClient.postWithoutCookie({
-        url: loginURL,
-        body: {
-          email: params.email,
-          password: params.password,
-        },
-      });
+    const response = await this.baseClient.postWithoutCookie({
+      url: loginURL,
+      body: {
+        email: params.email,
+        password: params.password,
+      },
+    });
 
-      if (response.status >= 200 && response.status <= 210) {
-        const body = JSON.stringify(response.data);
+    if (response.status >= 200 && response.status <= 210) {
+      const body = JSON.stringify(response.data);
 
-        return UserModel.fromJson(body);
-      }
-      throw new BaseException({ message: response.data.error });
-    } catch (error: any) {
-      throw new BaseException({ message: error });
+      return UserModel.fromJson(body);
     }
+    throw new BaseException({ message: response.data.error });
   }
 }
 export default AuthRemoteDSImpl;

@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Col, Typography, Row, Image, Radio, Alert, Avatar } from "antd";
+import { Button, Checkbox, Form, Input, Col, Typography, Row, Image, Radio, Alert, Avatar, FormInstance } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
@@ -7,17 +7,15 @@ import AssetConstants from "../../../../../../core/constants/asset_constants";
 import LoginContainer from "./components/LoginContainer";
 import styles from "./SignInPage.module.css";
 import useLoginHandler from "./use_login_handler";
-
+type LoginFormType = {
+  email: string;
+  password: string;
+  role: string;
+};
 function LoginPage() {
-  const { isLoadingUser, onFinish, error, clearError } = useLoginHandler();
-  const loginFailed = () => {
-    if (error != "") {
-      clearError();
-      return Promise.reject(error);
-    }
-    return Promise.resolve();
-  };
-
+  const { isLoadingUser, onFinish,  } = useLoginHandler();
+  const [formRef] = Form.useForm<LoginFormType>();
+  
   return (
     <LoginContainer>
       <div
@@ -30,7 +28,7 @@ function LoginPage() {
           <Image preview={false} className="text-center mx-auto flex h-36  sm:h-44 md:h-52  lg:h-60 xl:h-64 " src={`${AssetConstants.iconURL}/logo/open_commiss.png`}></Image>
         </div>
         <Typography className="text-sm text-center ">Comission Post adalah sebuah aplikasi yang mempertemukan antara para illustrator digital dan konsumen</Typography>
-        <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto font-semibold ">
+        <Form form={formRef} layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto font-semibold ">
           <Form.Item name="role" label="Jenis User" className="mt-6 mb-3 " rules={[{ required: true, message: "Pilih salah satu jenis user!" }]}>
             <Radio.Group>
               <Radio value="illustrator">Ilustrator</Radio>
@@ -43,14 +41,6 @@ function LoginPage() {
             rules={[
               { required: true, message: "Email wajib diisi" },
               { type: "email", message: "Masukan email yang valid" },
-              () => ({
-                validator(rule, value) {
-                  if (error == "") {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(error);
-                },
-              }),
             ]}
             name="email"
           >
@@ -63,9 +53,6 @@ function LoginPage() {
               {
                 required: true,
                 message: "Password wajib diisi!",
-              },
-              {
-                validator: (_, __) => loginFailed(),
               },
             ]}
             name="password"
