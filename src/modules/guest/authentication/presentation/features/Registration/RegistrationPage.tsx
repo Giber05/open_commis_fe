@@ -64,7 +64,7 @@ function RegistrationPage() {
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">OpenCommiss</h2>
         <Typography className="text-center my-3 text-black text-lg font-bold">Registrasi Akun</Typography>
 
-        <Form layout="vertical" validateMessages={validateMessages} onFinish={(values)=>console.log(values)} name="registration_form" className="max-w-md m-auto font-semibold">
+        <Form layout="vertical" validateMessages={validateMessages} onFinish={onFormSubmitted} name="registration_form" className="max-w-md m-auto font-semibold">
           {/* <Form.Item name="profilePicture"  label="Foto Profile" getValueFromEvent={getFile}>
             <Upload onPreview={onPreview} className="flex justify-center items-center" name="profile_picture" listType="picture-card" accept=".png,.jpg,.jpeg" beforeUpload={beforeUpload} maxCount={1}>
               <Button icon={<UploadOutlined />} />
