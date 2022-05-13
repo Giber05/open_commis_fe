@@ -8,7 +8,7 @@ import { ComPostDetailModel } from "../../models/compost_detail/compost_detail_m
 import ComPostModel from "../../models/compost_list/compost_model";
 
 export interface ComPostRemoteDS {
-  getComPostList(params: { page: number; limit: number; categoryId?: number; keyword?: string }): Promise<ComPostModel>;
+  getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<ComPostModel>;
   getComPostDetail(compostId: number): Promise<ComPostDetailModel>;
   getCategories(): Promise<CategoryModel[]>;
   searchComPosts(params: { keyword: string }): Promise<ComPostModel>;
@@ -58,30 +58,18 @@ class ComPostRemoteDSImpl implements ComPostRemoteDS {
   }
 
   async getComPostList(params: { page: number; limit: number; categoryId?: number; keyword?: string }): Promise<ComPostModel> {
-    let searchComPostsURL = NetworkConstant.baseUrl + "commissions/search";
     let getComPostListURL = NetworkConstant.baseUrl + "commissions";
-    let response;
-    if (params.keyword != null || params.keyword != undefined) {
-      response = await this.baseClient.getWithoutCookie({
-        url: searchComPostsURL,
-        configs: {
-          params: {
-            q: params.keyword,
-          },
+
+    const response = await this.baseClient.getWithoutCookie({
+      url: getComPostListURL,
+      configs: {
+        params: {
+          limit: params.limit,
+          page: params.page,
+          category: params.categoryId,
         },
-      });
-    } else {
-      response = await this.baseClient.getWithoutCookie({
-        url: getComPostListURL,
-        configs: {
-          params: {
-            limit: params.limit,
-            page: params.page,
-            category: params.categoryId,
-          },
-        },
-      });
-    }
+      },
+    });
 
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data;
