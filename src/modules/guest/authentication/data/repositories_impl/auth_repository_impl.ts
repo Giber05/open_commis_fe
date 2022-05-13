@@ -46,7 +46,7 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
           username: params.username,
           password: params.password,
           role: params.role,
-          phone: params.role,
+          phone: params.phone,
           profilePicture: params.profilePicture,
         });
         if (resource instanceof UserModel) {
