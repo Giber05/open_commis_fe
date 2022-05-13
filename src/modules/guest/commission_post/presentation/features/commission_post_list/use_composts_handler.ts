@@ -70,6 +70,8 @@ function useComPostsHandler(): ComPostsController {
 
   const searchComPosts = (keyword: string) => {
     dispatch(isLoading(true));
+    dispatch(setPagination({ currentPage: 1, pageSize: 0, totalData: 0, totalPage: 0 }));
+
     setTimeout(async () => {
       const resource = await searchComPostsUC.execute({ keyword: keyword });
 

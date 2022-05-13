@@ -22,7 +22,7 @@ function CommissionPostListPage() {
   useEffect(() => {
     getCommissionPosts();
     window.scrollTo(0, 0);
-  }, [selectedCategory, onSearch, pagination?.currentPage]);
+  }, [selectedCategory, pagination?.currentPage]);
   useEffect(() => {
     getCategories();
   }, []);
@@ -38,7 +38,7 @@ function CommissionPostListPage() {
             allowClear
             onSearch={(keyword,e) => {
               if (keyword != "") {
-                e?.preventDefault()
+                // e?.preventDefault()
                 setOnSearch(true);
                 searchComPosts(keyword);
               }

@@ -13,7 +13,7 @@ export class UploadFileValidation {
     const isValidFileSize = params.file.size / 1024 / 1024 < params.maxFileSize;
 
     if (!isValidFileSize) {
-      message.error(`Image must smaller than ${params.maxFileSize}MB!`);
+      message.error(`Image must smaller than ${params.maxFileSize} MB!`);
       return false;
     }
     return isValidFormatFile && isValidFileSize;
