@@ -79,7 +79,8 @@ function useComPostsHandler(): ComPostsController {
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
-          dispatch(setPagination({ currentPage: 1, pageSize: value.data.data.pagination.pageSize, totalData: value.data.data.pagination.totalData, totalPage: value.data.data.pagination.totalPage }));
+          dispatch(setPagination(value.data.data.pagination));
+          // dispatch(setPagination({ currentPage: 1, pageSize: value.data.data.pagination.pageSize, totalData: value.data.data.pagination.totalData, totalPage: value.data.data.pagination.totalPage }));
           dispatch(fetchError(""));
         },
         error: (error) => {

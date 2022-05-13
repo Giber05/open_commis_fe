@@ -149,12 +149,12 @@ function EditComPost() {
             </Card>
             <Col>
               <Typography.Text italic className="text-blue-400 font-semibold">
-                *Jumlah File yang dapat di unggah adalah 5 file
+                *Jumlah File yang dapat di unggah adalah 4 file
               </Typography.Text>
             </Col>
             <Col>
               <Typography.Text italic className="text-blue-400 font-semibold">
-                *Maksimal 2mb Per gambar
+                *Maksimal 5mb Per gambar
               </Typography.Text>
             </Col>
           </Col>
