@@ -8,15 +8,15 @@ import { ComPostDetailModel } from "../../models/compost_detail/compost_detail_m
 import ComPostModel from "../../models/compost_list/compost_model";
 
 export interface ComPostRemoteDS {
-  getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<ComPostModel>;
+  getComPostList(params: { page: number; limit: number; categoryId?: number; keyword?: string }): Promise<ComPostModel>;
   getComPostDetail(compostId: number): Promise<ComPostDetailModel>;
   getCategories(): Promise<CategoryModel[]>;
-  searchComPosts(params: { keyword: string; }): Promise<ComPostModel>;
+  searchComPosts(params: { keyword: string }): Promise<ComPostModel>;
 }
 
 class ComPostRemoteDSImpl implements ComPostRemoteDS {
   private baseClient = new BaseClient();
-  async searchComPosts(params: { keyword: string; }): Promise<ComPostModel> {
+  async searchComPosts(params: { keyword: string }): Promise<ComPostModel> {
     let searchComPostsURL = NetworkConstant.baseUrl + "commissions/search";
     const response = await this.baseClient.getWithoutCookie({
       url: searchComPostsURL,
@@ -33,7 +33,7 @@ class ComPostRemoteDSImpl implements ComPostRemoteDS {
     }
     throw new BaseException({ message: response.data.error });
   }
-  
+
   async getCategories(): Promise<CategoryModel[]> {
     let getCategoriesURL = NetworkConstant.baseUrl + "categories";
 
@@ -57,18 +57,31 @@ class ComPostRemoteDSImpl implements ComPostRemoteDS {
     throw new BaseException({ message: response.data.error });
   }
 
-  async getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<ComPostModel> {
+  async getComPostList(params: { page: number; limit: number; categoryId?: number; keyword?: string }): Promise<ComPostModel> {
+    let searchComPostsURL = NetworkConstant.baseUrl + "commissions/search";
     let getComPostListURL = NetworkConstant.baseUrl + "commissions";
-    const response = await this.baseClient.getWithoutCookie({
-      url: getComPostListURL,
-      configs: {
-        params: {
-          limit: params.limit,
-          page: params.page,
-          category: params.categoryId,
+    let response;
+    if (params.keyword != null || params.keyword != undefined) {
+      response = await this.baseClient.getWithoutCookie({
+        url: searchComPostsURL,
+        configs: {
+          params: {
+            q: params.keyword,
+          },
         },
-      },
-    });
+      });
+    } else {
+      response = await this.baseClient.getWithoutCookie({
+        url: getComPostListURL,
+        configs: {
+          params: {
+            limit: params.limit,
+            page: params.page,
+            category: params.categoryId,
+          },
+        },
+      });
+    }
 
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data;

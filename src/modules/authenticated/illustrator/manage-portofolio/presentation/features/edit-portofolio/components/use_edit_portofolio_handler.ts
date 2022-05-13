@@ -141,7 +141,7 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
     
     dispatch(fetchUploadedFilePath(null));
 
-    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 10 });
+    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 5 });
     if (!isValidFile) {
       onError("File is not valid");
       return;

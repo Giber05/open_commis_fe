@@ -13,14 +13,14 @@ interface Props extends UploadProps {
 const beforeUpload = (file: File) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg";
   if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
+    message.error("You can only upload JPG/PNG/JPEG file!");
     return Upload.LIST_IGNORE;
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  const isLt2M = file.size / 1024 / 1024 < 5;
   console.log(`${file.size}`);
 
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    message.error("Image must smaller than 5MB!");
     return Upload.LIST_IGNORE;
   }
   return isJpgOrPng && isLt2M;
@@ -41,7 +41,6 @@ const onPreview = async (file: any) => {
 };
 
 function UploadWithCrop(props: Props) {
-  const { authUser } = useSelector(selectAuth);
   const {uploadFile} = useCreateComPostHandler()
   return (
     <ImgCrop
