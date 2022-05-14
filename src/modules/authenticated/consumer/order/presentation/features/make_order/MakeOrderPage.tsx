@@ -15,7 +15,6 @@ function MakeOrderPage() {
     setDefaultFileList(fileList);
   };
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -29,7 +28,6 @@ function MakeOrderPage() {
         return Upload.LIST_IGNORE
       }
       const isLt2M = file.size / 1024 / 1024 < 10;
-      console.log(`${file.size}`);
     
       if (!isLt2M) {
         message.error("File must smaller than 10MB!");

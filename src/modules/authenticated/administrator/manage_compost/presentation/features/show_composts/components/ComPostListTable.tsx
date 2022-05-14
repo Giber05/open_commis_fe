@@ -8,7 +8,6 @@ import CommissionPosts from "../../../../../../../guest/commission_post/data/mod
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 
 function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-  console.log("params", pagination, filters, sorter, extra);
 }
 
 type ComPostsProps = {

@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
@@ -32,18 +33,12 @@ function useHomePageHandler(): HomePageController {
 
           dispatch(fetchCommissionPosts(value.data));
         },
-        error: async (error) => {
-          console.log({ error });
+        error:  (error) => {
+          message.error(error.exception.message)
         },
       });
     });
   };
-
-  // useEffect(() => {
-  //   console.log("useeffect called");
-
-  //   getCommissionPosts("ilustratorId");
-  // }, []);
 
   return {
     isLoadingComPost,

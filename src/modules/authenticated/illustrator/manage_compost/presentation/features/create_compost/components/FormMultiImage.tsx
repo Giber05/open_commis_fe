@@ -17,7 +17,6 @@ const beforeUpload = (file: File) => {
     return Upload.LIST_IGNORE;
   }
   const isLt2M = file.size / 1024 / 1024 < 5;
-  console.log(`${file.size}`);
 
   if (!isLt2M) {
     message.error("Image must smaller than 5MB!");

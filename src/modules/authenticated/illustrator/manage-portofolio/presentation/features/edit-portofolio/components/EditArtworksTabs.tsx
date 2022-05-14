@@ -10,7 +10,6 @@ import useEditPortofolioHandler from "./use_edit_portofolio_handler";
 
 const { confirm } = Modal;
 const normFile = (e: any) => {
-  console.log("Upload event:", e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -26,7 +25,6 @@ function EditArtworks() {
   const handleOnChange = ({ file, fileList, event }: any) => {
     // console.log(file, fileList, event);
     //Using Hooks to update the state to the current filelist
-    console.log({file});
     
     setDefaultFileList(fileList);
     //filelist - [{uid: "-1",url:'Some url to image'}]

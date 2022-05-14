@@ -26,13 +26,11 @@ function OpenCommissIlustrator() {
       dispatch(updateWindowWidth(window.innerWidth));
     });
   }, [dispatch]);
-  console.log("User Role =>");
 
   async function verifyToken() {
     const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
     resource.whenWithResult({
       success: async (value) => {
-        console.log("Token Valid => ", value.data.data.tokenValid);
       },
       error: (error) => {
         message.error("Verify token error: " + error.exception.message);
