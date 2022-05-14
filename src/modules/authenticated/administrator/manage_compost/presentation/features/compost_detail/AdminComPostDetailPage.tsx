@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
+import NotFound from "../../../../../../../core/common_components/NotFound";
 import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import { CommissionPostDetail } from "../../../../../../guest/commission_post/data/models/compost_detail/commission_post_detail";
 import DetailCommission from "./components/DetailCommission";
@@ -16,6 +17,9 @@ function AdminComPostDetailPage() {
     getComPostDetail();
   }, []);
   if (isLoadingComPost) return <CircularLoadingIndicator />;
+  else if(commissionPost ==null){
+    return <NotFound/>
+  }
   
   return (
     <>

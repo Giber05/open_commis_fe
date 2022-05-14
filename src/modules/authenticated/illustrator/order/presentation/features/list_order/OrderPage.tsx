@@ -1,8 +1,4 @@
-import { Table, Tag } from 'antd';
-import Column from 'antd/lib/table/Column';
-import React from 'react';
 import OrderTable from './components/OrderTable';
-import useIllustratorOrderListHandler from './use_illustrator_order_list_handler';
 
 function OrderPage() {
   return (

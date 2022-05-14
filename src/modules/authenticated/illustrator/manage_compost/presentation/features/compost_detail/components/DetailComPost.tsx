@@ -23,7 +23,7 @@ function DetailComPost() {
     <Card className="comic-shadow rounded-2xl">
       <Row>
         <Col xs={24} sm={24} lg={12} className="text-base leading-10">
-          <Typography.Text className="">Pesanan: 10</Typography.Text>
+          <Typography.Text className="">Pesanan: {commissionPostDetail?.ordersCompleted}</Typography.Text>
           <br />
           <span>
             Status : <Typography.Text className={` ${status?"text-green-500":"text-red-500"} font-semibold`}>{commissionPostDetail?.status}</Typography.Text>
