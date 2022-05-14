@@ -3,7 +3,9 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
+import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
 import FullWidthCorousel from "../../../../../../../core/common_components/main_app/image_shower/FullWidthCorousel";
+import NotFound from "../../../../../../../core/common_components/NotFound";
 import DetailComPost from "./components/DetailComPost";
 import OrdersTable from "./components/OrdersTable";
 import Reviews from "./components/Reviews";
@@ -15,7 +17,8 @@ function ManageComPostDetail(): JSX.Element {
     getComPostDetail();
     window.scroll(0, 0);
   }, [commissionPostDetail?.status]);
-
+  if (isLoadingComPost) return <CircularLoadingIndicator />;
+  else if (commissionPostDetail == null) return <NotFound />;
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Commission Post Anda</h2>

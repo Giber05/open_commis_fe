@@ -17,12 +17,12 @@ function RequestDetailSection({ detail }: RequestDetailProps) {
           <div className="text-center">
             <Typography.Text className="text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg  font-bold">Deskripsi pesanan yang diminta</Typography.Text>
           </div>
-          <div className="text-justify mt-2">
+          <div className="text-justify mt-2 p-3">
             <Typography.Text className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg  ">{detail?.requestDetail}</Typography.Text>
           </div>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-          <div className="text-center mt-5">
+          <div className="text-center mt-5 p-1">
             {detail?.referenceImage !== null ? (
               detail?.referenceImage!.includes(".pdf") == true ? (
                 <div className="mt-6">

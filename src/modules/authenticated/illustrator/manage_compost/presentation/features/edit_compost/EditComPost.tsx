@@ -32,6 +32,9 @@ function EditComPost() {
 
   const validateMessages = {
     required: "${label} wajib diisi!",
+    string: {
+      range: "${label} harus berisi minimal ${min} karakter, maksimal ${max} karakter",
+    },
     types: {
       email: "${label} bukan inputan yang valid!",
       number: "${label} bukan inputan yang valid!",
@@ -83,7 +86,7 @@ function EditComPost() {
       <Form layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={editComPost} initialValues={initialValues}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col xs={24} sm={12} lg={12}>
-            <Form.Item name={["compost", "name"]} label="Judul" rules={[{ required: true }, { max: 25 }]}>
+            <Form.Item name={["compost", "name"]} label="Judul" rules={[{ required: true, type: "string", max: 50, min: 15 }]}>
               <Input className="form-style-blue" />
             </Form.Item>
             <Form.Item name={["compost", "category"]} label="Kategori" rules={[{ required: true }]}>
@@ -93,7 +96,7 @@ function EditComPost() {
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item name={["compost", "tags"]} label="Tags">
+            <Form.Item rules={[{ required: true }]} name={["compost", "tags"]} label="Tags">
               <Select
                 className="form-style-blue"
                 mode="tags"
@@ -118,7 +121,7 @@ function EditComPost() {
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item name={["compost", "duration"]} label="Durasi" rules={[{ type: "number", min: 1, max: 30, required: true }]}>
+            <Form.Item name={["compost", "duration"]} label="Estimasi Lama Pengerjaan" rules={[{ type: "number", min: 1, max: 30, required: true }]}>
               <InputNumber addonAfter="Hari" className="form-style-blue pr-2" bordered={false} />
             </Form.Item>
             <Form.Item name={["compost", "price"]} label="Harga" rules={[{ type: "number", min: 10000, max: 9999999999, required: true }]}>
@@ -132,7 +135,7 @@ function EditComPost() {
                 }}
               />
             </Form.Item>
-            <Form.Item name={["compost", "description"]} label="Description">
+            <Form.Item rules={[{ required: true }]} name={["compost", "description"]} label="Deskripsi">
               <Input.TextArea autoSize={true} className="form-style-blue" />
             </Form.Item>
           </Col>
@@ -142,9 +145,7 @@ function EditComPost() {
             </Typography.Title>
             <Card className="border-black rounded-2xl bg-white my-2">
               <Form.Item rules={[{ required: true }]} name="upload_image" label="Upload gambar" valuePropName="fileList" getValueFromEvent={normFile}>
-                <UploadWithCrop onChange={handleOnChange}>
-                  {defaultFileList.length<4 && (<PlusOutlined />)}
-                </UploadWithCrop>
+                <UploadWithCrop onChange={handleOnChange}>{defaultFileList.length < 4 && <PlusOutlined />}</UploadWithCrop>
               </Form.Item>
             </Card>
             <Col>

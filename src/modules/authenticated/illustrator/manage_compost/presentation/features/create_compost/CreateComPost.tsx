@@ -67,10 +67,10 @@ function CreateComPost() {
       <Form layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={createComPost}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col xs={24} sm={12} lg={12}>
-            <Form.Item name={["compost", "title"]} label="Judul" rules={[{ required: true, type: "string", max: 80, min: 15 }]}>
+            <Form.Item name={["compost", "title"]} label="Judul" rules={[{ required: true, type: "string", max: 50, min: 15 }]}>
               <Input className="form-style-blue" />
             </Form.Item>
-            <Form.Item name={["compost", "category"]} label="Kategory" rules={[{ required: true }]}>
+            <Form.Item name={["compost", "category"]} label="Kategori" rules={[{ required: true }]}>
               <Select className="form-style-blue" bordered={false}>
                 {categories.map((category) => (
                   <Option key={category.id}>{category.categoryName}</Option>
@@ -102,7 +102,7 @@ function CreateComPost() {
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item name={["compost", "duration"]} label="Duration" rules={[{ type: "number", min: 1, max: 30, required: true }]}>
+            <Form.Item name={["compost", "duration"]} label="Estimasi lama pengerjaan" rules={[{ type: "number", min: 1, max: 30, required: true }]}>
               <InputNumber addonAfter="Hari" className="form-style-blue pr-2" bordered={false} />
             </Form.Item>
             <Form.Item name={["compost", "price"]} label="Harga" rules={[{ type: "number", min: 10000, max: 9999999999, required: true }]}>
@@ -116,7 +116,7 @@ function CreateComPost() {
                 }}
               />
             </Form.Item>
-            <Form.Item rules={[{ required: true }]} name={["compost", "description"]} label="Description">
+            <Form.Item rules={[{ required: true }, { max: 255, message: "Deskripsi Commission maksimal berjumlah 255 karakter" }]} name={["compost", "description"]} label="Deskripsi">
               <Input.TextArea autoSize={true} className="form-style-blue" />
             </Form.Item>
           </Col>
@@ -126,7 +126,7 @@ function CreateComPost() {
             </Typography.Title>
             <Card className="border-black rounded-2xl bg-white my-2">
               <Form.Item rules={[{ required: true }]} name="upload_image" label="Upload gambar" valuePropName="fileList" getValueFromEvent={normFile}>
-                <UploadWithCrop>{defaultFileList.length < 4 && <PlusOutlined />}</UploadWithCrop>
+                <UploadWithCrop onChange={handleOnChange}>{defaultFileList.length < 4 && <PlusOutlined />}</UploadWithCrop>
               </Form.Item>
             </Card>
             <Col>

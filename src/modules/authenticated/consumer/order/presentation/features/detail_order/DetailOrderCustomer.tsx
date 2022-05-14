@@ -14,6 +14,7 @@ import DisabledButton from "../../../../../../../core/common_components/buttons/
 import Icon, { BankOutlined, BankTwoTone, CreditCardOutlined, CreditCardTwoTone, HomeOutlined, ProfileTwoTone, ShopTwoTone, WalletTwoTone } from "@ant-design/icons";
 import PaymentMethodModal from "./component/PaymentMethodModal";
 import FinishOrderModal from "./component/FinishOrderModal";
+import NotFound from "../../../../../../../core/common_components/NotFound";
 
 function DetailOrderCustomer() {
   const { getOrderDetail, isLoading, orderDetail, changePaymentModalVisibility, changeFinishOrderModalVisibility } = useConsumerOrderDetailHandler();
@@ -21,7 +22,6 @@ function DetailOrderCustomer() {
   useEffect(() => {
     getOrderDetail();
     window.scroll(0, 0);
-    
   }, []);
 
   const showPaymentModal = () => {
@@ -60,6 +60,9 @@ function DetailOrderCustomer() {
   };
 
   if (isLoading) return <CircularLoadingIndicator />;
+  else if (orderDetail == null) {
+    return <NotFound />;
+  }
 
   return (
     <div className="max-w-3xl mx-auto py-3  sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">

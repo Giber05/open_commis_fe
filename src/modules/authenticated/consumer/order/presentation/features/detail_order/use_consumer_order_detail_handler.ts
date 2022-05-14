@@ -45,14 +45,11 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
 
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
 
           dispatch(fetchOrderDetail(value.data.data));
-          dispatch(fetchError(""));
         },
         error: (error) => {
-          dispatch(fetchError(error.exception.message));
-          console.log({ error });
+          message.error(error.exception.message)
         },
       });
     });

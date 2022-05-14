@@ -56,7 +56,7 @@ function OrderDetail({ order }: OrderDetailProps) {
       <div className="text-center my-3">
         <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg">Deskripsi Permintaan</Typography.Text>
       </div>
-      <div className="text-justify">
+      <div className="text-justify pb-3">
         <Typography>{order?.detail.requestDetail}</Typography>
       </div>
       <div className="text-center">
