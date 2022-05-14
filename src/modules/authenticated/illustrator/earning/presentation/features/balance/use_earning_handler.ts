@@ -33,7 +33,6 @@ function useEarningHandler(): EarningController {
       resource.whenWithResult({
         success: async (value) => {
           dispatch(fetchIllustratorsBalance(value.data.data));
-          console.log({ value });
         },
         error: async (error) => {
           message.error(error.exception.message);

@@ -14,7 +14,6 @@ function DetailComPost() {
   const onClick = useCallback(() => {
     onChangeComPostStatus();
   }, [commissionPostDetail?.status]);
-  console.log(commissionPostDetail?.status);
   
 
   const status = commissionPostDetail?.status === "OPEN" ? true : false;

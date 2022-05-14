@@ -64,7 +64,6 @@ function EditComPost() {
   };
 
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -78,7 +77,6 @@ function EditComPost() {
   useEffect(() => {
     getCategories();
   }, []);
-  console.log("EDITPAGE");
 
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -126,6 +124,7 @@ function EditComPost() {
             </Form.Item>
             <Form.Item name={["compost", "price"]} label="Harga" rules={[{ type: "number", min: 10000, max: 9999999999, required: true }]}>
               <InputNumber
+                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 prefix="Rp."
                 className="rounded-2xl pr-2 bg-[#e1f4f9]"
                 style={{

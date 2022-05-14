@@ -73,6 +73,7 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
           console.log({ value });
           const win = window.open(value.data.data.paymentLink, "_blank");
           win?.focus();
+          navigate(0)
         },
         error: (error) => {
           message.error(error.exception.message);

@@ -45,7 +45,6 @@ function CreateComPost() {
   };
 
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -109,6 +108,7 @@ function CreateComPost() {
               <InputNumber
                 prefix="Rp."
                 className="rounded-2xl pr-2 bg-[#e1f4f9]"
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 style={{
                   width: "100%",
                   border: "1px solid black",

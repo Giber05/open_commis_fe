@@ -41,9 +41,13 @@ function DetailOrderCustomer() {
       case OrderStatus.Created:
         return <DisabledButton title="Lakukan Pembayaran" rounded />;
       case OrderStatus.Accepted:
-        return <InfoButton size="large" title="Lakukan Pembayaran" rounded onClick={showPaymentModal} />;
+        if (orderDetail?.payment== null ) {
+          return <InfoButton size="large" title="Lakukan Pembayaran" rounded onClick={showPaymentModal} />;
+        }
+        return <InfoButton onClick={() => handleMakePayment(orderDetail?.payment?.paymentLink!)} title="Selesaikan Pembayaran" rounded />;
+
       case OrderStatus.NotPaid:
-        return <InfoButton onClick={() => handleMakePayment(orderDetail?.payment?.paymentLink!)} title="Lakukan Pembayaran" rounded />;
+        return <InfoButton onClick={() => handleMakePayment(orderDetail?.payment?.paymentLink!)} title="Selesaikan Pembayaran" rounded />;
       case OrderStatus.OnWork:
         return <DisabledButton title="Selesaikan Pesanan" rounded />;
       case OrderStatus.Sent:

@@ -32,7 +32,6 @@ function DrawerSection() {
     dispatch(setIllustratorCurrentMenu(e.key));
   };
   useMemo(() => {
-    console.log("Usememo");
     
     const selectedCurrentMenu = (menu: string) => {
       if (menu.includes("/manage-compost")) {

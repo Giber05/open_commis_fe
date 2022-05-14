@@ -41,13 +41,13 @@ function useAdminComPostListHandler(): AdminComPostsController {
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
 
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
           dispatch(fetchError(""));
         },
         error: (error) => {
+          message.error(error.exception.message)
           dispatch(fetchError(error.exception.message));
         },
       });
@@ -84,7 +84,6 @@ function useAdminComPostListHandler(): AdminComPostsController {
       dispatch(setIsLoadingComPosts(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log(value.data.data);
           message.success(value.data.message, 2);
           navigate(0);
         },

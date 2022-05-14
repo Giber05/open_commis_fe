@@ -35,7 +35,6 @@ const TestCropImage = () => {
       return false
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
-    console.log(`${file.size}`);
   
     if (!isLt2M) {
       message.error("Image must smaller than 2MB!");

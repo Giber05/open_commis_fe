@@ -14,7 +14,6 @@ function EditPortofolio() {
 
   const { TabPane } = Tabs;
   const callback = (key: any) => {
-    console.log(key);
   };
   if (isLoading) return <CircularLoadingIndicator />;
   return (

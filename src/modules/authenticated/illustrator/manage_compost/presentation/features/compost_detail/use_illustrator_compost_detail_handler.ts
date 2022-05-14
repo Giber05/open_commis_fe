@@ -50,13 +50,13 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
       dispatch(isLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log(value.data.data);
 
           dispatch(fetchCommissionPostDetail(value.data.data));
           dispatch(fetchError(""));
         },
         error: (error) => {
           dispatch(fetchError(error.exception.message));
+          message.error(error.exception.message)
         },
       });
     });
@@ -75,8 +75,8 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
           dispatch(fetchError(""));
         },
         error: (error) => {
+          message.error(error.exception.message)
           dispatch(fetchError(error.exception.message));
-          console.log({ error });
         },
       });
     });

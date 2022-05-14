@@ -39,13 +39,10 @@ function useAdminComPostDetailHandler(): AdminComPostDetailController {
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionDetail(value.data.data));
-          console.log({ value });
 
-          dispatch(fetchError(""));
         },
         error: (error) => {
           message.error(error.exception.message);
-          dispatch(fetchError(error.exception.message));
         },
       });
     });
@@ -60,7 +57,6 @@ function useAdminComPostDetailHandler(): AdminComPostDetailController {
       dispatch(setIsDeleteComPostLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log(value.data.data);
           message.success(value.data.message, 2);
           navigate(-1);
         },

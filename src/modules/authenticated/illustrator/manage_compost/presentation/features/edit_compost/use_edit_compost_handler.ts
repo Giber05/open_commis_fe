@@ -103,15 +103,12 @@ function useEditComPostHandler(): EditComPostController {
     message.loading({ content: "Loading...", key });
     let imageFiles = event.upload_image.map((file: any) => file.originFileObj);
     let commission = event.compost;
-    console.log({ imageFiles });
 
     const formData = new FormData();
     imageFiles.map((image: any, index: any) => {
       let i = index + 1;
       formData.append("image_" + i, image);
-      console.log({ image });
     });
-    console.log({ formData });
 
     formData.append("title", commission.name);
     formData.append("description", commission.description);

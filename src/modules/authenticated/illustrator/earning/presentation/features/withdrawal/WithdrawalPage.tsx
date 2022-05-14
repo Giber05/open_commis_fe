@@ -60,6 +60,7 @@ function WithdrawalPage() {
                 style={{
                   width: "100%",
                 }}
+                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 className="form-style-blue"
                 placeholder="Masukan jumlah yang akan ditarik"
                 prefix="Rp."

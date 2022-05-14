@@ -36,7 +36,6 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
   const editProfile = (event: any) => {
     message.loading({ content: "Loading..." });
 
-    console.log({ event });
     const formData = new FormData();
     if (event.profile_picture != undefined) {
       let profilePicture = event.profile_picture.map((file: any) => file.originFileObj);
@@ -55,7 +54,6 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
         token: authUser?.data.token!,
         formData: formData,
       });
-      console.log({ resource });
 
       dispatch(setisLoadingUpdateProfile(false));
       resource.whenWithResult({
@@ -73,7 +71,6 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
   };
 
   const addArtwork = (event: any) => {
-    console.log({ uploadedFilePath });
 
     if (uploadedFilePath == null) {
       message.error("Gagal Menambahkan Karya!");
@@ -137,7 +134,6 @@ function useEditPortofolioHandler(): EditPortofolioConstroller {
   const uploadFile = async (options: any) => {
     const { onSuccess, onError, file, onProgress } = options;
     const allowedFileType = ["image/png", "image/jpg", "image/jpeg"];
-    console.log({options});
     
     dispatch(fetchUploadedFilePath(null));
 

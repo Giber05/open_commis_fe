@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useSelector } from "react-redux";
 import { fetchError } from "../../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
@@ -32,15 +33,14 @@ function useConsumerOrderListHandler(): OrdersController {
 
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
 
           dispatch(fetchOrders(value.data.data.orders));
           dispatch(setPagination(value.data.data.pagination));
           dispatch(fetchError(""));
         },
         error: (error) => {
+          message.error(error.exception.message)
           dispatch(fetchError(error.exception.message));
-          console.log({ error });
         },
       });
     });

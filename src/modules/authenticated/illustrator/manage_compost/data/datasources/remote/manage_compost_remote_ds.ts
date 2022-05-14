@@ -34,7 +34,6 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
     });
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data.data;
-      console.log({ body });
 
       return DeleteComPostModel.fromJson(response.data);
     }
@@ -55,7 +54,6 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
     });
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data.data;
-      console.log({ body });
 
       return ComPostDetailModel.fromJson(response.data);
     }
@@ -76,7 +74,6 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
       },
     });
     if (response.status >= 200 && response.status <= 210) {
-      console.log("Change status", response.data);
       
       return ComPostDetailModel.fromJson(response.data);
     }
@@ -98,7 +95,6 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
     });
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data.data;
-      console.log({ body });
 
       return ComPostDetailModel.fromJson(response.data);
     }
