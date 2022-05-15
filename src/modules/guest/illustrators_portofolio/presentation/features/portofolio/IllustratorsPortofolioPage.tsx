@@ -8,6 +8,7 @@ import DangerButton from "../../../../../../core/common_components/buttons/Dange
 import InfoButton from "../../../../../../core/common_components/buttons/InfoButton";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
+import NotFound from "../../../../../../core/common_components/NotFound";
 import AssetConstants from "../../../../../../core/constants/asset_constants";
 import { TestItem } from "../../../../commission_post/presentation/features/commission_post_list/components/TestItem";
 import IllustratorsArtworksSection from "./components/IllustratorsArtworksSection";
@@ -24,6 +25,9 @@ function IllustratorsPortofolioPage() {
   }, []);
 
   if (isLoadingPortofolio) return <CircularLoadingIndicator />;
+  else if (illustratorsPortofolio == null) {
+    return <NotFound />;
+  }
   console.log(illustratorsPortofolio?.id);
   let commissions = illustratorsPortofolio?.commissions;
   let artworks = illustratorsPortofolio?.artworks;
