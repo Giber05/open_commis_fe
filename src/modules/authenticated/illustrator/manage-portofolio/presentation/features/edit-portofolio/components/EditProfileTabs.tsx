@@ -13,18 +13,18 @@ let index = 0;
 const { Option } = Select;
 
 type EditProfileProps = {
-  illustratorProfile:ManagePortofolio
-}
-function EditProfileTabs({illustratorProfile}:EditProfileProps) {
-  const {editProfile,isLoadingUpdateProfile} = useEditPortofolioHandler()
-  
+  illustratorProfile: ManagePortofolio;
+};
+function EditProfileTabs({ illustratorProfile }: EditProfileProps) {
+  const { editProfile, isLoadingUpdateProfile } = useEditPortofolioHandler();
+
   const initialValues = {
     name: illustratorProfile?.name,
     whatsapp: illustratorProfile?.phone,
-    instagram: illustratorProfile?.portofolio?.instagramAcc??"",
-    facebook: illustratorProfile?.portofolio?.facebookAcc??"",
-    bio: illustratorProfile?.portofolio?.bio??"",
-    twitter: illustratorProfile?.portofolio?.twitterAcc??"",
+    instagram: illustratorProfile?.portofolio?.instagramAcc ?? "",
+    facebook: illustratorProfile?.portofolio?.facebookAcc ?? "",
+    bio: illustratorProfile?.portofolio?.bio ?? "",
+    twitter: illustratorProfile?.portofolio?.twitterAcc ?? "",
     id: illustratorProfile?.id,
   };
 
@@ -35,6 +35,9 @@ function EditProfileTabs({illustratorProfile}:EditProfileProps) {
       number: "${label} bukan inputan yang valid!",
     },
     number: {
+      range: "${label} harus >= ${min} atau <= ${max}",
+    },
+    string: {
       range: "${label} harus >= ${min} atau <= ${max}",
     },
   };
@@ -64,8 +67,7 @@ function EditProfileTabs({illustratorProfile}:EditProfileProps) {
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Edit Profile</h2>
       <Form layout="vertical" name="profile_form" validateMessages={validateMessages} onFinish={editProfile} initialValues={initialValues}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className="flex-row-reverse" justify="center">
-          
-        <Col xs={24} sm={12} lg={12}>
+          <Col xs={24} sm={12} lg={12}>
             <div className="mx-auto text-center">
               <Typography.Title level={5} className="my-4 text-center">
                 Foto Profil
@@ -81,26 +83,25 @@ function EditProfileTabs({illustratorProfile}:EditProfileProps) {
             </div>
           </Col>
           <Col xs={24} sm={12} lg={12}>
-            <Form.Item name="name" label="Nama Ilustrator" rules={[{ required: true }]}>
-              <Input disabled className="form-style-blue" />
+            <Form.Item name="name" label="Nama Ilustrator" >
+              <Input disabled className="form-style-blue" style={{ backgroundColor: "#E1F4F9", border: "1px solid black", boxShadow: "0.15rem 0.15rem 0 #222", color: "black" }} />
             </Form.Item>
-            <Form.Item name="whatsapp" label="WhatsApp" rules={[{ required: true }]}>
+            <Form.Item name="whatsapp" label="WhatsApp" rules={[{ required: true, type: "string", min: 11, max: 13 }]}>
               <Input className="form-style-blue w-full" />
             </Form.Item>
-            <Form.Item name="facebook" label="Facebook">
+            <Form.Item name="facebook" label="Facebook"  rules={[{ max: 50, message: "Maksimal berjumlah 50 karakter",  }]}>
               <Input className="form-style-blue" />
             </Form.Item>
-            <Form.Item name="instagram" label="Instagram">
+            <Form.Item name="instagram" label="Instagram" rules={[{ max: 50, message: "Maksimal berjumlah 50 karakter",  }]}>
               <Input className="form-style-blue" />
             </Form.Item>
-            <Form.Item name="twitter" label="Twitter">
+            <Form.Item name="twitter" label="Twitter" rules={[{ max: 50, message: "Maksimal berjumlah 50 karakter",  }]}>
               <Input className="form-style-blue" />
             </Form.Item>
             <Form.Item name="bio" label="Bio">
               <Input.TextArea autoSize={true} className="form-style-blue" />
             </Form.Item>
           </Col>
-          
         </Row>
         <Form.Item>
           <div className="mx-auto my-3 flex justify-center">

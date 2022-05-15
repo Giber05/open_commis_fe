@@ -15,7 +15,7 @@ import useAddReviewHandler from './use_add_review_handler';
       >
         <Typography className="text-center my-3 text-black text-2xl font-bold">Formulir Ulasan</Typography>
         <Form layout="vertical" onFinish={addReview} name="normal_login" className="max-w-md m-auto font-semibold">
-          <Form.Item className="" label="Rating" name="rating">
+          <Form.Item className="" label="Rating" name="rating" rules={[{ required: true, message:"Rating wajib diisi!" }]}>
              <Rate className="text-4xl  sm:text-4xl lg:text-6xl " value={0} />
           </Form.Item>
           <Form.Item className="" label="Komentar"  name="comment">

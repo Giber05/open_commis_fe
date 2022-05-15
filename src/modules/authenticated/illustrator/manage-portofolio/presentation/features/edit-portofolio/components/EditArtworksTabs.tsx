@@ -90,7 +90,7 @@ function EditArtworks() {
               </Button>
             </ImageWithCrop>
           </Form.Item>
-          <Form.Item name="description" label="Deskripsi Gambar">
+          <Form.Item name="description" label="Deskripsi Gambar" rules={[{ max: 255, message: "Maksimal berjumlah 255 karakter",  }]}>
             <Input.TextArea autoSize={true} className="form-style-blue" />
           </Form.Item>
           <Form.Item>
