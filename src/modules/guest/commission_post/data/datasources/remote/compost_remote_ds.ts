@@ -1,5 +1,3 @@
-import ListBody from "antd/lib/transfer/ListBody";
-import axios from "axios";
 import NetworkConstant from "../../../../../../core/constants/network_constant";
 import BaseException from "../../../../../../core/error/base_exception";
 import BaseClient from "../../../../../../core/utils/base_client";
