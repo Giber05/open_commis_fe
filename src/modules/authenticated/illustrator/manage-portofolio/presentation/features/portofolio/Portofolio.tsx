@@ -20,7 +20,7 @@ function Portofolio() {
   useEffect(() => {
     getIllustratorProfile();
     window.scroll(0, 0);
-  }, []);
+  }, [illustratorProfile?.available]);
 
   const onClick = useCallback(() => {
     changeAvailabilityStatus();

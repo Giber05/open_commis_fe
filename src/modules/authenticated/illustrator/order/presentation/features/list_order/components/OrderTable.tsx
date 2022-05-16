@@ -25,8 +25,8 @@ function OrderTable() {
         }}
         components={{
           body: {
-            row: CustomRow
-          }
+            row: CustomRow,
+          },
         }}
         dataSource={orders}
         scroll={{ x: "100vw" }}
@@ -35,13 +35,13 @@ function OrderTable() {
       >
         <Column title="Commission" width={30} render={(text, record: any) => <Typography.Text>{record.commission.title}</Typography.Text>} />
         <Column title="Nama Konsumen" width={30} render={(text, record: any) => <Typography.Text>{record.consumer.name}</Typography.Text>} />
-        <Column title="Tanggal Pemesanan" dataIndex="orderDate" width={30} />
+        <Column title="Tanggal Pemesanan" render={(text, record: any) => <Typography.Text>{UtilMethods.getIndonesianFormatDate(record.orderDate)}</Typography.Text>} width={30} />
         <Column
           title="Status"
           width={150}
           render={(text, record: any) => {
             let color = UtilMethods.matchStatusColor(record.status);
-            let status = UtilMethods.translateOrderStatus(record.status)
+            let status = UtilMethods.translateOrderStatus(record.status);
             return <Tag color={color}>{status}</Tag>;
           }}
         />

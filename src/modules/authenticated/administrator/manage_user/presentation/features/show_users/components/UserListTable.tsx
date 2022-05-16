@@ -2,64 +2,9 @@ import React from "react";
 import { Avatar, Button, Row, Table, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
-
-const columns: any = [
-  {
-    title: "Nama pengguna",
-    render:(value:any,record:any)=>{
-      return <Row >
-        <Avatar size={50} icon={<UserOutlined/>} className="mr-2" />
-        <Typography.Text className="my-auto" strong>{record.name}</Typography.Text>
-      </Row>
-    },
-    width:200,
-    fixed: 'left',
-    sorter: (a: any, b: any) => a.name.length - b.name.length,
-  },
-  {
-    title: "Jenis Pengguna",
-    dataIndex: "role",
-    filters: [
-      {
-        text: "Ilustrator",
-        value: "illustrator",
-      },
-      {
-        text: "Konsumen",
-        value: "consumer",
-      },
-      {
-        text: "Administrator",
-        value: "administrator",
-      },
-    ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value: any, record: any) => record.role.indexOf(value) === 0,
-  },
-  {
-    title: "Tanggal dibuat",
-    dataIndex: "createdAt",
-    defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.createdAt.length - b.createdAt.length,
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-  },
-
-  {
-    title: "Nomor Telepon",
-    dataIndex: "phoneNumber",
-    sorter: (a: any, b: any) => a.phoneNumber.length - b.phoneNumber.length,
-  },
-  {
-    title: "Aksi",
-    fixed: 'right',
-    width:50,
-    render: () => <Button type="text" style={{ color: "red"}} icon={<DeleteOutlined />}></Button>,
-  },
-];
+import { UserList } from "../../../../data/models/user_list/user_list";
+import useAdminUserListHandler from "../use_admin_user_list_handler";
+import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 
 const data: any = [
   {
@@ -100,13 +45,99 @@ const data: any = [
   },
 ];
 
-function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-}
-function UserListTable() {
-  return (
-    <div >
+function onChange(pagination: any, filters: any, sorter: any, extra: any) {}
 
-      <Table pagination={{showSizeChanger:true}} indentSize={10} scroll={{ x: 768 }} size="middle" columns={columns} dataSource={data} onChange={onChange} />
+type UserListProps = {
+  users: UserList[];
+};
+function UserListTable({ users }: UserListProps) {
+  const { isGetUsersLoading, pagination, onChangePage } = useAdminUserListHandler();
+
+  const columns: any = [
+    {
+      title: "Nama pengguna",
+      render: (value: any, record: any) => {
+        return (
+          <Row>
+            <Avatar size={50} src={record.profilePicture} className="mr-2" />
+            <Typography.Text className="my-auto" strong>
+              {record.name}
+            </Typography.Text>
+          </Row>
+        );
+      },
+      width: 200,
+      fixed: "left",
+      sorter: (a: any, b: any) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      },
+    },
+    {
+      title: "Jenis Pengguna",
+      dataIndex: "role",
+      filters: [
+        {
+          text: "Ilustrator",
+          value: "illustrator",
+        },
+        {
+          text: "Konsumen",
+          value: "consumer",
+        },
+        {
+          text: "Administrator",
+          value: "administrator",
+        },
+      ],
+      onFilter: (value: any, record: any) => record.role.indexOf(value) === 0,
+    },
+    {
+      title: "Tanggal dibuat",
+      render: (value: any, record: any) => UtilMethods.getIndonesianFormatDate(record.createdAt),
+
+      defaultSortOrder: "descend",
+      sorter: (a: any, b: any) => +new Date(a.createdAt) - +new Date(b.createdAt),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+
+    {
+      title: "Nomor Telepon",
+      dataIndex: "phone",
+    },
+    {
+      title: "Aksi",
+      fixed: "right",
+      width: 50,
+      render: () => <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>,
+    },
+  ];
+
+  return (
+    <div>
+      <Table
+        loading={isGetUsersLoading}
+        pagination={{
+          showSizeChanger: false,
+          onChange: onChangePage,
+          pageSize: pagination?.pageSize,
+          total: pagination?.totalData,
+          current: pagination?.currentPage,
+        }}
+        indentSize={10}
+        scroll={{ x: 768 }}
+        size="middle"
+        columns={columns}
+        dataSource={users}
+      />
     </div>
   );
 }

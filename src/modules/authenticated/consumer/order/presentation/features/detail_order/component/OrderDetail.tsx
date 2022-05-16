@@ -9,7 +9,7 @@ type OrderDetailProps = {
 };
 function OrderDetail({ order }: OrderDetailProps) {
   const statusColor = UtilMethods.matchStatusColor(order?.status!);
-  const deadlineDate = order?.payment == null ? order?.commission.durationTime + " Hari" : UtilMethods.getDeadlineDate(order?.payment?.paymentDate, order?.commission.durationTime);
+  const deadlineDate = order?.payment?.paymentDate == null ? order?.commission.durationTime + " Hari" : UtilMethods.getDeadlineDate(order?.payment?.paymentDate, order?.commission.durationTime);
   return (
     <Card
       className="comic-shadow sm:shrink-0"

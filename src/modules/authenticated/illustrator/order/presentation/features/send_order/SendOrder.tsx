@@ -1,13 +1,9 @@
 import { InboxOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, InputNumber, message, Radio, Typography, Upload, UploadProps } from "antd";
-import axios, { AxiosRequestConfig } from "axios";
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
-import ConfigConstants from "../../../../../../../core/constants/config_constants";
-import NetworkConstant from "../../../../../../../core/constants/network_constant";
-import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
+
 import useSendOrder from "./use_send_order_handler";
 
 const { Dragger } = Upload;

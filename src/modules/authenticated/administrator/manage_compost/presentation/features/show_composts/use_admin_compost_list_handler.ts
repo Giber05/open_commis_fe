@@ -36,7 +36,7 @@ function useAdminComPostListHandler(): AdminComPostsController {
   const getCommissionPosts = () => {
     dispatch(setIsLoadingComPosts(true));
     setTimeout(async () => {
-      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 15 });
+      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 2 });
       dispatch(setIsLoadingComPosts(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({

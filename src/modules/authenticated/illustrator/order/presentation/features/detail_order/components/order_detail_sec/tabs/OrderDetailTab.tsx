@@ -13,7 +13,7 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
   const orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!);
   const paymentStatus = orderDetail?.payment != null ? "Sudah Dibayar" : "Belum Dibayar";
   const statusColor = UtilMethods.matchStatusColor(orderDetail?.status!);
-  const orderDeadline = orderDetail?.payment != null ? UtilMethods.getDeadlineDate(orderDetail?.payment.paymentDate!, orderDetail?.commission.durationTime!):"-";
+  const orderDeadline = orderDetail?.payment?.paymentDate != null ? UtilMethods.getDeadlineDate(orderDetail?.payment.paymentDate!, orderDetail?.commission.durationTime!):"-";
   const orderCreated = UtilMethods.getIndonesianFormatDate(orderDetail?.orderDate!);
   const paymentDate = orderDetail?.payment != null ? UtilMethods.getIndonesianFormatDate(orderDetail?.payment.paymentDate) : "-";
   const totalPayment = UtilMethods.getIndonesianCurrencyFormat(orderDetail?.grandTotal)
