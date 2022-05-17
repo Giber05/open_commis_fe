@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import { Avatar, Button, message, Row, Table, Typography } from "antd";
+import { Avatar, Button, message, Popconfirm, Row, Table, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, QuestionCircleOutlined, UserOutlined } from "@ant-design/icons";
 import CustomRow from "./CustomRow";
 import useAdminComPostListHandler from "../use_admin_compost_list_handler";
 import CommissionPosts from "../../../../../../../guest/commission_post/data/models/compost_list/commission_posts";
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 
-function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-}
+function onChange(pagination: any, filters: any, sorter: any, extra: any) {}
 
 type ComPostsProps = {
   composts: CommissionPosts[];
@@ -88,7 +87,19 @@ function ComPostListTable({ composts }: ComPostsProps) {
       title: "Aksi",
       fixed: "right",
       width: 50,
-      render: (value: any, record: any) => <Button onClick={() => deleteComPost(record.id)} type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>,
+      render: (value: any, record: any) => {
+        return (
+          <Popconfirm
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            title="Apakah Anda yakin akan menghapus commission post ini?"
+            placement="leftTop"
+            onConfirm={(e) => deleteComPost(record.id)}
+            onVisibleChange={() => console.log("visible change")}
+          >
+            <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined className="text-xl"/>}></Button>
+          </Popconfirm>
+        );
+      },
     },
   ];
 

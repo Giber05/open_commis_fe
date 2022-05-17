@@ -36,7 +36,7 @@ function useAdminComPostListHandler(): AdminComPostsController {
   const getCommissionPosts = () => {
     dispatch(setIsLoadingComPosts(true));
     setTimeout(async () => {
-      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 2 });
+      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 10 });
       dispatch(setIsLoadingComPosts(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({
@@ -77,6 +77,7 @@ function useAdminComPostListHandler(): AdminComPostsController {
   };
   
   const deleteComPost = (compostId: number) => {
+    message.loading("Menghapus Commission ...")
     dispatch(setIsLoadingComPosts(true));
     setTimeout(async () => {
       const resource = await AdminDeleteComPostUC.execute({ token: authUser?.data.token!, compostId: compostId });

@@ -124,24 +124,7 @@ function UserListTable({ users }: UserListProps) {
           </Button>
         </div>
       ),
-      // filterMultiple: false,
-      // filters: [
-      //   {
-      //     text: "Ilustrator",
-      //     value: "illustrator",
-      //   },
-      //   {
-      //     text: "Konsumen",
-      //     value: "consumer",
-      //   },
-      // ],
-
-      // onFilter: (value: any, record: any) => {
-      //   console.log({ value });
-
-      //   dispatch(setFilterUser(value));
-      //   return true;
-      // },
+     
     },
     {
       title: "Tanggal dibuat",

@@ -1,4 +1,5 @@
-import { Row, Col, Typography, Card, Result, Button } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { Row, Col, Typography, Card, Result, Button, Popconfirm } from "antd";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
@@ -17,10 +18,10 @@ function AdminComPostDetailPage() {
     getComPostDetail();
   }, []);
   if (isLoadingComPost) return <CircularLoadingIndicator />;
-  else if(commissionPost ==null){
-    return <NotFound/>
+  else if (commissionPost == null) {
+    return <NotFound />;
   }
-  
+
   return (
     <>
       <div className="bg-gradient-to-t from-sky-400 to-primary px-3 md:px-8 h-40" />
@@ -42,9 +43,17 @@ function AdminComPostDetailPage() {
             </Col>
           </Row>
           <div className="text-center mx-auto my-6 ">
-            <Button loading={isDeleteComPostLoading} onClick={deleteComPost} size="large" className="hover:bg-reject hover:text-white text-reject border-reject rounded-xl comic-shadow-btn">
-              HAPUS COMMISSION POST
-            </Button>
+            <Popconfirm
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+              title="Apakah Anda yakin akan menghapus commission post ini?"
+              placement="leftTop"
+              onConfirm={(e) => deleteComPost()}
+              onVisibleChange={() => console.log("visible change")}
+            >
+              <Button loading={isDeleteComPostLoading} size="large" className="hover:bg-reject hover:text-white text-reject border-reject rounded-xl comic-shadow-btn">
+                HAPUS COMMISSION POST
+              </Button>
+            </Popconfirm>
           </div>
         </div>
       </div>
@@ -63,7 +72,7 @@ function AdminComPostDetailPage() {
           commissionPost?.reviews?.slice(0, 5).map((review) => <Reviews review={review} />)
         ) : (
           <Card className="mx-auto border-0">
-            <Result  title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
+            <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />
           </Card>
         )}
       </div>
