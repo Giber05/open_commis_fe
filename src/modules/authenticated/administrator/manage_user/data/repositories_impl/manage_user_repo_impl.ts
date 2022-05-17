@@ -14,6 +14,8 @@ export class ManageUserRepoImpl extends BaseRepository implements ManageUserRepo
           role:params.role,
           limit:params.limit,
           page:params.page,
+          keyword:params.keyword,
+
         });
         if (resource instanceof UserListModel) return Resource.success({ data: resource });
         return Resource.error({ exception: resource });

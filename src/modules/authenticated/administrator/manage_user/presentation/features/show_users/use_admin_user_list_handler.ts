@@ -15,18 +15,26 @@ type UserListController = {
   getAllUser: () => void;
   pagination: PaginationModel | null;
   onChangePage: ((page: number, pageSize: number) => void) | undefined;
+  filterUser: string | null | undefined;
+  searchText: string | undefined;
 };
 function useAdminUserListHandler(): UserListController {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const getAllUserUC = new GetAllUser();
   const { authUser } = useSelector(selectAuth);
-  const { pagination, userList, initLoading, isGetUsersLoading } = useSelector(selectAdminUserList);
+  const { pagination, userList, initLoading, isGetUsersLoading, filterUser, searchText } = useSelector(selectAdminUserList);
 
   const getAllUser = () => {
     dispatch(setIsGetUsersLoading(true));
     setTimeout(async () => {
-      const resource = await getAllUserUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 10, token: authUser?.data.token! });
+      const resource = await getAllUserUC.execute({
+        page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage,
+        limit: 10,
+        token: authUser?.data.token!,
+        role: filterUser ?? undefined,
+        keyword: searchText,
+      });
       dispatch(setIsGetUsersLoading(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({
@@ -70,6 +78,8 @@ function useAdminUserListHandler(): UserListController {
     pagination,
     onChangePage,
     initLoading,
+    filterUser,
+    searchText,
   };
 }
 export default useAdminUserListHandler;

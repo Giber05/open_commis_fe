@@ -19,7 +19,7 @@
     @apply bg-white rounded-2xl comic-shadow-btn;
   }
   .form-style-blue {
-    @apply bg-[#E1F4F9] rounded-2xl comic-shadow-btn;
+    @apply bg-[#E1F4F9] rounded-2xl comic-shadow-btn ;
   }
   .hide-scroll-bar {
     -ms-overflow-style: none;
@@ -31,6 +31,12 @@
   .hover-scale-up{
     @apply transform transition duration-500 hover:scale-105
   }
+  .custom-filter-dropdown {
+  padding: 8px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
 }
 @layer utilities {
 }

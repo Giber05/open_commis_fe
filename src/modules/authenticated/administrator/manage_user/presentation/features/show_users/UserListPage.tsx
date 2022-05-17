@@ -5,11 +5,11 @@ import UserListTable from "./components/UserListTable";
 import useAdminUserListHandler from "./use_admin_user_list_handler";
 
 function UserListPage() {
-  const { getAllUser, initLoading, pagination, userList } = useAdminUserListHandler();
+  const { getAllUser, initLoading, pagination, userList, filterUser,searchText } = useAdminUserListHandler();
   useEffect(() => {
     getAllUser();
     window.scrollTo(0, 0);
-  }, [pagination?.currentPage]);
+  }, [pagination?.currentPage, filterUser,searchText]);
   if (initLoading) return <CircularLoadingIndicator />;
 
   return (

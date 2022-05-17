@@ -11,6 +11,7 @@ export class GetAllUser {
       role: params.role,
       limit: params.limit,
       page: params.page,
+      keyword:params.keyword
     });
   }
 }

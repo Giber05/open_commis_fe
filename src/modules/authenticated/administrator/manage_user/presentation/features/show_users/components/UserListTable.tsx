@@ -1,59 +1,36 @@
-import React from "react";
-import { Avatar, Button, Row, Table, Typography } from "antd";
+import React, { useState } from "react";
+import { Avatar, Button, Input, Radio, Row, Select, Space, Table, Typography } from "antd";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { UserList } from "../../../../data/models/user_list/user_list";
 import useAdminUserListHandler from "../use_admin_user_list_handler";
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
+import { useAppDispatch } from "../../../../../../../../core/utils/redux";
+import { setFilterUser, setSearchText } from "../../../reducers/user_list_slice";
+import { ColumnType } from "antd/lib/table";
 
-const data: any = [
-  {
-    key: "1",
-    phoneNumber: "0877656556144",
-    name: "Gilang Liberty",
-    createdAt: "05 Mei 2022",
-    email: "exampleEmail@example.com",
-    role: "illustrator",
-    userId: 1123,
-  },
-  {
-    key: "2",
-    phoneNumber: "0477656556544",
-    name: "Ifaldzi alwi",
-    createdAt: "04 April 2022",
-    email: "exampleEmail@example.com",
-    role: "consumer",
-    userId: 1323,
-  },
-  {
-    key: "3",
-    phoneNumber: "0577656556544",
-    name: "Moh. Ichwan",
-    createdAt: "03 Mei 2022",
-    email: "exampleEmail@example.com",
-    role: "administrator",
-    userId: 1523,
-  },
-  {
-    key: "4",
-    phoneNumber: "0877656556544",
-    name: "Gilang Liberty",
-    createdAt: "02 Januari 2022",
-    email: "exampleEmail@example.com",
-    role: "consumer",
-    userId: 1623,
-  },
-];
+const { Option } = Select;
 
 function onChange(pagination: any, filters: any, sorter: any, extra: any) {}
 
 type UserListProps = {
   users: UserList[];
 };
-function UserListTable({ users }: UserListProps) {
-  const { isGetUsersLoading, pagination, onChangePage } = useAdminUserListHandler();
 
-  const columns: any = [
+function UserListTable({ users }: UserListProps) {
+  const { isGetUsersLoading, pagination, onChangePage, searchText, filterUser } = useAdminUserListHandler();
+  const dispatch = useAppDispatch();
+  const [role, setRole] = useState("");
+  const handleSearch = (selectedKeys: any, confirm: any) => {
+    confirm();
+    dispatch(setSearchText(selectedKeys[0]));
+  };
+
+  const handleReset = (clearFilters: any) => {
+    clearFilters();
+    dispatch(setSearchText(""));
+  };
+  const columns: ColumnType<UserList>[] = [
     {
       title: "Nama pengguna",
       render: (value: any, record: any) => {
@@ -79,23 +56,92 @@ function UserListTable({ users }: UserListProps) {
       },
     },
     {
+      title: "Username",
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <div className="custom-filter-dropdown">
+          <Input
+            placeholder={`Cari Username`}
+            className="rounded"
+            value={selectedKeys[0]}
+            onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+            onPressEnter={() => handleSearch(selectedKeys, confirm)}
+            style={{ width: 188, marginBottom: 8, display: "block" }}
+          />
+          <Button className="rounded" type="primary" onClick={() => handleSearch(selectedKeys, confirm)} icon={<SearchOutlined />} size="small" style={{ width: 90, marginRight: 8 }}>
+            Search
+          </Button>
+          <Button className="rounded" onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+            Reset
+          </Button>
+        </div>
+      ),
+      filterIcon: (filtered) => <SearchOutlined />,
+      render: (value: any, record: any) => {
+        return (
+          <Row>
+            <Typography.Text className="my-auto" strong>
+              {record.username}
+            </Typography.Text>
+          </Row>
+        );
+      },
+      width: 200,
+      sorter: (a: any, b: any) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      },
+    },
+
+    {
       title: "Jenis Pengguna",
       dataIndex: "role",
-      filters: [
-        {
-          text: "Ilustrator",
-          value: "illustrator",
-        },
-        {
-          text: "Konsumen",
-          value: "consumer",
-        },
-        {
-          text: "Administrator",
-          value: "administrator",
-        },
-      ],
-      onFilter: (value: any, record: any) => record.role.indexOf(value) === 0,
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <div className="custom-filter-dropdown">
+          <Radio.Group className="block mb-3" onChange={(e) => setRole(e.target.value)} value={role}>
+            <Space direction="vertical">
+              <Radio value="illustrator">Illustrator</Radio>
+              <Radio value="consumer">Konsumen</Radio>
+            </Space>
+          </Radio.Group>
+
+          <Button className="rounded" type="primary" onClick={() => dispatch(setFilterUser(role))} icon={<SearchOutlined />} size="small" style={{ width: 90, marginRight: 8 }}>
+            Search
+          </Button>
+          <Button
+            className="rounded"
+            onClick={() => {
+              setRole("");
+            }}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </div>
+      ),
+      // filterMultiple: false,
+      // filters: [
+      //   {
+      //     text: "Ilustrator",
+      //     value: "illustrator",
+      //   },
+      //   {
+      //     text: "Konsumen",
+      //     value: "consumer",
+      //   },
+      // ],
+
+      // onFilter: (value: any, record: any) => {
+      //   console.log({ value });
+
+      //   dispatch(setFilterUser(value));
+      //   return true;
+      // },
     },
     {
       title: "Tanggal dibuat",
