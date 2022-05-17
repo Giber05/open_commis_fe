@@ -7,6 +7,7 @@ import { UserList } from "../../data/models/user_list/user_list";
 type AdminUserListState = {
   initLoading: boolean;
   isGetUsersLoading: boolean;
+  isDeleteUSerLoading: boolean;
   userList: UserList[];
   pagination: PaginationModel | null;
   filterUser:string | null | undefined;
@@ -15,6 +16,7 @@ type AdminUserListState = {
 
 const initialState: AdminUserListState = {
   isGetUsersLoading: false,
+  isDeleteUSerLoading: false,
   initLoading: true,
   userList: [],
   pagination: {
@@ -36,6 +38,9 @@ export const adminUserListSlice = createSlice({
     },
     setIsGetUsersLoading: (state, action: PayloadAction<boolean>) => {
       state.isGetUsersLoading = action.payload;
+    },
+    setIsDeleteUserLoading: (state, action: PayloadAction<boolean>) => {
+      state.isDeleteUSerLoading = action.payload;
     },
     fetchUserList: (state, action: PayloadAction<UserList[]>) => {
       state.userList = action.payload;
@@ -59,6 +64,7 @@ export const {
   setInitLoading,
   setFilterUser,
   setSearchText,
+  setIsDeleteUserLoading
 } = adminUserListSlice.actions;
 
 export const selectAdminUserList = (state: RootState): AdminUserListState => state.admin_user_list;

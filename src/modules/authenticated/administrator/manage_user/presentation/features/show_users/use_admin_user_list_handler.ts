@@ -5,8 +5,9 @@ import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { UserList } from "../../../data/models/user_list/user_list";
+import { DeleteUser } from "../../../domain/usecases/delete_user";
 import { GetAllUser } from "../../../domain/usecases/get_all_user";
-import { fetchUserList, selectAdminUserList, setInitLoading, setIsGetUsersLoading, setPagination } from "../../reducers/user_list_slice";
+import { fetchUserList, selectAdminUserList, setInitLoading, setIsDeleteUserLoading, setIsGetUsersLoading, setPagination } from "../../reducers/user_list_slice";
 
 type UserListController = {
   initLoading: boolean;
@@ -17,11 +18,13 @@ type UserListController = {
   onChangePage: ((page: number, pageSize: number) => void) | undefined;
   filterUser: string | null | undefined;
   searchText: string | undefined;
+  deleteUser: (params: { userId: number; role: string }) => void;
 };
 function useAdminUserListHandler(): UserListController {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const getAllUserUC = new GetAllUser();
+  const deleteUserUC = new DeleteUser();
   const { authUser } = useSelector(selectAuth);
   const { pagination, userList, initLoading, isGetUsersLoading, filterUser, searchText } = useSelector(selectAdminUserList);
 
@@ -53,23 +56,24 @@ function useAdminUserListHandler(): UserListController {
     dispatch(setPagination({ currentPage: page, pageSize: pageSize }));
   };
 
-  // const deleteComPost = (compostId: number) => {
-  //   dispatch(setIsLoadingComPosts(true));
-  //   setTimeout(async () => {
-  //     const resource = await AdminDeleteComPostUC.execute({ token: authUser?.data.token!, compostId: compostId });
+  const deleteUser = (params: { userId: number; role: string }) => {
+    message.loading("Loading ...")
+    dispatch(setIsDeleteUserLoading(true));
+    setTimeout(async () => {
+      const resource = await deleteUserUC.execute({ token: authUser?.data.token!, id: params.userId, role: params.role });
 
-  //     dispatch(setIsLoadingComPosts(false));
-  //     resource.whenWithResult({
-  //       success: (value) => {
-  //         message.success(value.data.message, 2);
-  //         navigate(0);
-  //       },
-  //       error: (error) => {
-  //         message.error(error.exception.message, 2);
-  //       },
-  //     });
-  //   });
-  // };
+      dispatch(setIsDeleteUserLoading(false));
+      resource.whenWithResult({
+        success: (value) => {
+          message.success(value.data.message, 2);
+          navigate(0);
+        },
+        error: (error) => {
+          message.error(error.exception.message, 2);
+        },
+      });
+    });
+  };
 
   return {
     isGetUsersLoading,
@@ -80,6 +84,7 @@ function useAdminUserListHandler(): UserListController {
     initLoading,
     filterUser,
     searchText,
+    deleteUser,
   };
 }
 export default useAdminUserListHandler;

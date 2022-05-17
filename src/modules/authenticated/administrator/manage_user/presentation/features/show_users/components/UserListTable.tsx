@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Avatar, Button, Input, Radio, Row, Select, Space, Table, Typography } from "antd";
+import { Avatar, Button, Input, Popconfirm, Radio, Row, Select, Space, Table, Typography } from "antd";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { UserList } from "../../../../data/models/user_list/user_list";
 import useAdminUserListHandler from "../use_admin_user_list_handler";
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
@@ -18,7 +18,7 @@ type UserListProps = {
 };
 
 function UserListTable({ users }: UserListProps) {
-  const { isGetUsersLoading, pagination, onChangePage, searchText, filterUser } = useAdminUserListHandler();
+  const { isGetUsersLoading, pagination, onChangePage, deleteUser } = useAdminUserListHandler();
   const dispatch = useAppDispatch();
   const [role, setRole] = useState("");
   const handleSearch = (selectedKeys: any, confirm: any) => {
@@ -162,8 +162,20 @@ function UserListTable({ users }: UserListProps) {
     {
       title: "Aksi",
       fixed: "right",
-      width: 50,
-      render: () => <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>,
+      width: 60,
+      render: (value, record: UserList) => {
+        return (
+          <Popconfirm
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            title="Apakah Anda yakin akan menghapus user ini?"
+            placement="leftTop"
+            onConfirm={(e) => deleteUser({ userId: record.id, role: record.role })}
+            onVisibleChange={() => console.log("visible change")}
+          >
+            <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>
+          </Popconfirm>
+        );
+      },
     },
   ];
 
