@@ -5,18 +5,20 @@ import React from "react";
 import AssetConstants from "../../../../../../../../core/constants/asset_constants";
 import { ReviewList } from "../../../../../../../common/reviews/data/models/review_list";
 import { ReviewModel } from "../../../../../../../guest/commission_post/data/models/review/review_model";
+import useReviewListHandler from "../use_review_list_handler";
 
 type ReviewProps = {
   review: ReviewList;
 };
 function ReviewItem({ review }: ReviewProps) {
+  const { deleteReview } = useReviewListHandler();
   return (
     <div>
       <Row justify="space-between">
         <div>
           <Comment
             author={<a>{review.consumer.name}</a>}
-            avatar={<Avatar  src={review?.consumer?.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : review?.consumer?.profilePicture} alt={review.consumer.username} />}
+            avatar={<Avatar src={review?.consumer?.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : review?.consumer?.profilePicture} alt={review.consumer.username} />}
             content={<p>{review.comment}</p>}
             datetime={
               <Row>
@@ -35,12 +37,11 @@ function ReviewItem({ review }: ReviewProps) {
             icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             title="Apakah Anda yakin akan menghapus ulasan ini?"
             placement="leftTop"
-            onConfirm={(e) => console.log(e)}
+            onConfirm={(e) => deleteReview(review.id)}
             onVisibleChange={() => console.log("visible change")}
           >
             <div className="text-center mx-auto">
-
-            <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} onClick={() => console.log("Dleet review")} />
+              <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} onClick={() => console.log("Dleet review")} />
             </div>
           </Popconfirm>
         </div>

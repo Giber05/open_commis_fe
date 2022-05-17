@@ -3,11 +3,13 @@ import { Avatar, Button, Comment, Divider, Popconfirm, Rate, Row, Tooltip } from
 import moment from "moment";
 import React from "react";
 import { ReviewModel } from "../../../../../../../guest/commission_post/data/models/review/review_model";
+import useReviewListHandler from "../../../../../manage_review/presentation/features/show_reviews/use_review_list_handler";
 
 type ReviewProps = {
   review: ReviewModel;
 };
 function Reviews({ review }: ReviewProps) {
+  const{deleteReview} = useReviewListHandler()
   return (
     <div>
       <Row justify="space-between">
@@ -33,7 +35,7 @@ function Reviews({ review }: ReviewProps) {
             icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             title="Apakah Anda yakin akan menghapus ulasan ini?"
             placement="leftTop"
-            onConfirm={(e) => console.log(e)}
+            onConfirm={(e) => deleteReview(review.id)}
             onVisibleChange={() => console.log("visible change")}
           >
             <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} onClick={() => console.log("Dleet review")} />
