@@ -7,12 +7,16 @@ import { UserList } from "../../data/models/user_list/user_list";
 type AdminUserListState = {
   initLoading: boolean;
   isGetUsersLoading: boolean;
+  isDeleteUSerLoading: boolean;
   userList: UserList[];
   pagination: PaginationModel | null;
+  filterUser:string | null | undefined;
+  searchText:string|undefined;
 };
 
 const initialState: AdminUserListState = {
   isGetUsersLoading: false,
+  isDeleteUSerLoading: false,
   initLoading: true,
   userList: [],
   pagination: {
@@ -21,6 +25,8 @@ const initialState: AdminUserListState = {
     totalData: 10,
     totalPage: 1,
   },
+  filterUser:undefined,
+  searchText:undefined,
 };
 
 export const adminUserListSlice = createSlice({
@@ -33,12 +39,20 @@ export const adminUserListSlice = createSlice({
     setIsGetUsersLoading: (state, action: PayloadAction<boolean>) => {
       state.isGetUsersLoading = action.payload;
     },
+    setIsDeleteUserLoading: (state, action: PayloadAction<boolean>) => {
+      state.isDeleteUSerLoading = action.payload;
+    },
     fetchUserList: (state, action: PayloadAction<UserList[]>) => {
       state.userList = action.payload;
     },
-
     setPagination: (state, action: PayloadAction<PaginationModel>) => {
       state.pagination = action.payload;
+    },
+    setFilterUser: (state, action: PayloadAction<string|null|undefined>) => {
+      state.filterUser = action.payload;
+    },
+    setSearchText: (state, action: PayloadAction<string|undefined>) => {
+      state.searchText = action.payload;
     },
   },
 });
@@ -48,6 +62,9 @@ export const {
   fetchUserList,
   setPagination,
   setInitLoading,
+  setFilterUser,
+  setSearchText,
+  setIsDeleteUserLoading
 } = adminUserListSlice.actions;
 
 export const selectAdminUserList = (state: RootState): AdminUserListState => state.admin_user_list;
