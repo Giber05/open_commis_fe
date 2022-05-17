@@ -33,12 +33,12 @@ function UserListTable({ users }: UserListProps) {
   const columns: ColumnType<UserList>[] = [
     {
       title: "Nama pengguna",
-      render: (value: any, record: any) => {
+      render: (value: any, record: UserList) => {
         return (
           <Row>
             <Avatar size={50} src={record.profilePicture} className="mr-2" />
             <Typography.Text className="my-auto" strong>
-              {record.name}
+              {record.name.length > 14 ? record.name.substring(0, 13) + "..." : record.name}
             </Typography.Text>
           </Row>
         );
