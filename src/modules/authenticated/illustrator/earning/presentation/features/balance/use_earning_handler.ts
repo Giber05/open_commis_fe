@@ -49,7 +49,6 @@ function useEarningHandler(): EarningController {
       resource.whenWithResult({
         success: async (value) => {
           dispatch(fetchWithdrawalHistory(value.data.data));
-          console.log({ value });
         },
         error: async (error) => {
           message.error(error.exception.message);

@@ -22,8 +22,7 @@ function useRegistrationHandler(): RegistrationController {
   const navigate = useNavigate();
 
   const onFormSubmitted = (values: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: any }) => {
-    console.log({ values });
-
+    message.loading("Loading ...")
     dispatch(isAuthLoading(true));
     setTimeout(async () => {
       const resource = await registerUserUC.execute({
@@ -74,8 +73,7 @@ function useRegistrationHandler(): RegistrationController {
             message.success(value.data.message);
           },
           error: async (error) => {
-            message.success(error.exception.message);
-            console.log({ error });
+            message.error(error.exception.message);
           },
         });
       });

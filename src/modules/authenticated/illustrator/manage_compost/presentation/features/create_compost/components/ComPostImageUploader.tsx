@@ -8,7 +8,6 @@ const TestCropImage = () => {
   ]);
 
   const onChange = (values:any) => {
-    console.log({values});
     
     setFileList(values.fileList);
   };

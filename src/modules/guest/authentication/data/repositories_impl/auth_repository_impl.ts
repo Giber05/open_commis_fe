@@ -16,6 +16,19 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
   private authRemoteDS: AuthRemoteDS = new AuthRemoteDSImpl();
   private authLocalDS: AuthLocalDS = new AuthLocalDSImpl();
 
+  loginAdmin(params: { username: string; password: string; role: string; }): Promise<Resource<UserModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource: UserModel = await this.authRemoteDS.loginAdmin({ username: params.username, password: params.password, role: params.role });
+        if (resource instanceof UserModel) {
+          this.authLocalDS.saveUser(resource);
+          return Resource.success({ data: resource });
+        }
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
+
   getRegisteredUser(): Promise<Resource<UserData>> {
     return this.cacheOnlyCall({
       cacheCall: async () => {
@@ -103,7 +116,6 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
     return this.cacheOnlyCall({
       cacheCall: async () => {
         const resource: UserModel | null = await this.authLocalDS.getUser();
-        console.log({ resource });
         if (resource instanceof UserModel) {
           this.authLocalDS.saveUser(resource);
           return Resource.success({ data: resource });

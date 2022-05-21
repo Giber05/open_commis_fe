@@ -7,6 +7,7 @@ import { VerifyTokenModel } from "../../models/verify_token_model";
 
 export interface AuthRemoteDS {
   login(params: { email: string; password: string; role: string }): Promise<UserModel>;
+  loginAdmin(params: { username: string; password: string; role: string }): Promise<UserModel>;
   verifyToken(currentToken: string): Promise<VerifyTokenModel>;
   logout(currentToken: string): Promise<boolean>;
   registerUser(params: { role: string; name: string; email: string; phone: string; username: string; password: string; profilePicture?: File | null }): Promise<UserModel>;
@@ -90,6 +91,23 @@ class AuthRemoteDSImpl implements AuthRemoteDS {
       url: loginURL,
       body: {
         email: params.email,
+        password: params.password,
+      },
+    });
+
+    if (response.status >= 200 && response.status <= 210) {
+      const body = JSON.stringify(response.data);
+
+      return UserModel.fromJson(body);
+    }
+    throw new BaseException({ message: response.data.error });
+  }
+  public async loginAdmin(params: { username: string; password: string; role: string }): Promise<UserModel> {
+    let loginURL = `${NetworkConstant.baseUrl}auth/login?role=${params.role}`;
+    const response = await this.baseClient.postWithoutCookie({
+      url: loginURL,
+      body: {
+        username: params.username,
         password: params.password,
       },
     });

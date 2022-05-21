@@ -70,7 +70,6 @@ function useConsumerOrderDetailHandler(): DetailOrderController {
       dispatch(setIsLoadingChangeOrderStatus(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
           const win = window.open(value.data.data.paymentLink, "_blank");
           win?.focus();
           navigate(0)

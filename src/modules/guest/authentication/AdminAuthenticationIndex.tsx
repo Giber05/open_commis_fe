@@ -8,11 +8,14 @@ function AdminAuthentication() {
   const { isLoadingUser, authUser } = useAppSelector(selectAuth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isLoadingUser && authUser != null && authUser.data.role === "admin") {
-  //      return navigate("/admin");
-  //   }
-  // }, [isLoadingUser]);
+  useEffect(() => {
+    if (!isLoadingUser && authUser != null) {
+      let role = authUser.data.role;
+      if (role === "consumer") navigate("/");
+      else if (role === "illustrator") navigate("/manage/manage-compost");
+      else if(role === "administrator")navigate("/admin");
+    }
+  }, [isLoadingUser]);
   return <AdminAuthenticationRoutes />;
 }
 

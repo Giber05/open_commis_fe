@@ -81,7 +81,6 @@ function useSendOrderHandler(): SendOrderController {
     message.loading({ content: "Loading..." });
     dispatch(setIsSendOrderLoading(true));
     setTimeout(async () => {
-      console.log("Uploadded file", uploadedFilePath?.path);
 
       const resource = await sendOrderUC.execute({ token: authUser?.data.token!, submissionFile: uploadedFilePath?.path!, description: values.description, cloudLink: values.cloud_link, orderId: id });
       dispatch(setIsSendOrderLoading(false));

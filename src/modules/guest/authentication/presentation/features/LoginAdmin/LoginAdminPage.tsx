@@ -2,8 +2,10 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Checkbox, Form, Input, Radio } from "antd";
 import React from "react";
 import PrimaryButton from "../../../../../../core/common_components/buttons/PrimaryButton";
+import useLoginAdminHandler from "./use_login_admin_handler";
 
 function LoginAdminPage() {
+  const {isLoadingUser,onFinish} = useLoginAdminHandler()
   const error = "";
   return (
     <div className="bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] bg-cover bg-center w-screen h-screen relative flex flex-col justify-between ">
@@ -13,14 +15,13 @@ function LoginAdminPage() {
             <div className="bg-gradient-to-tr from-sky-500 to-sky-700 -mt-10 mb-4 rounded-xl text-white grid items-center w-full h-24 py-4 px-8 justify-center shadow-lg-light-blue undefined">
               <h1 className="text-white text-2xl font-serif font-bold leading-normal mt-0 mb-2">LOGIN</h1>
             </div>
-            <Form size="large" layout="vertical" initialValues={{ remember: true }} onFinish={(event: any) => console.log(event)} name="normal_login" className="max-w-md m-auto ">
+            <Form size="large" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto ">
               
               <Form.Item
-                label="Email"
+                label="Username"
                 validateFirst={true}
                 rules={[
-                  { required: true, message: "Email wajib diisi" },
-                  { type: "email", message: "Masukan email yang valid" },
+                  { required: true, message: "Username wajib diisi" },
                   () => ({
                     validator(rule, value) {
                       if (error == "") {
@@ -30,7 +31,7 @@ function LoginAdminPage() {
                     },
                   }),
                 ]}
-                name="email"
+                name="username"
               >
                 <Input  className="mt-2 rounded-xl shadow-sm" prefix={<UserOutlined />} placeholder="Masukan email anda" />
               </Form.Item>

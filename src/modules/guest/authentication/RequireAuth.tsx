@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message, notification } from "antd";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../core/utils/redux";
@@ -14,13 +14,11 @@ function RequireAuth() {
     async function verifyToken() {
       const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
       resource.whenWithResult({
-        success: async (value) => {
-          console.log("Token Valid => ", value.data.message);
-         
-        },
         error: (error) => {
-          message.error("Verify token error: " + error.exception.message);
-          return navigate("/auth/login");
+          notification.error({ message: error.exception.message+" Anda Akan Diarahkan Ke Halaman Login", placement: "topRight", duration: 5 });
+          setTimeout(() => {
+            return navigate(0);
+          }, 3000);
         },
       });
     }

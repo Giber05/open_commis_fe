@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { fetchError, selectCommon } from "../../../../../../core/AppRedux/reducers/common_reducer";
@@ -31,12 +32,10 @@ function useComPostDetailHandler(): ComPostDetailController {
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionDetail(value.data.data));
-          console.log({value});
           
-          dispatch(fetchError(""));
         },
         error: (error) => {
-          dispatch(fetchError(error.exception.message));
+          message.error(error.exception.message)
         },
       });
     });

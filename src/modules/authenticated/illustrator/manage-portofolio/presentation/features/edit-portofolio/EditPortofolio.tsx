@@ -10,7 +10,6 @@ function EditPortofolio() {
   useEffect(() => {
     getIllustratorProfile();
   }, []);
-  console.log({ illustratorProfile });
 
   const { TabPane } = Tabs;
   const callback = (key: any) => {

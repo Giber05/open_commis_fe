@@ -48,7 +48,6 @@ function AdminComPostDetailPage() {
               title="Apakah Anda yakin akan menghapus commission post ini?"
               placement="leftTop"
               onConfirm={(e) => deleteComPost()}
-              onVisibleChange={() => console.log("visible change")}
             >
               <Button loading={isDeleteComPostLoading} size="large" className="hover:bg-reject hover:text-white text-reject border-reject rounded-xl comic-shadow-btn">
                 HAPUS COMMISSION POST

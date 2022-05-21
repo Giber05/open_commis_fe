@@ -94,7 +94,6 @@ function ComPostListTable({ composts }: ComPostsProps) {
             title="Apakah Anda yakin akan menghapus commission post ini?"
             placement="leftTop"
             onConfirm={(e) => deleteComPost(record.id)}
-            onVisibleChange={() => console.log("visible change")}
           >
             <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined className="text-xl"/>}></Button>
           </Popconfirm>

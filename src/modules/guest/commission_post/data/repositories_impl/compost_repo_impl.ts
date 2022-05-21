@@ -8,7 +8,7 @@ import ComPostModel from "../models/compost_list/compost_model";
 
 class ComPostRepoImpl extends BaseRepository implements ComPostRepo {
   private comPostRemoteDS: ComPostRemoteDS = new ComPostRemoteDSImpl();
-  
+
   searchComPosts(params: { keyword: string }): Promise<Resource<ComPostModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
@@ -38,9 +38,9 @@ class ComPostRepoImpl extends BaseRepository implements ComPostRepo {
   getComPostList(params: { page: number; limit: number; categoryId?: number }): Promise<Resource<ComPostModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
-        const resource = await this.comPostRemoteDS.getComPostList({ page: params.page, categoryId: params.categoryId, limit: params.limit, });
-
-        return Resource.success({ data: resource });
+        const resource = await this.comPostRemoteDS.getComPostList({ page: params.page, categoryId: params.categoryId, limit: params.limit });
+        if (resource instanceof ComPostModel) return Resource.success({ data: resource });
+        else return Resource.error({ exception: resource });
       },
     });
   }

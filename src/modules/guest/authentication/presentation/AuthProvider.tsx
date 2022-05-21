@@ -18,7 +18,6 @@ function AuthProvider(props: Props): JSX.Element {
     async function getAuthUser() {
       dispatch(isAuthLoading(true));
       const resource = await getCurrentUser.execute();
-      console.log("Current User in Local :", resource);
 
       resource.whenWithResult({
         success: async (value) => {
@@ -33,26 +32,6 @@ function AuthProvider(props: Props): JSX.Element {
     getAuthUser();
     
   }, [getCurrentUser, dispatch]);
-
-
-  
-  // const { isLoadingUser, authUser } = useAppSelector(selectAuth);
-
-  // useEffect(() => {
-  //   async function verifyToken() {
-  //     const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
-  //     resource.whenWithResult({
-  //       success: async (value) => {
-  //         console.log("Token Valid => ", value.data.message);
-  //         let tokenValid = value.data.data.tokenValid;
-  //         if (!tokenValid) {
-  //           navigate("/auth/login");
-  //         }
-  //       },
-  //     });
-  //   }
-  //   verifyToken();
-  // }, [verifyCurrentToken, isLoadingUser]);
 
   return props.children;
 }

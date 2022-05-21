@@ -13,6 +13,7 @@ function AuthenticationModule() {
       let role = authUser.data.role;
       if (role === "consumer") navigate("/");
       else if (role === "illustrator") navigate("/manage/manage-compost");
+      else if (role === "administrator") navigate("/admin");
     }
   }, [isLoadingUser]);
 

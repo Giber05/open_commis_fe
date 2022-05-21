@@ -2,15 +2,10 @@ import { CheckCircleFilled, ShoppingOutlined, FacebookFilled, TwitterOutlined, I
 import { Row, Col, Popconfirm, Avatar, Typography, Space, Rate, Image } from "antd";
 import React, { useEffect } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import DangerButton from "../../../../../../core/common_components/buttons/DangerButton";
-import InfoButton from "../../../../../../core/common_components/buttons/InfoButton";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
 import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
 import NotFound from "../../../../../../core/common_components/NotFound";
 import AssetConstants from "../../../../../../core/constants/asset_constants";
-import { TestItem } from "../../../../commission_post/presentation/features/commission_post_list/components/TestItem";
 import IllustratorsArtworksSection from "./components/IllustratorsArtworksSection";
 import IllustratorsBioSection from "./components/IllustratorsBioSection";
 import IllustratorsCommissionSection from "./components/IllustratorsCommissionSection";
@@ -28,7 +23,6 @@ function IllustratorsPortofolioPage() {
   else if (illustratorsPortofolio == null) {
     return <NotFound />;
   }
-  console.log(illustratorsPortofolio?.id);
   let commissions = illustratorsPortofolio?.commissions;
   let artworks = illustratorsPortofolio?.artworks;
   return (

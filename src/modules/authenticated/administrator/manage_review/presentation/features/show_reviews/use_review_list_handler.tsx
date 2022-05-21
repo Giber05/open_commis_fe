@@ -30,8 +30,6 @@ function useReviewListHandler(): ReviewListController {
       dispatch(setIsReviewLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
-
           dispatch(fetchReviews(value.data.data));
         },
         error: (error) => {

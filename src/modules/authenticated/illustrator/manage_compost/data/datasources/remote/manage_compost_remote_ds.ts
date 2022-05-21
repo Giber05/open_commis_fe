@@ -21,7 +21,7 @@ export interface ManageComPostRemoteDS {
 
 class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
   private baseClient = new BaseClient();
-  
+ 
   async deleteComPost(params:{compostId:number, token:string}): Promise<DeleteComPostModel> {
     let deleteComPostURL =NetworkConstant.baseUrl + "commissions/" + params.compostId;
     const response = await this.baseClient.deleteWithCookie({
@@ -33,11 +33,10 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
       },
     });
     if (response.status >= 200 && response.status <= 210) {
-      const body = response.data.data;
 
       return DeleteComPostModel.fromJson(response.data);
     }
-    throw new BaseException({ message: response.data.error });
+    throw new BaseException({ message: response.data });
   }
 
   async editComPost(params: { token: string; formData: any;compostId: number }): Promise<ComPostDetailModel> {
@@ -144,7 +143,6 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
     });
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data.data;
-      console.log({body});
       
       return body.map((e: any) => {
         return IllustratorComposts.fromJson(e);
