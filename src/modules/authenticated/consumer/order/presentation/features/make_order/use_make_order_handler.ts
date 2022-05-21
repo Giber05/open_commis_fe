@@ -30,8 +30,6 @@ function useMakeOrderHandler(): MakeOrderController {
     if (event.file != undefined) {
       let referenceFile = event.file.map((file: any) => file.originFileObj);
       if (uploadedFilePath != null) {
-        console.log({ uploadedFilePath });
-
         orderForm.append("reference", referenceFile[0]);
       }
     }

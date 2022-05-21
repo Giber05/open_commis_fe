@@ -73,7 +73,7 @@ function TopNavigation() {
         }}
         className="cursor-pointer"
       >
-        <Image src={`/assets/icons/logo/oc.png`} preview={false} />
+        <Image src={`/assets/icons/logo/open_commiss.png`} preview={false} />
       </div>
       {!isUserLoggedIn ? (
         <Menu activeKey={consumerCurrentMenu} onClick={onChangeMenu} theme="light" mode="horizontal" className="border-solid">

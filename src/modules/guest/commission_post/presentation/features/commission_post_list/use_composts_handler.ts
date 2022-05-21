@@ -10,6 +10,7 @@ import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
 import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
 import SearchComPosts from "../../../domain/usecases/search_composts";
 import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setInitLoading, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
+import { message } from "antd";
 type ComPostsController = {
   initLoading: boolean;
   isLoadingComPosts: boolean;
@@ -39,14 +40,12 @@ function useComPostsHandler(): ComPostsController {
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
 
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
-          dispatch(fetchError(""));
         },
         error: (error) => {
-          dispatch(fetchError(error.exception.message));
+          message.error(error.exception.message)
         },
       });
     });

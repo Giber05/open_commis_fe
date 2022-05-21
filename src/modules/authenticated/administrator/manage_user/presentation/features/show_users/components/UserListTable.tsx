@@ -153,7 +153,6 @@ function UserListTable({ users }: UserListProps) {
             title="Apakah Anda yakin akan menghapus user ini?"
             placement="leftTop"
             onConfirm={(e) => deleteUser({ userId: record.id, role: record.role })}
-            onVisibleChange={() => console.log("visible change")}
           >
             <Button type="text" style={{ color: "red" }} icon={<DeleteOutlined />}></Button>
           </Popconfirm>

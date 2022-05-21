@@ -17,9 +17,9 @@ const initialState: AdminDashboardState  = {
   transactionList: [],
   pagination: {
     currentPage: 1,
-    pageSize: 1,
-    totalData: 10,
-    totalPage: 1,
+    pageSize: 0,
+    totalData: 0,
+    totalPage: 0,
   },
 };
 

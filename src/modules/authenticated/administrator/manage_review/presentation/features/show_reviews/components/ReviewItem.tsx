@@ -38,10 +38,9 @@ function ReviewItem({ review }: ReviewProps) {
             title="Apakah Anda yakin akan menghapus ulasan ini?"
             placement="leftTop"
             onConfirm={(e) => deleteReview(review.id)}
-            onVisibleChange={() => console.log("visible change")}
           >
             <div className="text-center mx-auto">
-              <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} onClick={() => console.log("Dleet review")} />
+              <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />}  />
             </div>
           </Popconfirm>
         </div>

@@ -3,7 +3,7 @@ import { CommissionPostEntity } from "../../../../../common/commission/domain/en
 
 class CommissionPosts extends CommissionPostEntity {
   illustrator?: UserTypeModel | null;
-  overallRating: number;
+  overallRating?: number | null;
   ordersCompleted?: number | null;
 
   constructor(params: {
@@ -19,7 +19,7 @@ class CommissionPosts extends CommissionPostEntity {
     image_4?: string;
     createdAt: Date;
     updatedAt?: Date;
-    overallRating: number;
+    overallRating?: number | null;
     ordersCompleted?: number | null;
     illustrator?: UserTypeModel | null;
   }) {
@@ -56,7 +56,7 @@ class CommissionPosts extends CommissionPostEntity {
       image_4: json.image_4,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
-      overallRating: json.overallRating,
+      overallRating: json.overallRating == undefined ? null : json.overallRating,
       ordersCompleted: json.ordersCompleted == undefined ? null : json.ordersCompleted,
       illustrator: json.illustrator == undefined ? null : UserTypeModel.fromJson(json.illustrator),
     });

@@ -1,3 +1,4 @@
+import { AdministratorModel } from "../../../../common/authentication/data/model/administrator_model";
 import ConsumerModel from "../../../../common/authentication/data/model/consumer_model";
 import IlustratorModel from "../../../../common/authentication/data/model/ilustrator_model";
 
@@ -32,18 +33,17 @@ export class UserData {
   user: any;
   token?: string | null;
   role: string;
-  constructor(params: { user: any; token: string; role:string }) {
+  constructor(params: { user: any; token: string; role: string }) {
     this.user = params.user;
     this.token = params.token;
-    this.role = params.role
+    this.role = params.role;
   }
 
   public static fromJson(json: any): UserData {
-    
     return new UserData({
-      user: json.role === "illustrator"? IlustratorModel.fromJson(json.user):ConsumerModel.fromJson(json.user),
-      token:  json.token == undefined ? null : json.token,
-      role:json.role,
+      user: json.role === "illustrator" ? IlustratorModel.fromJson(json.user) : json.role === "consumer" ? ConsumerModel.fromJson(json.user) : AdministratorModel.fromJson(json.user),
+      token: json.token == undefined ? null : json.token,
+      role: json.role,
     });
   }
 
@@ -54,7 +54,6 @@ export class UserData {
       token: this.token,
     });
   }
-
 }
 
 export default UserModel;

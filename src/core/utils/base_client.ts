@@ -10,11 +10,9 @@ class BaseClient {
 
     try {
       const result = await axios.get(params.url, finalConfig);
-      // console.log("Result in base Client:", {result});
 
       return result;
     } catch (error: any) {
-      console.log(error.response);
       return error.response;
     }
   }
@@ -24,7 +22,6 @@ class BaseClient {
       const result: AxiosResponse = await axios.post(params.url, params.body, finalConfig);
       return result;
     } catch (error: any) {
-      // console.log(error.response);
       return error.response;
     }
   }
@@ -36,7 +33,6 @@ class BaseClient {
       const result: AxiosResponse = await axios.post(params.url, params.body, finalConfig);
       return result;
     } catch (error: any) {
-      // console.log(error.response);
       return error.response;
     }
   }
@@ -48,7 +44,6 @@ class BaseClient {
       const result: AxiosResponse = await axios.get(params.url, finalConfig);
       return result;
     } catch (error: any) {
-      // console.log(error.response);
       return error.response;
     }
   }
@@ -59,7 +54,6 @@ class BaseClient {
       const result: AxiosResponse = await axios.put(params.url, params.body, finalConfig);
       return result;
     } catch (error: any) {
-      // console.log(error.response);
       return error.response;
     }
   }
@@ -70,7 +64,6 @@ class BaseClient {
       const result: AxiosResponse = await axios.delete(params.url, finalConfig);
       return result;
     } catch (error: any) {
-      // console.log(error.response);
       return error.response;
     }
   }

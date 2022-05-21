@@ -22,7 +22,7 @@ type AdminComPostsController = {
   searchComPosts: (keyword: string) => void;
   pagination: PaginationModel | null;
   onChangePage: ((page: number, pageSize: number) => void) | undefined;
-  deleteComPost:(compostId:number)=>void
+  deleteComPost: (compostId: number) => void;
 };
 function useAdminComPostListHandler(): AdminComPostsController {
   const dispatch = useAppDispatch();
@@ -36,18 +36,17 @@ function useAdminComPostListHandler(): AdminComPostsController {
   const getCommissionPosts = () => {
     dispatch(setIsLoadingComPosts(true));
     setTimeout(async () => {
-      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 10 });
+      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 10, token: authUser?.data.token! });
       dispatch(setIsLoadingComPosts(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
-
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
           dispatch(fetchError(""));
         },
         error: (error) => {
-          message.error(error.exception.message)
+          message.error(error.exception.message);
           dispatch(fetchError(error.exception.message));
         },
       });
@@ -75,9 +74,9 @@ function useAdminComPostListHandler(): AdminComPostsController {
   const onChangePage = (page: number, pageSize?: number) => {
     dispatch(setPagination({ currentPage: page, pageSize: pageSize }));
   };
-  
+
   const deleteComPost = (compostId: number) => {
-    message.loading("Menghapus Commission ...")
+    message.loading("Menghapus Commission ...");
     dispatch(setIsLoadingComPosts(true));
     setTimeout(async () => {
       const resource = await AdminDeleteComPostUC.execute({ token: authUser?.data.token!, compostId: compostId });
@@ -104,7 +103,7 @@ function useAdminComPostListHandler(): AdminComPostsController {
     onChangePage,
     isMobile,
     initLoading,
-    deleteComPost
+    deleteComPost,
   };
 }
 export default useAdminComPostListHandler;

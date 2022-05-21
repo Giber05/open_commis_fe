@@ -73,7 +73,7 @@ class ComPostRemoteDSImpl implements ComPostRemoteDS {
       const body = response.data;
       return ComPostModel.fromJson(body);
     }
-    throw new BaseException({ message: response.data.error });
+    throw new BaseException({ message: response.data });
   }
 }
 export default ComPostRemoteDSImpl;

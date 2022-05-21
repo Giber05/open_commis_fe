@@ -45,10 +45,7 @@ function EditComPost() {
   };
 
   const handleOnChange = ({ file, fileList, event }: any) => {
-    // console.log(file, fileList, event);
-    //Using Hooks to update the state to the current filelist
     setDefaultFileList(fileList);
-    //filelist - [{uid: "-1",url:'Some url to image'}]
   };
 
   const onNameChange = (event: any) => {

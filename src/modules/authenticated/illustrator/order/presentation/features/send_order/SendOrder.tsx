@@ -18,14 +18,8 @@ function SendOrder() {
   const [defaultFileList, setDefaultFileList] = useState([]);
 
   const handleOnChange = ({ file, fileList, event }: any) => {
-    // console.log(file, fileList, event);
-    //Using Hooks to update the state to the current filelist
-    console.log({file});
-    
     setDefaultFileList(fileList);
-    //filelist - [{uid: "-1",url:'Some url to image'}]
   };
-  console.log({ uploadedFilePath });
 
   return (
     <div>
@@ -71,7 +65,7 @@ function SendOrder() {
               *Maksimal gambar yang dapat diupload 25MB
               <br />
             </Typography.Text>
-            <Dragger onDrop={(event)=>console.log(event)} className="mt-3" maxCount={1} accept=".png,.jpg,.jpeg,.zip" defaultFileList={defaultFileList} customRequest={uploadFile} listType="picture" onChange={handleOnChange}>
+            <Dragger  className="mt-3" maxCount={1} accept=".png,.jpg,.jpeg,.zip" defaultFileList={defaultFileList} customRequest={uploadFile} listType="picture" onChange={handleOnChange}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>

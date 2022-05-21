@@ -83,14 +83,12 @@ function useIllustratorComPostDetailHandler(): IllustratorComPostDetailControlle
   };
 
   const onDeleteComPost = ()=>{
-    dispatch(isLoading(true));
+    message.loading("Loading")
     setTimeout(async () => {
       const resource = await deleteComPostUC.execute({token:authUser?.data.token!, compostId:id});
 
-      dispatch(isLoading(false));
       resource.whenWithResult({
         success: (value) => {
-          console.log(value.data.data);
           message.success(value.data.message,2)
           navigate(-1)
 

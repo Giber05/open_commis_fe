@@ -33,7 +33,6 @@ function useIllustratorsPortofolioHandler() :IllustratorsPortofolioController{
         },
         error: (error) => {
           dispatch(fetchError(error.exception.message));
-          console.log({error});
           
         },
       });

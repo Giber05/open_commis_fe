@@ -34,7 +34,7 @@ function OpenCommissIlustrator() {
       },
       error: (error) => {
         message.error("Verify token error: " + error.exception.message);
-        return navigate("/auth/login");
+        return navigate(0);
       },
     });
   }

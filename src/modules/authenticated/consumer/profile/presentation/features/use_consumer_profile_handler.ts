@@ -31,7 +31,6 @@ function useConsumerProfileHandler(): ProfileController {
       resource.whenWithResult({
         success: async (value) => {
           dispatch(fetchConsumerProfile(value.data.data));
-          console.log({ value });
         },
         error: async (error) => {
           message.error(error.exception.message);

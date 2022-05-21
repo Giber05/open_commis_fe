@@ -8,6 +8,7 @@ import { OrderList } from "../../../../../../common/order/data/models/order_list
 import OrderListModel from "../../../../../../common/order/data/models/order_list_model";
 import { GetOrders } from "../../../domain/usecases/get_orders";
 import { fetchOrders, selectIllustratorOrder, setIsLoading, setPagination } from "../../reducers/illustrator_order_slice";
+import { message } from "antd";
 
 type OrdersController = {
   isLoading: boolean;
@@ -31,15 +32,12 @@ function useIllustratorOrderListHandler(): OrdersController {
 
       resource.whenWithResult({
         success: (value) => {
-          console.log({ value });
 
           dispatch(fetchOrders(value.data.data.orders));
           dispatch(setPagination(value.data.data.pagination));
-          dispatch(fetchError(""));
         },
         error: (error) => {
-          dispatch(fetchError(error.exception.message));
-          console.log({ error });
+          message.error(error.exception.message)
         },
       });
     });

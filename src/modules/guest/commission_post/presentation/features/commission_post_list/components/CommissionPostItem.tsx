@@ -43,7 +43,7 @@ function CommissionPostItem(commissionPost: CommissionProps): JSX.Element {
             <Typography.Text className="font-bold text-base sm:text-xl">Rp. {commissionPrice}</Typography.Text>
           </div>
           <div>
-            <Rate disabled value={commission.overallRating} className="text-xs sm:text-sm" />
+            <Rate disabled value={commission?.overallRating!} className="text-xs sm:text-sm" />
           </div>
         </Row>
       </div>

@@ -1,7 +1,6 @@
 import { List, Avatar, Space, Row, Col, Card, Divider, Rate, Image, Typography, Input, Result, Button, Pagination, Carousel } from "antd";
 import useComPostsHandler from "./use_composts_handler";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
-import millify from "millify";
 import CommissionPostItem from "./components/CommissionPostItem";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import { CategoryItem } from "../../../../../../core/common_components/main_app/
 import { LeftArrow, RightArrow } from "../../../../../../core/common_components/main_app/category_button/Arrows";
 import { Link } from "react-router-dom";
 import React from "react";
-import { TestItem } from "./components/TestItem";
+import HeroBanner from "./components/HeroBanner";
 import AssetConstants from "../../../../../../core/constants/asset_constants";
 
 const { Search } = Input;
@@ -36,7 +35,7 @@ function CommissionPostListPage() {
           <Search
             placeholder="Pencarian"
             allowClear
-            onSearch={(keyword,e) => {
+            onSearch={(keyword, e) => {
               if (keyword != "") {
                 // e?.preventDefault()
                 setOnSearch(true);
@@ -55,11 +54,15 @@ function CommissionPostListPage() {
         </div>
       </div>
       {!onSearch ? (
-        <div className="object-cover mx-auto text-center">
-          <Image preview={false}  src={`${AssetConstants.imageURL}/corousels/color_pencils.svg`}/>
+        <div className="object-cover mx-auto text-center mb-5">
+          
+          <Image preview={false} src={`${AssetConstants.imageURL}/corousels/banner_opencommiss.png`} />
+          {/* <HeroBanner /> */}
         </div>
       ) : null}
       <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-screen-2xl lg:px-7">
+        <h2 className="text-2xl mb-5 font-extrabold tracking-tight text-gray-900 text-left">Commission Post</h2>
+
         <Row gutter={[32, 32]} className="my-auto">
           {commissionPosts.length > 0 ? (
             commissionPosts.map((commission) => (

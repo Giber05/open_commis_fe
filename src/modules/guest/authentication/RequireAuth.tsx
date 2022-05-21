@@ -14,13 +14,9 @@ function RequireAuth() {
     async function verifyToken() {
       const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
       resource.whenWithResult({
-        success: async (value) => {
-          console.log("Token Valid => ", value.data.message);
-         
-        },
         error: (error) => {
           message.error("Verify token error: " + error.exception.message);
-          return navigate("/auth/login");
+          return navigate(0);
         },
       });
     }
