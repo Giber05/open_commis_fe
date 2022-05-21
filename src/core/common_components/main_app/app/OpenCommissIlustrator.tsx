@@ -1,4 +1,4 @@
-import { Drawer, Layout, Menu, message } from "antd";
+import { Drawer, Layout, Menu, message, notification } from "antd";
 import { Content, Footer } from "antd/lib/layout/layout";
 import Sider from "antd/lib/layout/Sider";
 import { useEffect } from "react";
@@ -33,8 +33,10 @@ function OpenCommissIlustrator() {
       success: async (value) => {
       },
       error: (error) => {
-        message.error("Verify token error: " + error.exception.message);
-        return navigate(0);
+        notification.error({ message: error.exception.message+" Anda Akan Diarahkan Ke Halaman Login", placement: "topRight", duration: 5 });
+        setTimeout(() => {
+          return navigate(0);
+        }, 3000);
       },
     });
   }

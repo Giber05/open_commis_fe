@@ -1,4 +1,4 @@
-import { Layout, message } from "antd";
+import { Layout, message, notification } from "antd";
 import { Content, Footer } from "antd/lib/layout/layout";
 import { useEffect } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
@@ -23,15 +23,16 @@ function OpenCommissAdministrator() {
   async function verifyToken() {
     const resource = await verifyCurrentToken.execute(authUser?.data?.token!);
     resource.whenWithResult({
-      success: async (value) => {
-      },
+      success: async (value) => {},
       error: (error) => {
-        message.error("Verify token error: " + error.exception.message);
-        return navigate(0);
+        notification.error({ message: error.exception.message+" Anda Akan Diarahkan Ke Halaman Login", placement: "topRight", duration: 5 });
+        setTimeout(() => {
+          return navigate(0);
+        }, 3000);
       },
     });
   }
-  
+
   useEffect(() => {
     let isAdministrator = authUser?.data.role === "administrator";
     if (!isLoadingUser) {

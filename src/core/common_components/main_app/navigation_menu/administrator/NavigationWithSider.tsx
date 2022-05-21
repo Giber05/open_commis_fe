@@ -190,7 +190,7 @@ export default () => {
                 <div className="flex flex-row items-center text-primary">
                   <img src="https://pbs.twimg.com/profile_images/378800000298815220/b567757616f720812125bfbac395ff54_normal.png" alt="img" className="h-10 w-10 bg-gray-200 border rounded-full" />
                   <span className="flex flex-col ml-2">
-                    <span className="truncate w-20 text-white font-semibold tracking-wide leading-none">Gilang L</span>
+                    <span className="truncate w-20 text-white font-semibold tracking-wide leading-none">{authUser?.data.user.name}</span>
                     <span className="truncate w-20 text-gray-200 text-xs leading-none mt-1">Administrator</span>
                   </span>
                 </div>
