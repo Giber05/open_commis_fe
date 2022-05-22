@@ -46,7 +46,7 @@ function AdminComPostDetailPage() {
             <Popconfirm
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
               title="Apakah Anda yakin akan menghapus commission post ini?"
-              placement="leftTop"
+              placement="top"
               onConfirm={(e) => deleteComPost()}
             >
               <Button loading={isDeleteComPostLoading} size="large" className="hover:bg-reject hover:text-white text-reject border-reject rounded-xl comic-shadow-btn">

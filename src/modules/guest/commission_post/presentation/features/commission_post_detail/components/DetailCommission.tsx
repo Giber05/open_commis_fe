@@ -84,7 +84,10 @@ function DetailCommission({ commission }: CommissionProps) {
         {commission.status === "OPEN" ? (
           authUser?.data.role === "illustrator" ? (
             <DisabledButton rounded title="Pesan Menggunakan Akun Konsumen" />
-          ) : (
+            ) : !commission.illustrator.available?(
+              <DisabledButton rounded title="Illustrator Tidak Tersedia" />
+              
+          ): (
             <LinkReact to={{ pathname: `/consumer/${commission.id}/make-order` }}>
               <SuccessButton block title="Pesan" rounded />
             </LinkReact>

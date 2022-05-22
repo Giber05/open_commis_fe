@@ -7,6 +7,7 @@ export class UserTypeModel extends UserEntity {
       name: json.name,
       username: json.username,
       profilePicture: json.profilePicture,
+      available: json.available == undefined ? null : json.available,
     });
   }
 }

@@ -47,54 +47,11 @@ function TransactionTable({ transactions }: TransactionProps) {
       title: "Total Pembayaran",
       dataIndex: "grandTotal",
       sorter: (a: any, b: any) => a.grandTotal - b.grandTotal,
-
     },
     {
       title: "Metode Pembayaran",
+
       render: (value: any, record: any) => (record.paymentMethod == null ? "-" : record.paymentMethod),
-
-      filters: [
-        {
-          text: "BNI",
-          value: "BNI",
-        },
-        {
-          text: "BRI",
-          value: "BRI",
-        },
-        {
-          text: "BCA",
-          value: "BCA",
-        },
-        {
-          text: "E-Wallet",
-          value: "E-Wallet",
-          children: [
-            {
-              text: "OVO",
-              value: "OVO",
-            },
-            {
-              text: "ShopeePay",
-              value: "ShopeePay",
-            },
-            {
-              text: "GoPay",
-              value: "GoPay",
-            },
-            {
-              text: "Dana",
-              value: "Dana",
-            },
-            {
-              text: "Toko Retail",
-              value: "RetailStore",
-            },
-          ],
-        },
-      ],
-
-      onFilter: (value: any, record: any) => record.paymentMethod.indexOf(value) === 0,
     },
     {
       title: "ID Transaksi",

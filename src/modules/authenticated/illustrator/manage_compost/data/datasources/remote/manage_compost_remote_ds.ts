@@ -36,7 +36,7 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
 
       return DeleteComPostModel.fromJson(response.data);
     }
-    throw new BaseException({ message: response.data });
+    throw new BaseException({ message: response.data.error });
   }
 
   async editComPost(params: { token: string; formData: any;compostId: number }): Promise<ComPostDetailModel> {
