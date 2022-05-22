@@ -7,7 +7,6 @@ import { CategoryModel } from "../../../../../common/commission/data/models/cate
 import CommissionPost from "../../../data/models/compost_list/commission_posts";
 import { GetCategories } from "../../../domain/usecases/get_categories";
 import GetCommissionPosts from "../../../domain/usecases/get_commission_posts";
-import GetComPostDetail from "../../../domain/usecases/get_compost_detail";
 import SearchComPosts from "../../../domain/usecases/search_composts";
 import { fetchCategories, fetchCommissionPosts, isLoading, selectComPost, setInitLoading, setPagination, setSelectedCategory } from "../../reducers/compost_slice";
 import { message } from "antd";

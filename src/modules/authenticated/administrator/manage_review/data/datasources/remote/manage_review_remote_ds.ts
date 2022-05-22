@@ -26,7 +26,7 @@ export class ManageReviewRemoteDSImpl implements ManageReviewRemoteDS {
       const body = response.data;
       return DeleteModel.fromJson(body);
     }
-    throw new BaseException({ message: response.data });
+    throw new BaseException({ message: response.data.error });
     
   }
   

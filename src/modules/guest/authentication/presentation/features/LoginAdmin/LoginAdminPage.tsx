@@ -5,7 +5,7 @@ import PrimaryButton from "../../../../../../core/common_components/buttons/Prim
 import useLoginAdminHandler from "./use_login_admin_handler";
 
 function LoginAdminPage() {
-  const {isLoadingUser,onFinish} = useLoginAdminHandler()
+  const { isLoadingUser, onFinish } = useLoginAdminHandler();
   const error = "";
   return (
     <div className="bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] bg-cover bg-center w-screen h-screen relative flex flex-col justify-between ">
@@ -16,24 +16,17 @@ function LoginAdminPage() {
               <h1 className="text-white text-2xl font-serif font-bold leading-normal mt-0 mb-2">LOGIN</h1>
             </div>
             <Form size="large" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} name="normal_login" className="max-w-md m-auto ">
-              
               <Form.Item
                 label="Username"
                 validateFirst={true}
                 rules={[
                   { required: true, message: "Username wajib diisi" },
-                  () => ({
-                    validator(rule, value) {
-                      if (error == "") {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(error);
-                    },
-                  }),
+                  { max: 25, message: "Username maksimal 25 karakter" },
+                
                 ]}
                 name="username"
               >
-                <Input  className="mt-2 rounded-xl shadow-sm" prefix={<UserOutlined />} placeholder="Masukan email anda" />
+                <Input className="mt-2 rounded-xl shadow-sm" prefix={<UserOutlined />} placeholder="Masukan email anda" />
               </Form.Item>
               <Form.Item
                 className="mb-0"
@@ -43,9 +36,8 @@ function LoginAdminPage() {
                     required: true,
                     message: "Password wajib diisi!",
                   },
-                  {
-                    // validator: (_, __) => loginFailed(),
-                  },
+                  { max: 25, message: "Password maksimal 25 karakter" },
+                  { min: 8, message: "Password minimal 8 karakter" },
                 ]}
                 name="password"
               >

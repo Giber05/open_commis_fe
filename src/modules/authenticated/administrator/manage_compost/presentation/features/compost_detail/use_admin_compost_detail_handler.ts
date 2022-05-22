@@ -61,7 +61,9 @@ function useAdminComPostDetailHandler(): AdminComPostDetailController {
           navigate(-1);
         },
         error: (error) => {
-          message.error(error.exception.message, 2);
+          console.log({error});
+          
+          message.error(error.exception.message.toString(), 2);
         },
       });
     });

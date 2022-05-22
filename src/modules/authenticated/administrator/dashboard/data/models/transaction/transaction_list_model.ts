@@ -3,10 +3,10 @@ import { Transaction } from "./transaction";
 
 export class TransactionListModel {
   message: string;
-  success: true;
+  success: boolean;
   data: TransactionList;
 
-  constructor(params: { message: string; success: true; data: TransactionList }) {
+  constructor(params: { message: string; success: boolean; data: TransactionList }) {
     this.message = params.message;
     this.success = params.success;
     this.data = params.data;

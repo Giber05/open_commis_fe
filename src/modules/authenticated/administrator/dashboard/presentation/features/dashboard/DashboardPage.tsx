@@ -6,13 +6,24 @@ import TestChart from "./components/TestChart";
 import LineChart from "./components/LineChart";
 import TransactionTable from "./components/TransactionTable";
 import useAdminDashboardHandler from "./use_admin_dashboard_handler";
+import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
+import IllustratorCount from "./components/IllustratorCount";
+import ConsumerCount from "./components/ConsumerCount";
 
 function DashboardPage() {
-  const { transactionList, getTransactionList, pagination } = useAdminDashboardHandler();
+  const { transactionList, getTransactionList, pagination, getTransactionSummary, userCount, getUserCount, initLoading, transactionSummary } = useAdminDashboardHandler();
+  useEffect(() => {
+    getUserCount();
+  }, []);
+  useEffect(() => {
+    getTransactionSummary();
+  }, []);
+
   useEffect(() => {
     getTransactionList();
   }, [pagination?.currentPage]);
 
+  if (initLoading) return <CircularLoadingIndicator />;
   return (
     <>
       <div className="bg-gradient-to-t from-sky-400 to-primary px-3 md:px-8 h-40" />
@@ -20,10 +31,15 @@ function DashboardPage() {
         <div className="container mx-auto max-w-full">
           <div className="grid grid-cols-1 xl:grid-cols-6">
             <div className="xl:col-start-1 xl:col-end-4 px-4 mb-14">
-              <TestChart />
+              <div className="mb-10">
+                <IllustratorCount totalIllustrator={userCount?.illustrator ?? 0} />
+              </div>
+              <div className="">
+                <ConsumerCount totalConsumer={userCount?.consumer ?? 0} />
+              </div>
             </div>
             <div className="xl:col-start-4 xl:col-end-7 px-4 mb-14">
-              <LineChart />
+              <LineChart transactionSummary={transactionSummary} />
             </div>
           </div>
         </div>
