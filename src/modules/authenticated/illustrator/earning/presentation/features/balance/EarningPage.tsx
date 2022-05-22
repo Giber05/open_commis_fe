@@ -34,7 +34,7 @@ function EarningPage() {
               <SuccessButton rounded block title="Lakukan Penarikan" />
             </Link>
           ) : (
-            <DisabledButton title="Lakukan Penarikan" />
+            <DisabledButton rounded title="Lakukan Penarikan" />
           )}
         </div>
         <div className="mt-4 ">
