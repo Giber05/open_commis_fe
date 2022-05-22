@@ -1,6 +1,7 @@
 import { Button, Form, Input, InputNumber, Select, Typography } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import React, { useEffect } from "react";
+import DisabledButton from "../../../../../../../core/common_components/buttons/DisabledButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import CircularLoadingIndicator from "../../../../../../../core/common_components/CircularLoadingIndicator";
 import { UtilMethods } from "../../../../../../../core/utils/util_methods";
@@ -20,13 +21,14 @@ function WithdrawalPage() {
     },
   };
 
-  const { illustratorsBalance } = useEarningHandler();
+  const { illustratorsBalance, getIllustratorsBalance } = useEarningHandler();
   const { isLoadingBalance, withdrawBalance, destinationCode, getDestinationCode, isDestinationCodeLoading } = useWithdrawalHandler();
 
   useEffect(() => {
+    getIllustratorsBalance();
     getDestinationCode();
   }, []);
-  
+
   const balance = UtilMethods.getIndonesianCurrencyFormat(illustratorsBalance?.balance!);
   if (isDestinationCodeLoading) return <CircularLoadingIndicator />;
   return (
@@ -60,7 +62,7 @@ function WithdrawalPage() {
                 style={{
                   width: "100%",
                 }}
-                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 className="form-style-blue"
                 placeholder="Masukan jumlah yang akan ditarik"
                 prefix="Rp."
@@ -68,7 +70,7 @@ function WithdrawalPage() {
             </FormItem>
             <FormItem name="withdraw_button" className="flex text-center align-middle items-center mx-auto justify-center">
               <div className="mx-auto my-3 flex justify-center">
-                <SuccessButton loading={isLoadingBalance} block width="w-40" rounded title="Submit" htmlType="submit" />
+                {illustratorsBalance?.balance! < 50000 ? <DisabledButton rounded title="Submit" /> : <SuccessButton loading={isLoadingBalance} block width="w-40" rounded title="Submit" htmlType="submit" />}
               </div>
             </FormItem>
           </Form>
