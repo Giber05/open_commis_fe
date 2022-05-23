@@ -19,7 +19,7 @@ function OrderItem({ order }: OrderProps): JSX.Element {
   return (
     <Card
       loading={isLoading}
-      className="comic-shadow mb-5 hover:opacity-80"
+      className="comic-shadow mb-5 hover:opacity-80 lg:w-2/3 mx-auto"
       // loading={isLoadingComPosts}
       style={{
         minHeight: "200px",

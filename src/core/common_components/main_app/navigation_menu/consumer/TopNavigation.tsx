@@ -1,5 +1,5 @@
 import { LogoutOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, Image, Divider, message } from "antd";
+import { Button, Layout, Menu, Image, Divider, message, Typography } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -86,9 +86,9 @@ function TopNavigation() {
             </Menu.Item>
           ) : (
             <Menu.Item key="logout">
-              <Link onClick={onLogoutClick} to="/auth/login">
-                Ganti Akun
-              </Link>
+              <Typography.Link onClick={onLogoutClick}>
+                Menjadi Konsumen
+              </Typography.Link>
             </Menu.Item>
           )}
         </Menu>

@@ -19,16 +19,16 @@ function IllustratorCount({ totalIllustrator }: IllustratorCountProps) {
               <UserSwitchOutlined className="text-2xl" />
             </div>
             <div className="w-full pl-4 max-w-full flex-grow flex-1 mb-2 text-right ">
-              <h5 className="text-gray-700 font-light tracking-wide text-base mb-1">Illustrator</h5>
+              <h5 className="text-gray-700 font-light tracking-wide text-base mb-1">Jumlah Illustrator</h5>
               <span className="text-3xl text-gray-900">{totalIllustrator}</span>
             </div>
           </div>
           <div className="text-sm text-gray-700 pt-4 flex items-center undefined">
-            <span className=" text-red-500 text-base leading-none">
+            {/* <span className=" text-red-500 text-base leading-none">
               <ArrowDownOutlined />
             </span>
             <span className="text-red-500 ml-1 mr-2">3.48</span>
-            <span className="font-light whitespace-nowrap">Since last week</span>
+            <span className="font-light whitespace-nowrap">Since last week</span> */}
           </div>
         </div>
       )}

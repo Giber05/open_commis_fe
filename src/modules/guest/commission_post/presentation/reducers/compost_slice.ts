@@ -6,29 +6,28 @@ import { CommissionPostDetail } from "../../data/models/compost_detail/commissio
 import CommissionPost from "../../data/models/compost_list/commission_posts";
 
 type ComPostState = {
-  initLoading: boolean,
+  initLoading: boolean;
   isLoadingComPosts: boolean;
   commissionPosts: CommissionPost[];
   commissionPost: CommissionPostDetail | null;
   categories: CategoryModel[];
   selectedCategory: number | undefined;
-  pagination: PaginationModel | null
-  
+  pagination: PaginationModel | null;
 };
 
 const initialState: ComPostState = {
   isLoadingComPosts: false,
-  initLoading:true,
+  initLoading: true,
   commissionPosts: [],
   commissionPost: null,
   categories: [],
-  selectedCategory: undefined,
-  pagination:{
-    currentPage:1,
-    pageSize:0,
-    totalData:0,
-    totalPage:0,
-  }
+  selectedCategory: 0,
+  pagination: {
+    currentPage: 1,
+    pageSize: 0,
+    totalData: 0,
+    totalPage: 0,
+  },
 };
 
 export const comPostSlice = createSlice({
@@ -48,26 +47,24 @@ export const comPostSlice = createSlice({
       state.commissionPost = action.payload;
     },
     fetchCategories: (state, action: PayloadAction<CategoryModel[]>) => {
-      state.categories = action.payload;
+      state.categories = [
+        {
+          id: 0,
+          categoryName: "All",
+        },
+        ...action.payload,
+      ];
     },
-    setSelectedCategory:(state, action:PayloadAction<number|undefined>)=>{
+    setSelectedCategory: (state, action: PayloadAction<number | undefined>) => {
       state.selectedCategory = action.payload;
     },
-    setPagination:(state, action:PayloadAction<PaginationModel>)=>{
+    setPagination: (state, action: PayloadAction<PaginationModel>) => {
       state.pagination = action.payload;
     },
   },
 });
 
-export const {
-  isLoading,
-  fetchCommissionPosts,
-  fetchCategories,
-  setSelectedCategory,
-  fetchCommissionDetail,
-  setPagination,
-  setInitLoading
-} = comPostSlice.actions;
+export const { isLoading, fetchCommissionPosts, fetchCategories, setSelectedCategory, fetchCommissionDetail, setPagination, setInitLoading } = comPostSlice.actions;
 
 export const selectComPost = (state: RootState): ComPostState => state.compost;
 

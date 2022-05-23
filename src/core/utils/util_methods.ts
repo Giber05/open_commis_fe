@@ -53,10 +53,10 @@ export class UtilMethods {
     let deadline = moment(orderDate).add(durationTime, "days");
     return this.getIndonesianFormatDate(deadline);
   }
-  public static getExpPaymentDate(orderDate: Date): any {
-    let deadline = moment(orderDate).add(1, "days");
+  public static getExpPaymentDate(orderDate: Date, until?: number): any {
+    let deadline = moment(orderDate).add(until == undefined ? 1 : until, "days");
     let isStillValid = deadline > moment();
-    
+
     let ddInString = this.getIndonesianTimeFormat(deadline);
     return { ddInString, isStillValid };
   }
@@ -93,6 +93,4 @@ export class UtilMethods {
     }
   };
   public static getIndonesianCurrencyFormat = (price: number) => new Intl.NumberFormat("id-ID", { maximumSignificantDigits: 3 }).format(price);
-
-  
 }

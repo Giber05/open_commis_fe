@@ -20,7 +20,7 @@ function OrderDetail({ order }: OrderDetailProps) {
         padding: "0",
       }}
     >
-      <Typography className="text-center text-lg sm:text-lg lg:text-lg font-bold">Detail Pesanan</Typography>
+      <Typography className="text-center text-lg sm:text-lg lg:text-lg font-bold">Detail Pesanan #{order?.id}</Typography>
       <Divider className="my-2" />
 
       <Row justify="space-between" className="my-3">

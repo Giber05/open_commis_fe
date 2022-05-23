@@ -34,17 +34,16 @@ function useComPostsHandler(): ComPostsController {
   const getCommissionPosts = () => {
     dispatch(isLoading(true));
     setTimeout(async () => {
-      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory, limit: 15 });
+      const resource = await getCommissionPostsUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, categoryId: selectedCategory == 0 ? undefined : selectedCategory, limit: 15 });
       dispatch(isLoading(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
-
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
         },
         error: (error) => {
-          message.error(error.exception.message)
+          message.error(error.exception.message);
         },
       });
     });
