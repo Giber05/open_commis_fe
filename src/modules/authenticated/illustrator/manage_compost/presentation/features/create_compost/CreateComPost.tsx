@@ -1,5 +1,5 @@
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Divider, Form, Input, InputNumber, Row, Select, Space, Typography, Upload } from "antd";
+import { Alert, Button, Card, Col, Divider, Form, Input, InputNumber, Row, Select, Space, Typography, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "../../../../../../../core/common_components/buttons/PrimaryButton";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
@@ -63,6 +63,9 @@ function CreateComPost() {
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Membuat Commission Post</h2>
+      <div className="text-center w-1/2 mx-auto my-4">
+        <Alert className="rounded-full" closable message="Setiap transaksi yang terjadi akan dikenakan potongan sebesar 5%" type="warning" />
+      </div>
       <Form layout="vertical" name="nest-messages" validateMessages={validateMessages} onFinish={createComPost}>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col xs={24} sm={12} lg={12}>
@@ -79,10 +82,12 @@ function CreateComPost() {
             <Form.Item rules={[{ required: true }]} name={["compost", "tags"]} label="Tags">
               <Select
                 className="form-style-blue"
-                mode="tags"
+                mode="multiple"
                 bordered={false}
                 style={{ width: 300 }}
                 menuItemSelectedIcon
+                optionFilterProp="children"
+                filterOption={(input, option: any) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 dropdownRender={(menu) => (
                   <>
                     {menu}
@@ -97,7 +102,7 @@ function CreateComPost() {
                 )}
               >
                 {tags.map((tag) => (
-                  <Option key={tag.id}>{tag.tagName}</Option>
+                  <Option  value={tag.id}>{tag.tagName}</Option>
                 ))}
               </Select>
             </Form.Item>

@@ -92,6 +92,8 @@ function useCreateComPostHandler(): CreateComPostController {
   };
 
   const createComPost = (event: any) => {
+    console.log({event});
+    
     let imageFiles = event.upload_image.map((file: any) => file.originFileObj);
     let commission = event.compost;
 

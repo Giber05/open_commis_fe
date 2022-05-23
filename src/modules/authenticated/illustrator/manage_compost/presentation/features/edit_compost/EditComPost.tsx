@@ -94,10 +94,12 @@ function EditComPost() {
             <Form.Item rules={[{ required: true }]} name={["compost", "tags"]} label="Tags">
               <Select
                 className="form-style-blue"
-                mode="tags"
+                mode="multiple"
                 bordered={false}
                 style={{ width: 300 }}
                 menuItemSelectedIcon
+                optionFilterProp="children"
+                filterOption={(input, option: any) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 dropdownRender={(menu) => (
                   <>
                     {menu}
@@ -112,7 +114,7 @@ function EditComPost() {
                 )}
               >
                 {tags.map((tag) => (
-                  <Option key={tag.id}>{tag.tagName}</Option>
+                  <Option value={tag.id}>{tag.tagName}</Option>
                 ))}
               </Select>
             </Form.Item>
@@ -121,7 +123,7 @@ function EditComPost() {
             </Form.Item>
             <Form.Item name={["compost", "price"]} label="Harga" rules={[{ type: "number", min: 10000, max: 9999999999, required: true }]}>
               <InputNumber
-                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 prefix="Rp."
                 className="rounded-2xl pr-2 bg-[#e1f4f9]"
                 style={{
