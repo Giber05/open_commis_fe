@@ -19,16 +19,16 @@ function ConsumerCount({ totalConsumer }: ConsumerCountProps) {
               <UserSwitchOutlined className="text-2xl" />
             </div>
             <div className="w-full pl-4 max-w-full flex-grow flex-1 mb-2 text-right ">
-              <h5 className="text-gray-700 font-light tracking-wide text-base mb-1">Konsumen</h5>
+              <h5 className="text-gray-700 font-light tracking-wide text-base mb-1">Jumlah Konsumen</h5>
               <span className="text-3xl text-gray-900">{totalConsumer}</span>
             </div>
           </div>
           <div className="text-sm text-gray-700 pt-4 flex items-center undefined">
-            <span className=" text-green-500 text-base leading-none">
+            {/* <span className=" text-green-500 text-base leading-none">
               <ArrowUpOutlined />
             </span>
             <span className="text-green-500 ml-1 mr-2">2.8</span>
-            <span className="font-light whitespace-nowrap">Since last week</span>
+            <span className="font-light whitespace-nowrap">Since last week</span> */}
           </div>
         </div>
       )}

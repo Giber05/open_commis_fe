@@ -26,7 +26,7 @@ function OrderDetailPage() {
   else if (orderDetail == null) {
     return <NotFound />;
   }
-  const paymentExpDate = UtilMethods.getExpPaymentDate(orderDetail?.orderDate);
+  const paymentExpDate = UtilMethods.getExpPaymentDate(orderDetail?.orderDate, 3);
 
   return (
     <div className="max-w-3xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">

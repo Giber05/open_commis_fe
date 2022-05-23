@@ -41,7 +41,7 @@ function LineChart({ transactionSummary }: TransactionChartProps) {
             labels,
             datasets: [
               {
-                label: "Transaksi",
+                label: "Total Transaksi",
                 data: dataTransaction,
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: "rgb(29, 148, 200)",

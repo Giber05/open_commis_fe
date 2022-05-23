@@ -1,5 +1,4 @@
 import { Button, Card, Col, Form, Modal, Radio, Row, Space, Tabs, Typography } from "antd";
-import modal from "antd/lib/modal";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import SuccessButton from "../../../../../../../core/common_components/buttons/SuccessButton";
 import OrderDetail from "./component/OrderDetail";
@@ -46,11 +45,11 @@ function DetailOrderCustomer() {
         return <DisabledButton title="Lakukan Pembayaran" rounded />;
       case OrderStatus.Accepted:
         if (orderDetail?.payment == null) {
-          if (paymentExpDate.isStillValid) {
-            return <InfoButton size="large" title="dsads Pembayaran" rounded onClick={showPaymentModal} />;
-          } else {
-            return <DisabledButton title="Pesanan Kadaluarsa" rounded />;
-          }
+          // if (paymentExpDate.isStillValid) {
+            return <InfoButton size="large" title="Lakukan Pembayaran" rounded onClick={showPaymentModal} />;
+          // } else {
+          //   return <DisabledButton title="Pesanan Kadaluarsa" rounded />;
+          // }
         }
         return <InfoButton onClick={() => handleMakePayment(orderDetail?.payment?.paymentLink!)} title="Selesaikan Pembayaran" rounded />;
 

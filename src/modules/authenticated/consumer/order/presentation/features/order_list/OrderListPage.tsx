@@ -25,7 +25,7 @@ function OrderListPage(): JSX.Element {
       <div>
         {orders.length > 0 ? (
           orders.map((order, index) => (
-            <Link to={{ pathname: `/consumer/order/${order.id}` }}>
+            <Link to={{ pathname: `/consumer/order/${order.id}` }} className="mx-auto ">
               <OrderItem order={order} />
             </Link>
           ))
