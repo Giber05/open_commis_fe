@@ -44,7 +44,7 @@ function IllustratorsPortofolioPage() {
             <div className={`${illustratorsPortofolio?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>
               <Typography.Title
                 level={3}
-                italic
+           
                 style={{
                   textAlign: "center",
                   color: "white",

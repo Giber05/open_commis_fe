@@ -1,4 +1,6 @@
+import { isFulfilled } from "@reduxjs/toolkit";
 import moment, { Moment } from "moment";
+import "moment/locale/id";
 import { OrderStatus, WithdrawStatus } from "./enums";
 
 export class UtilMethods {
@@ -51,9 +53,19 @@ export class UtilMethods {
     let deadline = moment(orderDate).add(durationTime, "days");
     return this.getIndonesianFormatDate(deadline);
   }
+  public static getExpPaymentDate(orderDate: Date): any {
+    let deadline = moment(orderDate).add(1, "days");
+    let isStillValid = deadline > moment();
+    
+    let ddInString = this.getIndonesianTimeFormat(deadline);
+    return { ddInString, isStillValid };
+  }
 
   public static getIndonesianFormatDate(date: Date | Moment | string): string {
-    return moment(date).format("DD-MMMM-YYYY");
+    return moment(date).format("DD MMMM YYYY");
+  }
+  public static getIndonesianTimeFormat(date: Date | Moment | string): string {
+    return moment(date).format("DD-MMMM-YYYY, HH:mm");
   }
 
   public static matchWithdrawStatusColor = (status: string) => {
@@ -81,4 +93,6 @@ export class UtilMethods {
     }
   };
   public static getIndonesianCurrencyFormat = (price: number) => new Intl.NumberFormat("id-ID", { maximumSignificantDigits: 3 }).format(price);
+
+  
 }

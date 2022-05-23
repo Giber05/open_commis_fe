@@ -9,7 +9,7 @@ import { SubmissionFileModel } from "../models/submission_file_model";
 export class OrderRepoImpl extends BaseRepository implements OrderRepo {
   private orderRemoteDS: OrderRemoteDS = new OrderRemoteDSImpl();
 
-  sendOrder(params: { orderId: number; token: string; submissionFile: string; cloudLink?: string; description?: string }): Promise<Resource<IllustratorOrderDetailModel>> {
+  sendOrder(params: { orderId: number; token: string; submissionFile?: string; cloudLink?: string; description?: string }): Promise<Resource<IllustratorOrderDetailModel>> {
     return this.networkOnlyCall({
       networkCall: async () => {
         const resource = await this.orderRemoteDS.sendOrder({ token: params.token, submissionFile: params.submissionFile, description: params.description, cloudLink: params.cloudLink, orderId: params.orderId });

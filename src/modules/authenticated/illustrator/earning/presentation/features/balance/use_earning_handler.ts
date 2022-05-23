@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { error } from "console";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
