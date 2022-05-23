@@ -1,5 +1,4 @@
 import { Card, Divider, Rate, Row, Typography, Image, Col, Tag } from "antd";
-import React from "react";
 import AssetConstants from "../../../../../../../../core/constants/asset_constants";
 import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 import { ConsumerOrderDetail } from "../../../../data/models/order/order_detail/consumer_detail_order";
@@ -10,6 +9,7 @@ type OrderDetailProps = {
 function OrderDetail({ order }: OrderDetailProps) {
   const statusColor = UtilMethods.matchStatusColor(order?.status!);
   const deadlineDate = order?.payment?.paymentDate == null ? order?.commission.durationTime + " Hari" : UtilMethods.getDeadlineDate(order?.payment?.paymentDate, order?.commission.durationTime);
+  const orderDate = UtilMethods.getIndonesianFormatDate(order?.orderDate!)
   return (
     <Card
       className="comic-shadow sm:shrink-0"
@@ -40,7 +40,7 @@ function OrderDetail({ order }: OrderDetailProps) {
           <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg ">Tanggal Pemesanan</Typography.Text>
         </Col>
         <Col span={12} className="text-base leading-none text-right">
-          <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right">{UtilMethods.getIndonesianFormatDate(order?.orderDate!)}</Typography.Text>
+          <Typography.Text className="text-sm mb-1 sm:text-sm lg:text-lg font-bold text-right">{orderDate}</Typography.Text>
         </Col>
       </Row>
       

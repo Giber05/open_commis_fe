@@ -11,11 +11,11 @@ const { Text } = Typography;
 
 function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
   const orderStatus = UtilMethods.translateOrderStatus(orderDetail?.status!);
-  const paymentStatus = orderDetail?.payment != null ? "Sudah Dibayar" : "Belum Dibayar";
+  const paymentStatus = orderDetail?.payment?.paymentDate != null ? "Sudah Dibayar" : "Belum Dibayar";
   const statusColor = UtilMethods.matchStatusColor(orderDetail?.status!);
   const orderDeadline = orderDetail?.payment?.paymentDate != null ? UtilMethods.getDeadlineDate(orderDetail?.payment.paymentDate!, orderDetail?.commission.durationTime!):"-";
   const orderCreated = UtilMethods.getIndonesianFormatDate(orderDetail?.orderDate!);
-  const paymentDate = orderDetail?.payment != null ? UtilMethods.getIndonesianFormatDate(orderDetail?.payment.paymentDate) : "-";
+  const paymentDate = orderDetail?.payment?.paymentDate != null ? UtilMethods.getIndonesianFormatDate(orderDetail?.payment.paymentDate) : "-";
   const totalPayment = UtilMethods.getIndonesianCurrencyFormat(orderDetail?.grandTotal)
 
   return (
@@ -96,7 +96,7 @@ function OrderDetailTab({ orderDetail }: OrderDetaiProps) {
                 </Typography.Text>
               </Col>
               <Col span={12} className="leading-none my-auto text-right">
-                <Typography.Text className={`${orderDetail?.payment ==null? "text-red-500" : "text-green-500"} text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold`}>{paymentStatus}</Typography.Text>
+                <Typography.Text className={`${orderDetail?.payment?.paymentDate ==null? "text-red-500" : "text-green-500"} text-[9px] mb-1 sm:text-[12px] md:text-xs lg:text-sm xl:text-base  font-semibold`}>{paymentStatus}</Typography.Text>
               </Col>
             </Row>
             <Row justify="space-between" className="">

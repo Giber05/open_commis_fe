@@ -74,15 +74,15 @@ function useSendOrderHandler(): SendOrderController {
   };
 
   const sendOrder = (values: any) => {
-    if(uploadedFilePath==null){
-      message.error("Gagal Mengirimkan pesanan")
-      return
-    }
+    // if(uploadedFilePath==null){
+    //   message.error("Gagal Mengirimkan pesanan")
+    //   return
+    // }
     message.loading({ content: "Loading..." });
     dispatch(setIsSendOrderLoading(true));
     setTimeout(async () => {
 
-      const resource = await sendOrderUC.execute({ token: authUser?.data.token!, submissionFile: uploadedFilePath?.path!, description: values.description, cloudLink: values.cloud_link, orderId: id });
+      const resource = await sendOrderUC.execute({ token: authUser?.data.token!, submissionFile: uploadedFilePath?.path, description: values.description, cloudLink: values.cloud_link, orderId: id });
       dispatch(setIsSendOrderLoading(false));
 
       resource.whenWithResult({
