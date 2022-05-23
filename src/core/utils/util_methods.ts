@@ -56,7 +56,6 @@ export class UtilMethods {
   public static getExpPaymentDate(orderDate: Date): any {
     let deadline = moment(orderDate).add(1, "days");
     let isStillValid = deadline > moment();
-    console.log(moment());
     
     let ddInString = this.getIndonesianTimeFormat(deadline);
     return { ddInString, isStillValid };
