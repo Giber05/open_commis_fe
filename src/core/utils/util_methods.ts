@@ -92,5 +92,5 @@ export class UtilMethods {
         return "default";
     }
   };
-  public static getIndonesianCurrencyFormat = (price: number) => new Intl.NumberFormat("id-ID", { maximumSignificantDigits: 9 }).format(price);
+  public static getIndonesianCurrencyFormat = (price: number) => new Intl.NumberFormat("id-ID", { maximumSignificantDigits: 12 }).format(price);
 }
