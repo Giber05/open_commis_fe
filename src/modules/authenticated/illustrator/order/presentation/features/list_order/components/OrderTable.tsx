@@ -33,7 +33,7 @@ function OrderTable() {
         size="middle"
         pagination={{ pageSize: pagination?.pageSize, total: pagination?.totalData, current: pagination?.currentPage, onChange: onChangePage }}
       >
-        <Column title="Commission" width={30} render={(text, record: any) => <Typography.Text>{record.commission.title}</Typography.Text>} />
+        <Column title="Commission" width={30} render={(text, record: any) => <Typography.Text>{record.commission.title.length > 18 ? record.commission.title.substring(0, 18) + "..." : record.commission.title}</Typography.Text>} />
         <Column title="Nama Konsumen" width={30} render={(text, record: any) => <Typography.Text>{record.consumer.name}</Typography.Text>} />
         <Column title="Tanggal Pemesanan" render={(text, record: any) => <Typography.Text>{UtilMethods.getIndonesianFormatDate(record.orderDate)}</Typography.Text>} width={30} />
         <Column

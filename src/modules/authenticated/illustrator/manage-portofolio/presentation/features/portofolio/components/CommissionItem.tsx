@@ -14,7 +14,7 @@ function CommissionItem({ commission, itemId }: CommissionProps) {
   const visibility = React.useContext(VisibilityContext);
 
   const visible = visibility.isItemVisible(itemId);
-  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price)
+  const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price);
 
   return (
     <div className="inline-block p-3 content-center">
@@ -32,7 +32,7 @@ function CommissionItem({ commission, itemId }: CommissionProps) {
             />
           </div>
           <div className="p-3">
-            <Typography.Title level={5}>{commission.title}</Typography.Title>
+            <Typography.Title level={5}>{commission.title.length > 22 ? commission.title.substring(0, 22) + "..." : commission.title}</Typography.Title>
             <Row justify="space-between">
               <Col>
                 <Typography.Text className="font-bold">Rp. {commissionPrice}</Typography.Text>

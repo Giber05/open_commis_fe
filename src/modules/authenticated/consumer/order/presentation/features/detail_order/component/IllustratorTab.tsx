@@ -8,13 +8,14 @@ type IllustratorTabProps = {
   illustrator: IlustratorModel;
 };
 function IllustratorTab({ illustrator }: IllustratorTabProps) {
-  const waLink = "https://wa.me/" + illustrator.phone;
+  const waLink = "https://wa.me/" + "62" + illustrator.phone.substring(1, 13);
+  console.log(illustrator.phone.substring(1, 13));
+  
   return (
     <div className="">
       <div className="w-full bg-white rounded-xl  shadow-md p-4 undefined">
         <div className="flex flex-wrap justify-center">
-          <div className=" px-4  text-center">
-            {/* <img  src="https://i.pinimg.com/originals/eb/07/e3/eb07e3c77d122a1c037f3c69a3e24383.jpg" className=" shadow-lg max-w-full h-auto align-middle border-none " /> */}
+          <div className="px-4 text-center">
             <Avatar size={{ xs: 60, sm: 72, md: 84, lg: 92, xl: 100, xxl: 120 }} src={illustrator.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : illustrator.profilePicture} />
           </div>
           <div className="w-full flex justify-center py-2 lg:pt-4 ">
