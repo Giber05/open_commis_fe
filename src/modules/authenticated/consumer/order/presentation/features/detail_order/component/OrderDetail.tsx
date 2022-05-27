@@ -10,9 +10,10 @@ function OrderDetail({ order }: OrderDetailProps) {
   const statusColor = UtilMethods.matchStatusColor(order?.status!);
   const deadlineDate = order?.payment?.paymentDate == null ? order?.commission.durationTime + " Hari" : UtilMethods.getDeadlineDate(order?.payment?.paymentDate, order?.commission.durationTime);
   const orderDate = UtilMethods.getIndonesianFormatDate(order?.orderDate!)
+ 
   return (
     <Card
-      className="comic-shadow sm:shrink-0"
+      bordered = {false}
       //  loading={isLoadingComPosts}
       style={{
         minHeight: "360px",

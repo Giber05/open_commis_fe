@@ -16,6 +16,7 @@ import FinishOrderModal from "./component/FinishOrderModal";
 import NotFound from "../../../../../../../core/common_components/NotFound";
 import { UtilMethods } from "../../../../../../../core/utils/util_methods";
 import IllustratorTab from "./component/IllustratorTab";
+import TrackOrder from "./component/TrackOrder";
 
 const { TabPane } = Tabs;
 
@@ -46,7 +47,7 @@ function DetailOrderCustomer() {
       case OrderStatus.Accepted:
         if (orderDetail?.payment == null) {
           // if (paymentExpDate.isStillValid) {
-            return <InfoButton size="large" title="Lakukan Pembayaran" rounded onClick={showPaymentModal} />;
+          return <InfoButton size="large" title="Lakukan Pembayaran" rounded onClick={showPaymentModal} />;
           // } else {
           //   return <DisabledButton title="Pesanan Kadaluarsa" rounded />;
           // }
@@ -80,14 +81,23 @@ function DetailOrderCustomer() {
     <div className="max-w-3xl mx-auto py-3  sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={24} md={12} lg={12}>
-          <OrderDetail order={orderDetail!} />
+          <Card className="comic-shadow">
+            <Tabs defaultActiveKey="1" centered>
+              <TabPane tab="Pesanan" key="1">
+                <OrderDetail order={orderDetail!} />
+              </TabPane>
+              <TabPane tab="Lacak Pesanan" key="2">
+                <TrackOrder />
+              </TabPane>
+            </Tabs>
+          </Card>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12}>
           {orderDetail?.commission == null ? null : (
             <Card className="comic-shadow">
               <Tabs defaultActiveKey="1" centered>
                 <TabPane tab="Illustrator" key="1">
-                  <IllustratorTab illustrator = {orderDetail?.illustrator}/>
+                  <IllustratorTab illustrator={orderDetail?.illustrator} />
                 </TabPane>
                 <TabPane tab="Commission Post" key="2">
                   <ComPostDetailTab compost={orderDetail?.commission} />

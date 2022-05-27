@@ -1,5 +1,5 @@
 import { Card, Layout, Menu, PageHeader, Image, Button, Dropdown, Row, Col } from "antd";
-import { BackwardOutlined, BorderBottomOutlined, DropboxOutlined, UploadOutlined, UpOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { BackwardOutlined, BorderBottomOutlined, DropboxOutlined, LeftOutlined, UploadOutlined, UpOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
 import { isAuthLoading, selectAuth, userLogout } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
@@ -95,7 +95,11 @@ function BottomNavigation() {
       >
         <Row>
           <Col span={8} className=" m-auto ">
-            {showBackButton ? <Button onClick={()=>navigate(-1)} type="text" icon={<BackwardOutlined className="text-3xl text-[#1890ff]" />}></Button> : null}
+            {showBackButton ? (
+              <Button className="my-auto text-center items-center flex hover:text-[#1890ff] hover:bg-inherit" onClick={() => navigate(-1)} type="text" icon={<LeftOutlined className="text-2xl " />}>
+                Kembali
+              </Button>
+            ) : null}
           </Col>
           <Col span={8} className="text-center">
             <Image preview={false} width={120} src={`${AssetConstants.iconURL}logo/oc.png`} className="pb-2 align-middle" />
@@ -119,14 +123,12 @@ function BottomNavigation() {
               </svg>
               <span className="tab tab-kategori block text-xs">Pesanan</span>
             </Link>
-            <Dropdown trigger={["click"]} overlay={menu} placement="top" arrow>
-              <Link to="/consumer/profile" className={`w-full text-gray-500 ${consumerCurrentMenu === "profile" ? "text-[#1890ff]" : ""}  hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1`}>
-                <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="tab tab-explore block text-xs">Profil</span>
-              </Link>
-            </Dropdown>
+            <Link to="/consumer/profile" className={`w-full text-gray-500 ${consumerCurrentMenu === "profile" ? "text-[#1890ff]" : ""}  hover:text-[#1890ff] justify-center inline-block text-center pt-2 pb-1`}>
+              <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" className="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span className="tab tab-explore block text-xs">Profil</span>
+            </Link>
           </div>
         ) : (
           <div id="tabs" className="flex justify-between">
