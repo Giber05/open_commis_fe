@@ -4,6 +4,7 @@ import CircularLoadingIndicator from "../../../../../../../../../core/common_com
 import useIllustratorDetailOrderHandler from "../../use_illustrator_detail_order_handler";
 import ComPostTab from "./tabs/ComPostTab";
 import OrderDetailTab from "./tabs/OrderDetailTab";
+import TrackOrderTab from "./tabs/TrackOrderTab";
 
 const { TabPane } = Tabs;
 
@@ -16,7 +17,7 @@ function OrderDetailSection() {
           <TabPane
             tab={
               <Typography.Text className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl font-extrabold" strong>
-                Detail Order
+                Detail Pesanan
               </Typography.Text>
             }
             key="1"
@@ -32,6 +33,16 @@ function OrderDetailSection() {
             key="2"
           >
             <ComPostTab commission={orderDetail?.commission!} />
+          </TabPane>
+          <TabPane
+            tab={
+              <Typography.Text className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl font-extrabold" strong>
+                Lacak Pesanan
+              </Typography.Text>
+            }
+            key="3"
+          >
+            <TrackOrderTab />
           </TabPane>
         </Tabs>
       </div>
