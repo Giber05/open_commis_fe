@@ -18,7 +18,7 @@ export class ManagePortofolioRemoteDSImpl implements ManagePortofolioRemoteDS {
   private baseClient = new BaseClient();
 
   async deleteArtwork(params: { artworkId: number; token: string }): Promise<DeleteArtworkModel> {
-    let deleteArtworkURL =NetworkConstant.baseUrl + "illustrator/artworks/" + params.artworkId;
+    let deleteArtworkURL = NetworkConstant.baseUrl + "illustrator/artworks/" + params.artworkId;
     const response = await this.baseClient.deleteWithCookie({
       url: deleteArtworkURL,
       configs: {
@@ -28,7 +28,6 @@ export class ManagePortofolioRemoteDSImpl implements ManagePortofolioRemoteDS {
       },
     });
     if (response.status >= 200 && response.status <= 210) {
-
       return DeleteArtworkModel.fromJson(response.data);
     }
     throw new BaseException({ message: response.data.error });

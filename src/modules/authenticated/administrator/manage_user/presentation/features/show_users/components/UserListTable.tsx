@@ -8,6 +8,7 @@ import { UtilMethods } from "../../../../../../../../core/utils/util_methods";
 import { useAppDispatch } from "../../../../../../../../core/utils/redux";
 import { setFilterUser, setSearchText } from "../../../reducers/user_list_slice";
 import { ColumnType } from "antd/lib/table";
+import AssetConstants from "../../../../../../../../core/constants/asset_constants";
 
 const { Option } = Select;
 
@@ -36,7 +37,7 @@ function UserListTable({ users }: UserListProps) {
       render: (value: any, record: UserList) => {
         return (
           <Row>
-            <Avatar size={50} src={record.profilePicture} className="mr-2" />
+            <Avatar size={50} src={record.profilePicture == null?AssetConstants.imageURL+"placeholder/profile_placeholder.png":record.profilePicture} className="mr-2" />
             <Typography.Text className="my-auto" strong>
               {record.name.length > 14 ? record.name.substring(0, 13) + "..." : record.name}
             </Typography.Text>
