@@ -10,10 +10,10 @@ import ComPostModel from "../../models/illustrators_composts";
 
 export interface ManageComPostRemoteDS {
   getTags(): Promise<TagModel[]>;
-  deleteComPost(params:{compostId:number, token:string}):Promise<DeleteComPostModel>;
+  deleteComPost(params: { compostId: number; token: string }): Promise<DeleteComPostModel>;
   createTag(params: { token: string; tagName: string }): Promise<TagModel>;
-  createComPost(params: { token: string; formData: any;}): Promise<ComPostDetailModel>;
-  editComPost(params: { token: string; formData: any;compostId: number  }): Promise<ComPostDetailModel>;
+  createComPost(params: { token: string; formData: any }): Promise<ComPostDetailModel>;
+  editComPost(params: { token: string; formData: any; compostId: number }): Promise<ComPostDetailModel>;
   changeComPostStatus(params: { token: string; status: string; compostId: number }): Promise<ComPostDetailModel>;
   getComPostList(token: string): Promise<IllustratorComposts[]>;
   getIllustratorComPostDetail(compostId: number): Promise<ComPostDetailModel>;
@@ -21,9 +21,9 @@ export interface ManageComPostRemoteDS {
 
 class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
   private baseClient = new BaseClient();
- 
-  async deleteComPost(params:{compostId:number, token:string}): Promise<DeleteComPostModel> {
-    let deleteComPostURL =NetworkConstant.baseUrl + "commissions/" + params.compostId;
+
+  async deleteComPost(params: { compostId: number; token: string }): Promise<DeleteComPostModel> {
+    let deleteComPostURL = NetworkConstant.baseUrl + "commissions/" + params.compostId;
     const response = await this.baseClient.deleteWithCookie({
       url: deleteComPostURL,
       configs: {
@@ -33,14 +33,13 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
       },
     });
     if (response.status >= 200 && response.status <= 210) {
-
       return DeleteComPostModel.fromJson(response.data);
     }
     throw new BaseException({ message: response.data.error });
   }
 
-  async editComPost(params: { token: string; formData: any;compostId: number }): Promise<ComPostDetailModel> {
-    let editComPostURL =NetworkConstant.baseUrl + "commissions/" + params.compostId;
+  async editComPost(params: { token: string; formData: any; compostId: number }): Promise<ComPostDetailModel> {
+    let editComPostURL = NetworkConstant.baseUrl + "commissions/" + params.compostId;
     const response = await this.baseClient.putWithCookie({
       url: editComPostURL,
       body: params.formData,
@@ -73,7 +72,6 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
       },
     });
     if (response.status >= 200 && response.status <= 210) {
-      
       return ComPostDetailModel.fromJson(response.data);
     }
     throw new BaseException({ message: response.data.error });
@@ -143,7 +141,7 @@ class ManageComPostRemoteDSImpl implements ManageComPostRemoteDS {
     });
     if (response.status >= 200 && response.status <= 210) {
       const body = response.data.data;
-      
+
       return body.map((e: any) => {
         return IllustratorComposts.fromJson(e);
       });

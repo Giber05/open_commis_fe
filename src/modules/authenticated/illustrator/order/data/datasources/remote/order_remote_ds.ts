@@ -10,20 +10,20 @@ export interface OrderRemoteDS {
   getOrderDetail(params: { orderId: number; token: string }): Promise<IllustratorOrderDetailModel>;
   confirmOrder(params: { orderId: number; token: string; accept: boolean; rejectReason?: string }): Promise<IllustratorOrderDetailModel>;
   uploadSubmissionFile(params: { token: string; formData: any; progressConfig: (progressEvent: any) => void }): Promise<SubmissionFileModel>;
-  sendOrder(params: { orderId: number; token: string; submissionFile?:string, cloudLink?:string,description?:string }): Promise<IllustratorOrderDetailModel>;
+  sendOrder(params: { orderId: number; token: string; submissionFile?: string; cloudLink?: string; description?: string }): Promise<IllustratorOrderDetailModel>;
 }
 
 export class OrderRemoteDSImpl implements OrderRemoteDS {
   private baseClient = new BaseClient();
 
-  async sendOrder(params: { orderId: number; token: string; submissionFile?: string; cloudLink?: string; description?: string; }): Promise<IllustratorOrderDetailModel> {
-    let sendOrderURL = NetworkConstant.baseUrl + "orders/"+params.orderId+"/send";
+  async sendOrder(params: { orderId: number; token: string; submissionFile?: string; cloudLink?: string; description?: string }): Promise<IllustratorOrderDetailModel> {
+    let sendOrderURL = NetworkConstant.baseUrl + "orders/" + params.orderId + "/send";
     const response = await this.baseClient.postWithCookie({
       url: sendOrderURL,
       body: {
-        submissionFile:params.submissionFile,
-        link:params.cloudLink,
-        description:params.description
+        submissionFile: params.submissionFile,
+        link: params.cloudLink,
+        description: params.description,
       },
       configs: {
         headers: {
@@ -58,7 +58,7 @@ export class OrderRemoteDSImpl implements OrderRemoteDS {
     }
     throw new BaseException({ message: response.data.error });
   }
-  
+
   async confirmOrder(params: { orderId: number; token: string; accept: boolean; rejectReason?: string | undefined }): Promise<IllustratorOrderDetailModel> {
     let confirmOrderURL = NetworkConstant.baseUrl + "orders/" + params.orderId + "/confirm";
     const response = await this.baseClient.postWithCookie({

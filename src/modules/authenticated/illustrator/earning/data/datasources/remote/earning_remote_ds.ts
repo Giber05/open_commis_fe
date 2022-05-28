@@ -16,7 +16,7 @@ export interface EarningRemoteDS {
 export class EarningRemoteDSImpl implements EarningRemoteDS {
   private baseClient = new BaseClient();
 
-async   getWithdrawalHistory(token: string): Promise<WithdrawalHistoryModel> {
+  async getWithdrawalHistory(token: string): Promise<WithdrawalHistoryModel> {
     let getWithdrawalHistoryURL = NetworkConstant.baseUrl + "withdrawals";
     const response = await this.baseClient.getWithCookie({
       url: getWithdrawalHistoryURL,
@@ -57,10 +57,10 @@ async   getWithdrawalHistory(token: string): Promise<WithdrawalHistoryModel> {
     let withdrawBalanceURL = NetworkConstant.baseUrl + "withdrawals/create";
     const response = await this.baseClient.postWithCookie({
       url: withdrawBalanceURL,
-      body:{
-        destination:params.destination,
-        amount:params.amount,
-        accountNumber:params.accountNumber
+      body: {
+        destination: params.destination,
+        amount: params.amount,
+        accountNumber: params.accountNumber,
       },
       configs: {
         headers: {

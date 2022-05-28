@@ -12,6 +12,8 @@ export interface DashboardRemoteDS {
 }
 
 export class DashboardRemoteDSImpl implements DashboardRemoteDS {
+  private baseClient = new BaseClient();
+
   async getUserCount(token: string): Promise<UserCountModel> {
     let getUserCountURL = NetworkConstant.baseUrl + "users/count";
 
@@ -30,7 +32,6 @@ export class DashboardRemoteDSImpl implements DashboardRemoteDS {
     }
     throw new BaseException({ message: response.data.error });
   }
-  private baseClient = new BaseClient();
 
   async getTransactionSummary(params: { token: string; year?: number | undefined }): Promise<TransactionSumModel> {
     let getTransactionSumURL = NetworkConstant.baseUrl + "transactions/summary";

@@ -1,10 +1,8 @@
 import { message } from "antd";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { fetchError, selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
+import {  selectCommon } from "../../../../../../../core/AppRedux/reducers/common_reducer";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
-import { CommissionPost } from "../../../../../../common/commission/data/models/commission_post";
 import PaginationModel from "../../../../../../common/pagination/model/pagination_model";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import CommissionPosts from "../../../../../../guest/commission_post/data/models/compost_list/commission_posts";
@@ -36,18 +34,16 @@ function useAdminComPostListHandler(): AdminComPostsController {
   const getCommissionPosts = () => {
     dispatch(setIsLoadingComPosts(true));
     setTimeout(async () => {
-      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 10, token: authUser?.data.token! });
+      const resource = await adminGetComPosttListUC.execute({ page: pagination?.currentPage == undefined ? 1 : pagination?.currentPage, limit: 10, token: authUser?.data.token!, orderBy: "desc", sortBy: "created_at" });
       dispatch(setIsLoadingComPosts(false));
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
           dispatch(setPagination(value.data.data.pagination));
-          dispatch(fetchError(""));
         },
         error: (error) => {
           message.error(error.exception.message);
-          dispatch(fetchError(error.exception.message));
         },
       });
     });
@@ -62,10 +58,9 @@ function useAdminComPostListHandler(): AdminComPostsController {
       resource.whenWithResult({
         success: (value) => {
           dispatch(fetchCommissionPosts(value.data.data.commissionPosts));
-          dispatch(fetchError(""));
         },
         error: (error) => {
-          dispatch(fetchError(error.exception.message));
+          message.error(error.exception.message)
         },
       });
     });
