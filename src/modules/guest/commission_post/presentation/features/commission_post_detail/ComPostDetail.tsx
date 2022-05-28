@@ -24,7 +24,7 @@ function CommissionPostDetail() {
   else if (commissionPost == null) return <NotFound />;
   return (
     <div className="max-w-3xl mx-auto py-3  sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
-      <Row gutter={[24, 24]} className="">
+      <Row gutter={[24, 24]} >
         <Col xs={24} sm={24} md={12} lg={12}>
           <div className="bg-gray-200 comic-shadow">
             <FullWidthCorousel image1={commissionPost.image_1} image2={commissionPost.image_2} image3={commissionPost.image_3} image4={commissionPost.image_4} />

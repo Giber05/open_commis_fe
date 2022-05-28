@@ -10,6 +10,7 @@ import { selectCommon } from "../../../../AppRedux/reducers/common_reducer";
 import { useAppDispatch, useAppSelector } from "../../../../utils/redux";
 import Logout from "../../../../../modules/guest/authentication/domain/usecases/logout";
 import { selectAuth, isAuthLoading, userLogout } from "../../../../../modules/guest/authentication/presentation/reducers/auth_reducer";
+import NetworkConstant from "../../../../constants/network_constant";
 
 export default () => {
   const dispatch = useAppDispatch();
@@ -188,7 +189,7 @@ export default () => {
             <div className="flex ml-auto">
               <Dropdown overlay={menu}>
                 <div className="flex flex-row items-center text-primary">
-                  <img src="https://pbs.twimg.com/profile_images/378800000298815220/b567757616f720812125bfbac395ff54_normal.png" alt="img" className="h-10 w-10 bg-gray-200 border rounded-full" />
+                  <img src={AssetConstants.imageURL+"placeholder/administrator.png"} alt="img" className="h-10 w-10 bg-gray-200 border rounded-full" />
                   <span className="flex flex-col ml-2">
                     <span className="truncate w-20 text-white font-semibold tracking-wide leading-none">{authUser?.data.user.name}</span>
                     <span className="truncate w-20 text-gray-200 text-xs leading-none mt-1">Administrator</span>
