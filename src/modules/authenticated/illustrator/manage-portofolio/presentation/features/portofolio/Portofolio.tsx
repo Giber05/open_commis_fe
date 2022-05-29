@@ -74,13 +74,13 @@ function Portofolio() {
           />
         </div>
         <div className="mx-auto text-center">
-          <Typography.Title level={2}>
+          <Typography.Title level={3}>
             {illustratorProfile?.name} {illustratorProfile?.emailVerified ? <CheckCircleFilled style={{ color: "#1890ff" }} /> : null}
           </Typography.Title>
           <div className="md:w-1/2 mx-auto">
             <div className={`${illustratorProfile?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>
               <Typography.Title
-                level={3}
+                level={4}
                 italic
                 style={{
                   textAlign: "center",
@@ -90,6 +90,9 @@ function Portofolio() {
                 {illustratorProfile?.available ? "TERSEDIA" : "TIDAK TERSEDIA"}
               </Typography.Title>
             </div>
+            <Link to="/manage/manage-portofolio/be-verified" className="my-5 flex justify-center">
+              <SuccessButton title="Menjadi Illustrator Terverifikasi"/> 
+            </Link>
           </div>
           <Row justify="space-around">
             <Space>

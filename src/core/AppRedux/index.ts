@@ -9,6 +9,7 @@ import  consumerOrderSlice  from "../../modules/authenticated/consumer/order/pre
 import consumerProfileSlice  from "../../modules/authenticated/consumer/profile/presentation/reducers/customer_profile_slice";
 import  addReviewSlice  from "../../modules/authenticated/consumer/review/presentation/reducers/add_review_slice";
 import  earningSlice  from "../../modules/authenticated/illustrator/earning/presentation/reducers/earning_slice";
+import  manageAccountSlice  from "../../modules/authenticated/illustrator/manage-portofolio/presentation/reducers/manage_account_slice";
 import  managePortofolioSlice  from "../../modules/authenticated/illustrator/manage-portofolio/presentation/reducers/manage_portofolio_slice";
 import  createComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/create_compost_slice";
 import  editComPostSlice  from "../../modules/authenticated/illustrator/manage_compost/presentation/reducers/edit_compost_slice";
@@ -31,6 +32,7 @@ const store = configureStore({
     compost: comPostSlice,
     illustrators_portofolio: illustratorsPortofolioSlice,
     manage_portofolio:managePortofolioSlice,
+    manage_account:manageAccountSlice,
     illustrator_order:illustratorOrderSlice,
     illustrator_send_order:illustratorSendOrderSlice,
     earning: earningSlice,
