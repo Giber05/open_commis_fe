@@ -2,6 +2,7 @@ import { City } from "../../data/models/manage_account/city";
 import { Province } from "../../data/models/manage_account/province";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../../core/utils/redux";
+import { UploadedFileModel } from "../../../../../common/upload_file/data/models/uploaded_file_model";
 
 type ManageAccountSlice = {
   isGetCitiesLoading: boolean;
@@ -10,9 +11,10 @@ type ManageAccountSlice = {
   provinces: Province[];
   selectedProvince: number | null;
   // isUploadable:boolean;
-  // isUploadFileLoading: boolean;
-  // uploadedFilePath: UploadedFileModel | null;
-  // uploadProgress: number;
+  isUploadFileLoading: boolean;
+  uploadedIdCardFilePath: UploadedFileModel | null;
+  uploadedSelfieCardFilePath: UploadedFileModel | null;
+  uploadProgress: number;
 };
 
 const initialState: ManageAccountSlice = {
@@ -22,9 +24,10 @@ const initialState: ManageAccountSlice = {
   cities: [],
   provinces: [],
   selectedProvince: null,
-  // isUploadFileLoading:false,
-  // uploadedFilePath: null,
-  // uploadProgress: 0,
+  isUploadFileLoading: false,
+  uploadedIdCardFilePath: null,
+  uploadedSelfieCardFilePath: null,
+  uploadProgress: 0,
 };
 
 export const manageAccountSlice = createSlice({
@@ -50,17 +53,20 @@ export const manageAccountSlice = createSlice({
     // setIsUploadable: (state, action: PayloadAction<boolean>) => {
     //   state.isUploadable = action.payload;
     // },
-    // setIsUploadFileLoading: (state, action: PayloadAction<boolean>) => {
-    //   state.isUploadFileLoading = action.payload;
-    // },
-    // fetchUploadedFilePath: (state, action: PayloadAction<UploadedFileModel | null>) => {
-    //   state.uploadedFilePath = action.payload;
-    // },
-    // setUploadProgress: (state, action: PayloadAction<number>) => {
-    //   state.uploadProgress = action.payload;
-    // },
+    setIsUploadFileLoading: (state, action: PayloadAction<boolean>) => {
+      state.isUploadFileLoading = action.payload;
+    },
+    fetchUploadedIdCardFilePath: (state, action: PayloadAction<UploadedFileModel | null>) => {
+      state.uploadedIdCardFilePath = action.payload;
+    },
+    fetchUploadedSelfieCardFilePath: (state, action: PayloadAction<UploadedFileModel | null>) => {
+      state.uploadedSelfieCardFilePath = action.payload;
+    },
+    setUploadProgress: (state, action: PayloadAction<number>) => {
+      state.uploadProgress = action.payload;
+    },
   },
 });
-export const { setIsGetCitiesLoading, setIsGetProvincesLoading, fetchCities, fetchProvinces, setSelectedProvince } = manageAccountSlice.actions;
+export const { setIsGetCitiesLoading, setIsGetProvincesLoading, fetchCities, fetchProvinces, setSelectedProvince, fetchUploadedIdCardFilePath, fetchUploadedSelfieCardFilePath, setIsUploadFileLoading ,setUploadProgress} = manageAccountSlice.actions;
 export const selectManageAccount = (state: RootState): ManageAccountSlice => state.manage_account;
 export default manageAccountSlice.reducer;
