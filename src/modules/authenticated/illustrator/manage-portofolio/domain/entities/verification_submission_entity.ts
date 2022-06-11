@@ -4,13 +4,13 @@ export class VerificationSubmissionEntity {
   province: string;
   city: string;
   background: string;
-  accepted: boolean;
+  accepted: boolean | null;
   idCardPhoto: string;
   cardSelfiePhoto: string;
   submissionDate: Date;
   verificationDate: Date | null;
 
-  constructor(params: { nik: string; address: string; province: string; city: string; background: string; accepted: boolean; idCardPhoto: string; cardSelfiePhoto: string; submissionDate: Date; verificationDate: Date | null}) {
+  constructor(params: { nik: string; address: string; province: string; city: string; background: string; accepted: boolean | null; idCardPhoto: string; cardSelfiePhoto: string; submissionDate: Date; verificationDate: Date | null}) {
     this.nik = params.nik;
     this.address = params.address;
     this.province = params.province;

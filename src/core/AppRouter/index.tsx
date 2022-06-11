@@ -20,6 +20,7 @@ import ManageUser from "../../modules/authenticated/administrator/manage_user/Ma
 import ManageComPostAdmin from "../../modules/authenticated/administrator/manage_compost/AdminComPostIndex";
 import ManageReview from "../../modules/authenticated/administrator/manage_review/ManageReviewIndex";
 import AdminAuthentication from "../../modules/guest/authentication/AdminAuthenticationIndex";
+import VerifyIllustratorAccount from "../../modules/authenticated/administrator/verify_illustrator_account/VerifyIllustratorAccountIndex";
 
 function AppRoutes(): JSX.Element {
   return (
@@ -46,6 +47,7 @@ function AppRoutes(): JSX.Element {
           
           <Route index element={<DashboardAdmin />} />
           <Route path="manage-user/*" element={<ManageUser />} />
+          <Route path="verify-illustrator/*" element={<VerifyIllustratorAccount />} />
           <Route path="manage-compost/*" element={<ManageComPostAdmin />} />
           <Route path="manage-review/*" element={<ManageReview />} />
         </Route>

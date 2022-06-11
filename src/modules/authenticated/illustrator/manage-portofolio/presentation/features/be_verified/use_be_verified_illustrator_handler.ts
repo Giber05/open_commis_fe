@@ -40,7 +40,7 @@ type BeVerifiedIllustratorController = {
   uploadIdCardImage: (option: any) => void;
   uploadSelfieCardImage: (option: any) => void;
   sendVerificationAccountReq: (values: any) => void;
-  isSendVerificationLoading:boolean;
+  isSendVerificationLoading: boolean;
 };
 function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
   const getCitiesUC = new GetCities();
   const uploadImageUC = new UploadImage();
   const sendIllustratorAccountVerificationUC = new SendIllustratorAccountVerification();
-  const { cities, provinces, isGetCitiesLoading,isSendVerificationLoading, isGetProvincesLoading, selectedProvince, isUploadFileLoading, uploadedIdCardFilePath, uploadedSelfieCardFilePath } = useSelector(selectManageAccount);
+  const { cities, provinces, isGetCitiesLoading, isSendVerificationLoading, isGetProvincesLoading, selectedProvince, isUploadFileLoading, uploadedIdCardFilePath, uploadedSelfieCardFilePath } = useSelector(selectManageAccount);
   const { authUser } = useSelector(selectAuth);
 
   const getProvinces = () => {
@@ -180,6 +180,10 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
   };
 
   const sendVerificationAccountReq = (values: any) => {
+    const city: string = values.city;
+    const province: string = values.province;
+    const cityValue = city.split(",");
+    const provinceValue = province.split(",");
     message.loading({ content: "Loading..." });
     dispatch(setIsSendVerificationLoading(true));
     setTimeout(async () => {
@@ -189,8 +193,8 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
         token: authUser?.data.token!,
         nik: iNik.toString(),
         address: values.address,
-        province: values.province,
-        city: values.city,
+        province: provinceValue[1],
+        city: cityValue[1],
         background: values.background,
         idCardPhoto: uploadedIdCardFilePath?.path!,
         cardSelfiePhoto: uploadedSelfieCardFilePath?.path!,

@@ -23,6 +23,8 @@ function IllustratorsPortofolioPage() {
   else if (illustratorsPortofolio == null) {
     return <NotFound />;
   }
+  console.log({ illustratorsPortofolio });
+
   let commissions = illustratorsPortofolio?.commissions;
   let artworks = illustratorsPortofolio?.artworks;
   return (
@@ -48,7 +50,6 @@ function IllustratorsPortofolioPage() {
             <div className={`${illustratorsPortofolio?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>
               <Typography.Title
                 level={3}
-           
                 style={{
                   textAlign: "center",
                   color: "white",

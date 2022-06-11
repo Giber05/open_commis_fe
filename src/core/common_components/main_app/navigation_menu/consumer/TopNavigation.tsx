@@ -32,9 +32,9 @@ function TopNavigation() {
           dispatch(isAuthLoading(false));
           navigate("/");
         },
-        error:(error)=>{
-          message.error(error.exception.message)
-        }
+        error: (error) => {
+          message.error(error.exception.message);
+        },
       });
     });
   };
@@ -60,9 +60,9 @@ function TopNavigation() {
     };
     selectedCurrentMenu(location);
   }, [location]);
-  
+
   return (
-    <Header className="bg-white " >
+    <Header className="bg-white ">
       <div
         onClick={() => navigate("/")}
         style={{
@@ -86,9 +86,7 @@ function TopNavigation() {
             </Menu.Item>
           ) : (
             <Menu.Item key="logout">
-              <Typography.Link onClick={onLogoutClick}>
-                Menjadi Konsumen
-              </Typography.Link>
+              <Typography.Link onClick={onLogoutClick}>Menjadi Konsumen</Typography.Link>
             </Menu.Item>
           )}
         </Menu>
@@ -100,18 +98,9 @@ function TopNavigation() {
           <Menu.Item key="order">
             <Link to="/consumer/order">Pesanan</Link>
           </Menu.Item>
-          <SubMenu key="account" title="Profil">
-            <Menu.Item key="profile">
-              <Link to="/consumer/profile">Profil</Link>
-            </Menu.Item>
-
-            <Divider />
-            <Menu.Item key="logout">
-              <Button icon={<LogoutOutlined />} type="dashed" className="text-center" onClick={onLogoutClick}>
-                Logout
-              </Button>
-            </Menu.Item>
-          </SubMenu>
+          <Menu.Item key="profile">
+            <Link to="/consumer/profile">Profil</Link>
+          </Menu.Item>
         </Menu>
       )}
     </Header>
