@@ -1,5 +1,5 @@
 import { CheckCircleFilled, ShoppingOutlined, FacebookFilled, TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
-import { Row, Col, Popconfirm, Avatar, Typography, Space, Rate, Image } from "antd";
+import { Row, Col, Popconfirm, Avatar, Typography, Space, Rate, Image, Tooltip } from "antd";
 import React, { useEffect } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
@@ -38,7 +38,11 @@ function IllustratorsPortofolioPage() {
         <div className="mx-auto text-center ">
           <Typography.Title level={2}>
             {illustratorsPortofolio?.name}
-            {illustratorsPortofolio?.emailVerified ? <CheckCircleFilled style={{ color: "#1890ff" }} /> : null}
+            {illustratorsPortofolio?.verified ? (
+              <Tooltip title="Illustrator telah terverifikasi oleh OpenCommiss">
+                <CheckCircleFilled style={{ color: "#1890ff" }} />
+              </Tooltip>
+            ) : null}
           </Typography.Title>
           <div className="md:w-1/2 mx-auto">
             <div className={`${illustratorsPortofolio?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>

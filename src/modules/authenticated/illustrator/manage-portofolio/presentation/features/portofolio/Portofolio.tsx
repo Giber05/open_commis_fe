@@ -1,5 +1,5 @@
 import { CheckCircleFilled, FacebookFilled, InstagramOutlined, ShoppingOutlined, TwitterOutlined, WhatsAppOutlined } from "@ant-design/icons";
-import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography, Button } from "antd";
+import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography, Button, Tooltip } from "antd";
 import { useCallback, useEffect } from "react";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { Link } from "react-router-dom";
@@ -75,7 +75,12 @@ function Portofolio() {
         </div>
         <div className="mx-auto text-center">
           <Typography.Title level={3}>
-            {illustratorProfile?.name} {illustratorProfile?.emailVerified ? <CheckCircleFilled style={{ color: "#1890ff" }} /> : null}
+            {illustratorProfile?.name}{" "}
+            {illustratorProfile?.verified ? (
+              <Tooltip title="Illustrator telah terverifikasi oleh OpenCommiss">
+                <CheckCircleFilled style={{ color: "#1890ff" }} />
+              </Tooltip>
+            ) : null}
           </Typography.Title>
           <div className="md:w-1/2 mx-auto">
             <div className={`${illustratorProfile?.available ? "border-green-500  bg-green-500" : "border-red-500  bg-red-500"} rounded-full text-center`}>
@@ -90,9 +95,13 @@ function Portofolio() {
                 {illustratorProfile?.available ? "TERSEDIA" : "TIDAK TERSEDIA"}
               </Typography.Title>
             </div>
-            <Link to="/manage/manage-portofolio/be-verified" className="my-5 flex justify-center">
-              <SuccessButton title="Menjadi Illustrator Terverifikasi"/> 
-            </Link>
+            <div>
+              {!illustratorProfile?.verified ? (
+                <Link to="/manage/manage-portofolio/be-verified" className="my-5 flex justify-center">
+                  <SuccessButton title="Menjadi Illustrator Terverifikasi" />
+                </Link>
+              ) : null}
+            </div>
           </div>
           <Row justify="space-around">
             <Space>
