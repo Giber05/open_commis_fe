@@ -24,6 +24,7 @@ export class ManagePortofolio extends IlustratorEntity {
     artworks?: ArtworkModel[] | null;
     ordersCompleted: number;
     commissions?: CommissionPosts[] | null;
+    verified?: boolean;
   }) {
     super({
       id: params.id,
@@ -37,6 +38,7 @@ export class ManagePortofolio extends IlustratorEntity {
       emailVerified: params.emailVerified,
       createdAt: params.createdAt,
       updatedAt: params.updatedAt,
+      verified: params.verified,
     });
     this.portofolio = params.portofolio;
     this.artworks = params.artworks;
@@ -55,6 +57,7 @@ export class ManagePortofolio extends IlustratorEntity {
       profilePicture: json.profilePicture,
       available: json.available,
       emailVerified: json.emailVerified,
+      verified: json.verified,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
       artworks:

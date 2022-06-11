@@ -8,10 +8,11 @@ class IlustratorEntity {
   profilePicture?: string | null;
   available: boolean;
   emailVerified?: boolean;
+  verified?:boolean;
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(params: { id: number; name: string; email: string; username: string; phone: string; balance: number; profilePicture: string | null; available: boolean; emailVerified: boolean; createdAt: Date; updatedAt: Date }) {
+  constructor(params: { verified?:boolean; id: number; name: string; email: string; username: string; phone: string; balance: number; profilePicture: string | null; available: boolean; emailVerified: boolean; createdAt: Date; updatedAt: Date }) {
     this.id = params.id;
     this.name = params.name;
     this.username = params.username;
@@ -23,6 +24,7 @@ class IlustratorEntity {
     this.emailVerified = params.emailVerified;
     this.createdAt = params.createdAt;
     this.updatedAt = params.updatedAt;
+    this.verified = params.verified;
   }
 }
 export default IlustratorEntity;

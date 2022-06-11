@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { UploadFileValidation } from "../../../../../../../core/utils/validation/upload_file_validation";
 import { UploadedFileModel } from "../../../../../../common/upload_file/data/models/uploaded_file_model";
@@ -9,6 +10,7 @@ import { City } from "../../../data/models/manage_account/city";
 import { Province } from "../../../data/models/manage_account/province";
 import { GetCities } from "../../../domain/usecases/get_cities";
 import { GetProvinces } from "../../../domain/usecases/get_provinces";
+import { SendIllustratorAccountVerification } from "../../../domain/usecases/send_illustrator_account_verification";
 import {
   fetchCities,
   fetchProvinces,
@@ -17,6 +19,7 @@ import {
   selectManageAccount,
   setIsGetCitiesLoading,
   setIsGetProvincesLoading,
+  setIsSendVerificationLoading,
   setIsUploadFileLoading,
   setSelectedProvince,
   setUploadProgress,
@@ -36,14 +39,17 @@ type BeVerifiedIllustratorController = {
   uploadedSelfieCardFilePath: UploadedFileModel | null;
   uploadIdCardImage: (option: any) => void;
   uploadSelfieCardImage: (option: any) => void;
-  sendVerificationAccountReq:(values:any)=>void;
+  sendVerificationAccountReq: (values: any) => void;
+  isSendVerificationLoading:boolean;
 };
 function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const getProvincesUC = new GetProvinces();
   const getCitiesUC = new GetCities();
   const uploadImageUC = new UploadImage();
-  const { cities, provinces, isGetCitiesLoading, isGetProvincesLoading, selectedProvince, isUploadFileLoading, uploadedIdCardFilePath, uploadedSelfieCardFilePath } = useSelector(selectManageAccount);
+  const sendIllustratorAccountVerificationUC = new SendIllustratorAccountVerification();
+  const { cities, provinces, isGetCitiesLoading,isSendVerificationLoading, isGetProvincesLoading, selectedProvince, isUploadFileLoading, uploadedIdCardFilePath, uploadedSelfieCardFilePath } = useSelector(selectManageAccount);
   const { authUser } = useSelector(selectAuth);
 
   const getProvinces = () => {
@@ -117,7 +123,6 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
           onSuccess(value.data.message);
           dispatch(fetchUploadedIdCardFilePath(value.data.data));
           console.log(value.data);
-          
 
           message.success(value.data.message, 2);
         },
@@ -163,7 +168,6 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
           onSuccess(value.data.message);
           dispatch(fetchUploadedSelfieCardFilePath(value.data.data));
           console.log(value.data);
-          
 
           message.success(value.data.message, 2);
         },
@@ -175,25 +179,34 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
     });
   };
 
-  const sendVerificationAccountReq = (values:any)=>{
+  const sendVerificationAccountReq = (values: any) => {
     message.loading({ content: "Loading..." });
+    dispatch(setIsSendVerificationLoading(true));
     setTimeout(async () => {
-      console.log(uploadedIdCardFilePath?.path,uploadedSelfieCardFilePath?.path);
-      
-      // const resource = await sendOrderUC.execute({ token: authUser?.data.token!, submissionFile: uploadedFilePath?.path, description: values.description, cloudLink: values.cloud_link, orderId: id });
-      // dispatch(setIsSendOrderLoading(false));
+      const iNik: string = values.nik;
+      console.log({ iNik });
+      const resource = await sendIllustratorAccountVerificationUC.execute({
+        token: authUser?.data.token!,
+        nik: iNik.toString(),
+        address: values.address,
+        province: values.province,
+        city: values.city,
+        background: values.background,
+        idCardPhoto: uploadedIdCardFilePath?.path!,
+        cardSelfiePhoto: uploadedSelfieCardFilePath?.path!,
+      });
+      dispatch(setIsSendVerificationLoading(false));
 
-      // resource.whenWithResult({
-      //   success: (value) => {
-      //     message.success(value.data.message, 2);
-      //     navigate(-1);
-      //   },
-      //   error: (error) => {
-      //     message.error(error.exception.message, 2);
-      //   },
-      // });
+      resource.whenWithResult({
+        success: (value) => {
+          navigate("sent");
+        },
+        error: (error) => {
+          message.error(error.exception.message, 2);
+        },
+      });
     });
-  }
+  };
   return {
     provinces,
     cities,
@@ -209,6 +222,7 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
     isUploadFileLoading,
     uploadSelfieCardImage,
     sendVerificationAccountReq,
+    isSendVerificationLoading,
   };
 }
 

@@ -24,6 +24,7 @@ function BeVerifiedIllustrator() {
     uploadedSelfieCardFilePath,
     uploadSelfieCardImage,
     sendVerificationAccountReq,
+    isSendVerificationLoading,
   } = useBeVerifiedIllustratorHandler();
   const handleOnChangeIdCardImage = ({ file, fileList, event }: any) => {
     setIdCardImage(fileList);
@@ -71,7 +72,7 @@ function BeVerifiedIllustrator() {
           ]}
           className=""
           label="Foto KTP"
-          name="idCardImage"
+          name="idCardPhoto"
         >
           <Upload className="" maxCount={1} accept=".png,.jpg,.jpeg" defaultFileList={idCardImage} customRequest={uploadIdCardImage} listType="picture" onChange={handleOnChangeIdCardImage}>
             <Button className="comic-shadow-btn bg-[#1D94C8] text-white rounded-full  mb-2" icon={<UploadOutlined />}>
@@ -93,9 +94,8 @@ function BeVerifiedIllustrator() {
           ]}
           className=""
           label="Foto Illustrator Memegang KTP"
-          name="selfieCardImage"
+          name="selfieCardPhoto"
           tooltip="Lampirkan foto Anda sedang memegang KTP"
-          help="Butuh Bantuan?"
         >
           <Upload className="" maxCount={1} accept=".png,.jpg,.jpeg,.zip" defaultFileList={selfieCardImage} customRequest={uploadSelfieCardImage} listType="picture" onChange={handleOnChangeSelfieCardImage}>
             <Button className="comic-shadow-btn bg-[#1D94C8] text-white rounded-full  mb-2" icon={<UploadOutlined />}>
@@ -103,7 +103,7 @@ function BeVerifiedIllustrator() {
             </Button>
           </Upload>
         </Form.Item>
-        <Form.Item className="mt-5" rules={[{ type: "number", required: true }]} label="Nomor KTP" name="ktp_number">
+        <Form.Item className="mt-5" rules={[{ type: "number", required: true }]} label="Nomor KTP" name="nik">
           <InputNumber placeholder="Nomor KTP sesuai dengan KTP" className="form-style-blue" style={{ width: 250 }} />
         </Form.Item>
         <Form.Item rules={[{ required: true }]} className="" label="Provinsi" name="province">
@@ -129,7 +129,7 @@ function BeVerifiedIllustrator() {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item rules={[{ required: true }]} label="Alamat Lengkap" name="full_address">
+        <Form.Item rules={[{ required: true }]} label="Alamat Lengkap" name="address">
           <Input.TextArea autoSize={true} placeholder="Alamat sesuai dengan KTP" className="form-style-blue" />
         </Form.Item>
         <Form.Item tooltip={{ icon: <QuestionCircleOutlined />, title: "Tell Us About You!" }} rules={[{ required: true, max: 300, min: 50, type: "string" }]} label="Latar Belakang Menjadi Illustrator" name="background">
@@ -137,7 +137,7 @@ function BeVerifiedIllustrator() {
         </Form.Item>
         <div className="mx-auto justify-center flex">
           <Form.Item className="mt-3 mb-1 text-center ">
-            <SuccessButton loading={false} htmlType="submit" title="Submit" block rounded />
+            <SuccessButton loading={isSendVerificationLoading} htmlType="submit" title="Submit" block rounded />
           </Form.Item>
         </div>
       </Form>

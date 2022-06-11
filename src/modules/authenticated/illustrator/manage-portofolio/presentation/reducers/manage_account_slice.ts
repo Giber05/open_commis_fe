@@ -10,7 +10,7 @@ type ManageAccountSlice = {
   cities: City[];
   provinces: Province[];
   selectedProvince: number | null;
-  // isUploadable:boolean;
+  isSendVerificationLoading: boolean;
   isUploadFileLoading: boolean;
   uploadedIdCardFilePath: UploadedFileModel | null;
   uploadedSelfieCardFilePath: UploadedFileModel | null;
@@ -19,7 +19,7 @@ type ManageAccountSlice = {
 
 const initialState: ManageAccountSlice = {
   isGetCitiesLoading: false,
-  // isUploadable:true,
+  isSendVerificationLoading: false,
   isGetProvincesLoading: false,
   cities: [],
   provinces: [],
@@ -50,9 +50,9 @@ export const manageAccountSlice = createSlice({
       state.selectedProvince = action.payload;
     },
 
-    // setIsUploadable: (state, action: PayloadAction<boolean>) => {
-    //   state.isUploadable = action.payload;
-    // },
+    setIsSendVerificationLoading: (state, action: PayloadAction<boolean>) => {
+      state.isSendVerificationLoading = action.payload;
+    },
     setIsUploadFileLoading: (state, action: PayloadAction<boolean>) => {
       state.isUploadFileLoading = action.payload;
     },
@@ -67,6 +67,17 @@ export const manageAccountSlice = createSlice({
     },
   },
 });
-export const { setIsGetCitiesLoading, setIsGetProvincesLoading, fetchCities, fetchProvinces, setSelectedProvince, fetchUploadedIdCardFilePath, fetchUploadedSelfieCardFilePath, setIsUploadFileLoading ,setUploadProgress} = manageAccountSlice.actions;
+export const {
+  setIsSendVerificationLoading,
+  setIsGetCitiesLoading,
+  setIsGetProvincesLoading,
+  fetchCities,
+  fetchProvinces,
+  setSelectedProvince,
+  fetchUploadedIdCardFilePath,
+  fetchUploadedSelfieCardFilePath,
+  setIsUploadFileLoading,
+  setUploadProgress,
+} = manageAccountSlice.actions;
 export const selectManageAccount = (state: RootState): ManageAccountSlice => state.manage_account;
 export default manageAccountSlice.reducer;
