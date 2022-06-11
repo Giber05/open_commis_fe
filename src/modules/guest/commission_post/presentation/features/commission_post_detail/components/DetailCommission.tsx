@@ -82,12 +82,11 @@ function DetailCommission({ commission }: CommissionProps) {
       </Row>
       <Row justify="center" className="mt-3 mx-auto">
         {commission.status === "OPEN" ? (
-          authUser?.data.role === "illustrator" ? (
+          authUser?.data.role === "illustrator" || authUser?.data.role === "administrator" ? (
             <DisabledButton rounded title="Pesan Menggunakan Akun Konsumen" />
-            ) : !commission.illustrator.available?(
-              <DisabledButton rounded title="Illustrator Tidak Tersedia" />
-              
-          ): (
+          ) : !commission.illustrator.available ? (
+            <DisabledButton rounded title="Illustrator Tidak Tersedia" />
+          ) : (
             <LinkReact to={{ pathname: `/consumer/${commission.id}/make-order` }}>
               <SuccessButton block title="Pesan" rounded />
             </LinkReact>

@@ -96,7 +96,7 @@ function TrackOrder() {
           />
         )}
         {orderDetail?.status !== OrderStatus.Failed ? (
-          orderDetail?.status !== OrderStatus.NotPaid ? (
+          orderDetail?.status !== OrderStatus.NotPaid && orderDetail?.status !== OrderStatus.Accepted ? (
             <Step
               title="Order Paid"
               description={

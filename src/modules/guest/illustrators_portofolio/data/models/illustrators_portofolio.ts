@@ -8,7 +8,7 @@ export class IllustratorsPortofolio extends IlustratorEntity {
   portofolio?: PortofolioModel;
   artworks?: ArtworkModel[];
   commissions?: CommissionPosts[];
-  ordersCompleted:number;
+  ordersCompleted: number;
   constructor(params: {
     id: number;
     name: string;
@@ -24,8 +24,8 @@ export class IllustratorsPortofolio extends IlustratorEntity {
     portofolio?: PortofolioModel;
     commissions?: CommissionPosts[];
     artworks?: ArtworkModel[];
-  ordersCompleted:number;
-
+    ordersCompleted: number;
+    verified?:boolean;
   }) {
     super({
       id: params.id,
@@ -39,6 +39,7 @@ export class IllustratorsPortofolio extends IlustratorEntity {
       emailVerified: params.emailVerified,
       createdAt: params.createdAt,
       updatedAt: params.updatedAt,
+      verified:params.verified,
     });
     this.portofolio = params.portofolio;
     this.artworks = params.artworks;
@@ -67,6 +68,7 @@ export class IllustratorsPortofolio extends IlustratorEntity {
         return CommissionPosts.fromJson(commission);
       }),
       ordersCompleted: json.ordersCompleted,
+      verified:json.verified,
     });
   }
 }

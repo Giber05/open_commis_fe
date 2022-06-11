@@ -8,6 +8,17 @@ import { UploadedFileModel } from "../models/uploaded_file_model";
 export class UploadFileRepoImpl extends BaseRepository implements UploadFileRepo {
   private uploadFileRemoteDS: UploadFileRemoteDS = new UploadFileRemoteDSImpl();
   
+  uploadImage(params: { token: string; formData: any; progressConfig: (progressEvent: any) => void; }): Promise<Resource<CommonUploadedFileModel>> {
+    return this.networkOnlyCall({
+      networkCall: async () => {
+        const resource = await this.uploadFileRemoteDS.uploadImage({ token: params.token, formData: params.formData, progressConfig: params.progressConfig });
+        if (resource instanceof CommonUploadedFileModel) return Resource.success({ data: resource });
+
+        return Resource.error({ exception: resource });
+      },
+    });
+  }
+  
 
   uploadFile(params: { token: string; formData: any; progressConfig: (progressEvent: any) => void; }): Promise<Resource<CommonUploadedFileModel>> {
     return this.networkOnlyCall({

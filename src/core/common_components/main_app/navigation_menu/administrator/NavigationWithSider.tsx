@@ -53,6 +53,8 @@ export default () => {
         setCurrentMenu("KELOLA COMMISSION POST");
       } else if (menu.includes("/admin/manage-review")) {
         setCurrentMenu("KELOLA ULASAN");
+      } else if (menu.includes("/admin/verify-illustrator")) {
+        setCurrentMenu("VERIFIKASI ILLUSTRATOR");
       } else {
         setCurrentMenu("");
       }
@@ -106,8 +108,9 @@ export default () => {
               </Link>
             </li>
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-600 px-4 my-4 uppercase ">kelola</span>
+              <span className="flex font-medium text-sm text-gray-600 px-4 my-4 uppercase ">Kelola User</span>
             </li>
+
             <li className="my-px">
               <Link
                 to="/admin/manage-user"
@@ -130,6 +133,32 @@ export default () => {
                 </span>
                 <span className="ml-3">Pengguna</span>
               </Link>
+            </li>
+            <li className="my-px">
+              <Link
+                to="/admin/verify-illustrator"
+                className={`flex flex-row items-center h-10 px-3 rounded-lg  hover:bg-gray-100 hover:bg-gradient-to-tr hover:from-sky-400 hover:to-primary hover:text-white  ${
+                  currentMenu === "VERIFIKASI ILLUSTRATOR" ? "bg-gradient-to-tr from-sky-400 to-primary text-white shadow-md" : "text-gray-500"
+                }`}
+              >
+                <span className="flex items-center justify-center text-lg text-gray-400">
+                  <svg
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className={`h-6 w-6 hover:text-white  ${currentMenu === "VERIFIKASI ILLUSTRATOR" ? "text-white" : "text-gray-400"}`}
+                  >
+                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </span>
+                <span className="ml-3">Verifikasi Illustrator</span>
+              </Link>
+            </li>
+            <li className="my-px">
+              <span className="flex font-medium text-sm text-gray-600 px-4 my-4 uppercase ">Kelola Commission Post</span>
             </li>
             <li className="my-px">
               <Link
@@ -189,7 +218,7 @@ export default () => {
             <div className="flex ml-auto">
               <Dropdown overlay={menu}>
                 <div className="flex flex-row items-center text-primary">
-                  <img src={AssetConstants.imageURL+"placeholder/administrator.png"} alt="img" className="h-10 w-10 bg-gray-200 border rounded-full" />
+                  <img src={AssetConstants.imageURL + "placeholder/administrator.png"} alt="img" className="h-10 w-10 bg-gray-200 border rounded-full" />
                   <span className="flex flex-col ml-2">
                     <span className="truncate w-20 text-white font-semibold tracking-wide leading-none">{authUser?.data.user.name}</span>
                     <span className="truncate w-20 text-gray-200 text-xs leading-none mt-1">Administrator</span>

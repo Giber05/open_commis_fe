@@ -14,6 +14,7 @@ class IlustratorModel extends IlustratorEntity {
       emailVerified: json.emailVerified,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
+      verified:json.verified,
     });
   }
 }

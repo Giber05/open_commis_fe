@@ -4,5 +4,6 @@ import { UploadedFileModel } from "../../data/models/uploaded_file_model";
 
 export interface UploadFileRepo {
   uploadFile(params: { token: string; formData: any; progressConfig: (progressEvent: any) => void }): Promise<Resource<CommonUploadedFileModel>>;
+  uploadImage(params: { token: string; formData: any; progressConfig: (progressEvent: any) => void }): Promise<Resource<CommonUploadedFileModel>>;
 
 }

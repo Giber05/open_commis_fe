@@ -4,6 +4,7 @@ import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../../../../../../core/utils/redux";
 import { UploadFileValidation } from "../../../../../../../core/utils/validation/upload_file_validation";
 import { UploadFile } from "../../../../../../common/upload_file/domain/usecases/upload_file";
+import { UploadImage } from "../../../../../../common/upload_file/domain/usecases/upload_image";
 import { selectAuth } from "../../../../../../guest/authentication/presentation/reducers/auth_reducer";
 import { CreateOrder } from "../../../domain/usecases/create_order";
 import { fetchUploadedFilePath, selectConsumerMakeOrder, setIsLoading, setIsUploadFileLoading, setUploadProgress } from "../../reducers/consumer_make_order_slice";
@@ -90,7 +91,7 @@ function useMakeOrderHandler(): MakeOrderController {
         success: (value) => {
           onSuccess(value.data.message);
           dispatch(fetchUploadedFilePath(value.data.data));
-
+          
           message.success(value.data.message, 2);
         },
         error: (error) => {
