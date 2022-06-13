@@ -94,7 +94,7 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
 
     dispatch(fetchUploadedIdCardFilePath(null));
 
-    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 2 });
+    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 5 });
     if (!isValidFile) {
       onError("File is not valid");
       return;
@@ -139,7 +139,7 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
 
     dispatch(fetchUploadedSelfieCardFilePath(null));
 
-    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 2 });
+    let isValidFile = UploadFileValidation.beforeUploadCheck({ file: options.file, allowedFormat: allowedFileType, maxFileSize: 5 });
     if (!isValidFile) {
       onError("File is not valid");
       return;
@@ -191,7 +191,7 @@ function useBeVerifiedIllustratorHandler(): BeVerifiedIllustratorController {
       console.log({ iNik });
       const resource = await sendIllustratorAccountVerificationUC.execute({
         token: authUser?.data.token!,
-        nik: iNik.toString(),
+        nik: iNik,
         address: values.address,
         province: provinceValue[1],
         city: cityValue[1],

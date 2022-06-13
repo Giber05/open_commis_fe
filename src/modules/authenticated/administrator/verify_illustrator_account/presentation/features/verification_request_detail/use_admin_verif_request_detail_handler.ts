@@ -15,7 +15,7 @@ type AdminVerifRequestDetailController = {
   isActionLoading: boolean;
   verificationRequestDetail?: VerificationSubmissionDetail | null;
   getVerifRequestDetail: () => void;
-  approveVerificationRequest: (accepted:boolean) => void;
+  approveVerificationRequest: (accepted: boolean) => void;
 };
 
 function useAdminVerifRequestDetailHandler(): AdminVerifRequestDetailController {
@@ -25,18 +25,19 @@ function useAdminVerifRequestDetailHandler(): AdminVerifRequestDetailController 
   let id = parseInt(illustratorId!);
 
   const getVerificationSubmissionDetailUC = new GetVerificationSubmissionDetail();
-  const approveVerificationRequestUC = new ApproveVerificationSubmission()
+  const approveVerificationRequestUC = new ApproveVerificationSubmission();
   const { isActionLoading, isGetVerifRequestDetailLoading, verificationRequestDetail } = useSelector(selectAdminVerifRequestDetail);
   const { authUser } = useSelector(selectAuth);
 
   const getVerifRequestDetail = () => {
     dispatch(setIsGetVerifRequestDetailLoading(true));
     setTimeout(async () => {
-      const resource = await getVerificationSubmissionDetailUC.execute({token:authUser?.data.token!,illustratorId:id});
+      const resource = await getVerificationSubmissionDetailUC.execute({ token: authUser?.data.token!, illustratorId: id });
 
       dispatch(setIsGetVerifRequestDetailLoading(false));
       resource.whenWithResult({
         success: (value) => {
+
           dispatch(fetchVerifRequestDetail(value.data.data));
         },
         error: (error) => {
@@ -46,11 +47,11 @@ function useAdminVerifRequestDetailHandler(): AdminVerifRequestDetailController 
     });
   };
 
-  const approveVerificationRequest = (accepted:boolean) => {
+  const approveVerificationRequest = (accepted: boolean) => {
     message.loading("Loading ...");
     dispatch(setIsActionLoading(true));
     setTimeout(async () => {
-      const resource = await approveVerificationRequestUC.execute({ token: authUser?.data.token!, illustratorId: id, accepted:accepted });
+      const resource = await approveVerificationRequestUC.execute({ token: authUser?.data.token!, illustratorId: id, accepted: accepted });
 
       dispatch(setIsActionLoading(false));
       resource.whenWithResult({

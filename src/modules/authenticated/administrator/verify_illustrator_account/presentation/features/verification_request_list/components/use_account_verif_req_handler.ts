@@ -17,6 +17,7 @@ function useAccountVerificationRequestsHandler(): AdminVerificationRequestsContr
   const getVerificationSubmissionsUC = new GetVerificationSubmissions();
   const { authUser } = useSelector(selectAuth);
   const { submittedIllustrators, isLoadingVerifRequests, initLoading } = useSelector(selectAdminVerifRequestList);
+
   const getVerificationSubmissions = () => {
     dispatch(setIsLoadingVerifRequests(true));
     setTimeout(async () => {
@@ -25,6 +26,8 @@ function useAccountVerificationRequestsHandler(): AdminVerificationRequestsContr
       dispatch(setInitLoading(false));
       resource.whenWithResult({
         success: (value) => {
+          console.log(value.data.data);
+
           dispatch(fetchsSubmittedIllustrators(value.data.data));
         },
         error: (error) => {

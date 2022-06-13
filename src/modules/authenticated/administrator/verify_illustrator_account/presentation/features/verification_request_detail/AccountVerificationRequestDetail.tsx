@@ -24,6 +24,9 @@ function AccountVerificationRequestDetail() {
       <div className="bg-gradient-to-t from-sky-400 to-primary px-3 md:px-8 h-40" />
       <div className="px-3 md:px-8 -mt-24">
         <div className=" px-4 mb-16 mt-14 mx-auto">
+          <div className="mx-auto bg-gradient-to-t from-sky-400 to-[#3576a7] -mt-10 mb-24 rounded-xl text-white grid items-center w-full sm:w-4/5 md:w-full lg:w-full xl:w-9/12  h-24 py-4 px-8 justify-start shadow-sky-600 shadow-md undefined">
+            <h2 className="text-white text-md md:text-lg lg:text-xl xl:text-2xl">Detail Pengajuan Verifikasi Akun</h2>
+          </div>
           <div className="w-full sm:w-4/5 md:w-full lg:w-full xl:w-9/12  bg-white rounded-xl  shadow-md p-4 mx-auto">
             <div className="flex flex-wrap justify-center">
               <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -132,7 +135,7 @@ function AccountVerificationRequestDetail() {
                       <h3>KTP : {verificationRequestDetail?.nik}</h3>
                       <Divider />
                     </div>
-                    <div className="bg-gradient-to-tr from-gray-100 to-gray-200 shadow-md shadow-gray-400 rounded-xl text-center p-2">
+                    <div className="bg-gradient-to-tr from-gray-100 to-gray-200 shadow-md shadow-gray-400 rounded-xl text-center p-2 mb-6">
                       <Image src={verificationRequestDetail?.idCardPhoto} className="max-h-72 " />
                     </div>
                   </Col>
