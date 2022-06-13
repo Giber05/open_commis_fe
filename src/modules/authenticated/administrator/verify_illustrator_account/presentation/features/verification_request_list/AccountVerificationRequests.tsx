@@ -38,16 +38,21 @@ function AccountVerificationRequests() {
   return (
     <>
       <div className="bg-gradient-to-t from-sky-400 to-primary px-3 md:px-8 h-40" />
-      <div className="px-3 md:px-8 -mt-24">
-        <div className="container mx-auto max-w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4">
-            {submittedIllustrators.map((illustrator: IlustratorModel) => (
-              <div className="px-4 mb-10  hover-scale-up cursor-pointer ">
-                <Link to={`/admin/verify-illustrator/${illustrator.id}`}>
-                  <RequestItem illustrator={illustrator} />
-                </Link>
-              </div>
-            ))}
+      <div className="px-3 md:px-8 h-auto -mt-24 ">
+        <div className="mb-5 container mx-auto py-3 px-4  bg-white rounded-xl  shadow-md ">
+          <div className="bg-gradient-to-t from-sky-400 to-[#3576a7] -mt-10 mb-16 rounded-xl  text-left text-white grid items-center w-full h-auto py-4 px-8 justify-center shadow-sky-600 shadow-md ">
+            <h2 className="text-white text-md md:text-lg lg:text-xl xl:text-2xl p-3">Daftar Pengajuan Verifikasi Akun</h2>
+          </div>
+          <div className="container mx-auto max-w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4">
+              {submittedIllustrators.map((illustrator: IlustratorModel) => (
+                <div className="px-4 mb-10  hover-scale-up cursor-pointer ">
+                  <Link to={`/admin/verify-illustrator/${illustrator.id}`}>
+                    <RequestItem illustrator={illustrator} />
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
