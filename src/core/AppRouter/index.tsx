@@ -21,6 +21,7 @@ import ManageComPostAdmin from "../../modules/authenticated/administrator/manage
 import ManageReview from "../../modules/authenticated/administrator/manage_review/ManageReviewIndex";
 import AdminAuthentication from "../../modules/guest/authentication/AdminAuthenticationIndex";
 import VerifyIllustratorAccount from "../../modules/authenticated/administrator/verify_illustrator_account/VerifyIllustratorAccountIndex";
+import SupportingInformation from "../../modules/guest/supporting_information/SupportingInformationIndex";
 
 function AppRoutes(): JSX.Element {
   return (
@@ -30,6 +31,7 @@ function AppRoutes(): JSX.Element {
           <Route path="/*" element={<CommissionPost />} />
           <Route path=":compostId/*" element={<ComPostDetail />} />
           <Route path="illustrator/*" element={<IllustratorsPortofolio />} />
+          <Route path="info/*" element={<SupportingInformation />} />
           <Route path="consumer/*" element={<RequireAuth />}>
             <Route path="order/*" element={<OrderCustomer />} />
             <Route path=":compostId/make-order/*" element={<Ordering />} />

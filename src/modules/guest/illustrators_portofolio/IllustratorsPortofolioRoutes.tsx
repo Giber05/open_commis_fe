@@ -6,7 +6,6 @@ function IllustratorsPortofolioRoutes() {
   return (
     <Routes>
       <Route path=":illustratorId/" element={asyncComponent(() => import("./presentation/features/portofolio/IllustratorsPortofolioPage"))} />
-     
     </Routes>
   );
 }
