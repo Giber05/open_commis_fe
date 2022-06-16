@@ -61,7 +61,7 @@ function OpenCommissApp() {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline text-white hover:text-green-300">
+              <a href="/info/privacy-policy" target="_blank" className="hover:underline text-white hover:text-green-300">
                 Privacy Policy
               </a>
             </li>
