@@ -75,26 +75,10 @@ function RegistrationPage() {
               <Radio value="consumer">Konsumen</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item
-            className=""
-            label="Nama"
-            rules={[
-              { required: true,},
-              { max: 50, message: "Nama maksimal 50 karakter" },
-            ]}
-            name="name"
-          >
+          <Form.Item className="" label="Nama" rules={[{ required: true }, { max: 50, message: "Nama maksimal 50 karakter" }]} name="name">
             <Input className="form-style" />
           </Form.Item>
-          <Form.Item
-            className=""
-            label="Username"
-            rules={[
-              { required: true, },
-              { max: 25, message: "Username maksimal 25 karakter" },
-            ]}
-            name="username"
-          >
+          <Form.Item className="" label="Username" rules={[{ required: true }, { max: 25, message: "Username maksimal 25 karakter" }]} name="username">
             <Input className="form-style" />
           </Form.Item>
           <Form.Item
@@ -110,7 +94,7 @@ function RegistrationPage() {
           <Form.Item className="" label="Password" rules={[{ required: true, type: "string", max: 25, min: 8 }]} name="password">
             <Input.Password className="form-style " />
           </Form.Item>
-          <Form.Item className="" label="No. Telephone"rules={[{ required: true, type: "string", max: 13, min: 11 }]} name="phone">
+          <Form.Item className="" label="No. Telephone" rules={[{ required: true, type: "string", max: 13, min: 11 }]} name="phone">
             <Input className="form-style w-full " />
           </Form.Item>
 
@@ -119,11 +103,19 @@ function RegistrationPage() {
               <SuccessButton loading={isLoadingUser} htmlType="submit" title="Register akun" block />
             </Form.Item>
           </div>
+          <div className="text-center my-3">
+            <Typography.Text className="text-disable font-normal text-xs">
+              Dengan menekan tombol register, anda dinyatakan setuju dengan {" "}
+              <a href="/info/privacy-policy">kebijakan</a>, serta{" "}
+              <a href="#">syarat dan ketentuan</a>
+              {" "}yang berlaku
+            </Typography.Text>
+          </div>
           <Form.Item className="text-center font-bold ">
             <span>
-              Kembali ke Login Page? Login{" "}
+              Sudah Memiliki Akun?{" "}
               <Link className="text-blue-400" to="/auth/login">
-                Disini!
+                Login Disini!
               </Link>
             </span>
           </Form.Item>

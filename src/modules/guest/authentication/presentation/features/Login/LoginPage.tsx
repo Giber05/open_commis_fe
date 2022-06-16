@@ -59,7 +59,7 @@ function LoginPage() {
           >
             <Input.Password className="mt-2 form-style" prefix={<LockOutlined />} placeholder="Masukan password anda" />
           </Form.Item>
-          <Form.Item>
+          {/* <Form.Item>
             <div className={styles.spaceBetween}>
               <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>Remember me</Checkbox>
@@ -68,8 +68,8 @@ function LoginPage() {
                 Forgot password
               </a>
             </div>
-          </Form.Item>
-          <Form.Item className="mt-3 mb-1 text-center ">
+          </Form.Item> */}
+          <Form.Item className="mt-14 mb-1 text-center ">
             <PrimaryButton loading={isLoadingUser} title="Masuk" htmlType="submit" additionalClass="w-full comic-shadow-btn" rounded />
           </Form.Item>
           <Form.Item className="text-center font-bold">
