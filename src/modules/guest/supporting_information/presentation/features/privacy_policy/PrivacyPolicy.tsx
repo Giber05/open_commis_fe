@@ -163,21 +163,22 @@ function PrivacyPolicy() {
         </p>
         <h3>6. Pembatasan Tanggung Jawab </h3>
         <p>
-          <span className="text-base font-bold">6.1.</span> Anda bertanggung jawab atas keamanan dan menerapkan pengamanan yang tepat dalam menjaga Data Pribadi anda seperti, membatasi akses, membuat kata sandi yang kuat dan menjaga kata sandi
+          <span className="text-base font-bold">6.1.</span> Anda bertanggung jawab atas keamanan dan menerapkan pengamanan yang tepat dalam menjaga Data Pribadi anda seperti, membatasi akses, membuat kata sandi yang kuat dan menjaga kata
+          sandi
         </p>
         <p>
           <span className="text-base font-bold">6.2.</span> OpenCommiss tidak bertanggung jawab atas pertukaran dan/atau pemberian Data Pribadi Anda yang dilakukan sendiri oleh Anda, termasuk yang Anda dilakukan melalui Aplikasi.
         </p>
         <p>
-          <span className="text-base font-bold">6.3.</span> OpenCommiss hanya bertanggung jawab atas perlindungan dan pengamanan Data Pribadi Anda hanya sebatas pada Data Pribadi yang disimpan dalam sistem yang dikembangkan dan dikelola oleh
-          OpenCommiss serta OpenCommiss setiap saat akan melakukan dan mengambil setiap langkah-langkah yang wajar diperlukan untuk menjaga dan melindungi Data Pribadi Anda. Dengan tetap mengakses Aplikasi, menggunakan Fitur, dan/ atau layanan OpenCommiss
-          lainnya, Anda melepaskan hak atas klaim, kerugian, tuntutan, dan gugatan yang mungkin Anda miliki dalam hal terjadi kegagalan perlindungan Data Pribadi yang timbul akibat terdapat unsur kelalaian yang dilakukan oleh Anda sendiri
-          dalam menjaga keamanan dan kerahasiaan Data Pribadi dan/ atau akibat terdapat tindakan pihak ketiga yang berupaya memperoleh Data Pribadi secara melawan hukum.
+          <span className="text-base font-bold">6.3.</span> OpenCommiss hanya bertanggung jawab atas perlindungan dan pengamanan Data Pribadi Anda hanya sebatas pada Data Pribadi yang disimpan dalam sistem yang dikembangkan dan dikelola
+          oleh OpenCommiss serta OpenCommiss setiap saat akan melakukan dan mengambil setiap langkah-langkah yang wajar diperlukan untuk menjaga dan melindungi Data Pribadi Anda. Dengan tetap mengakses Aplikasi, menggunakan Fitur, dan/ atau
+          layanan OpenCommiss lainnya, Anda melepaskan hak atas klaim, kerugian, tuntutan, dan gugatan yang mungkin Anda miliki dalam hal terjadi kegagalan perlindungan Data Pribadi yang timbul akibat terdapat unsur kelalaian yang dilakukan
+          oleh Anda sendiri dalam menjaga keamanan dan kerahasiaan Data Pribadi dan/ atau akibat terdapat tindakan pihak ketiga yang berupaya memperoleh Data Pribadi secara melawan hukum.
         </p>
         <p>
           <span className="text-base font-bold">6.4.</span> OpenCommiss tidak bertanggung jawab atas keaslian, keotentikan, kebenaran, keakuratan, kelengkapan Data Pribadi yang diberikan Anda.
         </p>
-        <h3>8. Lain-Lain</h3>
+        <h3>7. Lain-Lain</h3>
         <p>
           <span className="text-base font-bold">7.1.</span> Kami selalu berusaha untuk memberikan layanan yang terbaik untuk Anda dalam mengakses Aplikasi maupun menggunakan Fitur Kami sehingga Kami berhak untuk melakukan perubahan terhadap
           Kebijakan ini guna menyesuaikan dengan perkembangan bisnis dan ketentuan hukum yang berlaku. Perubahan terhadap Kebijakan ini dari waktu ke waktu akan diunggah ke Aplikasi agar Anda dapat membaca perubahan dari Kebijakan ini.
@@ -188,7 +189,7 @@ function PrivacyPolicy() {
           <span className="text-base font-bold">7.2.</span> Apabila terdapat ketentuan atau bagian dari Kebijakan ini yang melawan hukum, tidak dapat diterapkan atau menjadi tidak berlaku, maka ketentuan atau bagian tersebut akan dianggap
           dihapus dari Kebijakan ini dan ketentuan lainnya dari Kebijakan ini akan tetap berlaku sepenuhnya.
         </p>
-        <h3>9. Kontak Kami</h3>
+        <h3>8. Kontak Kami</h3>
         <p>
           Anda dapat menghubungi kami melalui email{" "}
           <a style={{ color: "#f02d34" }} href="mailto:opencommiss@gmail.com" className="underline">
