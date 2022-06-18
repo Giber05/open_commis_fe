@@ -13,7 +13,7 @@ function Reviews({ review }: ReviewProps) {
       <Comment
         author={<a>{review.consumer.name}</a>}
         avatar={<Avatar src={review.consumer?.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : review.consumer?.profilePicture} alt={review.consumer.username} />}
-        content={<p>{review.comment}</p>}
+        content={review.visible ? <p>{review.comment}</p> : <p className="italic text-gray-400">Komentar mengandung kata-kata yang tidak pantas</p>}
         datetime={
           <Row>
             <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>

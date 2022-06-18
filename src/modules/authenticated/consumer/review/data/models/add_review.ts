@@ -4,12 +4,13 @@ export class AddReview extends ReviewEntity {
   consumerId: number;
   commissionPostId: number;
 
-  constructor(params: { id: number; rating: number; comment: string; createdAt: Date; consumerId: number; commissionPostId: number }) {
+  constructor(params: { visible: boolean; id: number; rating: number; comment: string; createdAt: Date; consumerId: number; commissionPostId: number }) {
     super({
       id: params.id,
       rating: params.rating,
       comment: params.comment,
       createdAt: params.createdAt,
+      visible: params.visible,
     });
     this.consumerId = params.consumerId;
     this.commissionPostId = params.commissionPostId;
@@ -22,6 +23,7 @@ export class AddReview extends ReviewEntity {
       createdAt: json.createdAt,
       consumerId: json.consumerId,
       commissionPostId: json.commissionPostId,
+      visible: json.visible,
     });
   }
 }

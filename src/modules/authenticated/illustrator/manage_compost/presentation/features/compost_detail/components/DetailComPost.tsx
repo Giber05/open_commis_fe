@@ -15,7 +15,6 @@ function DetailComPost() {
     onChangeComPostStatus();
   }, [commissionPostDetail?.status]);
   
-
   const status = commissionPostDetail?.status === "OPEN" ? true : false;
   const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commissionPostDetail?.price!)
   return (

@@ -4,12 +4,13 @@ import { ReviewEntity } from "../../../../../common/reviews/domain/entities/revi
 export class ReviewModel extends ReviewEntity {
   consumer: UserTypeModel;
 
-  constructor(params: { id: number; rating: number; comment: string;  createdAt: Date; consumer: UserTypeModel, }) {
+  constructor(params: { visible: boolean; id: number; rating: number; comment: string; createdAt: Date; consumer: UserTypeModel }) {
     super({
       id: params.id,
       rating: params.rating,
       comment: params.comment,
       createdAt: params.createdAt,
+      visible: params.visible,
     });
     this.consumer = params.consumer;
   }
@@ -21,6 +22,7 @@ export class ReviewModel extends ReviewEntity {
       comment: json.comment,
       createdAt: json.createdAt,
       consumer: UserTypeModel.fromJson(json.consumer),
+      visible: json.visible,
     });
   }
 }

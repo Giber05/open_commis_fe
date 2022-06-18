@@ -94,7 +94,7 @@ function RegistrationPage() {
           <Form.Item className="" label="Password" rules={[{ required: true, type: "string", max: 25, min: 8 }]} name="password">
             <Input.Password className="form-style " />
           </Form.Item>
-          <Form.Item className="" label="No. Telephone" rules={[{ required: true, type: "string", max: 13, min: 11 }]} name="phone">
+          <Form.Item className="" label="No. Telephone" rules={[{ required: true, type: "string", max: 13, min: 10 }]} name="phone">
             <Input className="form-style w-full " />
           </Form.Item>
 
