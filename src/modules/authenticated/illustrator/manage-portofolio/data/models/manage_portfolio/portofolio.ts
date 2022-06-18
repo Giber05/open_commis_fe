@@ -6,9 +6,11 @@ export class ManagePortofolio extends IlustratorEntity {
   portofolio?: PortofolioModel | null;
   artworks?: ArtworkModel[] | null;
   ordersCompleted: number;
+  overallRating: number;
   commissions?: CommissionPosts[] | null;
-
+  
   constructor(params: {
+    overallRating: number;
     id: number;
     name: string;
     email: string;
@@ -44,6 +46,7 @@ export class ManagePortofolio extends IlustratorEntity {
     this.artworks = params.artworks;
     this.ordersCompleted = params.ordersCompleted;
     this.commissions = params.commissions;
+    this.overallRating = params.overallRating;
   }
 
   public static fromJson(json: any): ManagePortofolio {
@@ -60,6 +63,7 @@ export class ManagePortofolio extends IlustratorEntity {
       verified: json.verified,
       createdAt: json.createdAt,
       updatedAt: json.updatedAt,
+      overallRating:json.overallRating,
       artworks:
         json.artworks == undefined
           ? null

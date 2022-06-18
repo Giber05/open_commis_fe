@@ -1,5 +1,5 @@
-import { CheckCircleFilled, ShoppingOutlined, FacebookFilled, TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
-import { Row, Col, Popconfirm, Avatar, Typography, Space, Rate, Image, Tooltip } from "antd";
+import { CheckCircleFilled, ShoppingOutlined, FacebookFilled, TwitterOutlined, InstagramOutlined, WhatsAppOutlined, StarFilled } from "@ant-design/icons";
+import { Row, Col, Popconfirm, Avatar, Typography, Space, Rate, Image, Tooltip, Divider } from "antd";
 import React, { useEffect } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import CircularLoadingIndicator from "../../../../../../core/common_components/CircularLoadingIndicator";
@@ -23,10 +23,9 @@ function IllustratorsPortofolioPage() {
   else if (illustratorsPortofolio == null) {
     return <NotFound />;
   }
-  console.log({ illustratorsPortofolio });
-
-  let commissions = illustratorsPortofolio?.commissions;
-  let artworks = illustratorsPortofolio?.artworks;
+  const rating = (Math.round(illustratorsPortofolio?.overallRating! * 100) / 100).toFixed(2);
+  const commissions = illustratorsPortofolio?.commissions;
+  const artworks = illustratorsPortofolio?.artworks;
   return (
     <div className="bg-[url('/public/assets/images/background/profile-background.svg')] bg-cover bg-center  h-auto">
       <div className="m-auto p-auto max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 ">
@@ -59,12 +58,20 @@ function IllustratorsPortofolioPage() {
               </Typography.Title>
             </div>
           </div>
-          <Row justify="space-around">
-            <Space size="small">
-              <ShoppingOutlined className="text-xl" />
-              <Typography.Title level={4}>Transaksi Berhasil:</Typography.Title>
-              <Typography.Title level={4}>{illustratorsPortofolio?.ordersCompleted} Pesanan</Typography.Title>
-            </Space>
+          <Row>
+            <Col xs={24} sm={12} lg={12}>
+              <Space size="small">
+                <ShoppingOutlined className="text-xl" />
+                <Typography.Title level={4}>Transaksi Berhasil:</Typography.Title>
+                <Typography.Title level={4}>{illustratorsPortofolio?.ordersCompleted} Pesanan</Typography.Title>
+              </Space>
+            </Col>
+
+            <Col xs={24} sm={12} lg={12}>
+              <Typography.Title level={4}>
+                Overall Rating: <StarFilled className="text-yellow-400" /> ({rating})
+              </Typography.Title>
+            </Col>
           </Row>
         </div>
         <IllustratorsBioSection phone={illustratorsPortofolio?.phone!} portofolio={illustratorsPortofolio?.portofolio} />

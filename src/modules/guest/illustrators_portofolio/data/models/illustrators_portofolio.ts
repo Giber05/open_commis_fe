@@ -9,7 +9,9 @@ export class IllustratorsPortofolio extends IlustratorEntity {
   artworks?: ArtworkModel[];
   commissions?: CommissionPosts[];
   ordersCompleted: number;
+  overallRating: number;
   constructor(params: {
+    overallRating: number;
     id: number;
     name: string;
     email: string;
@@ -25,7 +27,7 @@ export class IllustratorsPortofolio extends IlustratorEntity {
     commissions?: CommissionPosts[];
     artworks?: ArtworkModel[];
     ordersCompleted: number;
-    verified?:boolean;
+    verified?: boolean;
   }) {
     super({
       id: params.id,
@@ -39,12 +41,13 @@ export class IllustratorsPortofolio extends IlustratorEntity {
       emailVerified: params.emailVerified,
       createdAt: params.createdAt,
       updatedAt: params.updatedAt,
-      verified:params.verified,
+      verified: params.verified,
     });
     this.portofolio = params.portofolio;
     this.artworks = params.artworks;
     this.commissions = params.commissions;
     this.ordersCompleted = params.ordersCompleted;
+    this.overallRating = params.overallRating;
   }
 
   public static fromJson(json: any): IllustratorsPortofolio {
@@ -68,7 +71,8 @@ export class IllustratorsPortofolio extends IlustratorEntity {
         return CommissionPosts.fromJson(commission);
       }),
       ordersCompleted: json.ordersCompleted,
-      verified:json.verified,
+      verified: json.verified,
+      overallRating: json.overallRating,
     });
   }
 }

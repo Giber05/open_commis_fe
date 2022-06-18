@@ -1,4 +1,4 @@
-import { CheckCircleFilled, FacebookFilled, InstagramOutlined, ShoppingOutlined, TwitterOutlined, WhatsAppOutlined } from "@ant-design/icons";
+import { CheckCircleFilled, FacebookFilled, InstagramOutlined, ShoppingOutlined, StarFilled, TwitterOutlined, WhatsAppOutlined } from "@ant-design/icons";
 import { Avatar, Col, Popconfirm, Divider, Image, Rate, Row, Space, Typography, Button, Tooltip } from "antd";
 import { useCallback, useEffect } from "react";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
@@ -27,6 +27,7 @@ function Portofolio() {
   }, [illustratorProfile?.available]);
   if (isLoading) return <CircularLoadingIndicator />;
 
+  const rating = (Math.round(illustratorProfile?.overallRating! * 100) / 100).toFixed(2);
   const artworks = illustratorProfile?.artworks;
   const commissions = illustratorProfile?.commissions;
   return (
@@ -104,11 +105,19 @@ function Portofolio() {
             </div>
           </div>
           <Row justify="space-around">
-            <Space>
-              <ShoppingOutlined className="text-xl" />
-              <Typography.Title level={4}>Transaksi Berhasil:</Typography.Title>
-              <Typography.Title level={4}>{illustratorProfile?.ordersCompleted} Pesanan</Typography.Title>
-            </Space>
+            <Col xs={24} sm={12} lg={12}>
+              <Space size="small">
+                <ShoppingOutlined className="text-xl" />
+                <Typography.Title level={4}>Transaksi Berhasil:</Typography.Title>
+                <Typography.Title level={4}>{illustratorProfile?.ordersCompleted} Pesanan</Typography.Title>
+              </Space>
+            </Col>
+
+            <Col xs={24} sm={12} lg={12}>
+              <Typography.Title level={4}>
+                Overall Rating: <StarFilled className="text-yellow-400" /> ({rating})
+              </Typography.Title>
+            </Col>
           </Row>
         </div>
 
