@@ -4,21 +4,21 @@ import BaseClient from "../../../../../../../core/utils/base_client";
 import { DeleteModel } from "../../../../../../common/delete/models/delete_model";
 
 export interface ManageReviewRemoteDS {
-  deleteReview(params:{token:string,id:number}):Promise<DeleteModel>;
+  deleteReview(params: { token: string; id: number }): Promise<DeleteModel>;
 }
 
 export class ManageReviewRemoteDSImpl implements ManageReviewRemoteDS {
   private baseClient = new BaseClient();
 
-  async deleteReview(params: { token: string; id: number; }): Promise<DeleteModel> {
-    let deleteReviewURL = NetworkConstant.baseUrl + "reviews/"+params.id;
+  async deleteReview(params: { token: string; id: number }): Promise<DeleteModel> {
+    let deleteReviewURL = NetworkConstant.baseUrl + "reviews/" + params.id + "/hide";
 
-    const response = await this.baseClient.deleteWithCookie({
+    const response = await this.baseClient.postWithCookie({
       url: deleteReviewURL,
       configs: {
-        headers:{
-          Authorization: "Bearer "+params.token
-        }
+        headers: {
+          Authorization: "Bearer " + params.token,
+        },
       },
     });
 
@@ -27,7 +27,5 @@ export class ManageReviewRemoteDSImpl implements ManageReviewRemoteDS {
       return DeleteModel.fromJson(body);
     }
     throw new BaseException({ message: response.data.error });
-    
   }
-  
 }

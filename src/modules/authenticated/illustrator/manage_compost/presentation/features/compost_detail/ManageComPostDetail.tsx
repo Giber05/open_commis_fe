@@ -1,5 +1,6 @@
+import { DownOutlined, StarFilled } from "@ant-design/icons";
 import { Avatar, Button, Card, Col, Divider, Popconfirm, Result, Row, Tag, Typography } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import DangerButton from "../../../../../../../core/common_components/buttons/DangerButton";
 import InfoButton from "../../../../../../../core/common_components/buttons/InfoButton";
@@ -17,8 +18,14 @@ function ManageComPostDetail(): JSX.Element {
     getComPostDetail();
     window.scroll(0, 0);
   }, [commissionPostDetail?.status]);
+  const [onMoreReview, setOnMoreReview] = useState(false);
+  const [isMoreFiveReviews, setIsMoreFiveReviews] = useState(false);
+  useEffect(() => {
+    if (commissionPostDetail?.reviews?.length! > 5) setIsMoreFiveReviews(true);
+  }, [commissionPostDetail?.reviews?.length]);
   if (isLoadingComPost) return <CircularLoadingIndicator />;
   else if (commissionPostDetail == null) return <NotFound />;
+  const rating = (Math.round(commissionPostDetail?.overallRating! * 100) / 100).toFixed(2);
   return (
     <div className="max-w-2xl mx-auto py-3 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center">Commission Post Anda</h2>
@@ -60,14 +67,33 @@ function ManageComPostDetail(): JSX.Element {
           <DetailComPost />
         </Col>
       </Row>
-      <div>
+      <div className="pt-10">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900 ">Pesanan</h2>
         <OrdersTable />
       </div>
-      <div className="my-5">
-        <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Ulasan</h2>
+      <div className="my-5 pt-10">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mt-5">
+          Ulasan ({<StarFilled className="text-yellow-400" />} {rating})
+        </h2>
         {commissionPostDetail?.reviews?.length! > 0 ? (
-          commissionPostDetail?.reviews?.map((review) => <Reviews review={review} />)
+          isMoreFiveReviews && !onMoreReview ? (
+            <div>
+              {commissionPostDetail?.reviews?.slice(0, 4).map((review, index) => (
+                <Reviews review={review} />
+              ))}
+              <div className="mx-auto flex justify-center">
+                <Button icon={<DownOutlined />} className="text-gray-400 font-bold" onClick={() => setOnMoreReview(true)} type="text">
+                  Selengkapnya
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {commissionPostDetail?.reviews?.map((review, index) => (
+                <Reviews review={review} />
+              ))}
+            </div>
+          )
         ) : (
           <Card className="mx-auto">
             <Result title="Belum ada Review" subTitle="Commission post ini belum diberi review oleh konsumen" />

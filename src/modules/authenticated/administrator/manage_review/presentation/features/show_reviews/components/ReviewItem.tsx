@@ -19,7 +19,7 @@ function ReviewItem({ review }: ReviewProps) {
           <Comment
             author={<a>{review.consumer.name}</a>}
             avatar={<Avatar src={review?.consumer?.profilePicture == null ? AssetConstants.imageURL + "placeholder/profile_placeholder.png" : review?.consumer?.profilePicture} alt={review.consumer.username} />}
-            content={<p>{review.comment}</p>}
+            content={review?.visible ? <p>{review.comment}</p> : <p className="line-through">{review.comment}</p>}
             datetime={
               <Row>
                 <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
@@ -33,14 +33,9 @@ function ReviewItem({ review }: ReviewProps) {
           />
         </div>
         <div className="my-auto mx-3">
-          <Popconfirm
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            title="Apakah Anda yakin akan menghapus ulasan ini?"
-            placement="leftTop"
-            onConfirm={(e) => deleteReview(review.id)}
-          >
+          <Popconfirm disabled={!review.visible ? true : false} icon={<QuestionCircleOutlined style={{ color: "red" }} />} title="Apakah Anda yakin akan menghapus ulasan ini?" placement="leftTop" onConfirm={(e) => deleteReview(review.id)}>
             <div className="text-center mx-auto">
-              <Button style={{ color: "red", borderRadius: "50%", borderColor: "red", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />}  />
+              <Button style={{ color: review.visible ? "red" : "gray", borderRadius: "50%", borderColor: review.visible ? "red" : "gray", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} />
             </div>
           </Popconfirm>
         </div>

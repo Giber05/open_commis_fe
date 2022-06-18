@@ -5,12 +5,13 @@ export class ReviewList extends ReviewEntity {
   consumer: UserTypeModel;
   commissionPostId:number;
 
-  constructor(params: { id: number; rating: number; comment: string; commissionPostId: number; createdAt: Date; consumer: UserTypeModel, }) {
+  constructor(params: { visible:boolean;id: number; rating: number; comment: string; commissionPostId: number; createdAt: Date; consumer: UserTypeModel, }) {
     super({
       id: params.id,
       rating: params.rating,
       comment: params.comment,
       createdAt: params.createdAt,
+      visible:params.visible,
     });
     this.consumer = params.consumer;
     this.commissionPostId = params.commissionPostId
@@ -24,6 +25,8 @@ export class ReviewList extends ReviewEntity {
       commissionPostId: json.commissionPostId,
       createdAt: json.createdAt,
       consumer: UserTypeModel.fromJson(json.consumer),
+      visible:json.visible,
+
     });
   }
 }

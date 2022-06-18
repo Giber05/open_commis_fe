@@ -23,6 +23,7 @@ function DetailCommission({ commission }: CommissionProps) {
   const { isMobile } = useComPostDetailHandler();
   const { authUser } = useSelector(selectAuth);
 
+  const [onMoreReview, setOnMoreReview] = useState(false);
   const [ellipsis, setEllipsis] = useState(false);
   const [isLongTitle, setIsLongTitle] = useState(false);
   useEffect(() => {
@@ -30,6 +31,7 @@ function DetailCommission({ commission }: CommissionProps) {
     if (commission.title.length > 30) setIsLongTitle(true);
   }, [isMobile]);
 
+  
   const commissionPrice = UtilMethods.getIndonesianCurrencyFormat(commission?.price);
 
   return (
