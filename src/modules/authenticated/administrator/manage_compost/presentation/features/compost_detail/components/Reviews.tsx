@@ -31,7 +31,7 @@ function Reviews({ review }: ReviewProps) {
           />
         </div>
         <div className="my-auto mx-3">
-          <Popconfirm disabled={!review.visible ? true : false} icon={<QuestionCircleOutlined style={{ color: "red" }} />} title="Apakah Anda yakin akan menghapus ulasan ini?" placement="leftTop" onConfirm={(e) => deleteReview(review.id)}>
+          <Popconfirm disabled={!review.visible ? true : false} icon={<QuestionCircleOutlined style={{ color: "red" }} />} title="Apakah Anda yakin akan menyembunyikan ulasan ini?" placement="leftTop" onConfirm={(e) => deleteReview(review.id)}>
             <Button style={{ color: review.visible ? "red" : "gray", borderRadius: "50%", borderColor:review.visible ? "red" : "gray", minWidth: "60px", minHeight: "60px" }} type="dashed" size="large" icon={<DeleteFilled />} />
           </Popconfirm>
         </div>
