@@ -68,7 +68,7 @@ function AccountVerificationRequestDetail() {
                     <span className="text-xl font-bold block uppercase tracking-wide text-gray-900">
                       {verificationRequestDetail?.illustrator.available ? <CheckCircleOutlined className="text-green-600" /> : <CloseCircleOutlined className="text-red-600" />}
                     </span>
-                    <span className="text-sm text-gray-700">TIDAK TERSEDIA</span>
+                    <span className="text-sm text-gray-700">{verificationRequestDetail?.illustrator.available ?"TERSEDIA":"TIDAK TERSEDIA"}</span>
                   </Tooltip>
                   <Tooltip title="Jumlah Saldo Illustrator" className="mr-4 p-3 text-center">
                     <span className="text-xl font-bold block uppercase tracking-wide text-gray-900">
