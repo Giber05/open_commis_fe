@@ -1,5 +1,5 @@
 class NetworkConstant{
-    public static baseUrl="https://open-commiss-api.azurewebsites.net/api/";
+    public static baseUrl="https://opencommiss-api.ifaldzi.me/api/";
 }
 
 export default NetworkConstant;
